@@ -6,140 +6,131 @@
 <title>Lyftr</title>
 <style>
   :root {
-    --bg:#0f0f0f;--surface:#1a1a1a;--surface2:#242424;--surface3:#2e2e2e;
-    --border:#333;--accent:#c8f542;--accent-dim:rgba(200,245,66,0.12);
-    --text:#f0f0f0;--text2:#999;--text3:#666;--red:#ff5252;--blue:#4da6ff;
-    --green:#4caf7d;--orange:#ff9f43;--radius:10px;
+    --bg:#0d0d0f;--surface:#16161a;--surface2:#1f1f25;--surface3:#2a2a32;
+    --border:#2e2e36;--accent:#c8f542;--accent-dim:rgba(200,245,66,0.12);
+    --text:#f2f2f4;--text2:#9a9aa3;--text3:#62626b;--red:#ff5252;--blue:#4da6ff;
+    --green:#4caf7d;--orange:#ff9f43;--purple:#a78bfa;--radius:12px;
     --font:'Inter',system-ui,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;}
   .app{display:flex;height:100vh;overflow:hidden;}
-  .sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+  .sidebar{width:225px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
   .main{flex:1;overflow-y:auto;padding:28px 32px;}
-  .logo{padding:22px 20px 16px;font-size:18px;font-weight:700;letter-spacing:-0.5px;}
+  .logo{padding:22px 20px 16px;font-size:19px;font-weight:800;letter-spacing:-0.5px;}
   .logo span{color:var(--accent);}
   .nav-section{padding:8px 12px 4px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;}
-  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;border-radius:7px;margin:1px 8px;color:var(--text2);transition:all .15s;font-size:13px;}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;border-radius:8px;margin:1px 8px;color:var(--text2);transition:all .15s;font-size:13px;}
   .nav-item:hover{background:var(--surface2);color:var(--text);}
   .nav-item.active{background:var(--accent-dim);color:var(--accent);}
   .nav-item svg{width:16px;height:16px;flex-shrink:0;}
   .sidebar-footer{margin-top:auto;padding:16px;}
-  .mode-toggle{display:flex;background:var(--surface2);border-radius:8px;padding:3px;gap:2px;}
-  .mode-btn{flex:1;padding:6px;text-align:center;border-radius:6px;cursor:pointer;font-size:12px;color:var(--text2);transition:all .15s;}
+  .mode-toggle{display:flex;background:var(--surface2);border-radius:9px;padding:3px;gap:2px;}
+  .mode-btn{flex:1;padding:6px;text-align:center;border-radius:7px;cursor:pointer;font-size:12px;color:var(--text2);transition:all .15s;}
   .mode-btn.active{background:var(--accent);color:#000;font-weight:600;}
   .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
-  .page-title{font-size:22px;font-weight:700;letter-spacing:-0.5px;}
+  .page-title{font-size:23px;font-weight:800;letter-spacing:-0.6px;}
   .page-sub{color:var(--text2);font-size:13px;margin-top:3px;}
-  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;}
-  .btn-primary{background:var(--accent);color:#000;}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;font-family:var(--font);}
+  .btn-primary{background:var(--accent);color:#000;font-weight:600;}
   .btn-primary:hover{background:#d4f955;}
   .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border);}
   .btn-ghost:hover{background:var(--surface2);color:var(--text);}
-  .btn-danger{background:rgba(255,82,82,0.15);color:var(--red);border:1px solid rgba(255,82,82,0.3);}
-  .btn-danger:hover{background:rgba(255,82,82,0.25);}
+  .btn-danger{background:rgba(255,82,82,0.12);color:var(--red);border:1px solid rgba(255,82,82,0.25);}
+  .btn-danger:hover{background:rgba(255,82,82,0.22);}
   .btn-sm{padding:5px 10px;font-size:12px;}
   .btn svg{width:15px;height:15px;}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
   .card+.card{margin-top:12px;}
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
   .stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;}
-  .stat-value{font-size:28px;font-weight:700;letter-spacing:-1px;}
+  .stat-value{font-size:30px;font-weight:800;letter-spacing:-1.5px;}
   .stat-value.accent{color:var(--accent);}
   .form-group{margin-bottom:14px;}
   .form-label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:500;}
   .form-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border-color .15s;font-family:var(--font);}
   .form-input:focus{border-color:var(--accent);}
   select.form-input{cursor:pointer;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;}
-  .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;}
-  .badge-green{background:rgba(200,245,66,0.15);color:var(--accent);}
-  .badge-blue{background:rgba(77,166,255,0.15);color:var(--blue);}
+  .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;}
+  .badge-green{background:rgba(200,245,66,0.13);color:var(--accent);}
+  .badge-blue{background:rgba(77,166,255,0.13);color:var(--blue);}
   .badge-gray{background:var(--surface3);color:var(--text2);}
-  .badge-orange{background:rgba(255,159,67,0.15);color:var(--orange);}
+  .badge-orange{background:rgba(255,159,67,0.13);color:var(--orange);}
+  .badge-purple{background:rgba(167,139,250,0.13);color:var(--purple);}
   .table{width:100%;border-collapse:collapse;}
   .table th{text-align:left;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;padding:10px 14px;border-bottom:1px solid var(--border);}
   .table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;vertical-align:middle;}
   .table tr:last-child td{border-bottom:none;}
   .table tr:hover td{background:var(--surface2);}
-  .day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-  .day-label{font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:6px;}
-  .day-block{margin-bottom:18px;}
   .progress-wrap{background:var(--surface3);border-radius:4px;height:5px;overflow:hidden;}
   .progress-bar{height:100%;background:var(--accent);border-radius:4px;transition:width .3s;}
   .avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(200,245,66,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0;}
-  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;align-items:center;justify-content:center;}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:100;align-items:center;justify-content:center;padding:20px;}
   .modal-bg.open{display:flex;}
-  .modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;width:540px;max-height:85vh;overflow-y:auto;}
-  .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;width:640px;max-height:88vh;overflow-y:auto;}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
   .modal-title{font-size:17px;font-weight:700;}
-  .modal-close{background:var(--surface2);border:none;color:var(--text2);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+  .modal-close{background:var(--surface2);border:none;color:var(--text2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
   .modal-close:hover{background:var(--surface3);color:var(--text);}
-  .divider{height:1px;background:var(--border);margin:20px 0;}
+  .divider{height:1px;background:var(--border);margin:18px 0;}
   .empty{text-align:center;padding:48px 20px;color:var(--text3);}
   .empty-icon{font-size:36px;margin-bottom:12px;}
   .share-code{font-family:monospace;font-size:18px;font-weight:700;letter-spacing:4px;color:var(--accent);}
-  .check-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer;}
+  .check-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer;}
   .check-box.done{background:var(--accent);border-color:var(--accent);}
   .section-head{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-  #toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--accent);z-index:200;transform:translateY(80px);opacity:0;transition:all .25s;pointer-events:none;}
+  #toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--accent);z-index:300;transform:translateY(80px);opacity:0;transition:all .25s;pointer-events:none;}
   #toast.show{transform:translateY(0);opacity:1;}
-
-  /* Timer */
-  .timer-ring{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);border-radius:16px;padding:14px 24px;display:flex;align-items:center;gap:14px;z-index:150;box-shadow:0 4px 24px rgba(0,0,0,0.5);}
-  .timer-count{font-size:28px;font-weight:700;color:var(--accent);min-width:52px;text-align:center;font-variant-numeric:tabular-nums;}
+  .timer-ring{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);border-radius:16px;padding:14px 22px;display:flex;align-items:center;gap:14px;z-index:150;box-shadow:0 6px 28px rgba(0,0,0,0.55);}
+  .timer-count{font-size:30px;font-weight:800;color:var(--accent);min-width:56px;text-align:center;font-variant-numeric:tabular-nums;}
   .timer-label{font-size:11px;color:var(--text2);}
-
-  /* RPE */
-  .rpe-select{width:70px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 6px;color:var(--text);font-size:12px;outline:none;cursor:pointer;}
+  .rpe-select{width:64px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 6px;color:var(--text);font-size:12px;outline:none;cursor:pointer;font-family:var(--font);}
   .rpe-select:focus{border-color:var(--accent);}
-
-  /* Set row */
-  .set-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
-
-  /* PR badge */
-  .pr-badge{background:rgba(255,159,67,0.2);color:var(--orange);border-radius:5px;padding:2px 6px;font-size:10px;font-weight:700;}
-
-  /* Note box */
+  .set-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-wrap:wrap;}
+  .pr-badge{background:rgba(255,159,67,0.18);color:var(--orange);border-radius:5px;padding:2px 7px;font-size:10px;font-weight:700;}
   .note-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;resize:none;width:100%;margin-top:10px;transition:border-color .15s;}
   .note-box:focus{border-color:var(--accent);}
-
-  /* Tabs */
-  .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--surface2);padding:4px;border-radius:10px;}
-  .tab{flex:1;text-align:center;padding:8px;border-radius:7px;cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;}
-  .tab.active{background:var(--surface);color:var(--text);font-weight:500;}
-
-  /* Week grid */
-  .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:20px;}
-  .week-day{background:var(--surface2);border-radius:8px;padding:10px 6px;text-align:center;cursor:pointer;border:1px solid transparent;transition:all .15s;}
-  .week-day.active{border-color:var(--accent);background:var(--accent-dim);}
-  .week-day-name{font-size:10px;color:var(--text3);margin-bottom:4px;}
-  .week-day-label{font-size:11px;font-weight:600;color:var(--text2);}
-  .week-day.active .week-day-label{color:var(--accent);}
-
-  /* Chart */
-  .chart-wrap{position:relative;height:160px;margin-top:12px;}
-
-  /* Comment box */
+  .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--surface2);padding:4px;border-radius:11px;}
+  .tab{flex:1;text-align:center;padding:8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;}
+  .tab.active{background:var(--surface);color:var(--text);font-weight:600;}
   .comment-item{background:var(--surface2);border-radius:8px;padding:12px 14px;margin-bottom:8px;}
   .comment-meta{font-size:11px;color:var(--text3);margin-bottom:4px;}
-
-  /* Link copy */
   .link-copy-box{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;}
   .link-copy-box input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:12px;font-family:monospace;}
   .qr-wrap{background:#fff;border-radius:12px;padding:16px;display:inline-block;}
   .hidden{display:none!important;}
-
+  .ex-editor{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
+  .ex-editor-grid{display:grid;grid-template-columns:2fr 70px 80px;gap:8px;margin-bottom:8px;}
+  .ex-editor-grid2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+  .toggle-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);cursor:pointer;user-select:none;padding:4px 0;}
+  .toggle-sw{width:34px;height:19px;border-radius:12px;background:var(--surface3);position:relative;transition:background .15s;flex-shrink:0;}
+  .toggle-sw::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:var(--text2);top:2.5px;left:3px;transition:all .15s;}
+  .toggle-sw.on{background:var(--accent);}
+  .toggle-sw.on::after{left:17px;background:#000;}
+  .hist-hint{background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--blue);margin-top:6px;line-height:1.5;}
+  .day-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+  .day-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:var(--surface);transition:background .15s;}
+  .day-card-head:hover{background:var(--surface2);}
+  .day-card-body{padding:0 18px 16px;}
+  .goal-pill{font-size:10px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;padding:3px 8px;border-radius:5px;}
+  .target-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);background:var(--surface3);border-radius:5px;padding:2px 8px;}
   ::-webkit-scrollbar{width:5px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  @media(max-width:720px){
+    .main{padding:18px 14px;}
+    .ex-editor-grid,.ex-editor-grid2{grid-template-columns:1fr 1fr;}
+    .grid-3,.grid-4{grid-template-columns:1fr 1fr;}
+    .modal{width:100%;}
+  }
 </style>
 </head>
 <body>
 
-<div id="loading-screen" style="position:fixed;inset:0;background:#0f0f0f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999">
-  <div style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:16px">lyftr<span style="color:#c8f542">.</span></div>
+<div id="loading-screen" style="position:fixed;inset:0;background:#0d0d0f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999">
+  <div style="font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px">lyftr<span style="color:#c8f542">.</span></div>
   <div style="width:40px;height:3px;background:#222;border-radius:2px;overflow:hidden">
     <div id="load-bar" style="width:0%;height:100%;background:#c8f542;border-radius:2px;transition:width .4s"></div>
   </div>
@@ -190,9 +181,15 @@
       <div class="modal-title" id="modal-program-title">Yeni Program</div>
       <button class="modal-close" onclick="closeModal('modal-program')">✕</button>
     </div>
-    <div class="form-group">
-      <label class="form-label">Program Adı</label>
-      <input class="form-input" id="prog-name" placeholder="örn. Nick Walker 5 Gün Split">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div>
+        <label class="form-label">Program Adı</label>
+        <input class="form-input" id="prog-name" placeholder="örn. Blok 2 — Güç Fazı">
+      </div>
+      <div>
+        <label class="form-label">Üye (geçmiş verisi için)</label>
+        <select class="form-input" id="prog-member" onchange="window._progMemberChanged()"></select>
+      </div>
     </div>
     <div class="form-group">
       <label class="form-label">Açıklama</label>
@@ -200,10 +197,7 @@
     </div>
     <div class="divider"></div>
     <div id="days-container"></div>
-    <button class="btn btn-ghost btn-sm" onclick="addDay()" style="margin-bottom:16px">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Gün Ekle
-    </button>
+    <button class="btn btn-ghost btn-sm" onclick="addDay()" style="margin-bottom:16px">+ Gün Ekle</button>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button class="btn btn-ghost" onclick="closeModal('modal-program')">İptal</button>
       <button class="btn btn-primary" onclick="saveProgram()">Kaydet</button>
@@ -218,14 +212,8 @@
       <div class="modal-title">Üyeye Ata</div>
       <button class="modal-close" onclick="closeModal('modal-assign')">✕</button>
     </div>
-    <div class="form-group">
-      <label class="form-label">Program</label>
-      <select class="form-input" id="assign-prog"></select>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Üye</label>
-      <select class="form-input" id="assign-member"></select>
-    </div>
+    <div class="form-group"><label class="form-label">Program</label><select class="form-input" id="assign-prog"></select></div>
+    <div class="form-group"><label class="form-label">Üye</label><select class="form-input" id="assign-member"></select></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
       <button class="btn btn-ghost" onclick="closeModal('modal-assign')">İptal</button>
       <button class="btn btn-primary" onclick="doAssign()">Ata</button>
@@ -233,21 +221,15 @@
   </div>
 </div>
 
-<!-- Add Member Modal -->
+<!-- Member Modal -->
 <div class="modal-bg" id="modal-member">
   <div class="modal" style="width:380px">
     <div class="modal-header">
       <div class="modal-title">Yeni Üye</div>
       <button class="modal-close" onclick="closeModal('modal-member')">✕</button>
     </div>
-    <div class="form-group">
-      <label class="form-label">Ad Soyad</label>
-      <input class="form-input" id="member-name" placeholder="örn. Ahmet Yılmaz">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Erişim Kodu</label>
-      <input class="form-input" id="member-code" placeholder="örn. AHMET01" style="text-transform:uppercase">
-    </div>
+    <div class="form-group"><label class="form-label">Ad Soyad</label><input class="form-input" id="member-name" placeholder="örn. Ahmet Yılmaz"></div>
+    <div class="form-group"><label class="form-label">Erişim Kodu</label><input class="form-input" id="member-code" placeholder="örn. AHMET01" style="text-transform:uppercase"></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
       <button class="btn btn-ghost" onclick="closeModal('modal-member')">İptal</button>
       <button class="btn btn-primary" onclick="saveMember()">Kaydet</button>
@@ -259,13 +241,12 @@
 <div class="modal-bg" id="modal-share">
   <div class="modal" style="width:420px;text-align:center">
     <div class="modal-header" style="text-align:left">
-      <div class="modal-title" id="share-modal-name">Paylaşım Linki</div>
+      <div class="modal-title" id="share-modal-name">Paylaşım</div>
       <button class="modal-close" onclick="closeModal('modal-share')">✕</button>
     </div>
-    <p style="color:var(--text2);font-size:13px;margin-bottom:20px;text-align:left">Linki veya QR kodu üyene gönder.</p>
     <div style="margin-bottom:20px"><div class="qr-wrap" id="qr-container"></div></div>
     <div style="margin-bottom:16px;text-align:left">
-      <div class="form-label" style="margin-bottom:6px">Paylaşım Linki</div>
+      <div class="form-label">Paylaşım Linki</div>
       <div class="link-copy-box">
         <input type="text" id="share-link-input" readonly>
         <button class="btn btn-primary btn-sm" onclick="copyShareLink()">Kopyala</button>
@@ -274,7 +255,7 @@
     <div style="display:flex;gap:8px;align-items:center;background:var(--surface2);border-radius:8px;padding:10px 14px;margin-bottom:16px">
       <div style="font-size:20px">🔑</div>
       <div style="text-align:left">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:2px">Erişim Kodu</div>
+        <div style="font-size:11px;color:var(--text3)">Erişim Kodu</div>
         <div id="share-code-display" class="share-code"></div>
       </div>
     </div>
@@ -282,17 +263,16 @@
   </div>
 </div>
 
-<!-- Member Login Modal -->
+<!-- Login Modal -->
 <div class="modal-bg" id="modal-login">
   <div class="modal" style="width:360px">
     <div class="modal-header">
       <div class="modal-title">Üye Girişi</div>
       <button class="modal-close" onclick="closeModal('modal-login')">✕</button>
     </div>
-    <p style="color:var(--text2);font-size:13px;margin-bottom:16px">Koçunun sana verdiği erişim kodunu gir.</p>
+    <p style="color:var(--text2);font-size:13px;margin-bottom:16px">Koçunun verdiği erişim kodunu gir.</p>
     <div class="form-group">
-      <label class="form-label">Erişim Kodu</label>
-      <input class="form-input" id="login-code" placeholder="örn. AHMET01" style="text-transform:uppercase;font-size:18px;letter-spacing:2px;text-align:center">
+      <input class="form-input" id="login-code" placeholder="KOD" style="text-transform:uppercase;font-size:18px;letter-spacing:2px;text-align:center">
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
       <button class="btn btn-ghost" onclick="closeModal('modal-login')">İptal</button>
@@ -305,7 +285,7 @@
 <div class="modal-bg" id="modal-progress">
   <div class="modal" style="width:600px">
     <div class="modal-header">
-      <div class="modal-title" id="progress-modal-title">İlerleme Grafiği</div>
+      <div class="modal-title" id="progress-modal-title">İlerleme</div>
       <button class="modal-close" onclick="closeModal('modal-progress')">✕</button>
     </div>
     <div id="progress-modal-body"></div>
@@ -327,55 +307,87 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 
-// ─── STATE ────────────────────────────────────────────────
+// ─── STATE ───────────────────────────────────────────────
 let state = {
   mode:'coach', currentPage:'programs', loggedMember:null, editingProgId:null,
   programs:[], members:[], assignments:[],
-  logs:{},      // key: memberId_progId_di_ei_si → weight string
-  rpe:{},       // key: memberId_progId_di_ei_si → rpe string
-  notes:{},     // key: memberId_progId_di_ei → note string
-  completions:{}, // key: memberId_progId_di_ei_si → true
-  comments:{},  // key: memberId_progId → [{text,date}]
+  logs:{}, rpe:{}, notes:{}, completions:{}, comments:{},
 };
-let tmpDays = [];
+// IMPORTANT: tmpDays must live on window so inline onchange handlers can reach it
+window.tmpDays = [];
 let timerInterval = null;
 let timerSeconds = 0;
 
+const GOALS = [
+  {v:'',l:'— Amaç —'},{v:'hypertrophy',l:'Hipertrofi'},{v:'strength',l:'Güç'},
+  {v:'deload',l:'Deload'},{v:'endurance',l:'Dayanıklılık'},{v:'technique',l:'Teknik'}
+];
+const GOAL_COLORS = {hypertrophy:'var(--accent)',strength:'var(--blue)',deload:'var(--orange)',endurance:'var(--purple)',technique:'var(--green)'};
+const GOAL_LABELS = {hypertrophy:'Hipertrofi',strength:'Güç',deload:'Deload',endurance:'Dayanıklılık',technique:'Teknik'};
+
 // ─── STORAGE ─────────────────────────────────────────────
-async function save() {
+async function save(){
   try {
     await setDoc(doc(db,'lyftr','data'),{
-      programs:state.programs, members:state.members,
-      assignments:state.assignments, logs:state.logs,
-      rpe:state.rpe, notes:state.notes,
-      completions:state.completions, comments:state.comments,
-      updatedAt:Date.now(),
+      programs:state.programs, members:state.members, assignments:state.assignments,
+      logs:state.logs, rpe:state.rpe, notes:state.notes,
+      completions:state.completions, comments:state.comments, updatedAt:Date.now(),
     });
   } catch(e){ console.error(e); toast('Kayıt hatası!'); }
 }
-async function load() {
+async function load(){
   try {
     const snap = await getDoc(doc(db,'lyftr','data'));
     if(snap.exists()){
       const d = snap.data();
-      state.programs    = d.programs    || [];
-      state.members     = d.members     || [];
-      state.assignments = d.assignments || [];
-      state.logs        = d.logs        || {};
-      state.rpe         = d.rpe         || {};
-      state.notes       = d.notes       || {};
-      state.completions = d.completions || {};
-      state.comments    = d.comments    || {};
+      state.programs=d.programs||[]; state.members=d.members||[];
+      state.assignments=d.assignments||[]; state.logs=d.logs||{};
+      state.rpe=d.rpe||{}; state.notes=d.notes||{};
+      state.completions=d.completions||{}; state.comments=d.comments||{};
     }
   } catch(e){ console.error(e); }
 }
 
-// ─── NAVIGATION ──────────────────────────────────────────
+// ─── EXERCISE HISTORY ────────────────────────────────────
+// Returns history of an exercise name for a member across all programs
+function getExerciseHistory(memberId, exName){
+  if(!memberId || !exName) return null;
+  const nameLower = exName.trim().toLowerCase();
+  if(!nameLower) return null;
+  const results = [];
+  state.programs.forEach(p=>{
+    p.days.forEach((d,di)=>{
+      d.exercises.forEach((ex,ei)=>{
+        if((ex.name||'').trim().toLowerCase() === nameLower){
+          const sc = parseInt(ex.sets)||0;
+          let maxW=0, rpeVals=[];
+          for(let si=0;si<sc;si++){
+            const key=`${memberId}_${p.id}_${di}_${ei}_${si}`;
+            const w=parseFloat(state.logs[key])||0;
+            if(w>maxW) maxW=w;
+            const r=parseFloat(state.rpe[key])||0;
+            if(r>0) rpeVals.push(r);
+          }
+          if(maxW>0 || rpeVals.length>0){
+            results.push({
+              progName:p.name, sets:ex.sets, reps:ex.reps, maxW,
+              avgRpe: rpeVals.length?Math.round(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length*10)/10:null,
+              createdAt:p.createdAt||0
+            });
+          }
+        }
+      });
+    });
+  });
+  results.sort((a,b)=>b.createdAt-a.createdAt);
+  return results.length?results:null;
+}
+
+// ─── NAV ─────────────────────────────────────────────────
 function navigate(page){
-  state.currentPage = page;
+  state.currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  const n = document.getElementById('nav-'+page);
-  if(n) n.classList.add('active');
+  const n=document.getElementById('nav-'+page); if(n) n.classList.add('active');
   render();
 }
 function setMode(mode){
@@ -388,28 +400,26 @@ function setMode(mode){
 
 // ─── RENDER ──────────────────────────────────────────────
 function render(){
-  const el = document.getElementById('main-content');
-  if(state.mode==='member' && state.loggedMember) el.innerHTML = renderMemberView();
-  else if(state.currentPage==='programs') el.innerHTML = renderPrograms();
-  else if(state.currentPage==='members')  el.innerHTML = renderMembers();
-  else if(state.currentPage==='overview') el.innerHTML = renderOverview();
+  const el=document.getElementById('main-content');
+  if(state.mode==='member'&&state.loggedMember) el.innerHTML=renderMemberView();
+  else if(state.currentPage==='programs') el.innerHTML=renderPrograms();
+  else if(state.currentPage==='members') el.innerHTML=renderMembers();
+  else if(state.currentPage==='overview') el.innerHTML=renderOverview();
 }
 
-// ─── PROGRAMS ────────────────────────────────────────────
+// ─── COACH: PROGRAMS ─────────────────────────────────────
 function renderPrograms(){
-  const progs = state.programs;
+  const progs=state.programs;
   return `
     <div class="page-header">
       <div><div class="page-title">Programlar</div><div class="page-sub">${progs.length} program</div></div>
-      <button class="btn btn-primary" onclick="openCreateProgram()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Yeni Program
-      </button>
+      <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Program</button>
     </div>
     ${progs.length===0?`<div class="empty"><div class="empty-icon">📋</div><p>Henüz program yok.</p></div>`:
       progs.map(p=>{
-        const ac = state.assignments.filter(a=>a.programId===p.id).length;
-        const te = p.days.reduce((a,d)=>a+d.exercises.length,0);
+        const ac=state.assignments.filter(a=>a.programId===p.id).length;
+        const te=p.days.reduce((a,d)=>a+d.exercises.length,0);
+        const mName = p.memberId ? (state.members.find(m=>m.id===p.memberId)||{}).name : null;
         return `<div class="card" style="margin-bottom:12px">
           <div style="display:flex;align-items:flex-start;justify-content:space-between">
             <div style="flex:1">
@@ -418,7 +428,8 @@ function renderPrograms(){
               <div style="display:flex;gap:8px;flex-wrap:wrap">
                 <span class="badge badge-green">${p.days.length} gün</span>
                 <span class="badge badge-gray">${te} egzersiz</span>
-                <span class="badge badge-blue">${ac} üye</span>
+                <span class="badge badge-blue">${ac} atama</span>
+                ${mName?`<span class="badge badge-purple">👤 ${mName} için</span>`:''}
               </div>
             </div>
             <div style="display:flex;gap:6px;margin-left:16px">
@@ -427,41 +438,36 @@ function renderPrograms(){
               <button class="btn btn-danger btn-sm" onclick="deleteProgram('${p.id}')">Sil</button>
             </div>
           </div>
-          <div class="divider" style="margin:16px 0 12px"></div>
-          <div class="section-head">Günler</div>
+          <div class="divider" style="margin:14px 0 12px"></div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             ${p.days.map(d=>`<div style="background:var(--surface2);border-radius:8px;padding:6px 12px;font-size:12px">
               <span style="color:var(--accent);font-weight:600">${d.name}</span>
-              <span style="color:var(--text3);margin-left:6px">${d.exercises.length} egzersiz</span>
+              ${d.goal?`<span style="color:${GOAL_COLORS[d.goal]||'var(--text3)'};margin-left:6px;font-size:10px;text-transform:uppercase;font-weight:700">${GOAL_LABELS[d.goal]||''}</span>`:''}
+              <span style="color:var(--text3);margin-left:6px">${d.exercises.length} egz.</span>
             </div>`).join('')}
           </div>
         </div>`;
       }).join('')}`;
 }
 
-// ─── MEMBERS ─────────────────────────────────────────────
+// ─── COACH: MEMBERS ──────────────────────────────────────
 function renderMembers(){
   return `
     <div class="page-header">
       <div><div class="page-title">Üyeler</div><div class="page-sub">${state.members.length} üye</div></div>
-      <button class="btn btn-primary" onclick="openModal('modal-member')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Üye Ekle
-      </button>
+      <button class="btn btn-primary" onclick="openModal('modal-member')">+ Üye Ekle</button>
     </div>
     ${state.members.length===0?`<div class="empty"><div class="empty-icon">👤</div><p>Henüz üye yok.</p></div>`:`
     <div class="card" style="padding:0;overflow:hidden">
-      <table class="table"><thead><tr>
-        <th>Üye</th><th>Kod</th><th>Program</th><th>İlerleme</th><th></th>
-      </tr></thead><tbody>
+      <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Program</th><th>İlerleme</th><th></th></tr></thead><tbody>
       ${state.members.map(m=>{
-        const asgn = state.assignments.find(a=>a.memberId===m.id);
-        const prog = asgn ? state.programs.find(p=>p.id===asgn.programId) : null;
+        const asgn=state.assignments.find(a=>a.memberId===m.id);
+        const prog=asgn?state.programs.find(p=>p.id===asgn.programId):null;
         let pct=0;
         if(prog){
-          const tot = prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-          const done = Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-          pct = tot>0 ? Math.round(done/tot*100) : 0;
+          const tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
+          const done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
+          pct=tot>0?Math.round(done/tot*100):0;
         }
         return `<tr>
           <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar">${m.name.charAt(0).toUpperCase()}</div><span style="font-weight:500">${m.name}</span></div></td>
@@ -470,7 +476,7 @@ function renderMembers(){
           <td style="min-width:130px">${prog?`<div style="display:flex;align-items:center;gap:8px"><div class="progress-wrap" style="flex:1"><div class="progress-bar" style="width:${pct}%"></div></div><span style="font-size:11px;color:var(--text2)">${pct}%</span></div>`:'—'}</td>
           <td><div style="display:flex;gap:6px">
             <button class="btn btn-ghost btn-sm" onclick="openAssignForMember('${m.id}')">Ata</button>
-            <button class="btn btn-primary btn-sm" onclick="openShare('${m.id}')">🔗 Link</button>
+            <button class="btn btn-primary btn-sm" onclick="openShare('${m.id}')">🔗</button>
             <button class="btn btn-danger btn-sm" onclick="deleteMember('${m.id}')">Sil</button>
           </div></td>
         </tr>`;
@@ -479,9 +485,9 @@ function renderMembers(){
     </div>`}`;
 }
 
-// ─── OVERVIEW ────────────────────────────────────────────
+// ─── COACH: OVERVIEW ─────────────────────────────────────
 function renderOverview(){
-  const totalDone = Object.keys(state.completions).length;
+  const totalDone=Object.keys(state.completions).length;
   return `
     <div class="page-header"><div><div class="page-title">Genel Bakış</div><div class="page-sub">Tüm üyelerin özeti</div></div></div>
     <div class="grid-3" style="margin-bottom:20px">
@@ -493,24 +499,23 @@ function renderOverview(){
       <div style="padding:16px 20px;border-bottom:1px solid var(--border);font-weight:600">Üye Aktivitesi</div>
       ${state.members.length===0?`<div class="empty"><p>Henüz üye yok.</p></div>`:
         state.members.map(m=>{
-          const asgn = state.assignments.find(a=>a.memberId===m.id);
-          const prog = asgn ? state.programs.find(p=>p.id===asgn.programId) : null;
+          const asgn=state.assignments.find(a=>a.memberId===m.id);
+          const prog=asgn?state.programs.find(p=>p.id===asgn.programId):null;
           let pct=0,done=0,tot=0;
           if(prog){
-            tot = prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-            done = Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-            pct = tot>0 ? Math.round(done/tot*100) : 0;
+            tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
+            done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
+            pct=tot>0?Math.round(done/tot*100):0;
           }
-          // last comment
-          const ck = m.id+'_'+(prog?prog.id:'');
-          const cmts = state.comments[ck] || [];
-          const lastCmt = cmts.length ? cmts[cmts.length-1] : null;
+          const ck=m.id+'_'+(prog?prog.id:'');
+          const cmts=state.comments[ck]||[];
+          const lastCmt=cmts.length?cmts[cmts.length-1]:null;
           return `<div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:14px">
             <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
             <div style="flex:1">
               <div style="font-weight:500;margin-bottom:2px">${m.name}</div>
               <div style="font-size:12px;color:var(--text2)">${prog?prog.name:'Program atanmadı'}</div>
-              ${lastCmt?`<div style="font-size:11px;color:var(--text3);margin-top:3px">💬 "${lastCmt.text.substring(0,60)}${lastCmt.text.length>60?'...':''}"</div>`:''}
+              ${lastCmt?`<div style="font-size:11px;color:var(--blue);margin-top:3px">💬 "${lastCmt.text.substring(0,70)}${lastCmt.text.length>70?'...':''}"</div>`:''}
             </div>
             ${prog?`<div style="min-width:160px">
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
@@ -526,23 +531,23 @@ function renderOverview(){
 
 // ─── MEMBER VIEW ─────────────────────────────────────────
 function renderMemberView(){
-  const m = state.loggedMember;
-  const asgn = state.assignments.find(a=>a.memberId===m.id);
-  const prog = asgn ? state.programs.find(p=>p.id===asgn.programId) : null;
-  const logoutBtn = `<button class="btn btn-ghost btn-sm" onclick="logoutMember()">Çıkış</button>`;
+  const m=state.loggedMember;
+  const asgn=state.assignments.find(a=>a.memberId===m.id);
+  const prog=asgn?state.programs.find(p=>p.id===asgn.programId):null;
+  const logoutBtn=`<button class="btn btn-ghost btn-sm" onclick="logoutMember()">Çıkış</button>`;
 
   if(!prog) return `
     <div class="page-header">
       <div><div class="page-title">Merhaba, ${m.name} 👋</div><div class="page-sub">Program bekleniyor</div></div>
       ${logoutBtn}
     </div>
-    <div class="empty"><div class="empty-icon">⏳</div><p>Koçun sana program atadığında burada görünecek.</p></div>`;
+    <div class="empty"><div class="empty-icon">⏳</div><p>Koçun program atadığında burada görünecek.</p></div>`;
 
-  const tot = prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-  const done = Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-  const pct = tot>0 ? Math.round(done/tot*100) : 0;
-  const ck = m.id+'_'+prog.id;
-  const cmts = state.comments[ck] || [];
+  const tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
+  const done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
+  const pct=tot>0?Math.round(done/tot*100):0;
+  const ck=m.id+'_'+prog.id;
+  const cmts=state.comments[ck]||[];
 
   return `
     <div class="page-header">
@@ -552,102 +557,45 @@ function renderMemberView(){
       </div>
       <div style="display:flex;align-items:center;gap:12px">
         <div style="text-align:right">
-          <div style="font-size:22px;font-weight:700;color:var(--accent)">${pct}%</div>
+          <div style="font-size:22px;font-weight:800;color:var(--accent)">${pct}%</div>
           <div style="font-size:11px;color:var(--text2)">${done}/${tot} set</div>
         </div>
         ${logoutBtn}
       </div>
     </div>
-    <div class="progress-wrap" style="margin-bottom:24px;height:8px">
-      <div class="progress-bar" style="width:${pct}%"></div>
-    </div>
+    <div class="progress-wrap" style="margin-bottom:22px;height:8px"><div class="progress-bar" style="width:${pct}%"></div></div>
 
     <div class="tabs">
       <div class="tab active" id="tab-program" onclick="switchTab('program')">Program</div>
       <div class="tab" id="tab-progress" onclick="switchTab('progress')">İlerleme</div>
-      <div class="tab" id="tab-comments" onclick="switchTab('comments')">Koça Mesaj ${cmts.length?`<span class="badge badge-blue" style="margin-left:4px">${cmts.length}</span>`:''}  </div>
+      <div class="tab" id="tab-comments" onclick="switchTab('comments')">Koça Mesaj${cmts.length?` (${cmts.length})`:''}</div>
     </div>
 
     <div id="tab-program-content">
-      ${prog.days.map((day,di)=>{
-        const dayDone = day.exercises.length>0 && day.exercises.every((ex,ei)=>{
-          for(let si=0;si<(parseInt(ex.sets)||0);si++)
-            if(!state.completions[`${m.id}_${prog.id}_${di}_${ei}_${si}`]) return false;
-          return true;
-        });
-        return `<div class="day-block">
-          <div class="day-header">
-            <div class="day-label">${dayDone?'✅':'📅'} ${day.name||'Gün '+(di+1)}</div>
-            ${dayDone?'<span class="badge badge-green">Tamamlandı</span>':''}
-          </div>
-          ${day.exercises.length===0?'<p style="color:var(--text3);font-size:13px;padding:8px 0">Egzersiz yok.</p>':
-            day.exercises.map((ex,ei)=>{
-              const sc = parseInt(ex.sets)||3;
-              const noteKey = `${m.id}_${prog.id}_${di}_${ei}`;
-              const noteVal = state.notes[noteKey]||'';
-              // PR: find max weight ever logged for this exercise slot
-              let pr = 0;
-              for(let si=0;si<sc;si++){
-                const w = parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
-                if(w>pr) pr=w;
-              }
-              const sets = [];
-              for(let si=0;si<sc;si++){
-                const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
-                const isDone=!!state.completions[key];
-                const wt=state.logs[key]||'';
-                const rpeVal=state.rpe[key]||'';
-                sets.push(`<div class="set-row">
-                  <div class="check-box ${isDone?'done':''}" onclick="toggleSet('${key}')">
-                    ${isDone?'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
-                  </div>
-                  <span style="font-size:12px;color:var(--text2);min-width:44px">Set ${si+1}</span>
-                  <span style="font-size:12px;color:var(--text2);min-width:70px">${ex.reps||'—'} tekrar</span>
-                  <input class="form-input" style="width:80px;padding:5px 8px;font-size:12px" placeholder="kg" value="${wt}" onchange="logWeight('${key}',this.value)">
-                  <select class="rpe-select" onchange="logRpe('${key}',this.value)">
-                    <option value="">RPE</option>
-                    ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
-                  </select>
-                </div>`);
-              }
-              return `<div class="card" style="margin-bottom:8px;padding:14px 16px">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                  <div>
-                    <span style="font-weight:600;font-size:15px">${ex.name||'Egzersiz '+(ei+1)}</span>
-                    <span class="badge badge-gray" style="margin-left:8px">${sc} × ${ex.reps||'—'}</span>
-                    ${pr>0?`<span class="pr-badge" style="margin-left:6px">PR ${pr}kg</span>`:''}
-                  </div>
-                  <button class="btn btn-ghost btn-sm" onclick="showProgress('${m.id}','${prog.id}','${di}','${ei}','${ex.name||'Egzersiz'}')">📈</button>
-                </div>
-                ${sets.join('')}
-                <textarea class="note-box" rows="2" placeholder="Not ekle..." onchange="logNote('${noteKey}',this.value)">${noteVal}</textarea>
-              </div>`;
-            }).join('')}
-        </div>`;
-      }).join('')}
+      ${prog.days.map((day,di)=>renderMemberDay(m,prog,day,di)).join('')}
     </div>
 
     <div id="tab-progress-content" class="hidden">
       <div class="card">
-        <div style="font-weight:600;margin-bottom:16px">Genel İlerleme</div>
+        <div style="font-weight:600;margin-bottom:16px">Egzersiz Bazında Durum</div>
         ${prog.days.map((day,di)=>`
           <div style="margin-bottom:16px">
             <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:8px">${day.name}</div>
             ${day.exercises.map((ex,ei)=>{
               const sc=parseInt(ex.sets)||3;
-              const weights=[];
+              const ws=[];
               for(let si=0;si<sc;si++){
                 const w=parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
-                if(w>0) weights.push(w);
+                if(w>0) ws.push(w);
               }
-              const maxW = weights.length ? Math.max(...weights) : 0;
-              const avgW = weights.length ? Math.round(weights.reduce((a,b)=>a+b,0)/weights.length) : 0;
+              const maxW=ws.length?Math.max(...ws):0;
+              const avgW=ws.length?Math.round(ws.reduce((a,b)=>a+b,0)/ws.length):0;
               return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
                 <span style="font-size:13px">${ex.name||'Egzersiz '+(ei+1)}</span>
-                <div style="display:flex;gap:12px">
+                <div style="display:flex;gap:10px">
                   ${maxW>0?`<span class="pr-badge">Max ${maxW}kg</span>`:''}
                   ${avgW>0?`<span class="badge badge-gray">Ort ${avgW}kg</span>`:''}
-                  ${weights.length===0?`<span style="font-size:12px;color:var(--text3)">Veri yok</span>`:''}
+                  ${ws.length===0?`<span style="font-size:12px;color:var(--text3)">Veri yok</span>`:''}
                 </div>
               </div>`;
             }).join('')}
@@ -657,10 +605,10 @@ function renderMemberView(){
 
     <div id="tab-comments-content" class="hidden">
       <div class="card">
-        <div style="font-weight:600;margin-bottom:16px">Koçuna Mesaj Gönder</div>
+        <div style="font-weight:600;margin-bottom:14px">Koçuna Mesaj Gönder</div>
         <textarea class="note-box" id="new-comment" rows="3" placeholder="Antrenman hakkında not bırak, soru sor..."></textarea>
         <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="sendComment('${ck}')">Gönder</button>
-        ${cmts.length>0?`<div class="divider"></div><div style="font-size:12px;color:var(--text2);margin-bottom:10px">${cmts.length} mesaj</div>
+        ${cmts.length>0?`<div class="divider"></div>
         ${[...cmts].reverse().map(c=>`<div class="comment-item">
           <div class="comment-meta">${new Date(c.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
           <div style="font-size:13px">${c.text}</div>
@@ -669,98 +617,179 @@ function renderMemberView(){
     </div>`;
 }
 
+function renderMemberDay(m,prog,day,di){
+  const dayDone = day.exercises.length>0 && day.exercises.every((ex,ei)=>{
+    for(let si=0;si<(parseInt(ex.sets)||0);si++)
+      if(!state.completions[`${m.id}_${prog.id}_${di}_${ei}_${si}`]) return false;
+    return true;
+  });
+  const goalColor = GOAL_COLORS[day.goal]||'var(--text3)';
+  return `<div class="day-card">
+    <div class="day-card-head">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:15px;font-weight:700">${dayDone?'✅':'📅'} ${day.name||'Gün '+(di+1)}</span>
+        ${day.goal?`<span class="goal-pill" style="background:${goalColor}22;color:${goalColor}">${GOAL_LABELS[day.goal]||''}</span>`:''}
+        ${day.duration?`<span class="target-chip">⏱ ~${day.duration} dk</span>`:''}
+      </div>
+      ${dayDone?'<span class="badge badge-green">Tamamlandı</span>':''}
+    </div>
+    <div class="day-card-body">
+      ${day.note?`<div style="background:var(--surface2);border-left:3px solid var(--accent);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--text2);margin-bottom:12px">📌 ${day.note}</div>`:''}
+      ${day.exercises.length===0?'<p style="color:var(--text3);font-size:13px">Egzersiz yok.</p>':
+        day.exercises.map((ex,ei)=>{
+          const sc=parseInt(ex.sets)||3;
+          const noteKey=`${m.id}_${prog.id}_${di}_${ei}`;
+          const noteVal=state.notes[noteKey]||'';
+          let pr=0;
+          for(let si=0;si<sc;si++){
+            const w=parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
+            if(w>pr) pr=w;
+          }
+          const sets=[];
+          for(let si=0;si<sc;si++){
+            const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
+            const isDone=!!state.completions[key];
+            const wt=state.logs[key]||'';
+            const rpeVal=state.rpe[key]||'';
+            sets.push(`<div class="set-row">
+              <div class="check-box ${isDone?'done':''}" onclick="toggleSet('${key}',${ex.rest||90})">
+                ${isDone?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
+              </div>
+              <span style="font-size:12px;color:var(--text2);min-width:40px">Set ${si+1}</span>
+              <span style="font-size:12px;color:var(--text2);min-width:64px">${ex.reps||'—'} tekrar</span>
+              <input class="form-input" style="width:76px;padding:5px 8px;font-size:12px" placeholder="${ex.targetW?ex.targetW+'kg':'kg'}" value="${wt}" onchange="logWeight('${key}',this.value)">
+              <select class="rpe-select" onchange="logRpe('${key}',this.value)">
+                <option value="">RPE</option>
+                ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
+              </select>
+              ${ex.targetRpe?`<span class="target-chip">hedef ${ex.targetRpe}</span>`:''}
+            </div>`);
+          }
+          return `<div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:8px">
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="font-weight:700;font-size:15px">${ex.name||'Egzersiz '+(ei+1)}</span>
+                  <span class="badge badge-gray">${sc} × ${ex.reps||'—'}</span>
+                  ${pr>0?`<span class="pr-badge">PR ${pr}kg</span>`:''}
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+                  ${ex.rest?`<span class="target-chip">⏱ ${ex.rest}s dinlenme</span>`:''}
+                  ${ex.tempo?`<span class="target-chip">🎵 Tempo ${ex.tempo}</span>`:''}
+                  ${ex.targetW?`<span class="target-chip">🎯 ${ex.targetW}kg</span>`:''}
+                </div>
+                ${ex.coachNote?`<div style="font-size:12px;color:var(--orange);margin-top:6px">💡 Koç: ${ex.coachNote}</div>`:''}
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="showProgress('${m.id}','${prog.id}','${di}','${ei}','${(ex.name||'Egzersiz').replace(/'/g,"")}')">📈</button>
+            </div>
+            ${sets.join('')}
+            <textarea class="note-box" rows="1" placeholder="Notun..." onchange="logNote('${noteKey}',this.value)">${noteVal}</textarea>
+          </div>`;
+        }).join('')}
+    </div>
+  </div>`;
+}
+
 // ─── TABS ────────────────────────────────────────────────
 function switchTab(tab){
   ['program','progress','comments'].forEach(t=>{
-    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
-    document.getElementById('tab-'+t+'-content').classList.toggle('hidden', t!==tab);
+    const tabEl=document.getElementById('tab-'+t);
+    const cEl=document.getElementById('tab-'+t+'-content');
+    if(tabEl) tabEl.classList.toggle('active',t===tab);
+    if(cEl) cEl.classList.toggle('hidden',t!==tab);
   });
 }
 
 // ─── TIMER ───────────────────────────────────────────────
-function startTimer(seconds=90){
+function startTimer(seconds){
   stopTimer();
-  timerSeconds = seconds;
-  const el = document.getElementById('timer-el');
-  const cnt = document.getElementById('timer-count');
+  timerSeconds=seconds;
+  const el=document.getElementById('timer-el');
+  const cnt=document.getElementById('timer-count');
   el.classList.remove('hidden');
-  cnt.textContent = timerSeconds;
-  timerInterval = setInterval(()=>{
+  cnt.style.color='var(--accent)';
+  cnt.textContent=timerSeconds;
+  timerInterval=setInterval(()=>{
     timerSeconds--;
-    cnt.textContent = timerSeconds;
+    cnt.textContent=timerSeconds;
     if(timerSeconds<=0){ stopTimer(); toast('Dinlenme bitti! 💪'); }
     else if(timerSeconds<=10) cnt.style.color='var(--red)';
-    else cnt.style.color='var(--accent)';
   },1000);
 }
 function stopTimer(){
-  clearInterval(timerInterval);
-  timerInterval=null;
+  clearInterval(timerInterval); timerInterval=null;
   document.getElementById('timer-el').classList.add('hidden');
 }
 function addTimer(s){ timerSeconds+=s; document.getElementById('timer-count').textContent=timerSeconds; }
 
 // ─── TRACKING ────────────────────────────────────────────
-function toggleSet(key){
+function toggleSet(key,rest){
   if(state.completions[key]) delete state.completions[key];
-  else { state.completions[key]=true; startTimer(90); }
+  else { state.completions[key]=true; startTimer(parseInt(rest)||90); }
   save(); render();
 }
-function logWeight(key,val){
-  if(val) state.logs[key]=val; else delete state.logs[key];
-  save();
-}
-function logRpe(key,val){
-  if(val) state.rpe[key]=val; else delete state.rpe[key];
-  save();
-}
-function logNote(key,val){
-  if(val) state.notes[key]=val; else delete state.notes[key];
-  save();
-}
+function logWeight(key,val){ if(val) state.logs[key]=val; else delete state.logs[key]; save(); }
+function logRpe(key,val){ if(val) state.rpe[key]=val; else delete state.rpe[key]; save(); }
+function logNote(key,val){ if(val) state.notes[key]=val; else delete state.notes[key]; save(); }
 function sendComment(ck){
-  const el = document.getElementById('new-comment');
-  const text = el.value.trim();
+  const el=document.getElementById('new-comment');
+  const text=el.value.trim();
   if(!text){ toast('Mesaj boş olamaz'); return; }
   if(!state.comments[ck]) state.comments[ck]=[];
-  state.comments[ck].push({text, date:Date.now()});
-  el.value='';
-  save(); render();
-  toast('Mesaj gönderildi ✓');
-  switchTab('comments');
+  state.comments[ck].push({text,date:Date.now()});
+  el.value=''; save(); render(); toast('Mesaj gönderildi ✓');
+  setTimeout(()=>switchTab('comments'),50);
 }
 
 // ─── PROGRESS CHART ──────────────────────────────────────
 function showProgress(mId,progId,di,ei,exName){
-  const prog = state.programs.find(p=>p.id===progId);
-  const sc = prog ? (parseInt(prog.days[di]?.exercises[ei]?.sets)||3) : 3;
+  const prog=state.programs.find(p=>p.id===progId);
+  const sc=prog?(parseInt(prog.days[di]?.exercises[ei]?.sets)||3):3;
   const weights=[];
   for(let si=0;si<sc;si++){
     const w=parseFloat(state.logs[`${mId}_${progId}_${di}_${ei}_${si}`])||0;
     weights.push({label:`Set ${si+1}`,w});
   }
-  const max = Math.max(...weights.map(x=>x.w),1);
-  document.getElementById('progress-modal-title').textContent = exName+' — Ağırlık Takibi';
-  document.getElementById('progress-modal-body').innerHTML = `
-    <div style="display:flex;align-items:flex-end;gap:12px;height:150px;padding:10px 0">
+  // history across programs
+  const hist=getExerciseHistory(mId,exName);
+  const max=Math.max(...weights.map(x=>x.w),1);
+  document.getElementById('progress-modal-title').textContent=exName;
+  document.getElementById('progress-modal-body').innerHTML=`
+    <div class="section-head">Bu programdaki setler</div>
+    <div style="display:flex;align-items:flex-end;gap:12px;height:140px;padding:10px 0 4px">
       ${weights.map(({label,w})=>`
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
           <span style="font-size:11px;color:var(--accent);font-weight:600">${w?w+'kg':''}</span>
-          <div style="width:100%;background:var(--accent);border-radius:4px 4px 0 0;height:${w?Math.max(8,Math.round(w/max*110))+'px':'4px'};${w?'':'background:var(--surface3)'}"></div>
+          <div style="width:100%;border-radius:4px 4px 0 0;height:${w?Math.max(8,Math.round(w/max*100))+'px':'4px'};background:${w?'var(--accent)':'var(--surface3)'}"></div>
           <span style="font-size:10px;color:var(--text3)">${label}</span>
         </div>`).join('')}
     </div>
-    ${weights.every(x=>x.w===0)?'<p style="color:var(--text3);text-align:center;font-size:13px;margin-top:16px">Henüz ağırlık kaydedilmedi.</p>':''}`;
+    ${hist&&hist.length>1?`
+      <div class="divider"></div>
+      <div class="section-head">Geçmiş programlar</div>
+      ${hist.slice(1).map(h=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+        <span style="color:var(--text2)">${h.progName} — ${h.sets}×${h.reps}</span>
+        <span>${h.maxW?`<span class="pr-badge">${h.maxW}kg</span>`:''} ${h.avgRpe?`<span class="badge badge-gray">RPE ${h.avgRpe}</span>`:''}</span>
+      </div>`).join('')}`:''}
+    ${weights.every(x=>x.w===0)&&(!hist||hist.length<=1)?'<p style="color:var(--text3);text-align:center;font-size:13px;margin-top:12px">Henüz veri yok.</p>':''}`;
   openModal('modal-progress');
 }
 
-// ─── PROGRAM MODAL ───────────────────────────────────────
+// ─── PROGRAM EDITOR ──────────────────────────────────────
+function fillMemberSelect(){
+  const sel=document.getElementById('prog-member');
+  sel.innerHTML='<option value="">— Üye seç (opsiyonel) —</option>'+
+    state.members.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
+}
+window._progMemberChanged=function(){ renderDays(); };
+
 function openCreateProgram(){
   state.editingProgId=null;
   document.getElementById('modal-program-title').textContent='Yeni Program';
   document.getElementById('prog-name').value='';
   document.getElementById('prog-desc').value='';
-  tmpDays=[{name:'Gün 1',exercises:[]}];
+  fillMemberSelect();
+  window.tmpDays=[{name:'Gün 1',goal:'',duration:'',note:'',exercises:[]}];
   renderDays(); openModal('modal-program');
 }
 function editProgram(id){
@@ -769,42 +798,97 @@ function editProgram(id){
   document.getElementById('modal-program-title').textContent='Programı Düzenle';
   document.getElementById('prog-name').value=p.name;
   document.getElementById('prog-desc').value=p.desc||'';
-  tmpDays=JSON.parse(JSON.stringify(p.days));
+  fillMemberSelect();
+  document.getElementById('prog-member').value=p.memberId||'';
+  window.tmpDays=JSON.parse(JSON.stringify(p.days));
   renderDays(); openModal('modal-program');
 }
+
 function renderDays(){
-  document.getElementById('days-container').innerHTML=tmpDays.map((day,di)=>`
-    <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:12px">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <input class="form-input" style="flex:1" value="${day.name}" onchange="tmpDays[${di}].name=this.value">
-        <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${tmpDays.length===1?'disabled':''}>Sil</button>
+  const memberId=document.getElementById('prog-member').value;
+  document.getElementById('days-container').innerHTML=window.tmpDays.map((day,di)=>`
+    <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:12px">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 80px auto;gap:8px;margin-bottom:8px">
+        <input class="form-input" value="${day.name||''}" placeholder="Gün adı" onchange="window.tmpDays[${di}].name=this.value">
+        <select class="form-input" onchange="window.tmpDays[${di}].goal=this.value">
+          ${GOALS.map(g=>`<option value="${g.v}" ${day.goal===g.v?'selected':''}>${g.l}</option>`).join('')}
+        </select>
+        <input class="form-input" type="number" value="${day.duration||''}" placeholder="dk" title="Tahmini süre" onchange="window.tmpDays[${di}].duration=this.value">
+        <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${window.tmpDays.length===1?'disabled':''}>Sil</button>
       </div>
-      <div id="exlist-${di}">
-        ${day.exercises.map((ex,ei)=>renderExRow(di,ei,ex)).join('')}
-      </div>
-      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})" style="margin-top:6px">+ Egzersiz</button>
+      <input class="form-input" value="${day.note||''}" placeholder="Gün notu (ısınma talimatı vb.)" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
+      ${day.exercises.map((ex,ei)=>renderExEditor(di,ei,ex,memberId)).join('')}
+      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ Egzersiz</button>
     </div>`).join('');
 }
-function renderExRow(di,ei,ex){
-  return `<div class="form-row" style="margin-bottom:6px">
-    <div>${ei===0?'<div class="form-label">Egzersiz</div>':''}<input class="form-input" value="${ex.name}" placeholder="Egzersiz adı" onchange="tmpDays[${di}].exercises[${ei}].name=this.value"></div>
-    <div>${ei===0?'<div class="form-label">Set</div>':''}<input class="form-input" type="number" value="${ex.sets}" min="1" max="20" onchange="tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1"></div>
-    <div>${ei===0?'<div class="form-label">Tekrar</div>':''}<input class="form-input" value="${ex.reps}" placeholder="12" onchange="tmpDays[${di}].exercises[${ei}].reps=this.value"></div>
-    <div>${ei===0?'<div class="form-label">&nbsp;</div>':''}<button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">✕</button></div>
+
+function renderExEditor(di,ei,ex,memberId){
+  const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
+  const last=hist&&hist.length?hist[0]:null;
+  return `<div class="ex-editor">
+    <div class="ex-editor-grid">
+      <input class="form-input" value="${ex.name||''}" placeholder="Egzersiz adı" onchange="window.tmpDays[${di}].exercises[${ei}].name=this.value;window._refreshHist(${di},${ei})">
+      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" placeholder="Set" title="Set" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1">
+      <input class="form-input" value="${ex.reps||''}" placeholder="Tekrar" title="Tekrar" onchange="window.tmpDays[${di}].exercises[${ei}].reps=this.value">
+    </div>
+    <div class="ex-editor-grid2">
+      <input class="form-input" type="number" value="${ex.rest||''}" placeholder="Dinlenme (sn)" title="Dinlenme süresi" onchange="window.tmpDays[${di}].exercises[${ei}].rest=this.value">
+      <input class="form-input" type="number" step="0.5" value="${ex.targetW||''}" placeholder="Hedef kg" title="Hedef ağırlık" onchange="window.tmpDays[${di}].exercises[${ei}].targetW=this.value">
+      <select class="form-input" title="Hedef RPE" onchange="window.tmpDays[${di}].exercises[${ei}].targetRpe=this.value">
+        <option value="">Hedef RPE</option>
+        ${['6','6-7','7','7-8','8','8-9','9','9-10','10'].map(r=>`<option value="${r}" ${ex.targetRpe===r?'selected':''}>${r}</option>`).join('')}
+      </select>
+    </div>
+    <div class="toggle-row" onclick="window._toggleTempo(${di},${ei})">
+      <div class="toggle-sw ${ex.tempoOn?'on':''}"></div>
+      <span>Tempo</span>
+      ${ex.tempoOn?`<input class="form-input" style="width:120px;padding:5px 8px;font-size:12px;margin-left:6px" value="${ex.tempo||''}" placeholder="örn. 3-1-2" onclick="event.stopPropagation()" onchange="window.tmpDays[${di}].exercises[${ei}].tempo=this.value">`:''}
+    </div>
+    <input class="form-input" value="${ex.coachNote||''}" placeholder="Koç notu (teknik talimat)" style="margin-top:8px" onchange="window.tmpDays[${di}].exercises[${ei}].coachNote=this.value">
+    <div id="hist-${di}-${ei}">
+    ${last?`<div class="hist-hint">📊 <b>${ex.name}</b> geçmişi: ${last.progName} programında ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.avgRpe?`, ort. RPE ${last.avgRpe}`:''}</div>`:''}
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:8px">
+      <button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">Egzersizi Sil</button>
+    </div>
   </div>`;
 }
-function addDay(){ tmpDays.push({name:`Gün ${tmpDays.length+1}`,exercises:[]}); renderDays(); }
-function removeDay(di){ if(tmpDays.length===1) return; tmpDays.splice(di,1); renderDays(); }
-function addExercise(di){ tmpDays[di].exercises.push({name:'',sets:3,reps:'10-12',note:''}); renderDays(); }
-function removeExercise(di,ei){ tmpDays[di].exercises.splice(ei,1); renderDays(); }
+
+window._refreshHist=function(di,ei){
+  const memberId=document.getElementById('prog-member').value;
+  const ex=window.tmpDays[di].exercises[ei];
+  const el=document.getElementById(`hist-${di}-${ei}`);
+  if(!el) return;
+  const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
+  const last=hist&&hist.length?hist[0]:null;
+  el.innerHTML=last?`<div class="hist-hint">📊 <b>${ex.name}</b> geçmişi: ${last.progName} programında ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.avgRpe?`, ort. RPE ${last.avgRpe}`:''}</div>`:'';
+};
+window._toggleTempo=function(di,ei){
+  window.tmpDays[di].exercises[ei].tempoOn=!window.tmpDays[di].exercises[ei].tempoOn;
+  renderDays();
+};
+
+function addDay(){ window.tmpDays.push({name:`Gün ${window.tmpDays.length+1}`,goal:'',duration:'',note:'',exercises:[]}); renderDays(); }
+function removeDay(di){ if(window.tmpDays.length===1) return; window.tmpDays.splice(di,1); renderDays(); }
+function addExercise(di){ window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
+function removeExercise(di,ei){ window.tmpDays[di].exercises.splice(ei,1); renderDays(); }
+
 function saveProgram(){
   const name=document.getElementById('prog-name').value.trim();
   if(!name){ toast('Program adı giriniz'); return; }
-  const prog={id:state.editingProgId||uid(),name,desc:document.getElementById('prog-desc').value.trim(),days:tmpDays,createdAt:Date.now()};
-  if(state.editingProgId){ const i=state.programs.findIndex(p=>p.id===state.editingProgId); state.programs[i]=prog; }
-  else state.programs.push(prog);
+  const memberId=document.getElementById('prog-member').value||null;
+  const prog={
+    id:state.editingProgId||uid(), name,
+    desc:document.getElementById('prog-desc').value.trim(),
+    memberId, days:window.tmpDays, createdAt:Date.now()
+  };
+  if(state.editingProgId){
+    const i=state.programs.findIndex(p=>p.id===state.editingProgId);
+    prog.createdAt=state.programs[i].createdAt||Date.now();
+    state.programs[i]=prog;
+  } else state.programs.push(prog);
   save(); closeModal('modal-program'); render();
-  toast(state.editingProgId?'Program güncellendi':'Program oluşturuldu ✓');
+  toast('Program kaydedildi ✓');
   state.editingProgId=null;
 }
 function deleteProgram(id){
@@ -834,7 +918,7 @@ function doAssign(){
   save(); closeModal('modal-assign'); render(); toast('Program atandı ✓');
 }
 
-// ─── MEMBERS ─────────────────────────────────────────────
+// ─── MEMBERS CRUD ────────────────────────────────────────
 function saveMember(){
   const name=document.getElementById('member-name').value.trim();
   const code=document.getElementById('member-code').value.trim().toUpperCase();
@@ -870,11 +954,11 @@ function logoutMember(){
   document.getElementById('mode-member').classList.remove('active');
   const sb=document.getElementById('sidebar'); if(sb) sb.style.display='';
   const url=new URL(window.location.href); url.searchParams.delete('kod');
-  window.history.replaceState({},url.toString(),url);
+  window.history.replaceState({},'',url);
   navigate('programs');
 }
 
-// ─── SHARE / QR ──────────────────────────────────────────
+// ─── SHARE ───────────────────────────────────────────────
 function openShare(mId){
   const m=state.members.find(x=>x.id===mId); if(!m) return;
   document.getElementById('share-modal-name').textContent=m.name+' — Paylaşım';
@@ -885,12 +969,13 @@ function openShare(mId){
   const container=document.getElementById('qr-container');
   container.innerHTML='';
   if(window.QRCode) new QRCode(container,{text:link,width:160,height:160,colorDark:'#000000',colorLight:'#ffffff'});
-  else container.innerHTML='<div style="width:160px;height:40px;display:flex;align-items:center;justify-content:center;color:#333;font-size:12px">QR yüklenemedi</div>';
   openModal('modal-share');
 }
 function copyShareLink(){
   const val=document.getElementById('share-link-input').value;
-  navigator.clipboard.writeText(val).then(()=>toast('Link kopyalandı ✓')).catch(()=>{ document.getElementById('share-link-input').select(); document.execCommand('copy'); toast('Link kopyalandı ✓'); });
+  navigator.clipboard.writeText(val).then(()=>toast('Link kopyalandı ✓')).catch(()=>{
+    document.getElementById('share-link-input').select(); document.execCommand('copy'); toast('Link kopyalandı ✓');
+  });
 }
 
 // ─── UTILS ───────────────────────────────────────────────
