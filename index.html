@@ -28,7 +28,7 @@
   .mode-toggle{display:flex;background:var(--surface2);border-radius:9px;padding:3px;gap:2px;}
   .mode-btn{flex:1;padding:6px;text-align:center;border-radius:7px;cursor:pointer;font-size:12px;color:var(--text2);transition:all .15s;}
   .mode-btn.active{background:var(--accent);color:#000;font-weight:600;}
-  .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+  .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:10px;}
   .page-title{font-size:23px;font-weight:800;letter-spacing:-0.6px;}
   .page-sub{color:var(--text2);font-size:13px;margin-top:3px;}
   .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;font-family:var(--font);}
@@ -39,11 +39,8 @@
   .btn-danger{background:rgba(255,82,82,0.12);color:var(--red);border:1px solid rgba(255,82,82,0.25);}
   .btn-danger:hover{background:rgba(255,82,82,0.22);}
   .btn-sm{padding:5px 10px;font-size:12px;}
-  .btn svg{width:15px;height:15px;}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
-  .card+.card{margin-top:12px;}
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
   .stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;}
   .stat-value{font-size:30px;font-weight:800;letter-spacing:-1.5px;}
@@ -69,7 +66,7 @@
   .avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(200,245,66,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0;}
   .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:100;align-items:center;justify-content:center;padding:20px;}
   .modal-bg.open{display:flex;}
-  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;width:640px;max-height:88vh;overflow-y:auto;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;width:660px;max-height:88vh;overflow-y:auto;}
   .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
   .modal-title{font-size:17px;font-weight:700;}
   .modal-close{background:var(--surface2);border:none;color:var(--text2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
@@ -86,12 +83,14 @@
   .timer-ring{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);border-radius:16px;padding:14px 22px;display:flex;align-items:center;gap:14px;z-index:150;box-shadow:0 6px 28px rgba(0,0,0,0.55);}
   .timer-count{font-size:30px;font-weight:800;color:var(--accent);min-width:56px;text-align:center;font-variant-numeric:tabular-nums;}
   .timer-label{font-size:11px;color:var(--text2);}
-  .rpe-select{width:64px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 6px;color:var(--text);font-size:12px;outline:none;cursor:pointer;font-family:var(--font);}
-  .rpe-select:focus{border-color:var(--accent);}
-  .set-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-wrap:wrap;}
+  .rpe-select{width:62px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 5px;color:var(--text);font-size:12px;outline:none;cursor:pointer;font-family:var(--font);}
+  .set-type-select{width:50px;background:transparent;border:none;color:var(--text3);font-size:11px;outline:none;cursor:pointer;font-family:var(--font);}
+  .set-row{display:flex;align-items:center;gap:7px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-wrap:wrap;}
+  .set-row.warmup{opacity:0.65;}
   .pr-badge{background:rgba(255,159,67,0.18);color:var(--orange);border-radius:5px;padding:2px 7px;font-size:10px;font-weight:700;}
-  .note-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;resize:none;width:100%;margin-top:10px;transition:border-color .15s;}
+  .note-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;resize:none;width:100%;margin-top:8px;transition:border-color .15s;}
   .note-box:focus{border-color:var(--accent);}
+  .pinned-note{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--purple);margin-top:8px;display:flex;align-items:flex-start;gap:6px;}
   .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--surface2);padding:4px;border-radius:11px;}
   .tab{flex:1;text-align:center;padding:8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;}
   .tab.active{background:var(--surface);color:var(--text);font-weight:600;}
@@ -102,7 +101,6 @@
   .qr-wrap{background:#fff;border-radius:12px;padding:16px;display:inline-block;}
   .hidden{display:none!important;}
   .ex-editor{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
-  .ex-editor-grid{display:grid;grid-template-columns:2fr 70px 80px;gap:8px;margin-bottom:8px;}
   .ex-editor-grid2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;}
   .toggle-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);cursor:pointer;user-select:none;padding:4px 0;}
   .toggle-sw{width:34px;height:19px;border-radius:12px;background:var(--surface3);position:relative;transition:background .15s;flex-shrink:0;}
@@ -110,20 +108,33 @@
   .toggle-sw.on{background:var(--accent);}
   .toggle-sw.on::after{left:17px;background:#000;}
   .hist-hint{background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--blue);margin-top:6px;line-height:1.5;}
+  .sugg-hint{background:rgba(200,245,66,0.07);border:1px solid rgba(200,245,66,0.2);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--accent);margin-top:6px;line-height:1.5;}
   .day-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
-  .day-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:var(--surface);transition:background .15s;}
-  .day-card-head:hover{background:var(--surface2);}
+  .day-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;background:var(--surface);}
   .day-card-body{padding:0 18px 16px;}
   .goal-pill{font-size:10px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;padding:3px 8px;border-radius:5px;}
   .target-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);background:var(--surface3);border-radius:5px;padding:2px 8px;}
+  .autofill-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--blue);background:rgba(77,166,255,0.1);border:1px solid rgba(77,166,255,0.25);border-radius:5px;padding:2px 8px;cursor:pointer;transition:all .15s;}
+  .autofill-chip:hover{background:rgba(77,166,255,0.2);}
+  .superset-tag{font-size:10px;font-weight:800;color:var(--purple);background:rgba(167,139,250,0.15);border-radius:4px;padding:2px 6px;letter-spacing:0.5px;}
+  /* Exercise dropdown */
+  .ex-dd{position:relative;}
+  .ex-dd-list{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;max-height:240px;overflow-y:auto;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,0.5);}
+  .ex-dd-item{padding:9px 14px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .ex-dd-item:hover,.ex-dd-item.hl{background:var(--surface2);}
+  .ex-dd-item .ex-meta{font-size:11px;color:var(--text3);}
+  .ex-dd-section{padding:6px 14px 4px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;}
+  .ex-dd-empty{padding:12px 14px;font-size:12.5px;color:var(--text3);}
   ::-webkit-scrollbar{width:5px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
   @media(max-width:720px){
-    .main{padding:18px 14px;}
-    .ex-editor-grid,.ex-editor-grid2{grid-template-columns:1fr 1fr;}
-    .grid-3,.grid-4{grid-template-columns:1fr 1fr;}
-    .modal{width:100%;}
+    .main{padding:16px 12px;}
+    .ex-editor-grid2{grid-template-columns:1fr 1fr;}
+    .grid-3{grid-template-columns:1fr;}
+    .modal{width:100%;padding:18px;}
+    .set-row{gap:5px;}
+    .page-title{font-size:19px;}
   }
 </style>
 </head>
@@ -138,10 +149,7 @@
 
 <div id="toast"></div>
 <div id="timer-el" class="timer-ring hidden">
-  <div>
-    <div class="timer-label">Dinlenme</div>
-    <div class="timer-count" id="timer-count">90</div>
-  </div>
+  <div><div class="timer-label" id="timer-label">Dinlenme</div><div class="timer-count" id="timer-count">90</div></div>
   <div style="display:flex;flex-direction:column;gap:6px">
     <button class="btn btn-ghost btn-sm" onclick="addTimer(30)">+30s</button>
     <button class="btn btn-danger btn-sm" onclick="stopTimer()">Durdur</button>
@@ -151,43 +159,47 @@
 <div class="app">
   <div class="sidebar" id="sidebar">
     <div class="logo">lyftr<span>.</span></div>
-    <div class="nav-section">Koç Paneli</div>
-    <div class="nav-item active" onclick="navigate('programs')" id="nav-programs">
+    <div class="nav-section" data-i18n="coachPanel">Koç Paneli</div>
+    <div class="nav-item active" onclick="navigate('templates')" id="nav-templates">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      Programlar
+      <span data-i18n="templates">Şablonlar</span>
     </div>
     <div class="nav-item" onclick="navigate('members')" id="nav-members">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Üyeler
+      <span data-i18n="clients">Üyeler</span>
     </div>
     <div class="nav-item" onclick="navigate('overview')" id="nav-overview">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      Genel Bakış
+      <span data-i18n="overview">Genel Bakış</span>
+    </div>
+    <div class="nav-item" onclick="navigate('exercises')" id="nav-exercises">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11v11h-11z"/><path d="M3 10v4M21 10v4M10 3h4M10 21h4"/></svg>
+      <span data-i18n="exerciseLibrary">Egzersiz Kütüphanesi</span>
     </div>
     <div class="sidebar-footer">
       <div class="mode-toggle">
-        <div class="mode-btn active" id="mode-coach" onclick="setMode('coach')">Koç</div>
-        <div class="mode-btn" id="mode-member" onclick="setMode('member')">Üye</div>
+        <div class="mode-btn active" id="mode-coach" onclick="setMode('coach')" data-i18n="coach">Koç</div>
+        <div class="mode-btn" id="mode-member" onclick="setMode('member')" data-i18n="member">Üye</div>
       </div>
     </div>
   </div>
   <div class="main" id="main-content"></div>
 </div>
 
-<!-- Program Modal -->
+<!-- Template Builder Modal -->
 <div class="modal-bg" id="modal-program">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="modal-program-title">Yeni Program</div>
+      <div class="modal-title" id="modal-program-title">Yeni Şablon</div>
       <button class="modal-close" onclick="closeModal('modal-program')">✕</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
       <div>
-        <label class="form-label">Program Adı</label>
+        <label class="form-label">Şablon Adı</label>
         <input class="form-input" id="prog-name" placeholder="örn. Blok 2 — Güç Fazı">
       </div>
       <div>
-        <label class="form-label">Üye (geçmiş verisi için)</label>
+        <label class="form-label">Üye (geçmiş & öneri için)</label>
         <select class="form-input" id="prog-member" onchange="window._progMemberChanged()"></select>
       </div>
     </div>
@@ -207,12 +219,13 @@
 
 <!-- Assign Modal -->
 <div class="modal-bg" id="modal-assign">
-  <div class="modal" style="width:400px">
+  <div class="modal" style="width:420px">
     <div class="modal-header">
       <div class="modal-title">Üyeye Ata</div>
       <button class="modal-close" onclick="closeModal('modal-assign')">✕</button>
     </div>
-    <div class="form-group"><label class="form-label">Program</label><select class="form-input" id="assign-prog"></select></div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:14px">Şablon kopyalanarak üyeye özel bir program oluşturulur. Şablonu sonradan değiştirmen bu atamayı etkilemez.</p>
+    <div class="form-group"><label class="form-label">Şablon</label><select class="form-input" id="assign-prog"></select></div>
     <div class="form-group"><label class="form-label">Üye</label><select class="form-input" id="assign-member"></select></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
       <button class="btn btn-ghost" onclick="closeModal('modal-assign')">İptal</button>
@@ -223,13 +236,16 @@
 
 <!-- Member Modal -->
 <div class="modal-bg" id="modal-member">
-  <div class="modal" style="width:380px">
+  <div class="modal" style="width:440px">
     <div class="modal-header">
-      <div class="modal-title">Yeni Üye</div>
+      <div class="modal-title" id="member-modal-title">Yeni Üye</div>
       <button class="modal-close" onclick="closeModal('modal-member')">✕</button>
     </div>
+    <input type="hidden" id="member-edit-id">
     <div class="form-group"><label class="form-label">Ad Soyad</label><input class="form-input" id="member-name" placeholder="örn. Ahmet Yılmaz"></div>
     <div class="form-group"><label class="form-label">Erişim Kodu</label><input class="form-input" id="member-code" placeholder="örn. AHMET01" style="text-transform:uppercase"></div>
+    <div class="form-group"><label class="form-label">Sakatlık / Kısıtlamalar (üye de görür)</label><input class="form-input" id="member-injuries" placeholder="örn. Sol omuz impingement — overhead dikkat"></div>
+    <div class="form-group"><label class="form-label">Koç Notu (sadece sen görürsün)</label><textarea class="note-box" id="member-coachnote" rows="2" placeholder="Özel notların..."></textarea></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
       <button class="btn btn-ghost" onclick="closeModal('modal-member')">İptal</button>
       <button class="btn btn-primary" onclick="saveMember()">Kaydet</button>
@@ -283,12 +299,41 @@
 
 <!-- Progress Modal -->
 <div class="modal-bg" id="modal-progress">
-  <div class="modal" style="width:600px">
+  <div class="modal" style="width:620px">
     <div class="modal-header">
       <div class="modal-title" id="progress-modal-title">İlerleme</div>
       <button class="modal-close" onclick="closeModal('modal-progress')">✕</button>
     </div>
     <div id="progress-modal-body"></div>
+  </div>
+</div>
+
+<!-- Custom Exercise Modal -->
+<div class="modal-bg" id="modal-newex">
+  <div class="modal" style="width:420px">
+    <div class="modal-header">
+      <div class="modal-title">Yeni Egzersiz Ekle</div>
+      <button class="modal-close" onclick="closeModal('modal-newex')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Egzersiz Adı</label><input class="form-input" id="newex-name"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div><label class="form-label">Kategori</label>
+        <select class="form-input" id="newex-cat">
+          <option>Göğüs</option><option>Sırt</option><option>Bacak</option><option>Omuz</option>
+          <option>Kol</option><option>Karın</option><option>Kalça</option><option>Diğer</option>
+        </select>
+      </div>
+      <div><label class="form-label">Ekipman</label>
+        <select class="form-input" id="newex-eq">
+          <option>Barbell</option><option>Dumbbell</option><option>Makine</option><option>Kablo</option>
+          <option>Vücut Ağırlığı</option><option>Kettlebell</option><option>Diğer</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn btn-ghost" onclick="closeModal('modal-newex')">İptal</button>
+      <button class="btn btn-primary" onclick="saveNewExercise()">Ekle</button>
+    </div>
   </div>
 </div>
 
@@ -307,13 +352,81 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 
+// ─── i18n ────────────────────────────────────────────────
+const LANG = 'tr';
+const I18N = {
+  tr: {
+    coachPanel:'Koç Paneli', templates:'Şablonlar', clients:'Üyeler', overview:'Genel Bakış',
+    exerciseLibrary:'Egzersiz Kütüphanesi', coach:'Koç', member:'Üye',
+    day:'Gün', sets:'Set', reps:'Tekrar', weight:'Kilo', rest:'Dinlenme', tempo:'Tempo',
+    notes:'Notlar', completed:'Tamamlandı', searchExercise:'Egzersiz ara...',
+    addExercise:'Egzersiz ekle', notFound:'Egzersiz bulunamadı', addNew:'+ Yeni egzersiz ekle',
+    recentlyUsed:'Son kullanılanlar', results:'Sonuçlar', restDone:'Dinlenme bitti! 💪',
+    saved:'Kaydedildi ✓', assigned:'Program atandı ✓',
+  },
+  // en: { ... } — altyapı hazır, ileride eklenecek
+};
+function t(key){ return (I18N[LANG]&&I18N[LANG][key])||key; }
+
+// ─── DEFAULT EXERCISE LIBRARY ────────────────────────────
+const DEFAULT_EXERCISES = [
+  // Squat pattern
+  {id:'back_squat',name:'Back Squat',cat:'Bacak',eq:'Barbell'},
+  {id:'front_squat',name:'Front Squat',cat:'Bacak',eq:'Barbell'},
+  {id:'hack_squat',name:'Hack Squat',cat:'Bacak',eq:'Makine'},
+  {id:'leg_press',name:'Leg Press',cat:'Bacak',eq:'Makine'},
+  {id:'goblet_squat',name:'Goblet Squat',cat:'Bacak',eq:'Dumbbell'},
+  // Hinge
+  {id:'deadlift',name:'Deadlift',cat:'Bacak',eq:'Barbell'},
+  {id:'rdl',name:'Romanian Deadlift',cat:'Bacak',eq:'Barbell'},
+  {id:'hip_thrust',name:'Hip Thrust',cat:'Kalça',eq:'Barbell'},
+  {id:'leg_curl',name:'Leg Curl',cat:'Bacak',eq:'Makine'},
+  {id:'good_morning',name:'Good Morning',cat:'Bacak',eq:'Barbell'},
+  // Lunge / single leg
+  {id:'walking_lunge',name:'Walking Lunge',cat:'Bacak',eq:'Dumbbell'},
+  {id:'bulgarian_split',name:'Bulgarian Split Squat',cat:'Bacak',eq:'Dumbbell'},
+  {id:'leg_extension',name:'Leg Extension',cat:'Bacak',eq:'Makine'},
+  {id:'calf_raise',name:'Calf Raise',cat:'Bacak',eq:'Makine'},
+  // Horizontal push
+  {id:'bench_press',name:'Bench Press',cat:'Göğüs',eq:'Barbell'},
+  {id:'incline_db_press',name:'Incline Dumbbell Press',cat:'Göğüs',eq:'Dumbbell'},
+  {id:'machine_chest_press',name:'Machine Chest Press',cat:'Göğüs',eq:'Makine'},
+  {id:'pushup',name:'Push-up',cat:'Göğüs',eq:'Vücut Ağırlığı'},
+  {id:'cable_fly',name:'Cable Fly',cat:'Göğüs',eq:'Kablo'},
+  {id:'pec_deck',name:'Pec Deck',cat:'Göğüs',eq:'Makine'},
+  // Vertical push
+  {id:'ohp',name:'Overhead Press',cat:'Omuz',eq:'Barbell'},
+  {id:'db_shoulder_press',name:'Dumbbell Shoulder Press',cat:'Omuz',eq:'Dumbbell'},
+  {id:'lateral_raise',name:'Lateral Raise',cat:'Omuz',eq:'Dumbbell'},
+  {id:'cable_lateral_raise',name:'Cable Lateral Raise',cat:'Omuz',eq:'Kablo'},
+  // Horizontal pull
+  {id:'barbell_row',name:'Barbell Row',cat:'Sırt',eq:'Barbell'},
+  {id:'cable_row',name:'Seated Cable Row',cat:'Sırt',eq:'Kablo'},
+  {id:'db_row',name:'One-Arm Dumbbell Row',cat:'Sırt',eq:'Dumbbell'},
+  {id:'chest_supported_row',name:'Chest Supported Row',cat:'Sırt',eq:'Makine'},
+  // Vertical pull
+  {id:'pullup',name:'Pull-up',cat:'Sırt',eq:'Vücut Ağırlığı'},
+  {id:'lat_pulldown',name:'Lat Pulldown',cat:'Sırt',eq:'Kablo'},
+  // Arms
+  {id:'biceps_curl',name:'Biceps Curl',cat:'Kol',eq:'Dumbbell'},
+  {id:'hammer_curl',name:'Hammer Curl',cat:'Kol',eq:'Dumbbell'},
+  {id:'triceps_pushdown',name:'Triceps Pushdown',cat:'Kol',eq:'Kablo'},
+  {id:'skull_crusher',name:'Skull Crusher',cat:'Kol',eq:'Barbell'},
+  // Core
+  {id:'plank',name:'Plank',cat:'Karın',eq:'Vücut Ağırlığı'},
+  {id:'cable_crunch',name:'Cable Crunch',cat:'Karın',eq:'Kablo'},
+];
+
 // ─── STATE ───────────────────────────────────────────────
 let state = {
-  mode:'coach', currentPage:'programs', loggedMember:null, editingProgId:null,
-  programs:[], members:[], assignments:[],
-  logs:{}, rpe:{}, notes:{}, completions:{}, comments:{},
+  mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null,
+  templates:[],       // coach-created templates
+  programs:[],        // cloned instances (assigned to members)
+  members:[],         // {id,name,code,injuries,coachNote}
+  exercises:[],       // exercise library
+  recentEx:[],        // recently used exercise names
+  logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{},
 };
-// IMPORTANT: tmpDays must live on window so inline onchange handlers can reach it
 window.tmpDays = [];
 let timerInterval = null;
 let timerSeconds = 0;
@@ -324,13 +437,16 @@ const GOALS = [
 ];
 const GOAL_COLORS = {hypertrophy:'var(--accent)',strength:'var(--blue)',deload:'var(--orange)',endurance:'var(--purple)',technique:'var(--green)'};
 const GOAL_LABELS = {hypertrophy:'Hipertrofi',strength:'Güç',deload:'Deload',endurance:'Dayanıklılık',technique:'Teknik'};
+const SET_TYPES = [{v:'W',l:'Isınma'},{v:'N',l:'Normal'},{v:'F',l:'Failure'},{v:'D',l:'Drop'}];
 
 // ─── STORAGE ─────────────────────────────────────────────
 async function save(){
   try {
     await setDoc(doc(db,'lyftr','data'),{
-      programs:state.programs, members:state.members, assignments:state.assignments,
-      logs:state.logs, rpe:state.rpe, notes:state.notes,
+      templates:state.templates, programs:state.programs, members:state.members,
+      exercises:state.exercises, recentEx:state.recentEx,
+      logs:state.logs, repsLog:state.repsLog, rpe:state.rpe, setTypes:state.setTypes,
+      notes:state.notes, pinnedNotes:state.pinnedNotes,
       completions:state.completions, comments:state.comments, updatedAt:Date.now(),
     });
   } catch(e){ console.error(e); toast('Kayıt hatası!'); }
@@ -340,38 +456,52 @@ async function load(){
     const snap = await getDoc(doc(db,'lyftr','data'));
     if(snap.exists()){
       const d = snap.data();
-      state.programs=d.programs||[]; state.members=d.members||[];
-      state.assignments=d.assignments||[]; state.logs=d.logs||{};
-      state.rpe=d.rpe||{}; state.notes=d.notes||{};
+      state.templates=d.templates||[]; state.programs=d.programs||[];
+      state.members=d.members||[]; state.exercises=d.exercises||[];
+      state.recentEx=d.recentEx||[];
+      state.logs=d.logs||{}; state.repsLog=d.repsLog||{}; state.rpe=d.rpe||{};
+      state.setTypes=d.setTypes||{}; state.notes=d.notes||{};
+      state.pinnedNotes=d.pinnedNotes||{};
       state.completions=d.completions||{}; state.comments=d.comments||{};
+    }
+    // Seed exercise library if empty
+    if(!state.exercises.length){
+      state.exercises = DEFAULT_EXERCISES.slice();
+      await save();
     }
   } catch(e){ console.error(e); }
 }
 
-// ─── EXERCISE HISTORY ────────────────────────────────────
-// Returns history of an exercise name for a member across all programs
+// ─── 1RM (Epley) ─────────────────────────────────────────
+function epley(w,r){ if(!w||!r) return 0; return Math.round(w*(1+r/30)*10)/10; }
+
+// ─── EXERCISE HISTORY (across all program instances) ─────
 function getExerciseHistory(memberId, exName){
-  if(!memberId || !exName) return null;
-  const nameLower = exName.trim().toLowerCase();
-  if(!nameLower) return null;
-  const results = [];
-  state.programs.forEach(p=>{
+  if(!memberId||!exName) return null;
+  const nl=exName.trim().toLowerCase();
+  if(!nl) return null;
+  const results=[];
+  state.programs.filter(p=>p.memberId===memberId).forEach(p=>{
     p.days.forEach((d,di)=>{
       d.exercises.forEach((ex,ei)=>{
-        if((ex.name||'').trim().toLowerCase() === nameLower){
-          const sc = parseInt(ex.sets)||0;
-          let maxW=0, rpeVals=[];
+        if((ex.name||'').trim().toLowerCase()===nl){
+          const sc=parseInt(ex.sets)||0;
+          let maxW=0,rpeVals=[],bestE1rm=0,allRepsTop=true,repsLogged=0;
+          const topReps = parseRepTop(ex.reps);
           for(let si=0;si<sc;si++){
             const key=`${memberId}_${p.id}_${di}_${ei}_${si}`;
             const w=parseFloat(state.logs[key])||0;
+            const r=parseInt(state.repsLog[key])||0;
             if(w>maxW) maxW=w;
-            const r=parseFloat(state.rpe[key])||0;
-            if(r>0) rpeVals.push(r);
+            if(w&&r){ const e=epley(w,r); if(e>bestE1rm) bestE1rm=e; repsLogged++; if(topReps&&r<topReps) allRepsTop=false; }
+            const rp=parseFloat(state.rpe[key])||0;
+            if(rp>0) rpeVals.push(rp);
           }
-          if(maxW>0 || rpeVals.length>0){
+          if(maxW>0||rpeVals.length>0){
             results.push({
-              progName:p.name, sets:ex.sets, reps:ex.reps, maxW,
-              avgRpe: rpeVals.length?Math.round(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length*10)/10:null,
+              progName:p.name, sets:ex.sets, reps:ex.reps, maxW, bestE1rm,
+              avgRpe:rpeVals.length?Math.round(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length*10)/10:null,
+              hitTopReps: repsLogged>0&&allRepsTop&&topReps>0,
               createdAt:p.createdAt||0
             });
           }
@@ -382,8 +512,148 @@ function getExerciseHistory(memberId, exName){
   results.sort((a,b)=>b.createdAt-a.createdAt);
   return results.length?results:null;
 }
+function parseRepTop(reps){
+  if(!reps) return 0;
+  const m=String(reps).match(/(\d+)\s*[-–]\s*(\d+)/);
+  if(m) return parseInt(m[2]);
+  const n=parseInt(reps); return isNaN(n)?0:n;
+}
+// Double progression suggestion: if member hit top reps on all sets → suggest +2.5kg
+function getSuggestion(memberId, exName){
+  const hist=getExerciseHistory(memberId,exName);
+  if(!hist||!hist.length) return null;
+  const last=hist[0];
+  if(last.hitTopReps&&last.maxW>0){
+    return {w:Math.round((last.maxW+2.5)*2)/2, reason:`tüm setlerde üst tekrar sınırına ulaşıldı (${last.reps})`};
+  }
+  return null;
+}
+// Last logged weight/reps for autofill
+function getLastSetData(memberId, exName, si){
+  if(!memberId||!exName) return null;
+  const nl=exName.trim().toLowerCase();
+  const progs=state.programs.filter(p=>p.memberId===memberId).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  for(const p of progs){
+    for(let di=0;di<p.days.length;di++){
+      const d=p.days[di];
+      for(let ei=0;ei<d.exercises.length;ei++){
+        const ex=d.exercises[ei];
+        if((ex.name||'').trim().toLowerCase()===nl){
+          const key=`${memberId}_${p.id}_${di}_${ei}_${si}`;
+          const w=state.logs[key], r=state.repsLog[key];
+          if(w||r) return {w:w||'',r:r||''};
+        }
+      }
+    }
+  }
+  return null;
+}
 
-// ─── NAV ─────────────────────────────────────────────────
+// ─── EXERCISE DROPDOWN COMPONENT ─────────────────────────
+// Searchable, keyboard nav, recently used, custom add
+let ddState = {openFor:null, hl:-1, results:[]};
+
+function exDropdownHTML(di,ei,value){
+  return `<div class="ex-dd" id="exdd-${di}-${ei}">
+    <input class="form-input" id="exddi-${di}-${ei}" value="${(value||'').replace(/"/g,'&quot;')}"
+      placeholder="${t('searchExercise')}" autocomplete="off"
+      oninput="window._ddInput(${di},${ei},this.value)"
+      onfocus="window._ddInput(${di},${ei},this.value)"
+      onkeydown="window._ddKey(event,${di},${ei})"
+      onblur="window._ddBlur(${di},${ei})">
+    <div class="ex-dd-list hidden" id="exddl-${di}-${ei}"></div>
+  </div>`;
+}
+
+window._ddInput = function(di,ei,q){
+  const listEl=document.getElementById(`exddl-${di}-${ei}`);
+  if(!listEl) return;
+  ddState.openFor=`${di}-${ei}`; ddState.hl=-1;
+  const ql=(q||'').trim().toLowerCase();
+  let results;
+  if(!ql){
+    // show recently used first, then all
+    const recent=state.recentEx.map(n=>state.exercises.find(e=>e.name===n)).filter(Boolean).slice(0,5);
+    const rest=state.exercises.filter(e=>!state.recentEx.includes(e.name)).slice(0,8);
+    ddState.results=[...recent,...rest];
+    listEl.innerHTML=
+      (recent.length?`<div class="ex-dd-section">${t('recentlyUsed')}</div>`+recent.map((e,i)=>ddItemHTML(e,i,di,ei)).join(''):'')+
+      `<div class="ex-dd-section">${t('exerciseLibrary')}</div>`+
+      rest.map((e,i)=>ddItemHTML(e,recent.length+i,di,ei)).join('');
+  } else {
+    results=state.exercises.filter(e=>e.name.toLowerCase().includes(ql)).slice(0,10);
+    ddState.results=results;
+    listEl.innerHTML=results.length
+      ? results.map((e,i)=>ddItemHTML(e,i,di,ei)).join('')
+      : `<div class="ex-dd-empty">${t('notFound')}</div>
+         <div class="ex-dd-item" style="color:var(--accent)" onmousedown="window._ddAddNew(${di},${ei})">${t('addNew')}</div>`;
+  }
+  listEl.classList.remove('hidden');
+};
+function ddItemHTML(e,i,di,ei){
+  return `<div class="ex-dd-item ${ddState.hl===i?'hl':''}" data-i="${i}"
+    onmousedown="window._ddPick(${di},${ei},'${e.name.replace(/'/g,"\\'")}')">
+    <span>${e.name}</span><span class="ex-meta">${e.cat} · ${e.eq}</span>
+  </div>`;
+}
+window._ddKey = function(ev,di,ei){
+  const listEl=document.getElementById(`exddl-${di}-${ei}`);
+  if(!listEl||listEl.classList.contains('hidden')) return;
+  if(ev.key==='ArrowDown'){ ev.preventDefault(); ddState.hl=Math.min(ddState.hl+1,ddState.results.length-1); hlUpdate(listEl); }
+  else if(ev.key==='ArrowUp'){ ev.preventDefault(); ddState.hl=Math.max(ddState.hl-1,0); hlUpdate(listEl); }
+  else if(ev.key==='Enter'){
+    ev.preventDefault();
+    if(ddState.hl>=0&&ddState.results[ddState.hl]) window._ddPick(di,ei,ddState.results[ddState.hl].name);
+  }
+  else if(ev.key==='Escape'){ listEl.classList.add('hidden'); }
+};
+function hlUpdate(listEl){
+  listEl.querySelectorAll('.ex-dd-item').forEach(el=>{
+    el.classList.toggle('hl', parseInt(el.dataset.i)===ddState.hl);
+  });
+}
+window._ddPick = function(di,ei,name){
+  window.tmpDays[di].exercises[ei].name=name;
+  // update recently used
+  state.recentEx=[name,...state.recentEx.filter(n=>n!==name)].slice(0,10);
+  renderDays();
+};
+window._ddBlur = function(di,ei){
+  setTimeout(()=>{
+    const listEl=document.getElementById(`exddl-${di}-${ei}`);
+    if(listEl) listEl.classList.add('hidden');
+    // keep typed text as custom name even if not picked
+    const inp=document.getElementById(`exddi-${di}-${ei}`);
+    if(inp&&window.tmpDays[di]&&window.tmpDays[di].exercises[ei]) window.tmpDays[di].exercises[ei].name=inp.value;
+  },180);
+};
+window._ddAddNew = function(di,ei){
+  const inp=document.getElementById(`exddi-${di}-${ei}`);
+  document.getElementById('newex-name').value=inp?inp.value:'';
+  window._newExTarget={di,ei};
+  openModal('modal-newex');
+};
+function saveNewExercise(){
+  const name=document.getElementById('newex-name').value.trim();
+  if(!name){ toast('İsim giriniz'); return; }
+  if(state.exercises.find(e=>e.name.toLowerCase()===name.toLowerCase())){ toast('Bu egzersiz zaten var'); return; }
+  const ex={id:'custom_'+uid(),name,cat:document.getElementById('newex-cat').value,eq:document.getElementById('newex-eq').value,custom:true};
+  state.exercises.push(ex);
+  save();
+  closeModal('modal-newex');
+  if(window._newExTarget){
+    const {di,ei}=window._newExTarget;
+    if(window.tmpDays[di]&&window.tmpDays[di].exercises[ei]){
+      window.tmpDays[di].exercises[ei].name=name;
+      state.recentEx=[name,...state.recentEx.filter(n=>n!==name)].slice(0,10);
+      renderDays();
+    }
+    window._newExTarget=null;
+  } else { render(); }
+  toast('Egzersiz eklendi ✓');
+}
+
+// ─── NAV / RENDER ────────────────────────────────────────
 function navigate(page){
   state.currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
@@ -395,47 +665,63 @@ function setMode(mode){
   state.mode='coach'; state.loggedMember=null;
   document.getElementById('mode-coach').classList.add('active');
   document.getElementById('mode-member').classList.remove('active');
-  navigate('programs');
+  navigate('templates');
 }
-
-// ─── RENDER ──────────────────────────────────────────────
 function render(){
   const el=document.getElementById('main-content');
   if(state.mode==='member'&&state.loggedMember) el.innerHTML=renderMemberView();
-  else if(state.currentPage==='programs') el.innerHTML=renderPrograms();
+  else if(state.currentPage==='templates') el.innerHTML=renderTemplates();
   else if(state.currentPage==='members') el.innerHTML=renderMembers();
   else if(state.currentPage==='overview') el.innerHTML=renderOverview();
+  else if(state.currentPage==='exercises') el.innerHTML=renderExerciseLib();
 }
 
-// ─── COACH: PROGRAMS ─────────────────────────────────────
-function renderPrograms(){
-  const progs=state.programs;
+// ─── EXERCISE LIBRARY PAGE ───────────────────────────────
+function renderExerciseLib(){
+  const cats=[...new Set(state.exercises.map(e=>e.cat))];
   return `
     <div class="page-header">
-      <div><div class="page-title">Programlar</div><div class="page-sub">${progs.length} program</div></div>
-      <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Program</button>
+      <div><div class="page-title">${t('exerciseLibrary')}</div><div class="page-sub">${state.exercises.length} egzersiz</div></div>
+      <button class="btn btn-primary" onclick="window._newExTarget=null;document.getElementById('newex-name').value='';openModal('modal-newex')">+ ${t('addExercise')}</button>
     </div>
-    ${progs.length===0?`<div class="empty"><div class="empty-icon">📋</div><p>Henüz program yok.</p></div>`:
-      progs.map(p=>{
-        const ac=state.assignments.filter(a=>a.programId===p.id).length;
+    ${cats.map(c=>`
+      <div class="section-head" style="margin-top:18px">${c}</div>
+      <div class="card" style="padding:0;overflow:hidden">
+        ${state.exercises.filter(e=>e.cat===c).map(e=>`
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.04)">
+            <span style="font-size:13.5px;font-weight:500">${e.name}${e.custom?' <span class="badge badge-purple" style="margin-left:6px">özel</span>':''}</span>
+            <span style="font-size:12px;color:var(--text3)">${e.eq}</span>
+          </div>`).join('')}
+      </div>`).join('')}`;
+}
+
+// ─── TEMPLATES PAGE ──────────────────────────────────────
+function renderTemplates(){
+  const tps=state.templates;
+  return `
+    <div class="page-header">
+      <div><div class="page-title">${t('templates')}</div><div class="page-sub">${tps.length} şablon · ${state.programs.length} aktif atama</div></div>
+      <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Şablon</button>
+    </div>
+    ${tps.length===0?`<div class="empty"><div class="empty-icon">📋</div><p>Henüz şablon yok.</p></div>`:
+      tps.map(p=>{
+        const ac=state.programs.filter(x=>x.templateId===p.id).length;
         const te=p.days.reduce((a,d)=>a+d.exercises.length,0);
-        const mName = p.memberId ? (state.members.find(m=>m.id===p.memberId)||{}).name : null;
         return `<div class="card" style="margin-bottom:12px">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between">
-            <div style="flex:1">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <div style="flex:1;min-width:200px">
               <div style="font-size:16px;font-weight:700;margin-bottom:4px">${p.name}</div>
-              <div style="color:var(--text2);font-size:13px;margin-bottom:12px">${p.desc||'Açıklama yok'}</div>
+              <div style="color:var(--text2);font-size:13px;margin-bottom:12px">${p.desc||''}</div>
               <div style="display:flex;gap:8px;flex-wrap:wrap">
-                <span class="badge badge-green">${p.days.length} gün</span>
+                <span class="badge badge-green">${p.days.length} ${t('day').toLowerCase()}</span>
                 <span class="badge badge-gray">${te} egzersiz</span>
-                <span class="badge badge-blue">${ac} atama</span>
-                ${mName?`<span class="badge badge-purple">👤 ${mName} için</span>`:''}
+                <span class="badge badge-blue">${ac} aktif atama</span>
               </div>
             </div>
-            <div style="display:flex;gap:6px;margin-left:16px">
+            <div style="display:flex;gap:6px">
               <button class="btn btn-ghost btn-sm" onclick="editProgram('${p.id}')">Düzenle</button>
-              <button class="btn btn-ghost btn-sm" onclick="openAssign('${p.id}')">Ata</button>
-              <button class="btn btn-danger btn-sm" onclick="deleteProgram('${p.id}')">Sil</button>
+              <button class="btn btn-primary btn-sm" onclick="openAssign('${p.id}')">Ata</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteTemplate('${p.id}')">Sil</button>
             </div>
           </div>
           <div class="divider" style="margin:14px 0 12px"></div>
@@ -450,19 +736,18 @@ function renderPrograms(){
       }).join('')}`;
 }
 
-// ─── COACH: MEMBERS ──────────────────────────────────────
+// ─── MEMBERS PAGE ────────────────────────────────────────
 function renderMembers(){
   return `
     <div class="page-header">
-      <div><div class="page-title">Üyeler</div><div class="page-sub">${state.members.length} üye</div></div>
-      <button class="btn btn-primary" onclick="openModal('modal-member')">+ Üye Ekle</button>
+      <div><div class="page-title">${t('clients')}</div><div class="page-sub">${state.members.length} üye</div></div>
+      <button class="btn btn-primary" onclick="openMemberModal()">+ Üye Ekle</button>
     </div>
     ${state.members.length===0?`<div class="empty"><div class="empty-icon">👤</div><p>Henüz üye yok.</p></div>`:`
     <div class="card" style="padding:0;overflow:hidden">
-      <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Program</th><th>İlerleme</th><th></th></tr></thead><tbody>
+      <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Program</th><th>Uyum</th><th></th></tr></thead><tbody>
       ${state.members.map(m=>{
-        const asgn=state.assignments.find(a=>a.memberId===m.id);
-        const prog=asgn?state.programs.find(p=>p.id===asgn.programId):null;
+        const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
         let pct=0;
         if(prog){
           const tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
@@ -470,12 +755,18 @@ function renderMembers(){
           pct=tot>0?Math.round(done/tot*100):0;
         }
         return `<tr>
-          <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar">${m.name.charAt(0).toUpperCase()}</div><span style="font-weight:500">${m.name}</span></div></td>
+          <td><div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
+            <div>
+              <div style="font-weight:500">${m.name}</div>
+              ${m.injuries?`<div style="font-size:11px;color:var(--orange)">⚠ ${m.injuries.substring(0,40)}${m.injuries.length>40?'...':''}</div>`:''}
+            </div>
+          </div></td>
           <td><span class="share-code" style="font-size:13px;letter-spacing:2px">${m.code}</span></td>
           <td>${prog?`<span class="badge badge-green">${prog.name}</span>`:`<span class="badge badge-gray">Atanmadı</span>`}</td>
-          <td style="min-width:130px">${prog?`<div style="display:flex;align-items:center;gap:8px"><div class="progress-wrap" style="flex:1"><div class="progress-bar" style="width:${pct}%"></div></div><span style="font-size:11px;color:var(--text2)">${pct}%</span></div>`:'—'}</td>
+          <td style="min-width:120px">${prog?`<div style="display:flex;align-items:center;gap:8px"><div class="progress-wrap" style="flex:1"><div class="progress-bar" style="width:${pct}%"></div></div><span style="font-size:11px;color:var(--text2)">${pct}%</span></div>`:'—'}</td>
           <td><div style="display:flex;gap:6px">
-            <button class="btn btn-ghost btn-sm" onclick="openAssignForMember('${m.id}')">Ata</button>
+            <button class="btn btn-ghost btn-sm" onclick="openMemberModal('${m.id}')">Profil</button>
             <button class="btn btn-primary btn-sm" onclick="openShare('${m.id}')">🔗</button>
             <button class="btn btn-danger btn-sm" onclick="deleteMember('${m.id}')">Sil</button>
           </div></td>
@@ -485,13 +776,13 @@ function renderMembers(){
     </div>`}`;
 }
 
-// ─── COACH: OVERVIEW ─────────────────────────────────────
+// ─── OVERVIEW PAGE ───────────────────────────────────────
 function renderOverview(){
   const totalDone=Object.keys(state.completions).length;
   return `
-    <div class="page-header"><div><div class="page-title">Genel Bakış</div><div class="page-sub">Tüm üyelerin özeti</div></div></div>
+    <div class="page-header"><div><div class="page-title">${t('overview')}</div><div class="page-sub">Tüm üyelerin özeti</div></div></div>
     <div class="grid-3" style="margin-bottom:20px">
-      <div class="stat-card"><div class="stat-label">Program</div><div class="stat-value accent">${state.programs.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Şablon</div><div class="stat-value accent">${state.templates.length}</div></div>
       <div class="stat-card"><div class="stat-label">Üye</div><div class="stat-value">${state.members.length}</div></div>
       <div class="stat-card"><div class="stat-label">Tamamlanan Set</div><div class="stat-value">${totalDone}</div></div>
     </div>
@@ -499,8 +790,7 @@ function renderOverview(){
       <div style="padding:16px 20px;border-bottom:1px solid var(--border);font-weight:600">Üye Aktivitesi</div>
       ${state.members.length===0?`<div class="empty"><p>Henüz üye yok.</p></div>`:
         state.members.map(m=>{
-          const asgn=state.assignments.find(a=>a.memberId===m.id);
-          const prog=asgn?state.programs.find(p=>p.id===asgn.programId):null;
+          const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
           let pct=0,done=0,tot=0;
           if(prog){
             tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
@@ -516,6 +806,7 @@ function renderOverview(){
               <div style="font-weight:500;margin-bottom:2px">${m.name}</div>
               <div style="font-size:12px;color:var(--text2)">${prog?prog.name:'Program atanmadı'}</div>
               ${lastCmt?`<div style="font-size:11px;color:var(--blue);margin-top:3px">💬 "${lastCmt.text.substring(0,70)}${lastCmt.text.length>70?'...':''}"</div>`:''}
+              ${m.coachNote?`<div style="font-size:11px;color:var(--text3);margin-top:2px">📝 ${m.coachNote.substring(0,60)}</div>`:''}
             </div>
             ${prog?`<div style="min-width:160px">
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
@@ -532,8 +823,7 @@ function renderOverview(){
 // ─── MEMBER VIEW ─────────────────────────────────────────
 function renderMemberView(){
   const m=state.loggedMember;
-  const asgn=state.assignments.find(a=>a.memberId===m.id);
-  const prog=asgn?state.programs.find(p=>p.id===asgn.programId):null;
+  const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
   const logoutBtn=`<button class="btn btn-ghost btn-sm" onclick="logoutMember()">Çıkış</button>`;
 
   if(!prog) return `
@@ -554,6 +844,7 @@ function renderMemberView(){
       <div style="flex:1">
         <div class="page-title">Merhaba, ${m.name} 👋</div>
         <div class="page-sub">${prog.name}</div>
+        ${m.injuries?`<div style="font-size:12px;color:var(--orange);margin-top:4px">⚠ ${m.injuries}</div>`:''}
       </div>
       <div style="display:flex;align-items:center;gap:12px">
         <div style="text-align:right">
@@ -583,19 +874,20 @@ function renderMemberView(){
             <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:8px">${day.name}</div>
             ${day.exercises.map((ex,ei)=>{
               const sc=parseInt(ex.sets)||3;
-              const ws=[];
+              let maxW=0,bestE=0;
               for(let si=0;si<sc;si++){
-                const w=parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
-                if(w>0) ws.push(w);
+                const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
+                const w=parseFloat(state.logs[key])||0;
+                const r=parseInt(state.repsLog[key])||0;
+                if(w>maxW) maxW=w;
+                if(w&&r){ const e=epley(w,r); if(e>bestE) bestE=e; }
               }
-              const maxW=ws.length?Math.max(...ws):0;
-              const avgW=ws.length?Math.round(ws.reduce((a,b)=>a+b,0)/ws.length):0;
               return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
                 <span style="font-size:13px">${ex.name||'Egzersiz '+(ei+1)}</span>
-                <div style="display:flex;gap:10px">
+                <div style="display:flex;gap:8px">
                   ${maxW>0?`<span class="pr-badge">Max ${maxW}kg</span>`:''}
-                  ${avgW>0?`<span class="badge badge-gray">Ort ${avgW}kg</span>`:''}
-                  ${ws.length===0?`<span style="font-size:12px;color:var(--text3)">Veri yok</span>`:''}
+                  ${bestE>0?`<span class="badge badge-blue">e1RM ${bestE}kg</span>`:''}
+                  ${maxW===0?`<span style="font-size:12px;color:var(--text3)">Veri yok</span>`:''}
                 </div>
               </div>`;
             }).join('')}
@@ -623,84 +915,101 @@ function renderMemberDay(m,prog,day,di){
       if(!state.completions[`${m.id}_${prog.id}_${di}_${ei}_${si}`]) return false;
     return true;
   });
-  const goalColor = GOAL_COLORS[day.goal]||'var(--text3)';
+  const goalColor=GOAL_COLORS[day.goal]||'var(--text3)';
+  // group supersets visually
   return `<div class="day-card">
     <div class="day-card-head">
-      <div style="display:flex;align-items:center;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span style="font-size:15px;font-weight:700">${dayDone?'✅':'📅'} ${day.name||'Gün '+(di+1)}</span>
         ${day.goal?`<span class="goal-pill" style="background:${goalColor}22;color:${goalColor}">${GOAL_LABELS[day.goal]||''}</span>`:''}
         ${day.duration?`<span class="target-chip">⏱ ~${day.duration} dk</span>`:''}
       </div>
-      ${dayDone?'<span class="badge badge-green">Tamamlandı</span>':''}
+      ${dayDone?`<span class="badge badge-green">${t('completed')}</span>`:''}
     </div>
     <div class="day-card-body">
       ${day.note?`<div style="background:var(--surface2);border-left:3px solid var(--accent);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--text2);margin-bottom:12px">📌 ${day.note}</div>`:''}
       ${day.exercises.length===0?'<p style="color:var(--text3);font-size:13px">Egzersiz yok.</p>':
-        day.exercises.map((ex,ei)=>{
-          const sc=parseInt(ex.sets)||3;
-          const noteKey=`${m.id}_${prog.id}_${di}_${ei}`;
-          const noteVal=state.notes[noteKey]||'';
-          let pr=0;
-          for(let si=0;si<sc;si++){
-            const w=parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
-            if(w>pr) pr=w;
-          }
-          const sets=[];
-          for(let si=0;si<sc;si++){
-            const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
-            const isDone=!!state.completions[key];
-            const wt=state.logs[key]||'';
-            const rpeVal=state.rpe[key]||'';
-            sets.push(`<div class="set-row">
-              <div class="check-box ${isDone?'done':''}" onclick="toggleSet('${key}',${ex.rest||90})">
-                ${isDone?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
-              </div>
-              <span style="font-size:12px;color:var(--text2);min-width:40px">Set ${si+1}</span>
-              <span style="font-size:12px;color:var(--text2);min-width:64px">${ex.reps||'—'} tekrar</span>
-              <input class="form-input" style="width:76px;padding:5px 8px;font-size:12px" placeholder="${ex.targetW?ex.targetW+'kg':'kg'}" value="${wt}" onchange="logWeight('${key}',this.value)">
-              <select class="rpe-select" onchange="logRpe('${key}',this.value)">
-                <option value="">RPE</option>
-                ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
-              </select>
-              ${ex.targetRpe?`<span class="target-chip">hedef ${ex.targetRpe}</span>`:''}
-            </div>`);
-          }
-          return `<div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:10px">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:8px">
-              <div style="flex:1">
-                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-                  <span style="font-weight:700;font-size:15px">${ex.name||'Egzersiz '+(ei+1)}</span>
-                  <span class="badge badge-gray">${sc} × ${ex.reps||'—'}</span>
-                  ${pr>0?`<span class="pr-badge">PR ${pr}kg</span>`:''}
-                </div>
-                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
-                  ${ex.rest?`<span class="target-chip">⏱ ${ex.rest}s dinlenme</span>`:''}
-                  ${ex.tempo?`<span class="target-chip">🎵 Tempo ${ex.tempo}</span>`:''}
-                  ${ex.targetW?`<span class="target-chip">🎯 ${ex.targetW}kg</span>`:''}
-                </div>
-                ${ex.coachNote?`<div style="font-size:12px;color:var(--orange);margin-top:6px">💡 Koç: ${ex.coachNote}</div>`:''}
-              </div>
-              <button class="btn btn-ghost btn-sm" onclick="showProgress('${m.id}','${prog.id}','${di}','${ei}','${(ex.name||'Egzersiz').replace(/'/g,"")}')">📈</button>
-            </div>
-            ${sets.join('')}
-            <textarea class="note-box" rows="1" placeholder="Notun..." onchange="logNote('${noteKey}',this.value)">${noteVal}</textarea>
-          </div>`;
-        }).join('')}
+        day.exercises.map((ex,ei)=>renderMemberExercise(m,prog,day,di,ex,ei)).join('')}
     </div>
   </div>`;
 }
 
-// ─── TABS ────────────────────────────────────────────────
-function switchTab(tab){
-  ['program','progress','comments'].forEach(t=>{
-    const tabEl=document.getElementById('tab-'+t);
-    const cEl=document.getElementById('tab-'+t+'-content');
-    if(tabEl) tabEl.classList.toggle('active',t===tab);
-    if(cEl) cEl.classList.toggle('hidden',t!==tab);
-  });
+function renderMemberExercise(m,prog,day,di,ex,ei){
+  const sc=parseInt(ex.sets)||3;
+  const noteKey=`${m.id}_${prog.id}_${di}_${ei}`;
+  const noteVal=state.notes[noteKey]||'';
+  const pinKey=m.id+'_'+(ex.name||'').trim().toLowerCase();
+  const pinnedVal=state.pinnedNotes[pinKey]||'';
+  let pr=0;
+  for(let si=0;si<sc;si++){
+    const w=parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
+    if(w>pr) pr=w;
+  }
+  const sets=[];
+  for(let si=0;si<sc;si++){
+    const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
+    const isDone=!!state.completions[key];
+    const wt=state.logs[key]||'';
+    const rp=state.repsLog[key]||'';
+    const rpeVal=state.rpe[key]||'';
+    const stype=state.setTypes[key]||'N';
+    // Autofill: previous data from older programs
+    const lastData=(!wt&&!rp)?getLastSetData(m.id,ex.name,si):null;
+    sets.push(`<div class="set-row ${stype==='W'?'warmup':''}">
+      <div class="check-box ${isDone?'done':''}" onclick="toggleSet('${key}',${ex.rest||90})">
+        ${isDone?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
+      </div>
+      <select class="set-type-select" onchange="logSetType('${key}',this.value)" title="Set tipi">
+        ${SET_TYPES.map(s=>`<option value="${s.v}" ${stype===s.v?'selected':''}>${s.v==='N'?('S'+(si+1)):s.l.substring(0,3)}</option>`).join('')}
+      </select>
+      <input class="form-input" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW?ex.targetW:'kg'}" value="${wt}" onchange="logWeight('${key}',this.value)" inputmode="decimal">
+      <span style="font-size:11px;color:var(--text3)">kg</span>
+      <input class="form-input" style="width:56px;padding:5px 7px;font-size:12px" placeholder="${ex.reps||'tekrar'}" value="${rp}" onchange="logReps('${key}',this.value)" inputmode="numeric">
+      <span style="font-size:11px;color:var(--text3)">tk</span>
+      <select class="rpe-select" onchange="logRpe('${key}',this.value)">
+        <option value="">RPE</option>
+        ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
+      </select>
+      ${lastData?`<span class="autofill-chip" onclick="autofillSet('${key}','${lastData.w}','${lastData.r}')">↩ ${lastData.w?lastData.w+'kg':''}${lastData.r?' × '+lastData.r:''}</span>`:''}
+    </div>`);
+  }
+  return `<div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:8px">
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          ${ex.superset?`<span class="superset-tag">${ex.superset}</span>`:''}
+          <span style="font-weight:700;font-size:15px">${ex.name||'Egzersiz '+(ei+1)}</span>
+          <span class="badge badge-gray">${sc} × ${ex.reps||'—'}</span>
+          ${pr>0?`<span class="pr-badge">PR ${pr}kg</span>`:''}
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+          ${ex.rest?`<span class="target-chip">⏱ ${ex.rest}s</span>`:''}
+          ${ex.tempo?`<span class="target-chip">🎵 ${ex.tempo}</span>`:''}
+          ${ex.targetW?`<span class="target-chip">🎯 ${ex.targetW}kg</span>`:''}
+          ${ex.targetRpe?`<span class="target-chip">RPE ${ex.targetRpe}</span>`:''}
+        </div>
+        ${ex.coachNote?`<div style="font-size:12px;color:var(--orange);margin-top:6px">💡 Koç: ${ex.coachNote}</div>`:''}
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="showProgress('${m.id}','${prog.id}','${di}','${ei}','${(ex.name||'Egzersiz').replace(/'/g,"")}')">📈</button>
+    </div>
+    ${sets.join('')}
+    ${pinnedVal?`<div class="pinned-note">📌 <span>${pinnedVal}</span></div>`:''}
+    <div style="display:flex;gap:6px;margin-top:8px;align-items:flex-start">
+      <textarea class="note-box" style="margin-top:0;flex:1" rows="1" placeholder="Bu antrenman için not..." onchange="logNote('${noteKey}',this.value)">${noteVal}</textarea>
+      <button class="btn btn-ghost btn-sm" style="white-space:nowrap" title="Kalıcı egzersiz notu — her programda görünür" onclick="editPinnedNote('${pinKey}','${(ex.name||'').replace(/'/g,"")}')">📌</button>
+    </div>
+  </div>`;
 }
 
-// ─── TIMER ───────────────────────────────────────────────
+// ─── TABS / TIMER / TRACKING ─────────────────────────────
+function switchTab(tab){
+  ['program','progress','comments'].forEach(tb=>{
+    const tabEl=document.getElementById('tab-'+tb);
+    const cEl=document.getElementById('tab-'+tb+'-content');
+    if(tabEl) tabEl.classList.toggle('active',tb===tab);
+    if(cEl) cEl.classList.toggle('hidden',tb!==tab);
+  });
+}
 function startTimer(seconds){
   stopTimer();
   timerSeconds=seconds;
@@ -712,7 +1021,7 @@ function startTimer(seconds){
   timerInterval=setInterval(()=>{
     timerSeconds--;
     cnt.textContent=timerSeconds;
-    if(timerSeconds<=0){ stopTimer(); toast('Dinlenme bitti! 💪'); }
+    if(timerSeconds<=0){ stopTimer(); toast(t('restDone')); }
     else if(timerSeconds<=10) cnt.style.color='var(--red)';
   },1000);
 }
@@ -722,15 +1031,29 @@ function stopTimer(){
 }
 function addTimer(s){ timerSeconds+=s; document.getElementById('timer-count').textContent=timerSeconds; }
 
-// ─── TRACKING ────────────────────────────────────────────
 function toggleSet(key,rest){
   if(state.completions[key]) delete state.completions[key];
   else { state.completions[key]=true; startTimer(parseInt(rest)||90); }
   save(); render();
 }
 function logWeight(key,val){ if(val) state.logs[key]=val; else delete state.logs[key]; save(); }
+function logReps(key,val){ if(val) state.repsLog[key]=val; else delete state.repsLog[key]; save(); }
 function logRpe(key,val){ if(val) state.rpe[key]=val; else delete state.rpe[key]; save(); }
+function logSetType(key,val){ if(val&&val!=='N') state.setTypes[key]=val; else delete state.setTypes[key]; save(); render(); }
 function logNote(key,val){ if(val) state.notes[key]=val; else delete state.notes[key]; save(); }
+function autofillSet(key,w,r){
+  if(w) state.logs[key]=w;
+  if(r) state.repsLog[key]=r;
+  save(); render();
+}
+function editPinnedNote(pinKey,exName){
+  const current=state.pinnedNotes[pinKey]||'';
+  const txt=prompt(`📌 "${exName}" için kalıcı not — her programda bu egzersizde görünür:`,current);
+  if(txt===null) return;
+  if(txt.trim()) state.pinnedNotes[pinKey]=txt.trim();
+  else delete state.pinnedNotes[pinKey];
+  save(); render();
+}
 function sendComment(ck){
   const el=document.getElementById('new-comment');
   const text=el.value.trim();
@@ -746,15 +1069,19 @@ function showProgress(mId,progId,di,ei,exName){
   const prog=state.programs.find(p=>p.id===progId);
   const sc=prog?(parseInt(prog.days[di]?.exercises[ei]?.sets)||3):3;
   const weights=[];
+  let bestE=0;
   for(let si=0;si<sc;si++){
-    const w=parseFloat(state.logs[`${mId}_${progId}_${di}_${ei}_${si}`])||0;
+    const key=`${mId}_${progId}_${di}_${ei}_${si}`;
+    const w=parseFloat(state.logs[key])||0;
+    const r=parseInt(state.repsLog[key])||0;
+    if(w&&r){ const e=epley(w,r); if(e>bestE) bestE=e; }
     weights.push({label:`Set ${si+1}`,w});
   }
-  // history across programs
   const hist=getExerciseHistory(mId,exName);
   const max=Math.max(...weights.map(x=>x.w),1);
   document.getElementById('progress-modal-title').textContent=exName;
   document.getElementById('progress-modal-body').innerHTML=`
+    ${bestE>0?`<div style="margin-bottom:12px"><span class="badge badge-blue">Tahmini 1RM: ${bestE}kg</span></div>`:''}
     <div class="section-head">Bu programdaki setler</div>
     <div style="display:flex;align-items:flex-end;gap:12px;height:140px;padding:10px 0 4px">
       ${weights.map(({label,w})=>`
@@ -769,13 +1096,13 @@ function showProgress(mId,progId,di,ei,exName){
       <div class="section-head">Geçmiş programlar</div>
       ${hist.slice(1).map(h=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
         <span style="color:var(--text2)">${h.progName} — ${h.sets}×${h.reps}</span>
-        <span>${h.maxW?`<span class="pr-badge">${h.maxW}kg</span>`:''} ${h.avgRpe?`<span class="badge badge-gray">RPE ${h.avgRpe}</span>`:''}</span>
+        <span>${h.maxW?`<span class="pr-badge">${h.maxW}kg</span>`:''} ${h.bestE1rm?`<span class="badge badge-blue">e1RM ${h.bestE1rm}</span>`:''} ${h.avgRpe?`<span class="badge badge-gray">RPE ${h.avgRpe}</span>`:''}</span>
       </div>`).join('')}`:''}
     ${weights.every(x=>x.w===0)&&(!hist||hist.length<=1)?'<p style="color:var(--text3);text-align:center;font-size:13px;margin-top:12px">Henüz veri yok.</p>':''}`;
   openModal('modal-progress');
 }
 
-// ─── PROGRAM EDITOR ──────────────────────────────────────
+// ─── TEMPLATE BUILDER ────────────────────────────────────
 function fillMemberSelect(){
   const sel=document.getElementById('prog-member');
   sel.innerHTML='<option value="">— Üye seç (opsiyonel) —</option>'+
@@ -785,7 +1112,7 @@ window._progMemberChanged=function(){ renderDays(); };
 
 function openCreateProgram(){
   state.editingProgId=null;
-  document.getElementById('modal-program-title').textContent='Yeni Program';
+  document.getElementById('modal-program-title').textContent='Yeni Şablon';
   document.getElementById('prog-name').value='';
   document.getElementById('prog-desc').value='';
   fillMemberSelect();
@@ -793,9 +1120,9 @@ function openCreateProgram(){
   renderDays(); openModal('modal-program');
 }
 function editProgram(id){
-  const p=state.programs.find(x=>x.id===id); if(!p) return;
+  const p=state.templates.find(x=>x.id===id); if(!p) return;
   state.editingProgId=id;
-  document.getElementById('modal-program-title').textContent='Programı Düzenle';
+  document.getElementById('modal-program-title').textContent='Şablonu Düzenle';
   document.getElementById('prog-name').value=p.name;
   document.getElementById('prog-desc').value=p.desc||'';
   fillMemberSelect();
@@ -808,61 +1135,54 @@ function renderDays(){
   const memberId=document.getElementById('prog-member').value;
   document.getElementById('days-container').innerHTML=window.tmpDays.map((day,di)=>`
     <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:12px">
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 80px auto;gap:8px;margin-bottom:8px">
-        <input class="form-input" value="${day.name||''}" placeholder="Gün adı" onchange="window.tmpDays[${di}].name=this.value">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 76px auto;gap:8px;margin-bottom:8px">
+        <input class="form-input" value="${(day.name||'').replace(/"/g,'&quot;')}" placeholder="Gün adı" onchange="window.tmpDays[${di}].name=this.value">
         <select class="form-input" onchange="window.tmpDays[${di}].goal=this.value">
           ${GOALS.map(g=>`<option value="${g.v}" ${day.goal===g.v?'selected':''}>${g.l}</option>`).join('')}
         </select>
         <input class="form-input" type="number" value="${day.duration||''}" placeholder="dk" title="Tahmini süre" onchange="window.tmpDays[${di}].duration=this.value">
         <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${window.tmpDays.length===1?'disabled':''}>Sil</button>
       </div>
-      <input class="form-input" value="${day.note||''}" placeholder="Gün notu (ısınma talimatı vb.)" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
+      <input class="form-input" value="${(day.note||'').replace(/"/g,'&quot;')}" placeholder="Gün notu (ısınma vb.)" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
       ${day.exercises.map((ex,ei)=>renderExEditor(di,ei,ex,memberId)).join('')}
-      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ Egzersiz</button>
+      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ ${t('addExercise')}</button>
     </div>`).join('');
 }
 
 function renderExEditor(di,ei,ex,memberId){
   const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
   const last=hist&&hist.length?hist[0]:null;
+  const sugg=memberId?getSuggestion(memberId,ex.name||''):null;
   return `<div class="ex-editor">
-    <div class="ex-editor-grid">
-      <input class="form-input" value="${ex.name||''}" placeholder="Egzersiz adı" onchange="window.tmpDays[${di}].exercises[${ei}].name=this.value;window._refreshHist(${di},${ei})">
-      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" placeholder="Set" title="Set" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1">
-      <input class="form-input" value="${ex.reps||''}" placeholder="Tekrar" title="Tekrar" onchange="window.tmpDays[${di}].exercises[${ei}].reps=this.value">
+    <div style="display:grid;grid-template-columns:2fr 64px 76px 70px;gap:8px;margin-bottom:8px">
+      ${exDropdownHTML(di,ei,ex.name)}
+      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" title="Set" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1">
+      <input class="form-input" value="${ex.reps||''}" placeholder="8-12" title="Tekrar" onchange="window.tmpDays[${di}].exercises[${ei}].reps=this.value">
+      <input class="form-input" value="${ex.superset||''}" placeholder="A1" title="Superset etiketi (örn. A1, A2)" onchange="window.tmpDays[${di}].exercises[${ei}].superset=this.value.toUpperCase()">
     </div>
     <div class="ex-editor-grid2">
-      <input class="form-input" type="number" value="${ex.rest||''}" placeholder="Dinlenme (sn)" title="Dinlenme süresi" onchange="window.tmpDays[${di}].exercises[${ei}].rest=this.value">
-      <input class="form-input" type="number" step="0.5" value="${ex.targetW||''}" placeholder="Hedef kg" title="Hedef ağırlık" onchange="window.tmpDays[${di}].exercises[${ei}].targetW=this.value">
-      <select class="form-input" title="Hedef RPE" onchange="window.tmpDays[${di}].exercises[${ei}].targetRpe=this.value">
+      <input class="form-input" type="number" value="${ex.rest||''}" placeholder="Dinlenme (sn)" onchange="window.tmpDays[${di}].exercises[${ei}].rest=this.value">
+      <input class="form-input" type="number" step="0.5" value="${ex.targetW||''}" placeholder="Hedef kg" onchange="window.tmpDays[${di}].exercises[${ei}].targetW=this.value">
+      <select class="form-input" onchange="window.tmpDays[${di}].exercises[${ei}].targetRpe=this.value">
         <option value="">Hedef RPE</option>
         ${['6','6-7','7','7-8','8','8-9','9','9-10','10'].map(r=>`<option value="${r}" ${ex.targetRpe===r?'selected':''}>${r}</option>`).join('')}
       </select>
     </div>
     <div class="toggle-row" onclick="window._toggleTempo(${di},${ei})">
       <div class="toggle-sw ${ex.tempoOn?'on':''}"></div>
-      <span>Tempo</span>
-      ${ex.tempoOn?`<input class="form-input" style="width:120px;padding:5px 8px;font-size:12px;margin-left:6px" value="${ex.tempo||''}" placeholder="örn. 3-1-2" onclick="event.stopPropagation()" onchange="window.tmpDays[${di}].exercises[${ei}].tempo=this.value">`:''}
+      <span>${t('tempo')}</span>
+      ${ex.tempoOn?`<input class="form-input" style="width:120px;padding:5px 8px;font-size:12px;margin-left:6px" value="${ex.tempo||''}" placeholder="3-1-2" onclick="event.stopPropagation()" onchange="window.tmpDays[${di}].exercises[${ei}].tempo=this.value">`:''}
     </div>
-    <input class="form-input" value="${ex.coachNote||''}" placeholder="Koç notu (teknik talimat)" style="margin-top:8px" onchange="window.tmpDays[${di}].exercises[${ei}].coachNote=this.value">
-    <div id="hist-${di}-${ei}">
-    ${last?`<div class="hist-hint">📊 <b>${ex.name}</b> geçmişi: ${last.progName} programında ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.avgRpe?`, ort. RPE ${last.avgRpe}`:''}</div>`:''}
-    </div>
+    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu (teknik talimat)" style="margin-top:8px" onchange="window.tmpDays[${di}].exercises[${ei}].coachNote=this.value">
+    ${last?`<div class="hist-hint">📊 <b>${ex.name}</b>: ${last.progName} — ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.bestE1rm?`, e1RM ${last.bestE1rm}kg`:''}${last.avgRpe?`, RPE ${last.avgRpe}`:''}</div>`:''}
+    ${sugg?`<div class="sugg-hint">💡 Önerilen ağırlık: <b>${sugg.w}kg</b> — ${sugg.reason}
+      <button class="btn btn-primary btn-sm" style="margin-left:8px;padding:2px 8px" onclick="window.tmpDays[${di}].exercises[${ei}].targetW='${sugg.w}';renderDays()">Uygula</button></div>`:''}
     <div style="display:flex;justify-content:flex-end;margin-top:8px">
       <button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">Egzersizi Sil</button>
     </div>
   </div>`;
 }
 
-window._refreshHist=function(di,ei){
-  const memberId=document.getElementById('prog-member').value;
-  const ex=window.tmpDays[di].exercises[ei];
-  const el=document.getElementById(`hist-${di}-${ei}`);
-  if(!el) return;
-  const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
-  const last=hist&&hist.length?hist[0]:null;
-  el.innerHTML=last?`<div class="hist-hint">📊 <b>${ex.name}</b> geçmişi: ${last.progName} programında ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.avgRpe?`, ort. RPE ${last.avgRpe}`:''}</div>`:'';
-};
 window._toggleTempo=function(di,ei){
   window.tmpDays[di].exercises[ei].tempoOn=!window.tmpDays[di].exercises[ei].tempoOn;
   renderDays();
@@ -870,73 +1190,100 @@ window._toggleTempo=function(di,ei){
 
 function addDay(){ window.tmpDays.push({name:`Gün ${window.tmpDays.length+1}`,goal:'',duration:'',note:'',exercises:[]}); renderDays(); }
 function removeDay(di){ if(window.tmpDays.length===1) return; window.tmpDays.splice(di,1); renderDays(); }
-function addExercise(di){ window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
+function addExercise(di){ window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',superset:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
 function removeExercise(di,ei){ window.tmpDays[di].exercises.splice(ei,1); renderDays(); }
 
 function saveProgram(){
   const name=document.getElementById('prog-name').value.trim();
-  if(!name){ toast('Program adı giriniz'); return; }
+  if(!name){ toast('Şablon adı giriniz'); return; }
   const memberId=document.getElementById('prog-member').value||null;
-  const prog={
+  const tpl={
     id:state.editingProgId||uid(), name,
     desc:document.getElementById('prog-desc').value.trim(),
     memberId, days:window.tmpDays, createdAt:Date.now()
   };
   if(state.editingProgId){
-    const i=state.programs.findIndex(p=>p.id===state.editingProgId);
-    prog.createdAt=state.programs[i].createdAt||Date.now();
-    state.programs[i]=prog;
-  } else state.programs.push(prog);
+    const i=state.templates.findIndex(p=>p.id===state.editingProgId);
+    tpl.createdAt=state.templates[i].createdAt||Date.now();
+    state.templates[i]=tpl;
+  } else state.templates.push(tpl);
+  // update recently used from exercises in template
+  window.tmpDays.forEach(d=>d.exercises.forEach(ex=>{
+    if(ex.name) state.recentEx=[ex.name,...state.recentEx.filter(n=>n!==ex.name)].slice(0,10);
+  }));
   save(); closeModal('modal-program'); render();
-  toast('Program kaydedildi ✓');
+  toast(t('saved'));
   state.editingProgId=null;
 }
-function deleteProgram(id){
-  state.programs=state.programs.filter(p=>p.id!==id);
-  state.assignments=state.assignments.filter(a=>a.programId!==id);
-  save(); render(); toast('Program silindi');
+function deleteTemplate(id){
+  state.templates=state.templates.filter(p=>p.id!==id);
+  save(); render(); toast('Şablon silindi');
 }
 
-// ─── ASSIGN ──────────────────────────────────────────────
-function openAssign(progId){
+// ─── ASSIGN (clone template → program instance) ──────────
+function openAssign(tplId){
   if(!state.members.length){ toast('Önce üye ekleyin'); return; }
-  document.getElementById('assign-prog').innerHTML=state.programs.map(p=>`<option value="${p.id}" ${p.id===progId?'selected':''}>${p.name}</option>`).join('');
+  document.getElementById('assign-prog').innerHTML=state.templates.map(p=>`<option value="${p.id}" ${p.id===tplId?'selected':''}>${p.name}</option>`).join('');
   document.getElementById('assign-member').innerHTML=state.members.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
   openModal('modal-assign');
 }
-function openAssignForMember(mId){
-  if(!state.programs.length){ toast('Önce program oluşturun'); return; }
-  document.getElementById('assign-prog').innerHTML=state.programs.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
-  document.getElementById('assign-member').innerHTML=state.members.map(m=>`<option value="${m.id}" ${m.id===mId?'selected':''}>${m.name}</option>`).join('');
-  openModal('modal-assign');
-}
 function doAssign(){
-  const progId=document.getElementById('assign-prog').value;
+  const tplId=document.getElementById('assign-prog').value;
   const mId=document.getElementById('assign-member').value;
-  state.assignments=state.assignments.filter(a=>a.memberId!==mId);
-  state.assignments.push({memberId:mId,programId:progId,assignedAt:Date.now()});
-  save(); closeModal('modal-assign'); render(); toast('Program atandı ✓');
+  const tpl=state.templates.find(x=>x.id===tplId);
+  if(!tpl) return;
+  // deactivate previous active program of this member
+  state.programs.forEach(p=>{ if(p.memberId===mId) p.active=false; });
+  // CLONE template (never mutate)
+  const instance={
+    id:uid(), templateId:tpl.id, memberId:mId, active:true,
+    name:tpl.name, desc:tpl.desc,
+    days:JSON.parse(JSON.stringify(tpl.days)),
+    createdAt:Date.now()
+  };
+  state.programs.push(instance);
+  save(); closeModal('modal-assign'); render(); toast(t('assigned'));
 }
 
 // ─── MEMBERS CRUD ────────────────────────────────────────
+function openMemberModal(id){
+  document.getElementById('member-edit-id').value=id||'';
+  document.getElementById('member-modal-title').textContent=id?'Üye Profili':'Yeni Üye';
+  if(id){
+    const m=state.members.find(x=>x.id===id);
+    document.getElementById('member-name').value=m.name;
+    document.getElementById('member-code').value=m.code;
+    document.getElementById('member-injuries').value=m.injuries||'';
+    document.getElementById('member-coachnote').value=m.coachNote||'';
+  } else {
+    ['member-name','member-code','member-injuries','member-coachnote'].forEach(i=>document.getElementById(i).value='');
+  }
+  openModal('modal-member');
+}
 function saveMember(){
+  const editId=document.getElementById('member-edit-id').value;
   const name=document.getElementById('member-name').value.trim();
   const code=document.getElementById('member-code').value.trim().toUpperCase();
+  const injuries=document.getElementById('member-injuries').value.trim();
+  const coachNote=document.getElementById('member-coachnote').value.trim();
   if(!name||!code){ toast('Ad ve kod zorunludur'); return; }
-  if(state.members.find(m=>m.code===code)){ toast('Bu kod zaten kullanılıyor'); return; }
-  state.members.push({id:uid(),name,code});
-  save(); closeModal('modal-member');
-  document.getElementById('member-name').value='';
-  document.getElementById('member-code').value='';
-  render(); toast('Üye eklendi ✓');
+  const dup=state.members.find(m=>m.code===code&&m.id!==editId);
+  if(dup){ toast('Bu kod zaten kullanılıyor'); return; }
+  if(editId){
+    const m=state.members.find(x=>x.id===editId);
+    Object.assign(m,{name,code,injuries,coachNote});
+  } else {
+    state.members.push({id:uid(),name,code,injuries,coachNote});
+  }
+  save(); closeModal('modal-member'); render(); toast(t('saved'));
 }
 function deleteMember(id){
   state.members=state.members.filter(m=>m.id!==id);
-  state.assignments=state.assignments.filter(a=>a.memberId!==id);
+  state.programs=state.programs.filter(p=>p.memberId!==id);
   save(); render(); toast('Üye silindi');
 }
 
-// ─── LOGIN / LOGOUT ──────────────────────────────────────
+// ─── LOGIN / LOGOUT / SHARE ──────────────────────────────
 function doLogin(){
   const code=document.getElementById('login-code').value.trim().toUpperCase();
   const member=state.members.find(m=>m.code===code);
@@ -955,10 +1302,8 @@ function logoutMember(){
   const sb=document.getElementById('sidebar'); if(sb) sb.style.display='';
   const url=new URL(window.location.href); url.searchParams.delete('kod');
   window.history.replaceState({},'',url);
-  navigate('programs');
+  navigate('templates');
 }
-
-// ─── SHARE ───────────────────────────────────────────────
 function openShare(mId){
   const m=state.members.find(x=>x.id===mId); if(!m) return;
   document.getElementById('share-modal-name').textContent=m.name+' — Paylaşım';
@@ -978,7 +1323,7 @@ function copyShareLink(){
   });
 }
 
-// ─── UTILS ───────────────────────────────────────────────
+// ─── UTILS / EXPOSE / INIT ───────────────────────────────
 function uid(){ return Math.random().toString(36).substr(2,9); }
 function openModal(id){ document.getElementById(id).classList.add('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
@@ -987,17 +1332,16 @@ function toast(msg){
   el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2500);
 }
 
-// ─── EXPOSE ──────────────────────────────────────────────
 Object.assign(window,{
-  navigate,setMode,openCreateProgram,editProgram,deleteProgram,
-  openAssign,openAssignForMember,doAssign,saveMember,deleteMember,
-  doLogin,logoutMember,toggleSet,logWeight,logRpe,logNote,sendComment,
+  navigate,setMode,openCreateProgram,editProgram,deleteTemplate,
+  openAssign,doAssign,openMemberModal,saveMember,deleteMember,
+  doLogin,logoutMember,toggleSet,logWeight,logReps,logRpe,logSetType,logNote,
+  autofillSet,editPinnedNote,sendComment,
   openShare,copyShareLink,showProgress,switchTab,
   openModal,closeModal,addDay,removeDay,addExercise,removeExercise,saveProgram,
-  addTimer,stopTimer
+  saveNewExercise,addTimer,stopTimer
 });
 
-// ─── INIT ────────────────────────────────────────────────
 (async()=>{
   const bar=document.getElementById('load-bar');
   bar.style.width='40%';
