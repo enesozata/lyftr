@@ -178,6 +178,95 @@
   .wt-head:hover{background:var(--surface2);}
   .wt-body{padding:0 16px 14px;}
   .wt-remind{font-size:10.5px;color:var(--orange);background:rgba(255,159,67,0.12);border-radius:5px;padding:2px 8px;}
+  /* ─── LANDING PAGE ─── */
+  #landing-screen{
+    position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;
+    background:#0a0a0c;overflow:hidden;
+  }
+  .landing-mesh{
+    position:absolute;inset:-20%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(200,245,66,0.16) 0%, transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(76,175,125,0.14) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(200,245,66,0.10) 0%, transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(77,166,255,0.08) 0%, transparent 40%);
+    animation:meshmove 22s ease-in-out infinite alternate;
+    filter:blur(40px);
+  }
+  @keyframes meshmove{
+    0%{transform:translate(0,0) scale(1) rotate(0deg);}
+    50%{transform:translate(-4%,3%) scale(1.08) rotate(8deg);}
+    100%{transform:translate(3%,-4%) scale(1.04) rotate(-6deg);}
+  }
+  .landing-wrap{position:relative;z-index:2;width:100%;max-width:1000px;padding:32px 24px;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;max-height:100vh;overflow-y:auto;}
+  .landing-hero{text-align:left;}
+  .landing-card{background:rgba(22,22,26,0.75);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:18px;padding:30px 28px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+  .landing-card-title{font-size:19px;font-weight:800;margin-bottom:4px;}
+  .landing-card-sub{font-size:12px;color:var(--text3);margin-bottom:20px;}
+  .landing-footnote{margin-top:16px;font-size:11px;color:var(--text3);}
+  .landing-footnote a.landing-admin-link{color:var(--text3);cursor:pointer;text-decoration:none;}
+  .landing-footnote a.landing-admin-link:hover{color:var(--text2);}
+  .landing-tabs{display:flex;background:rgba(255,255,255,0.04);border-radius:11px;padding:4px;gap:3px;margin-bottom:18px;}
+  .landing-tab{flex:1;padding:9px;text-align:center;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;font-weight:500;}
+  .landing-tab:hover{color:var(--text);}
+  .landing-tab.active{background:var(--accent);color:#000;font-weight:700;}
+  .landing-card-sub{font-size:12px;color:var(--text3);margin-bottom:14px;}
+  .landing-logo{font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:10px;}
+  .landing-logo span{color:var(--accent);}
+  .landing-tagline-wrap{height:26px;margin-bottom:26px;overflow:hidden;}
+  .feat-list{display:flex;flex-direction:column;gap:14px;margin-bottom:26px;}
+  .feat-row{display:flex;gap:12px;align-items:flex-start;}
+  .feat-ico{font-size:20px;width:38px;height:38px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .feat-t{font-size:13.5px;font-weight:700;}
+  .feat-d{font-size:11.5px;color:var(--text3);margin-top:2px;line-height:1.4;}
+  /* product mockup */
+  .mock-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:420px;box-shadow:0 16px 44px rgba(0,0,0,0.45);transform:rotate(-1deg);}
+  .mock-head{display:flex;align-items:center;gap:5px;padding:9px 12px;border-bottom:1px solid var(--border);background:var(--surface2);}
+  .mock-dot{width:8px;height:8px;border-radius:50%;background:var(--surface3);}
+  .mock-body{padding:14px;}
+  .mock-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .mock-title{font-size:14px;font-weight:800;}
+  .mock-sub{font-size:10.5px;color:var(--text3);margin-top:2px;}
+  .mock-ring{position:relative;width:44px;height:44px;}
+  .mock-ring-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+  .mock-ex{background:var(--surface2);border-radius:10px;padding:10px 12px;margin-bottom:10px;}
+  .mock-ex-head{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700;margin-bottom:8px;}
+  .mock-e1rm{font-size:9.5px;color:var(--gold);background:rgba(255,215,0,0.12);border-radius:4px;padding:2px 6px;font-weight:700;}
+  .mock-set{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2);padding:4px 0;}
+  .mock-check{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#000;flex-shrink:0;}
+  .mock-check.done{background:var(--accent);border-color:var(--accent);font-weight:800;}
+  .mock-pill{background:var(--surface3);border-radius:4px;padding:1px 7px;font-size:10px;}
+  .mock-pill.dim{opacity:0.6;}
+  .mock-pill.ghost{color:var(--blue);background:rgba(77,166,255,0.1);border:1px solid rgba(77,166,255,0.25);}
+  .mock-vol-row{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--text3);margin-bottom:5px;}
+  .mock-vol-row span{width:48px;text-align:right;}
+  .mock-vol-track{flex:1;height:9px;background:var(--surface3);border-radius:4px;overflow:hidden;}
+  .mock-vol-track div{height:100%;background:var(--accent);border-radius:4px;}
+  .landing-tagline{font-size:14px;color:var(--text2);opacity:0;transition:opacity .6s ease;}
+  .landing-tagline.show{opacity:1;}
+  .landing-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;
+    padding:14px 16px;color:var(--text);font-size:16px;outline:none;text-align:center;letter-spacing:2px;
+    text-transform:uppercase;font-family:var(--font);margin-bottom:12px;transition:border-color .15s;}
+  .landing-input:focus{border-color:var(--accent);}
+  .landing-input::placeholder{letter-spacing:1px;text-transform:none;color:var(--text3);}
+  .landing-btn{width:100%;padding:14px;border-radius:12px;border:none;background:var(--accent);color:#000;
+    font-weight:700;font-size:14px;cursor:pointer;transition:all .15s;font-family:var(--font);}
+  .landing-btn:hover{background:#d4f955;}
+  .landing-toggle{margin-top:18px;font-size:12.5px;color:var(--text3);}
+  .landing-toggle a{color:var(--accent);text-decoration:none;cursor:pointer;}
+  .landing-toggle a:hover{text-decoration:underline;}
+  .landing-extra{margin-top:12px;display:flex;flex-direction:column;gap:10px;}
+  /* admin */
+  .ws-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.04);gap:10px;flex-wrap:wrap;}
+  .ws-row:last-child{border-bottom:none;}
+  @media(max-width:880px){
+    .landing-wrap{grid-template-columns:1fr;gap:28px;padding:24px 18px;align-content:start;}
+    .landing-hero{order:2;text-align:center;}
+    .landing-card{order:1;}
+    .feat-row{text-align:left;}
+    .mock-card{margin:0 auto;transform:none;}
+    .landing-logo{font-size:32px;}
+  }
   @media(max-width:720px){
     .main{padding:16px 12px;}
     .ex-editor-grid2{grid-template-columns:1fr 1fr;}
@@ -197,6 +286,79 @@
   </div>
 </div>
 
+<div id="landing-screen" class="hidden">
+  <div class="landing-mesh"></div>
+  <div class="landing-wrap">
+
+    <div class="landing-hero">
+      <div class="landing-logo">lyftr<span>.</span></div>
+      <div class="landing-tagline-wrap"><div class="landing-tagline show" id="landing-tagline"></div></div>
+      <div class="feat-list">
+        <div class="feat-row"><div class="feat-ico">📋</div><div><div class="feat-t">Programını yaz, tek tıkla ata</div><div class="feat-d">Şablonlar, haftalık bloklar, RPE hedefleri, ısınma rutinleri</div></div></div>
+        <div class="feat-row"><div class="feat-ico">📊</div><div><div class="feat-t">Gelişimi gerçek veriyle izle</div><div class="feat-d">e1RM trendi, kas grubu hacmi, kilo takibi, uyum oranı</div></div></div>
+        <div class="feat-row"><div class="feat-ico">💬</div><div><div class="feat-t">Üyenle hep bağlantıda kal</div><div class="feat-d">Her üyenin kendi paneli, notlar, mesajlar, streak motivasyonu</div></div></div>
+      </div>
+
+      <div class="mock-card">
+        <div class="mock-head">
+          <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+          <span style="font-size:10px;color:var(--text3);margin-left:6px">lyftr — üye paneli</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-row1">
+            <div>
+              <div class="mock-title">📅 Push Günü</div>
+              <div class="mock-sub">Hafta 3/6 · 5 egzersiz · ~55 dk</div>
+            </div>
+            <div class="mock-ring">
+              <svg width="44" height="44" viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="17" fill="none" stroke="var(--surface3)" stroke-width="4"/>
+                <circle cx="22" cy="22" r="17" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="32" transform="rotate(-90 22 22)"/>
+              </svg>
+              <span class="mock-ring-txt">3/4</span>
+            </div>
+          </div>
+          <div class="mock-ex">
+            <div class="mock-ex-head"><span>Bench Press</span><span class="mock-e1rm">🏆 e1RM 112kg</span></div>
+            <div class="mock-set"><span class="mock-check done">✓</span><span>Set 1</span><span class="mock-pill">100kg × 8</span><span class="mock-pill dim">RPE 8</span></div>
+            <div class="mock-set"><span class="mock-check done">✓</span><span>Set 2</span><span class="mock-pill">100kg × 8</span><span class="mock-pill dim">RPE 8.5</span></div>
+            <div class="mock-set"><span class="mock-check"></span><span>Set 3</span><span class="mock-pill ghost">↩ 100kg × 7</span></div>
+          </div>
+          <div class="mock-vol">
+            <div class="mock-vol-row"><span>Göğüs</span><div class="mock-vol-track"><div style="width:72%"></div></div></div>
+            <div class="mock-vol-row"><span>Triceps</span><div class="mock-vol-track"><div style="width:48%"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-card">
+      <div class="landing-card-title">Giriş Yap</div>
+      <div class="landing-tabs">
+        <div class="landing-tab active" id="ltab-coach" onclick="showCoachLogin()">🏋️ Koç</div>
+        <div class="landing-tab" id="ltab-member" onclick="showMemberLogin()">💪 Üye</div>
+      </div>
+      <div id="landing-form-coach">
+        <div class="landing-card-sub">Sana verilen koç kodunu gir</div>
+        <input class="landing-input" id="landing-code" placeholder="COACH-XXXXXX" maxlength="20" onkeydown="if(event.key==='Enter')doLandingLogin()">
+        <button class="landing-btn" onclick="doLandingLogin()">Koç Girişi</button>
+      </div>
+      <div id="landing-form-member" class="hidden landing-extra">
+        <div class="landing-card-sub">Koçunun verdiği üye kodunu gir</div>
+        <input class="landing-input" id="landing-member-code" placeholder="örn. 7F3A2K-AHMET01" maxlength="30" onkeydown="if(event.key==='Enter')doLandingMemberLogin()">
+        <button class="landing-btn" onclick="doLandingMemberLogin()">Üye Girişi</button>
+      </div>
+      <div id="landing-form-admin" class="hidden landing-extra">
+        <div class="landing-card-sub">Yönetici erişim kodu</div>
+        <input class="landing-input" id="landing-admin-code" placeholder="••••••••" maxlength="30" type="password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <button class="landing-btn" onclick="doAdminLogin()">Yönetici Girişi</button>
+        <div class="landing-toggle"><a onclick="showCoachLogin()">← Geri dön</a></div>
+      </div>
+      <div class="landing-footnote">Kod almadın mı? Koçunla iletişime geç. · <a class="landing-admin-link" onclick="showAdminLogin()">Yönetici</a></div>
+    </div>
+
+  </div>
+</div>
 <div id="toast"></div>
 <div id="timer-el" class="timer-ring hidden">
   <div><div class="timer-label">Dinlenme</div><div class="timer-count" id="timer-count">90</div></div>
@@ -227,10 +389,12 @@
       <span>Egzersiz Kütüphanesi</span>
     </div>
     <div class="sidebar-footer">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;padding:0 4px" id="sidebar-ws-name"></div>
       <div class="mode-toggle">
         <div class="mode-btn active" id="mode-coach" onclick="setMode('coach')">Koç</div>
-        <div class="mode-btn" id="mode-member" onclick="setMode('member')">Üye</div>
+        <div class="mode-btn" id="mode-member" onclick="setMode('member')">Üye Önizle</div>
       </div>
+      <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px" onclick="doLogoutWorkspace()">Çıkış</button>
     </div>
   </div>
   <div class="main" id="main-content"></div>
@@ -243,7 +407,7 @@
       <div class="modal-title" id="modal-program-title">Yeni Şablon</div>
       <button class="modal-close" onclick="closeModal('modal-program')">✕</button>
     </div>
-    <div style="display:grid;grid-template-columns:2fr 1fr 90px;gap:10px;margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:2fr 1fr 110px 90px;gap:10px;margin-bottom:14px">
       <div>
         <label class="form-label">Şablon Adı</label>
         <input class="form-input" id="prog-name" placeholder="örn. Blok 2 — Güç Fazı">
@@ -253,6 +417,13 @@
         <select class="form-input" id="prog-member" onchange="window._progMemberChanged()"></select>
       </div>
       <div>
+        <label class="form-label">Tür</label>
+        <select class="form-input" id="prog-type" onchange="window._progTypeChanged()">
+          <option value="program">Program</option>
+          <option value="warmup">Isınma Rutini</option>
+        </select>
+      </div>
+      <div id="prog-weeks-wrap">
         <label class="form-label">Hafta</label>
         <input class="form-input" type="number" id="prog-weeks" min="1" max="16" value="4">
       </div>
@@ -410,6 +581,31 @@
   </div>
 </div>
 
+<datalist id="warmup-exercise-list"></datalist>
+
+<!-- Warmup Routines Modal -->
+<div class="modal-bg" id="modal-warmup">
+  <div class="modal" style="width:520px">
+    <div class="modal-header">
+      <div class="modal-title">🔥 Isınma Rutinleri</div>
+      <button class="modal-close" onclick="closeModal('modal-warmup')">✕</button>
+    </div>
+    <div id="warmup-list-view">
+      <div id="warmup-list" style="margin-bottom:14px"></div>
+      <button class="btn btn-primary btn-sm" onclick="newWarmupRoutine()">+ Yeni Rutin</button>
+    </div>
+    <div id="warmup-builder-view" class="hidden">
+      <div class="form-group"><label class="form-label">Rutin Adı</label><input class="form-input" id="warmup-name" placeholder="örn. Genel Üst Vücut Isınma"></div>
+      <div id="warmup-ex-rows"></div>
+      <button class="btn btn-ghost btn-sm" onclick="addWarmupExRow()">+ Egzersiz Ekle</button>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+        <button class="btn btn-ghost" onclick="cancelWarmupBuilder()">İptal</button>
+        <button class="btn btn-primary" onclick="saveWarmupRoutine()">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Celebration Modal -->
 <div class="modal-bg" id="modal-celebrate">
   <div class="modal" style="width:440px;text-align:center">
@@ -476,13 +672,35 @@ const DEFAULT_EXERCISES = [
 ];
 function exCat(e){ return e.muscles&&e.muscles.length?e.muscles[0].m:'Diğer'; }
 
+// ─── WORKSPACE / AUTH CONFIG ──────────────────────────────
+const ADMIN_CODE = 'LYFTR-ADMIN-9F2K';
+const TAGLINES = [
+  'Programını yaz. Takip et. Geliş.',
+  "Excel'i bırak, koçluğunu büyüt.",
+  'Her üyen, kendi panelinde.',
+  "RPE'den hacme, hepsi tek yerde.",
+  'Antrenman takibi, koçun gözünden.',
+];
+function wsSuffix(wsCode){ return (wsCode||'').replace(/^COACH-/,''); }
+function memberFullCode(m){ return wsSuffix(state.workspaceCode)+'-'+m.code; }
+function genWorkspaceCode(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s='';
+  for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+  return 'COACH-'+s;
+}
+
 // ─── STATE ───────────────────────────────────────────────
 let state = {
+  view:'landing',     // 'landing' | 'coach' | 'member' | 'admin'
+  workspaceId:null, workspaceName:null, workspaceCode:null, memberDirectAccess:false,
+  adminWorkspaces:[], // list for admin panel
   mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null, detailMemberId:null,
   templates:[], programs:[], members:[], exercises:[], recentEx:[],
   logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{},
   weightLog:{}, finishedWorkouts:{}, workoutStart:{}, defaults:{},
   moodLog:{},   // memberId → [{mood:1-5,date}]
+  warmupRoutines:[], // [{id,name,exercises:[{name,sets,reps}]}]
 };
 window.tmpDays = [];
 window.expandedDays = new Set();
@@ -491,6 +709,9 @@ window.memberTab = 'home';
 window.viewWeek = null;  // member: viewing week index (null=current)
 window.focusDay = null;  // {wi,di} focus mode
 window.weightOpen = false;
+window.tmpWarmup = null;
+window.taglineIdx = 0;
+window.taglineTimer = null;
 let timerInterval=null, timerSeconds=0;
 
 const GOALS=[{v:'',l:'— Amaç —'},{v:'hypertrophy',l:'Hipertrofi'},{v:'strength',l:'Güç'},{v:'deload',l:'Deload'},{v:'endurance',l:'Dayanıklılık'},{v:'technique',l:'Teknik'}];
@@ -501,10 +722,12 @@ const FITNESS_GOALS={lose:'Kilo vermek',gain:'Kas kazanmak',strength:'Güçlenme
 const MOODS=[{v:1,e:'😫'},{v:2,e:'😕'},{v:3,e:'😐'},{v:4,e:'🙂'},{v:5,e:'🔥'}];
 const BIG4=[{key:'bench press',label:'Bench'},{key:'back squat',label:'Squat'},{key:'deadlift',label:'Deadlift'},{key:'overhead press',label:'OHP'}];
 
-// ─── STORAGE ─────────────────────────────────────────────
+// ─── STORAGE (workspace-scoped) ──────────────────────────
 async function save(){
+  if(!state.workspaceId) return;
   try {
-    await setDoc(doc(db,'lyftr','data'),{
+    await setDoc(doc(db,'lyftr_workspaces',state.workspaceId),{
+      name:state.workspaceName,
       templates:state.templates, programs:state.programs, members:state.members,
       exercises:state.exercises, recentEx:state.recentEx,
       logs:state.logs, repsLog:state.repsLog, rpe:state.rpe, setTypes:state.setTypes,
@@ -512,15 +735,18 @@ async function save(){
       completions:state.completions, comments:state.comments,
       weightLog:state.weightLog, finishedWorkouts:state.finishedWorkouts,
       workoutStart:state.workoutStart, defaults:state.defaults, moodLog:state.moodLog,
+      warmupRoutines:state.warmupRoutines,
       updatedAt:Date.now(),
     });
   } catch(e){ console.error(e); toast('Kayıt hatası!'); }
 }
-async function load(){
+async function loadWorkspace(wsId){
   try {
-    const snap=await getDoc(doc(db,'lyftr','data'));
+    const snap=await getDoc(doc(db,'lyftr_workspaces',wsId));
+    state.workspaceId=wsId;
     if(snap.exists()){
       const d=snap.data();
+      state.workspaceName=d.name||state.workspaceName;
       state.templates=d.templates||[]; state.programs=d.programs||[];
       state.members=d.members||[]; state.exercises=d.exercises||[];
       state.recentEx=d.recentEx||[];
@@ -531,6 +757,14 @@ async function load(){
       state.weightLog=d.weightLog||{}; state.finishedWorkouts=d.finishedWorkouts||{};
       state.workoutStart=d.workoutStart||{}; state.defaults=d.defaults||{};
       state.moodLog=d.moodLog||{};
+      state.warmupRoutines=d.warmupRoutines||[];
+    } else {
+      // brand new empty workspace
+      state.templates=[]; state.programs=[]; state.members=[]; state.exercises=[];
+      state.recentEx=[]; state.logs={}; state.repsLog={}; state.rpe={}; state.setTypes={};
+      state.notes={}; state.pinnedNotes={}; state.completions={}; state.comments={};
+      state.weightLog={}; state.finishedWorkouts={}; state.workoutStart={}; state.defaults={};
+      state.moodLog={}; state.warmupRoutines=[];
     }
     // seed / patch exercise library with muscle data
     if(!state.exercises.length){
@@ -545,7 +779,33 @@ async function load(){
       });
       if(patched) await save();
     }
-  } catch(e){ console.error(e); }
+  } catch(e){ console.error(e); toast('Workspace yüklenemedi'); }
+}
+
+// ─── ADMIN STORAGE ────────────────────────────────────────
+async function loadAdminData(){
+  try {
+    const snap=await getDoc(doc(db,'lyftr_admin','data'));
+    state.adminWorkspaces = snap.exists()?(snap.data().workspaces||[]):[];
+  } catch(e){ console.error(e); state.adminWorkspaces=[]; }
+}
+async function saveAdminData(){
+  try { await setDoc(doc(db,'lyftr_admin','data'),{workspaces:state.adminWorkspaces}); }
+  catch(e){ console.error(e); toast('Kayıt hatası!'); }
+}
+
+// ─── SESSION (localStorage) ──────────────────────────────
+function saveSession(){
+  try {
+    if(state.workspaceId&&state.view==='coach')
+      localStorage.setItem('lyftr_session',JSON.stringify({workspaceId:state.workspaceId,workspaceName:state.workspaceName}));
+    else
+      localStorage.removeItem('lyftr_session');
+  } catch(e){}
+}
+function getSession(){
+  try { return JSON.parse(localStorage.getItem('lyftr_session')||'null'); }
+  catch(e){ return null; }
 }
 
 // ─── HELPERS ─────────────────────────────────────────────
@@ -605,6 +865,7 @@ function muscleVolume(days){
   const vol={};
   MUSCLES.forEach(mm=>vol[mm]={d:0,i:0});
   days.forEach(day=>day.exercises.forEach(ex=>{
+    if(ex.isWarmup) return;
     const sc=parseInt(ex.sets)||0;
     if(!sc) return;
     const lib=findExercise(ex.name);
@@ -871,13 +1132,95 @@ function setMode(mode){
   navigate('templates');
 }
 function render(){
+  const landingEl=document.getElementById('landing-screen');
+  const appEl=document.querySelector('.app');
+
+  if(state.view==='landing'){
+    landingEl.classList.remove('hidden');
+    appEl.style.display='none';
+    return;
+  }
+  landingEl.classList.add('hidden');
+  appEl.style.display='';
+
   const el=document.getElementById('main-content');
+  const sb=document.getElementById('sidebar');
+
+  if(state.view==='admin'){
+    sb.style.display='none';
+    el.innerHTML=renderAdmin();
+    return;
+  }
+  sb.style.display=state.memberDirectAccess?'none':'';
+
+  const wsNameEl=document.getElementById('sidebar-ws-name');
+  if(wsNameEl) wsNameEl.textContent=state.workspaceName?('🏋️ '+state.workspaceName):'';
+
   if(state.mode==='member'&&state.loggedMember) el.innerHTML=renderMemberView();
   else if(state.currentPage==='templates') el.innerHTML=renderTemplates();
   else if(state.currentPage==='members') el.innerHTML=renderMembers();
   else if(state.currentPage==='overview') el.innerHTML=renderOverview();
   else if(state.currentPage==='exercises') el.innerHTML=renderExerciseLib();
   else if(state.currentPage==='memberDetail') el.innerHTML=renderMemberDetail(state.detailMemberId);
+}
+
+// ─── ADMIN PANEL ─────────────────────────────────────────
+function renderAdmin(){
+  return `
+    <div class="page-header">
+      <div><div class="page-title">Yönetici Paneli</div><div class="page-sub">${state.adminWorkspaces.length} workspace (koç)</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="doLogoutWorkspace()">Çıkış</button>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input class="form-input" id="admin-new-coach-name" placeholder="Yeni koç adı (örn. Ahmet PT)" style="flex:1;min-width:200px">
+        <button class="btn btn-primary" onclick="adminCreateWorkspace()">+ Yeni Workspace Oluştur</button>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      ${state.adminWorkspaces.length===0?`<div class="empty"><div class="empty-icon">🗂️</div><p>Henüz workspace yok.</p></div>`:
+        [...state.adminWorkspaces].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).map(w=>`
+        <div class="ws-row">
+          <div>
+            <div style="font-weight:600">${w.name}</div>
+            <div style="font-size:11px;color:var(--text3)">${fmtDate(w.createdAt)}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="share-code" style="font-size:14px">${w.code}</span>
+            <button class="btn btn-ghost btn-sm" onclick="adminCopyCode('${w.code}')">Kopyala</button>
+            <button class="btn btn-primary btn-sm" onclick="adminOpenAsCoach('${w.id}','${w.code}')">Aç (Koç olarak)</button>
+            <button class="btn btn-danger btn-sm" onclick="adminDeleteWorkspace('${w.id}')">Sil</button>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+function adminCopyCode(code){
+  navigator.clipboard.writeText(code).then(()=>toast('Kod kopyalandı ✓')).catch(()=>{});
+}
+async function adminCreateWorkspace(){
+  const nameEl=document.getElementById('admin-new-coach-name');
+  const name=nameEl.value.trim();
+  if(!name){ toast('Koç adı giriniz'); return; }
+  const ws={id:uid(),name,code:genWorkspaceCode(),createdAt:Date.now()};
+  state.adminWorkspaces.push(ws);
+  await saveAdminData();
+  nameEl.value='';
+  render();
+  toast(`Workspace oluşturuldu: ${ws.code}`);
+}
+async function adminDeleteWorkspace(id){
+  if(!confirm('Bu workspace ve TÜM verisi silinecek. Emin misin?')) return;
+  state.adminWorkspaces=state.adminWorkspaces.filter(w=>w.id!==id);
+  await saveAdminData();
+  render();
+  toast('Workspace silindi');
+}
+async function adminOpenAsCoach(id,code){
+  await loadWorkspace(id);
+  state.workspaceName=(state.adminWorkspaces.find(w=>w.id===id)||{}).name||code;
+  state.view='coach'; state.mode='coach'; state.currentPage='templates';
+  saveSession();
+  render();
 }
 
 // ─── EXERCISE LIBRARY PAGE ───────────────────────────────
@@ -899,15 +1242,116 @@ function renderExerciseLib(){
       </div>`).join('')}`;
 }
 
+// ─── AUTH FLOW (landing / coach / member / admin) ────────
+function startTaglineRotation(){
+  const el=document.getElementById('landing-tagline');
+  if(!el) return;
+  const show=()=>{
+    el.textContent=TAGLINES[window.taglineIdx];
+    el.classList.add('show');
+  };
+  show();
+  if(window.taglineTimer) clearInterval(window.taglineTimer);
+  window.taglineTimer=setInterval(()=>{
+    el.classList.remove('show');
+    setTimeout(()=>{
+      window.taglineIdx=(window.taglineIdx+1)%TAGLINES.length;
+      show();
+    },600);
+  },4000);
+}
+function _setLandingForm(which){
+  ['coach','member','admin'].forEach(f=>{
+    const el=document.getElementById('landing-form-'+f);
+    if(el) el.classList.toggle('hidden',f!==which);
+  });
+  const tc=document.getElementById('ltab-coach'), tm=document.getElementById('ltab-member');
+  if(tc) tc.classList.toggle('active',which==='coach');
+  if(tm) tm.classList.toggle('active',which==='member');
+}
+function showMemberLogin(){ _setLandingForm('member'); }
+function showCoachLogin(){ _setLandingForm('coach'); }
+function showAdminLogin(){ _setLandingForm('admin'); }
+async function doLandingLogin(){
+  const code=document.getElementById('landing-code').value.trim().toUpperCase();
+  if(!code){ toast('Kod giriniz'); return; }
+  await loadAdminData();
+  const ws=state.adminWorkspaces.find(w=>w.code.toUpperCase()===code);
+  if(!ws){ toast('Geçersiz koç kodu'); return; }
+  await loadWorkspace(ws.id);
+  state.workspaceName=ws.name; state.workspaceCode=ws.code;
+  state.view='coach'; state.mode='coach'; state.currentPage='templates';
+  state.loggedMember=null; state.memberDirectAccess=false;
+  saveSession();
+  render();
+  toast(`Hoş geldin, ${ws.name}! 👋`);
+}
+async function doAdminLogin(){
+  const code=document.getElementById('landing-admin-code').value.trim().toUpperCase();
+  if(code!==ADMIN_CODE){ toast('Geçersiz yönetici kodu'); return; }
+  document.getElementById('landing-admin-code').value='';
+  await loadAdminData();
+  state.view='admin';
+  render();
+}
+async function doLandingMemberLogin(){
+  // unified code: WSSUFFIX-MEMBERCODE (örn. 7F3A2K-AHMET01)
+  const full=document.getElementById('landing-member-code').value.trim().toUpperCase();
+  if(!full){ toast('Kodunu gir'); return; }
+  const dashIdx=full.indexOf('-');
+  if(dashIdx<1){ toast('Geçersiz kod — koçunun verdiği kodu tam olarak gir'); return; }
+  const prefix=full.substring(0,dashIdx);
+  const memberCode=full.substring(dashIdx+1);
+  await loadAdminData();
+  const ws=state.adminWorkspaces.find(w=>wsSuffix(w.code).toUpperCase()===prefix);
+  if(!ws){ toast('Geçersiz kod'); return; }
+  await loadWorkspace(ws.id);
+  state.workspaceName=ws.name; state.workspaceCode=ws.code;
+  const member=state.members.find(m=>m.code===memberCode);
+  if(!member){ toast('Geçersiz kod'); return; }
+  state.loggedMember=member; state.mode='member'; state.view='member';
+  state.memberDirectAccess=true;
+  window.memberTab='home'; window.viewWeek=null;
+  render();
+}
+async function doLogoutWorkspace(){
+  state.view='landing'; state.workspaceId=null; state.workspaceName=null; state.workspaceCode=null;
+  state.loggedMember=null; state.mode='coach'; state.memberDirectAccess=false;
+  state.adminWorkspaces=[];
+  localStorage.removeItem('lyftr_session');
+  const url=new URL(window.location.href);
+  url.searchParams.delete('kod'); url.searchParams.delete('ws');
+  window.history.replaceState({},'',url);
+  document.getElementById('landing-code').value='';
+  showCoachLogin();
+  render();
+  startTaglineRotation();
+}
+
 // ─── TEMPLATES PAGE ──────────────────────────────────────
 function renderTemplates(){
-  const tps=state.templates;
+  const tps=state.templates.filter(t=>t.type!=='warmup');
+  const warmups=state.templates.filter(t=>t.type==='warmup');
   return `
     <div class="page-header">
-      <div><div class="page-title">Şablonlar</div><div class="page-sub">${tps.length} şablon · ${state.programs.filter(p=>p.active).length} aktif atama</div></div>
+      <div><div class="page-title">Şablonlar</div><div class="page-sub">${tps.length} program · ${warmups.length} ısınma · ${state.programs.filter(p=>p.active).length} aktif atama</div></div>
       <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Şablon</button>
     </div>
-    ${tps.length===0?`<div class="empty"><div class="empty-icon">📋</div><p>Henüz şablon yok.</p></div>`:
+    ${warmups.length?`<div class="section-head">🔥 Isınma Rutinleri</div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px">
+      ${warmups.map(w=>`<div class="ws-row">
+        <div>
+          <div style="font-weight:600">${w.name}</div>
+          <div style="font-size:11px;color:var(--text3)">${w.days.reduce((a,d)=>a+d.exercises.length,0)} egzersiz</div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="editProgram('${w.id}')">Düzenle</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteTemplate('${w.id}')">Sil</button>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="section-head">📋 Programlar</div>`:''}
+    ${tps.length===0?`<div class="empty"><div class="empty-icon">📋</div><p>Henüz program şablonu yok.</p></div>`:
       tps.map(p=>{
         const ac=state.programs.filter(x=>x.templateId===p.id&&x.active).length;
         const te=p.days.reduce((a,d)=>a+d.exercises.length,0);
@@ -956,7 +1400,7 @@ function renderMembers(){
               ${prog?`<div style="font-size:11px;color:var(--text3)">${prog.name} · H${prog.currentWeek||1}/${prog.weeks||1}</div>`:'<div style="font-size:11px;color:var(--text3)">Program yok</div>'}
             </div>
           </div></td>
-          <td><span class="share-code" style="font-size:13px;letter-spacing:2px">${m.code}</span></td>
+          <td><span class="share-code" style="font-size:12px;letter-spacing:1px">${memberFullCode(m)}</span></td>
           <td><span style="font-size:12px;color:${gs.color};font-weight:600">${gs.label}</span></td>
           <td>${prog?`<span class="badge ${fin>=prog.days.length?'badge-green':'badge-gray'}">${fin}/${prog.days.length} antrenman</span>`:'—'}</td>
           <td><div style="display:flex;gap:6px">
@@ -1500,7 +1944,7 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
     const key=setKey(m.id,prog.id,wi,di,ei,si);
     const isDone=!!state.completions[key];
     const wt=state.logs[key]||'', rp=state.repsLog[key]||'', rpeVal=state.rpe[key]||'';
-    const stype=state.setTypes[key]||'N';
+    const stype=state.setTypes[key]||(ex.isWarmup?'W':'N');
     const isDef=!!state.defaults[key];
     const lastData=(!wt&&!rp)?getLastSetData(m.id,ex.name,si,key):null;
     sets.push(`<div class="set-row ${stype==='W'?'warmup':''}">
@@ -1525,6 +1969,7 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;gap:8px">
       <div style="flex:1">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          ${ex.isWarmup?`<span class="badge badge-orange" style="font-size:10px">🔥 Isınma</span>`:''}
           ${ex.superset?`<span class="superset-tag">${ex.superset}</span>`:''}
           <span style="font-weight:700;font-size:15px">${ex.name||'Egzersiz '+(ei+1)}</span>
           <span class="badge badge-gray">${sc} × ${ex.reps||'—'}</span>
@@ -1794,6 +2239,8 @@ function openCreateProgram(){
   document.getElementById('prog-name').value='';
   document.getElementById('prog-desc').value='';
   document.getElementById('prog-weeks').value='4';
+  document.getElementById('prog-type').value='program';
+  window._progTypeChanged();
   fillMemberSelect();
   window.tmpDays=[{name:'Gün 1',goal:'',duration:'',note:'',exercises:[]}];
   renderDays(); openModal('modal-program');
@@ -1805,6 +2252,8 @@ function editProgram(id){
   document.getElementById('prog-name').value=p.name;
   document.getElementById('prog-desc').value=p.desc||'';
   document.getElementById('prog-weeks').value=p.weeks||4;
+  document.getElementById('prog-type').value=p.type||'program';
+  window._progTypeChanged();
   fillMemberSelect();
   document.getElementById('prog-member').value=p.memberId||'';
   window.tmpDays=JSON.parse(JSON.stringify(p.days));
@@ -1823,8 +2272,22 @@ function renderDays(){
         <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${window.tmpDays.length===1?'disabled':''}>Sil</button>
       </div>
       <input class="form-input" value="${(day.note||'').replace(/"/g,'&quot;')}" placeholder="Gün notu" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+        <select class="form-input" style="flex:1" onchange="insertWarmupRoutine(${di},this.value);this.value=''">
+          <option value="">🔥 Isınma rutini ekle...</option>
+          ${state.warmupRoutines.map(r=>`<option value="${r.id}">${r.name} (${r.exercises.length} egz.)</option>`).join('')}
+        </select>
+        <button class="btn btn-ghost btn-sm" onclick="openWarmupModal()" title="Rutinleri yönet">⚙</button>
+      </div>
       ${day.exercises.map((ex,ei)=>renderExEditor(di,ei,ex,memberId)).join('')}
-      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ Egzersiz ekle</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ Egzersiz ekle</button>
+        ${(document.getElementById('prog-type')&&document.getElementById('prog-type').value!=='warmup'&&state.templates.some(t=>t.type==='warmup'))?`
+        <select class="form-input" style="width:auto;padding:5px 10px;font-size:12px" onchange="window._applyWarmup(${di},this)">
+          <option value="">🔥 Isınma Ekle...</option>
+          ${state.templates.filter(t=>t.type==='warmup').map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}
+        </select>`:''}
+      </div>
     </div>`).join('');
   // live volume preview
   document.getElementById('builder-volume').innerHTML=
@@ -1837,7 +2300,8 @@ function renderExEditor(di,ei,ex,memberId){
   const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
   const last=hist&&hist.length?hist[0]:null;
   const sugg=memberId?getSuggestion(memberId,ex.name||''):null;
-  return `<div class="ex-editor">
+  return `<div class="ex-editor" ${ex.isWarmup?'style="border-color:rgba(255,159,67,0.35)"':''}>
+    ${ex.isWarmup?'<div style="font-size:10px;color:var(--orange);font-weight:700;margin-bottom:6px">🔥 ISINMA</div>':''}
     <div style="display:grid;grid-template-columns:2fr 64px 76px 70px;gap:8px;margin-bottom:8px">
       ${exDropdownHTML(di,ei,ex.name)}
       <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1;renderDays()">
@@ -1866,6 +2330,27 @@ function renderExEditor(di,ei,ex,memberId){
     </div>
   </div>`;
 }
+window._progTypeChanged=function(){
+  const isWarmup=document.getElementById('prog-type').value==='warmup';
+  document.getElementById('prog-weeks-wrap').style.display=isWarmup?'none':'';
+};
+window._applyWarmup=function(di,selEl){
+  const tplId=selEl.value;
+  if(!tplId) return;
+  const tpl=state.templates.find(t=>t.id===tplId);
+  selEl.value='';
+  if(!tpl) return;
+  const exs=[];
+  tpl.days.forEach(d=>d.exercises.forEach(ex=>{
+    const copy=JSON.parse(JSON.stringify(ex));
+    copy.isWarmup=true;
+    exs.push(copy);
+  }));
+  if(!exs.length){ toast('Bu rutinde egzersiz yok'); return; }
+  window.tmpDays[di].exercises=[...exs,...window.tmpDays[di].exercises];
+  renderDays();
+  toast(`"${tpl.name}" eklendi (${exs.length} egzersiz) ✓`);
+};
 window._toggleTempo=function(di,ei){
   window.tmpDays[di].exercises[ei].tempoOn=!window.tmpDays[di].exercises[ei].tempoOn;
   renderDays();
@@ -1877,11 +2362,12 @@ function removeExercise(di,ei){ window.tmpDays[di].exercises.splice(ei,1); rende
 function saveProgram(){
   const name=document.getElementById('prog-name').value.trim();
   if(!name){ toast('Şablon adı giriniz'); return; }
+  const ptype=document.getElementById('prog-type').value||'program';
   const tpl={
-    id:state.editingProgId||uid(), name,
+    id:state.editingProgId||uid(), name, type:ptype,
     desc:document.getElementById('prog-desc').value.trim(),
     memberId:document.getElementById('prog-member').value||null,
-    weeks:Math.max(1,parseInt(document.getElementById('prog-weeks').value)||1),
+    weeks:ptype==='warmup'?1:Math.max(1,parseInt(document.getElementById('prog-weeks').value)||1),
     days:window.tmpDays, createdAt:Date.now()
   };
   if(state.editingProgId){
@@ -1903,7 +2389,9 @@ function deleteTemplate(id){
 // ─── ASSIGN ──────────────────────────────────────────────
 function openAssign(tplId){
   if(!state.members.length){ toast('Önce üye ekleyin'); return; }
-  document.getElementById('assign-prog').innerHTML=state.templates.map(p=>`<option value="${p.id}" ${p.id===tplId?'selected':''}>${p.name} (${p.weeks||1} hf)</option>`).join('');
+  const assignables=state.templates.filter(p=>p.type!=='warmup');
+  if(!assignables.length){ toast('Atanabilir program şablonu yok'); return; }
+  document.getElementById('assign-prog').innerHTML=assignables.map(p=>`<option value="${p.id}" ${p.id===tplId?'selected':''}>${p.name} (${p.weeks||1} hf)</option>`).join('');
   document.getElementById('assign-member').innerHTML=state.members.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
   openModal('modal-assign');
 }
@@ -1946,12 +2434,13 @@ function openMemberModal(id){
   }
   openModal('modal-member');
 }
-function saveMember(){
+async function saveMember(){
   const editId=document.getElementById('member-edit-id').value;
   const name=document.getElementById('member-name').value.trim();
   const code=document.getElementById('member-code').value.trim().toUpperCase();
   if(!name||!code){ toast('Ad ve kod zorunludur'); return; }
-  if(state.members.find(m=>m.code===code&&m.id!==editId)){ toast('Bu kod kullanılıyor'); return; }
+  if(state.members.find(m=>m.code===code&&m.id!==editId)){ toast('Bu kod workspace içinde zaten kullanılıyor'); return; }
+
   const fields={
     name,code,
     age:document.getElementById('member-age').value,
@@ -1966,8 +2455,11 @@ function saveMember(){
   if(editId){ Object.assign(state.members.find(x=>x.id===editId),fields); }
   else state.members.push({id:uid(),...fields});
   save(); closeModal('modal-member'); render(); toast('Kaydedildi ✓');
+  if(code!==oldCode){
+  }
 }
-function deleteMember(id){
+async function deleteMember(id){
+  const m=state.members.find(x=>x.id===id);
   state.members=state.members.filter(m=>m.id!==id);
   state.programs=state.programs.filter(p=>p.memberId!==id);
   save(); render(); toast('Üye silindi');
@@ -1987,19 +2479,17 @@ function doLogin(){
   render();
 }
 function logoutMember(){
+  if(state.memberDirectAccess){ doLogoutWorkspace(); return; }
   state.mode='coach'; state.loggedMember=null;
   document.getElementById('mode-coach').classList.add('active');
   document.getElementById('mode-member').classList.remove('active');
-  const sb=document.getElementById('sidebar'); if(sb) sb.style.display='';
-  const url=new URL(window.location.href); url.searchParams.delete('kod');
-  window.history.replaceState({},'',url);
   navigate('templates');
 }
 function openShare(mId){
   const m=state.members.find(x=>x.id===mId); if(!m) return;
   document.getElementById('share-modal-name').textContent=m.name+' — Paylaşım';
-  document.getElementById('share-code-display').textContent=m.code;
-  const link=window.location.href.split('?')[0]+'?kod='+encodeURIComponent(m.code);
+  document.getElementById('share-code-display').textContent=memberFullCode(m);
+  const link=window.location.href.split('?')[0]+'?ws='+encodeURIComponent(state.workspaceCode||'')+'&kod='+encodeURIComponent(m.code);
   document.getElementById('share-link-input').value=link;
   const c=document.getElementById('qr-container');
   c.innerHTML='';
@@ -2029,27 +2519,148 @@ Object.assign(window,{
   setMemberTab,setViewWeek,fillMuscleSelects,openFocusDay,backToWeek,toggleWeightWidget,startTodaysWorkout,
   openShare,copyShareLink,showProgress,
   openModal,closeModal,addDay,removeDay,addExercise,removeExercise,saveProgram,
-  saveNewExercise,addTimer,stopTimer
+  saveNewExercise,addTimer,stopTimer,
+  doLandingLogin,doLandingMemberLogin,showMemberLogin,showCoachLogin,showAdminLogin,doAdminLogin,doLogoutWorkspace,
+  adminCreateWorkspace,adminDeleteWorkspace,adminOpenAsCoach,adminCopyCode,
+  openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
+  addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
 
 (async()=>{
   const bar=document.getElementById('load-bar');
-  bar.style.width='40%';
-  await load();
-  bar.style.width='100%';
-  setTimeout(()=>{ document.getElementById('loading-screen').style.display='none'; },400);
+  bar.style.width='30%';
+
   const params=new URLSearchParams(window.location.search);
+  const wsCodeParam=params.get('ws');
   const kod=params.get('kod');
-  if(kod){
-    const member=state.members.find(m=>m.code===kod.toUpperCase());
-    if(member){
-      state.loggedMember=member; state.mode='member';
-      window.memberTab='home';
-      const sb=document.getElementById('sidebar'); if(sb) sb.style.display='none';
+
+  if(wsCodeParam&&kod){
+    // direct member link: ?ws=COACH-XXXX&kod=AHMET01
+    await loadAdminData();
+    bar.style.width='60%';
+    const ws=state.adminWorkspaces.find(w=>w.code.toUpperCase()===wsCodeParam.toUpperCase());
+    if(ws){
+      await loadWorkspace(ws.id);
+      state.workspaceName=ws.name; state.workspaceCode=ws.code;
+      const member=state.members.find(m=>m.code===kod.toUpperCase());
+      if(member){
+        state.loggedMember=member; state.mode='member'; state.view='member';
+        state.memberDirectAccess=true;
+        window.memberTab='home';
+      } else {
+        state.view='landing';
+      }
+    } else {
+      state.view='landing';
+    }
+  } else {
+    // check saved coach session
+    const session=getSession();
+    if(session&&session.workspaceId){
+      bar.style.width='60%';
+      await loadAdminData();
+      const ws=state.adminWorkspaces.find(w=>w.id===session.workspaceId);
+      if(ws){
+        await loadWorkspace(ws.id);
+        state.workspaceName=ws.name; state.workspaceCode=ws.code;
+        state.view='coach'; state.mode='coach';
+      } else {
+        localStorage.removeItem('lyftr_session');
+        state.view='landing';
+      }
+    } else {
+      state.view='landing';
     }
   }
+
+  bar.style.width='100%';
+  setTimeout(()=>{ document.getElementById('loading-screen').style.display='none'; },400);
   render();
+  if(state.view==='landing') startTaglineRotation();
 })();
+
+// ─── WARMUP ROUTINES ─────────────────────────────────────
+function openWarmupModal(){
+  document.getElementById('warmup-exercise-list').innerHTML=
+    state.exercises.map(e=>`<option value="${e.name}">`).join('');
+  showWarmupList();
+  openModal('modal-warmup');
+}
+function showWarmupList(){
+  document.getElementById('warmup-list-view').classList.remove('hidden');
+  document.getElementById('warmup-builder-view').classList.add('hidden');
+  document.getElementById('warmup-list').innerHTML=state.warmupRoutines.length
+    ?state.warmupRoutines.map(r=>`
+      <div class="ws-row">
+        <div><div style="font-weight:600">${r.name}</div><div style="font-size:11px;color:var(--text3)">${r.exercises.map(e=>e.name).join(', ')}</div></div>
+        <div style="display:flex;gap:6px;flex-shrink:0">
+          <button class="btn btn-ghost btn-sm" onclick="editWarmupRoutine('${r.id}')">Düzenle</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteWarmupRoutine('${r.id}')">Sil</button>
+        </div>
+      </div>`).join('')
+    :'<p style="font-size:12px;color:var(--text3);padding:8px 0">Henüz rutin yok. Sık kullandığın ısınma egzersizlerini bir rutin olarak kaydet, sonra tek tıkla herhangi bir güne ekle.</p>';
+}
+function newWarmupRoutine(){
+  window.tmpWarmup={id:null,name:'',exercises:[{name:'',sets:2,reps:'10'}]};
+  renderWarmupBuilder();
+  document.getElementById('warmup-list-view').classList.add('hidden');
+  document.getElementById('warmup-builder-view').classList.remove('hidden');
+}
+function editWarmupRoutine(id){
+  const r=state.warmupRoutines.find(x=>x.id===id);
+  if(!r) return;
+  window.tmpWarmup=JSON.parse(JSON.stringify(r));
+  renderWarmupBuilder();
+  document.getElementById('warmup-list-view').classList.add('hidden');
+  document.getElementById('warmup-builder-view').classList.remove('hidden');
+}
+function cancelWarmupBuilder(){ showWarmupList(); }
+function renderWarmupBuilder(){
+  document.getElementById('warmup-name').value=window.tmpWarmup.name;
+  document.getElementById('warmup-ex-rows').innerHTML=window.tmpWarmup.exercises.map((ex,i)=>`
+    <div style="display:grid;grid-template-columns:2fr 60px 70px 36px;gap:8px;margin-bottom:8px">
+      <input class="form-input" list="warmup-exercise-list" value="${(ex.name||'').replace(/"/g,'&quot;')}" placeholder="Egzersiz adı" onchange="window.tmpWarmup.exercises[${i}].name=this.value">
+      <input class="form-input" type="number" min="1" value="${ex.sets||2}" title="Set" onchange="window.tmpWarmup.exercises[${i}].sets=parseInt(this.value)||1">
+      <input class="form-input" value="${ex.reps||''}" placeholder="10" title="Tekrar" onchange="window.tmpWarmup.exercises[${i}].reps=this.value">
+      <button class="btn btn-danger btn-sm" onclick="removeWarmupExRow(${i})">✕</button>
+    </div>`).join('');
+}
+function addWarmupExRow(){ window.tmpWarmup.exercises.push({name:'',sets:2,reps:'10'}); renderWarmupBuilder(); }
+function removeWarmupExRow(i){
+  window.tmpWarmup.exercises.splice(i,1);
+  if(!window.tmpWarmup.exercises.length) window.tmpWarmup.exercises.push({name:'',sets:2,reps:'10'});
+  renderWarmupBuilder();
+}
+function saveWarmupRoutine(){
+  const name=document.getElementById('warmup-name').value.trim();
+  if(!name){ toast('Rutin adı girin'); return; }
+  const exercises=window.tmpWarmup.exercises.map(e=>({name:(e.name||'').trim(),sets:e.sets||2,reps:e.reps||''})).filter(e=>e.name);
+  if(!exercises.length){ toast('En az bir egzersiz ekleyin'); return; }
+  if(window.tmpWarmup.id){
+    const idx=state.warmupRoutines.findIndex(r=>r.id===window.tmpWarmup.id);
+    state.warmupRoutines[idx]={id:window.tmpWarmup.id,name,exercises};
+  } else {
+    state.warmupRoutines.push({id:uid(),name,exercises});
+  }
+  save(); showWarmupList(); renderDays(); toast('Rutin kaydedildi ✓');
+}
+function deleteWarmupRoutine(id){
+  state.warmupRoutines=state.warmupRoutines.filter(r=>r.id!==id);
+  save(); showWarmupList(); renderDays();
+}
+function insertWarmupRoutine(di,routineId){
+  if(!routineId) return;
+  const r=state.warmupRoutines.find(x=>x.id===routineId);
+  if(!r) return;
+  const cloned=r.exercises.map(e=>({
+    name:e.name,sets:e.sets,reps:e.reps,rest:'',targetW:'',targetRpe:'',
+    superset:'',tempoOn:false,tempo:'',coachNote:''
+  }));
+  window.tmpDays[di].exercises=[...cloned,...window.tmpDays[di].exercises];
+  cloned.forEach(e=>{ if(e.name) state.recentEx=[e.name,...state.recentEx.filter(n=>n!==e.name)].slice(0,10); });
+  renderDays();
+  toast(`"${r.name}" eklendi (${cloned.length} egzersiz)`);
+}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
