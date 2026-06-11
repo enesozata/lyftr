@@ -9,7 +9,7 @@
     --bg:#0d0d0f;--surface:#16161a;--surface2:#1f1f25;--surface3:#2a2a32;
     --border:#2e2e36;--accent:#c8f542;--accent-dim:rgba(200,245,66,0.12);
     --text:#f2f2f4;--text2:#9a9aa3;--text3:#62626b;--red:#ff5252;--blue:#4da6ff;
-    --green:#4caf7d;--orange:#ff9f43;--purple:#a78bfa;--radius:12px;
+    --green:#4caf7d;--orange:#ff9f43;--purple:#a78bfa;--gold:#ffd700;--radius:12px;
     --font:'Inter',system-ui,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -37,7 +37,6 @@
   .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border);}
   .btn-ghost:hover{background:var(--surface2);color:var(--text);}
   .btn-danger{background:rgba(255,82,82,0.12);color:var(--red);border:1px solid rgba(255,82,82,0.25);}
-  .btn-danger:hover{background:rgba(255,82,82,0.22);}
   .btn-sm{padding:5px 10px;font-size:12px;}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
@@ -59,7 +58,6 @@
   .table{width:100%;border-collapse:collapse;}
   .table th{text-align:left;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;padding:10px 14px;border-bottom:1px solid var(--border);}
   .table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;vertical-align:middle;}
-  .table tr:last-child td{border-bottom:none;}
   .table tr:hover td{background:var(--surface2);}
   .progress-wrap{background:var(--surface3);border-radius:4px;height:5px;overflow:hidden;}
   .progress-bar{height:100%;background:var(--accent);border-radius:4px;transition:width .3s;}
@@ -70,7 +68,6 @@
   .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
   .modal-title{font-size:17px;font-weight:700;}
   .modal-close{background:var(--surface2);border:none;color:var(--text2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
-  .modal-close:hover{background:var(--surface3);color:var(--text);}
   .divider{height:1px;background:var(--border);margin:18px 0;}
   .empty{text-align:center;padding:48px 20px;color:var(--text3);}
   .empty-icon{font-size:36px;margin-bottom:12px;}
@@ -88,11 +85,14 @@
   .set-row{display:flex;align-items:center;gap:7px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);flex-wrap:wrap;}
   .set-row.warmup{opacity:0.65;}
   .pr-badge{background:rgba(255,159,67,0.18);color:var(--orange);border-radius:5px;padding:2px 7px;font-size:10px;font-weight:700;}
+  .e1rm-badge{background:var(--surface3);color:var(--text2);border-radius:5px;padding:2px 8px;font-size:10.5px;font-weight:600;}
+  .e1rm-badge.new-pr{background:rgba(255,215,0,0.18);color:var(--gold);animation:prflash 1s ease;}
+  @keyframes prflash{0%{transform:scale(1.3)}100%{transform:scale(1)}}
   .note-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;font-family:var(--font);outline:none;resize:none;width:100%;margin-top:8px;transition:border-color .15s;}
   .note-box:focus{border-color:var(--accent);}
   .pinned-note{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--purple);margin-top:8px;display:flex;align-items:flex-start;gap:6px;}
   .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--surface2);padding:4px;border-radius:11px;}
-  .tab{flex:1;text-align:center;padding:8px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);transition:all .15s;}
+  .tab{flex:1;text-align:center;padding:8px 4px;border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--text2);transition:all .15s;}
   .tab.active{background:var(--surface);color:var(--text);font-weight:600;}
   .comment-item{background:var(--surface2);border-radius:8px;padding:12px 14px;margin-bottom:8px;}
   .comment-meta{font-size:11px;color:var(--text3);margin-bottom:4px;}
@@ -109,15 +109,18 @@
   .toggle-sw.on::after{left:17px;background:#000;}
   .hist-hint{background:rgba(77,166,255,0.08);border:1px solid rgba(77,166,255,0.2);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--blue);margin-top:6px;line-height:1.5;}
   .sugg-hint{background:rgba(200,245,66,0.07);border:1px solid rgba(200,245,66,0.2);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--accent);margin-top:6px;line-height:1.5;}
-  .day-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
-  .day-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;background:var(--surface);}
+  .day-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+  .day-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+  .day-card-head:hover{background:var(--surface2);}
   .day-card-body{padding:0 18px 16px;}
+  .day-finished{border-color:rgba(76,175,125,0.4)!important;background:rgba(76,175,125,0.05)!important;}
+  .fin-stats{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .default-val{font-style:italic;color:var(--text3)!important;}
+  .finish-btn{width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:600;border-radius:10px;}
   .goal-pill{font-size:10px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;padding:3px 8px;border-radius:5px;}
   .target-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);background:var(--surface3);border-radius:5px;padding:2px 8px;}
-  .autofill-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--blue);background:rgba(77,166,255,0.1);border:1px solid rgba(77,166,255,0.25);border-radius:5px;padding:2px 8px;cursor:pointer;transition:all .15s;}
-  .autofill-chip:hover{background:rgba(77,166,255,0.2);}
-  .superset-tag{font-size:10px;font-weight:800;color:var(--purple);background:rgba(167,139,250,0.15);border-radius:4px;padding:2px 6px;letter-spacing:0.5px;}
-  /* Exercise dropdown */
+  .autofill-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--blue);background:rgba(77,166,255,0.1);border:1px solid rgba(77,166,255,0.25);border-radius:5px;padding:2px 8px;cursor:pointer;}
+  .superset-tag{font-size:10px;font-weight:800;color:var(--purple);background:rgba(167,139,250,0.15);border-radius:4px;padding:2px 6px;}
   .ex-dd{position:relative;}
   .ex-dd-list{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;max-height:240px;overflow-y:auto;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,0.5);}
   .ex-dd-item{padding:9px 14px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
@@ -125,15 +128,62 @@
   .ex-dd-item .ex-meta{font-size:11px;color:var(--text3);}
   .ex-dd-section{padding:6px 14px 4px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;}
   .ex-dd-empty{padding:12px 14px;font-size:12.5px;color:var(--text3);}
-  ::-webkit-scrollbar{width:5px;}
-  ::-webkit-scrollbar-track{background:transparent;}
-  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  .detail-stat{background:var(--surface2);border-radius:10px;padding:12px 14px;}
+  .detail-stat .dl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;}
+  .detail-stat .dv{font-size:19px;font-weight:800;letter-spacing:-0.5px;}
+  .trend-up{color:var(--green);}
+  .trend-down{color:var(--red);}
+  .hist-workout{background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;}
+  .hist-workout-head{padding:11px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:8px;flex-wrap:wrap;}
+  .hist-set-row{display:flex;gap:12px;padding:5px 14px;font-size:12px;color:var(--text2);border-top:1px solid rgba(255,255,255,0.03);}
+  /* HOME */
+  .mood-row{display:flex;gap:8px;justify-content:space-between;}
+  .mood-btn{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 4px;font-size:24px;cursor:pointer;text-align:center;transition:all .15s;}
+  .mood-btn:hover{border-color:var(--accent);transform:scale(1.05);}
+  .mood-btn.sel{border-color:var(--accent);background:var(--accent-dim);}
+  .ring-wrap{position:relative;width:84px;height:84px;}
+  .ring-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .big4-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .big4-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 12px;text-align:center;}
+  .big4-name{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+  .big4-val{font-size:19px;font-weight:800;letter-spacing:-0.5px;}
+  .big4-delta{font-size:10.5px;font-weight:700;margin-top:3px;}
+  .today-card{background:linear-gradient(135deg,rgba(200,245,66,0.1),rgba(200,245,66,0.02));border:1px solid rgba(200,245,66,0.3);border-radius:16px;padding:20px;margin-bottom:14px;}
+  .offday-card{background:linear-gradient(135deg,rgba(77,166,255,0.08),transparent);border:1px solid rgba(77,166,255,0.25);border-radius:16px;padding:20px;margin-bottom:14px;}
+  .week-strip{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+  .week-chip{flex:1;min-width:60px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 6px;text-align:center;cursor:pointer;transition:all .15s;}
+  .week-chip.done{border-color:rgba(76,175,125,0.4);background:rgba(76,175,125,0.08);}
+  .week-chip.next{border-color:var(--accent);background:var(--accent-dim);}
+  .week-chip .wc-name{font-size:11px;font-weight:600;}
+  .week-chip .wc-status{font-size:14px;margin-top:2px;}
+  .vol-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+  .vol-label{width:76px;font-size:11.5px;color:var(--text2);text-align:right;flex-shrink:0;}
+  .vol-track{flex:1;height:16px;background:var(--surface3);border-radius:5px;overflow:hidden;display:flex;}
+  .vol-direct{background:var(--accent);height:100%;}
+  .vol-indirect{background:rgba(200,245,66,0.35);height:100%;}
+  .vol-num{width:56px;font-size:11px;color:var(--text3);flex-shrink:0;}
+  .streak-box{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;}
+  /* day boxes grid + focus mode */
+  .day-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .day-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .15s;}
+  .day-box:hover{border-color:var(--text3);transform:translateY(-1px);}
+  .day-box.done{border-color:rgba(76,175,125,0.45);background:rgba(76,175,125,0.06);}
+  .day-box.next{border-color:var(--accent);background:var(--accent-dim);}
+  .db-status{font-size:20px;margin-bottom:6px;}
+  .db-name{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .db-meta{font-size:11px;color:var(--text3);}
+  /* weight widget */
+  .wt-widget{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+  .wt-head{padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:8px;}
+  .wt-head:hover{background:var(--surface2);}
+  .wt-body{padding:0 16px 14px;}
+  .wt-remind{font-size:10.5px;color:var(--orange);background:rgba(255,159,67,0.12);border-radius:5px;padding:2px 8px;}
   @media(max-width:720px){
     .main{padding:16px 12px;}
     .ex-editor-grid2{grid-template-columns:1fr 1fr;}
     .grid-3{grid-template-columns:1fr;}
+    .big4-grid{grid-template-columns:repeat(2,1fr);}
     .modal{width:100%;padding:18px;}
-    .set-row{gap:5px;}
     .page-title{font-size:19px;}
   }
 </style>
@@ -149,7 +199,7 @@
 
 <div id="toast"></div>
 <div id="timer-el" class="timer-ring hidden">
-  <div><div class="timer-label" id="timer-label">Dinlenme</div><div class="timer-count" id="timer-count">90</div></div>
+  <div><div class="timer-label">Dinlenme</div><div class="timer-count" id="timer-count">90</div></div>
   <div style="display:flex;flex-direction:column;gap:6px">
     <button class="btn btn-ghost btn-sm" onclick="addTimer(30)">+30s</button>
     <button class="btn btn-danger btn-sm" onclick="stopTimer()">Durdur</button>
@@ -159,66 +209,52 @@
 <div class="app">
   <div class="sidebar" id="sidebar">
     <div class="logo">lyftr<span>.</span></div>
-    <div class="nav-section" data-i18n="coachPanel">Koç Paneli</div>
+    <div class="nav-section">Koç Paneli</div>
     <div class="nav-item active" onclick="navigate('templates')" id="nav-templates">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      <span data-i18n="templates">Şablonlar</span>
+      <span>Şablonlar</span>
     </div>
     <div class="nav-item" onclick="navigate('members')" id="nav-members">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <span data-i18n="clients">Üyeler</span>
+      <span>Üyeler</span>
     </div>
     <div class="nav-item" onclick="navigate('overview')" id="nav-overview">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span data-i18n="overview">Genel Bakış</span>
+      <span>Genel Bakış</span>
     </div>
     <div class="nav-item" onclick="navigate('exercises')" id="nav-exercises">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11v11h-11z"/><path d="M3 10v4M21 10v4M10 3h4M10 21h4"/></svg>
-      <span data-i18n="exerciseLibrary">Egzersiz Kütüphanesi</span>
+      <span>Egzersiz Kütüphanesi</span>
     </div>
     <div class="sidebar-footer">
       <div class="mode-toggle">
-        <div class="mode-btn active" id="mode-coach" onclick="setMode('coach')" data-i18n="coach">Koç</div>
-        <div class="mode-btn" id="mode-member" onclick="setMode('member')" data-i18n="member">Üye</div>
+        <div class="mode-btn active" id="mode-coach" onclick="setMode('coach')">Koç</div>
+        <div class="mode-btn" id="mode-member" onclick="setMode('member')">Üye</div>
       </div>
     </div>
   </div>
   <div class="main" id="main-content"></div>
 </div>
 
-<style>
-  .day-finished{border-color:rgba(76,175,125,0.4)!important;background:rgba(76,175,125,0.05)!important;}
-  .fin-summary{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;cursor:pointer;gap:10px;flex-wrap:wrap;}
-  .fin-stats{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-  .default-val{font-style:italic;color:var(--text3)!important;}
-  .finish-btn{width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:600;border-radius:10px;}
-  .wchart-bar{transition:height .3s;}
-  .detail-stat{background:var(--surface2);border-radius:10px;padding:12px 14px;}
-  .detail-stat .dl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;}
-  .detail-stat .dv{font-size:19px;font-weight:800;letter-spacing:-0.5px;}
-  .trend-up{color:var(--green);}
-  .trend-down{color:var(--red);}
-  .hist-workout{background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;}
-  .hist-workout-head{padding:11px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:8px;flex-wrap:wrap;}
-  .hist-workout-head:hover{background:var(--surface3);}
-  .hist-set-row{display:flex;gap:12px;padding:5px 14px;font-size:12px;color:var(--text2);border-top:1px solid rgba(255,255,255,0.03);}
-</style>
-
 <!-- Template Builder Modal -->
 <div class="modal-bg" id="modal-program">
-  <div class="modal">
+  <div class="modal" style="width:720px">
     <div class="modal-header">
       <div class="modal-title" id="modal-program-title">Yeni Şablon</div>
       <button class="modal-close" onclick="closeModal('modal-program')">✕</button>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:2fr 1fr 90px;gap:10px;margin-bottom:14px">
       <div>
         <label class="form-label">Şablon Adı</label>
         <input class="form-input" id="prog-name" placeholder="örn. Blok 2 — Güç Fazı">
       </div>
       <div>
-        <label class="form-label">Üye (geçmiş & öneri için)</label>
+        <label class="form-label">Üye (öneri için)</label>
         <select class="form-input" id="prog-member" onchange="window._progMemberChanged()"></select>
+      </div>
+      <div>
+        <label class="form-label">Hafta</label>
+        <input class="form-input" type="number" id="prog-weeks" min="1" max="16" value="4">
       </div>
     </div>
     <div class="form-group">
@@ -227,8 +263,9 @@
     </div>
     <div class="divider"></div>
     <div id="days-container"></div>
-    <button class="btn btn-ghost btn-sm" onclick="addDay()" style="margin-bottom:16px">+ Gün Ekle</button>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
+    <button class="btn btn-ghost btn-sm" onclick="addDay()" style="margin-bottom:14px">+ Gün Ekle</button>
+    <div id="builder-volume"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
       <button class="btn btn-ghost" onclick="closeModal('modal-program')">İptal</button>
       <button class="btn btn-primary" onclick="saveProgram()">Kaydet</button>
     </div>
@@ -242,7 +279,7 @@
       <div class="modal-title">Üyeye Ata</div>
       <button class="modal-close" onclick="closeModal('modal-assign')">✕</button>
     </div>
-    <p style="font-size:12px;color:var(--text2);margin-bottom:14px">Şablon kopyalanarak üyeye özel program oluşturulur. Şablonu sonradan değiştirmen bu atamayı etkilemez.</p>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:14px">Şablon kopyalanarak üyeye özel program oluşturulur.</p>
     <div class="form-group"><label class="form-label">Şablon</label><select class="form-input" id="assign-prog"></select></div>
     <div class="form-group"><label class="form-label">Üye</label><select class="form-input" id="assign-member"></select></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
@@ -252,41 +289,37 @@
   </div>
 </div>
 
-<!-- Member Modal (extended profile) -->
+<!-- Member Modal -->
 <div class="modal-bg" id="modal-member">
-  <div class="modal" style="width:520px">
+  <div class="modal" style="width:540px">
     <div class="modal-header">
       <div class="modal-title" id="member-modal-title">Yeni Üye</div>
       <button class="modal-close" onclick="closeModal('modal-member')">✕</button>
     </div>
     <input type="hidden" id="member-edit-id">
     <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:12px">
-      <div><label class="form-label">Ad Soyad</label><input class="form-input" id="member-name" placeholder="örn. Ahmet Yılmaz"></div>
-      <div><label class="form-label">Erişim Kodu</label><input class="form-input" id="member-code" placeholder="AHMET01" style="text-transform:uppercase"></div>
+      <div><label class="form-label">Ad Soyad</label><input class="form-input" id="member-name"></div>
+      <div><label class="form-label">Erişim Kodu</label><input class="form-input" id="member-code" style="text-transform:uppercase"></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px">
-      <div><label class="form-label">Yaş</label><input class="form-input" type="number" id="member-age" placeholder="25"></div>
-      <div><label class="form-label">Boy (cm)</label><input class="form-input" type="number" id="member-height" placeholder="180"></div>
-      <div><label class="form-label">Başl. Kilo</label><input class="form-input" type="number" step="0.1" id="member-startw" placeholder="78"></div>
+      <div><label class="form-label">Yaş</label><input class="form-input" type="number" id="member-age"></div>
+      <div><label class="form-label">Boy (cm)</label><input class="form-input" type="number" id="member-height"></div>
       <div><label class="form-label">Cinsiyet</label>
-        <select class="form-input" id="member-gender">
-          <option value="">—</option><option value="m">Erkek</option><option value="f">Kadın</option><option value="x">Diğer</option>
+        <select class="form-input" id="member-gender"><option value="">—</option><option value="m">Erkek</option><option value="f">Kadın</option><option value="x">Diğer</option></select>
+      </div>
+      <div><label class="form-label">Hedef</label>
+        <select class="form-input" id="member-goal">
+          <option value="">—</option><option value="lose">Kilo vermek</option><option value="gain">Kas kazanmak</option>
+          <option value="strength">Güçlenmek</option><option value="maintain">Form korumak</option><option value="health">Genel sağlık</option>
         </select>
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Fitness Hedefi</label>
-      <select class="form-input" id="member-goal">
-        <option value="">— Seç —</option>
-        <option value="lose">Kilo vermek</option>
-        <option value="gain">Kas kazanmak</option>
-        <option value="strength">Güçlenmek</option>
-        <option value="maintain">Form korumak</option>
-        <option value="health">Genel sağlık</option>
-      </select>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div><label class="form-label">Başlangıç Kilosu (kg)</label><input class="form-input" type="number" step="0.1" id="member-startw"></div>
+      <div><label class="form-label">Hedef Kilo (kg, opsiyonel)</label><input class="form-input" type="number" step="0.1" id="member-targetw"></div>
     </div>
-    <div class="form-group"><label class="form-label">Sakatlık / Kısıtlamalar (üye de görür)</label><input class="form-input" id="member-injuries" placeholder="örn. Sol omuz impingement"></div>
-    <div class="form-group"><label class="form-label">Koç Notu (sadece sen görürsün)</label><textarea class="note-box" id="member-coachnote" rows="2" placeholder="Özel notların..."></textarea></div>
+    <div class="form-group"><label class="form-label">Sakatlık / Kısıtlamalar (üye de görür)</label><input class="form-input" id="member-injuries"></div>
+    <div class="form-group"><label class="form-label">Koç Notu (sadece sen)</label><textarea class="note-box" id="member-coachnote" rows="2"></textarea></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
       <button class="btn btn-ghost" onclick="closeModal('modal-member')">İptal</button>
       <button class="btn btn-primary" onclick="saveMember()">Kaydet</button>
@@ -327,7 +360,6 @@
       <div class="modal-title">Üye Girişi</div>
       <button class="modal-close" onclick="closeModal('modal-login')">✕</button>
     </div>
-    <p style="color:var(--text2);font-size:13px;margin-bottom:16px">Koçunun verdiği erişim kodunu gir.</p>
     <div class="form-group">
       <input class="form-input" id="login-code" placeholder="KOD" style="text-transform:uppercase;font-size:18px;letter-spacing:2px;text-align:center">
     </div>
@@ -351,30 +383,38 @@
 
 <!-- Custom Exercise Modal -->
 <div class="modal-bg" id="modal-newex">
-  <div class="modal" style="width:420px">
+  <div class="modal" style="width:460px">
     <div class="modal-header">
       <div class="modal-title">Yeni Egzersiz Ekle</div>
       <button class="modal-close" onclick="closeModal('modal-newex')">✕</button>
     </div>
     <div class="form-group"><label class="form-label">Egzersiz Adı</label><input class="form-input" id="newex-name"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-      <div><label class="form-label">Kategori</label>
-        <select class="form-input" id="newex-cat">
-          <option>Göğüs</option><option>Sırt</option><option>Bacak</option><option>Omuz</option>
-          <option>Kol</option><option>Karın</option><option>Kalça</option><option>Diğer</option>
-        </select>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div><label class="form-label">Birincil Kas</label>
+        <select class="form-input" id="newex-m1"></select>
       </div>
-      <div><label class="form-label">Ekipman</label>
-        <select class="form-input" id="newex-eq">
-          <option>Barbell</option><option>Dumbbell</option><option>Makine</option><option>Kablo</option>
-          <option>Vücut Ağırlığı</option><option>Kettlebell</option><option>Diğer</option>
-        </select>
+      <div><label class="form-label">İkincil Kas (ops., ×0.5)</label>
+        <select class="form-input" id="newex-m2"></select>
       </div>
+    </div>
+    <div class="form-group"><label class="form-label">Ekipman</label>
+      <select class="form-input" id="newex-eq">
+        <option>Barbell</option><option>Dumbbell</option><option>Makine</option><option>Kablo</option>
+        <option>Vücut Ağırlığı</option><option>Kettlebell</option><option>Diğer</option>
+      </select>
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button class="btn btn-ghost" onclick="closeModal('modal-newex')">İptal</button>
       <button class="btn btn-primary" onclick="saveNewExercise()">Ekle</button>
     </div>
+  </div>
+</div>
+
+<!-- Celebration Modal -->
+<div class="modal-bg" id="modal-celebrate">
+  <div class="modal" style="width:440px;text-align:center">
+    <div id="celebrate-body"></div>
+    <button class="btn btn-primary" style="width:100%;margin-top:18px" onclick="closeModal('modal-celebrate')">Devam 💪</button>
   </div>
 </div>
 
@@ -393,85 +433,73 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
 
-// ─── i18n ────────────────────────────────────────────────
-const LANG = 'tr';
-const I18N = {
-  tr: {
-    coachPanel:'Koç Paneli', templates:'Şablonlar', clients:'Üyeler', overview:'Genel Bakış',
-    exerciseLibrary:'Egzersiz Kütüphanesi', coach:'Koç', member:'Üye',
-    day:'Gün', sets:'Set', reps:'Tekrar', weight:'Kilo', rest:'Dinlenme', tempo:'Tempo',
-    notes:'Notlar', completed:'Tamamlandı', searchExercise:'Egzersiz ara...',
-    addExercise:'Egzersiz ekle', notFound:'Egzersiz bulunamadı', addNew:'+ Yeni egzersiz ekle',
-    recentlyUsed:'Son kullanılanlar', restDone:'Dinlenme bitti! 💪',
-    saved:'Kaydedildi ✓', assigned:'Program atandı ✓', finishWorkout:'Antrenmanı Bitir',
-  },
-};
-function t(key){ return (I18N[LANG]&&I18N[LANG][key])||key; }
-
-// ─── DEFAULT EXERCISE LIBRARY ────────────────────────────
+// ─── MUSCLES ─────────────────────────────────────────────
+const MUSCLES = ['Göğüs','Sırt','Omuz','Biceps','Triceps','Quad','Hamstring','Kalça','Baldır','Karın'];
+// muscles: [{m:'Göğüs',c:1},{m:'Triceps',c:0.5}] — c=1 direkt, c<1 dolaylı
 const DEFAULT_EXERCISES = [
-  {id:'back_squat',name:'Back Squat',cat:'Bacak',eq:'Barbell'},
-  {id:'front_squat',name:'Front Squat',cat:'Bacak',eq:'Barbell'},
-  {id:'hack_squat',name:'Hack Squat',cat:'Bacak',eq:'Makine'},
-  {id:'leg_press',name:'Leg Press',cat:'Bacak',eq:'Makine'},
-  {id:'goblet_squat',name:'Goblet Squat',cat:'Bacak',eq:'Dumbbell'},
-  {id:'deadlift',name:'Deadlift',cat:'Bacak',eq:'Barbell'},
-  {id:'rdl',name:'Romanian Deadlift',cat:'Bacak',eq:'Barbell'},
-  {id:'hip_thrust',name:'Hip Thrust',cat:'Kalça',eq:'Barbell'},
-  {id:'leg_curl',name:'Leg Curl',cat:'Bacak',eq:'Makine'},
-  {id:'good_morning',name:'Good Morning',cat:'Bacak',eq:'Barbell'},
-  {id:'walking_lunge',name:'Walking Lunge',cat:'Bacak',eq:'Dumbbell'},
-  {id:'bulgarian_split',name:'Bulgarian Split Squat',cat:'Bacak',eq:'Dumbbell'},
-  {id:'leg_extension',name:'Leg Extension',cat:'Bacak',eq:'Makine'},
-  {id:'calf_raise',name:'Calf Raise',cat:'Bacak',eq:'Makine'},
-  {id:'bench_press',name:'Bench Press',cat:'Göğüs',eq:'Barbell'},
-  {id:'incline_db_press',name:'Incline Dumbbell Press',cat:'Göğüs',eq:'Dumbbell'},
-  {id:'machine_chest_press',name:'Machine Chest Press',cat:'Göğüs',eq:'Makine'},
-  {id:'pushup',name:'Push-up',cat:'Göğüs',eq:'Vücut Ağırlığı'},
-  {id:'cable_fly',name:'Cable Fly',cat:'Göğüs',eq:'Kablo'},
-  {id:'pec_deck',name:'Pec Deck',cat:'Göğüs',eq:'Makine'},
-  {id:'ohp',name:'Overhead Press',cat:'Omuz',eq:'Barbell'},
-  {id:'db_shoulder_press',name:'Dumbbell Shoulder Press',cat:'Omuz',eq:'Dumbbell'},
-  {id:'lateral_raise',name:'Lateral Raise',cat:'Omuz',eq:'Dumbbell'},
-  {id:'cable_lateral_raise',name:'Cable Lateral Raise',cat:'Omuz',eq:'Kablo'},
-  {id:'barbell_row',name:'Barbell Row',cat:'Sırt',eq:'Barbell'},
-  {id:'cable_row',name:'Seated Cable Row',cat:'Sırt',eq:'Kablo'},
-  {id:'db_row',name:'One-Arm Dumbbell Row',cat:'Sırt',eq:'Dumbbell'},
-  {id:'chest_supported_row',name:'Chest Supported Row',cat:'Sırt',eq:'Makine'},
-  {id:'pullup',name:'Pull-up',cat:'Sırt',eq:'Vücut Ağırlığı'},
-  {id:'lat_pulldown',name:'Lat Pulldown',cat:'Sırt',eq:'Kablo'},
-  {id:'biceps_curl',name:'Biceps Curl',cat:'Kol',eq:'Dumbbell'},
-  {id:'hammer_curl',name:'Hammer Curl',cat:'Kol',eq:'Dumbbell'},
-  {id:'triceps_pushdown',name:'Triceps Pushdown',cat:'Kol',eq:'Kablo'},
-  {id:'skull_crusher',name:'Skull Crusher',cat:'Kol',eq:'Barbell'},
-  {id:'plank',name:'Plank',cat:'Karın',eq:'Vücut Ağırlığı'},
-  {id:'cable_crunch',name:'Cable Crunch',cat:'Karın',eq:'Kablo'},
+  {id:'back_squat',name:'Back Squat',eq:'Barbell',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5},{m:'Hamstring',c:0.3}]},
+  {id:'front_squat',name:'Front Squat',eq:'Barbell',muscles:[{m:'Quad',c:1},{m:'Karın',c:0.3}]},
+  {id:'hack_squat',name:'Hack Squat',eq:'Makine',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.3}]},
+  {id:'leg_press',name:'Leg Press',eq:'Makine',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.3}]},
+  {id:'goblet_squat',name:'Goblet Squat',eq:'Dumbbell',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.3}]},
+  {id:'deadlift',name:'Deadlift',eq:'Barbell',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.5},{m:'Sırt',c:0.5}]},
+  {id:'rdl',name:'Romanian Deadlift',eq:'Barbell',muscles:[{m:'Hamstring',c:1},{m:'Kalça',c:0.5}]},
+  {id:'hip_thrust',name:'Hip Thrust',eq:'Barbell',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.3}]},
+  {id:'leg_curl',name:'Leg Curl',eq:'Makine',muscles:[{m:'Hamstring',c:1}]},
+  {id:'good_morning',name:'Good Morning',eq:'Barbell',muscles:[{m:'Hamstring',c:1},{m:'Kalça',c:0.5},{m:'Sırt',c:0.3}]},
+  {id:'walking_lunge',name:'Walking Lunge',eq:'Dumbbell',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'bulgarian_split',name:'Bulgarian Split Squat',eq:'Dumbbell',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'leg_extension',name:'Leg Extension',eq:'Makine',muscles:[{m:'Quad',c:1}]},
+  {id:'calf_raise',name:'Calf Raise',eq:'Makine',muscles:[{m:'Baldır',c:1}]},
+  {id:'bench_press',name:'Bench Press',eq:'Barbell',muscles:[{m:'Göğüs',c:1},{m:'Triceps',c:0.5},{m:'Omuz',c:0.3}]},
+  {id:'incline_db_press',name:'Incline Dumbbell Press',eq:'Dumbbell',muscles:[{m:'Göğüs',c:1},{m:'Omuz',c:0.5},{m:'Triceps',c:0.3}]},
+  {id:'machine_chest_press',name:'Machine Chest Press',eq:'Makine',muscles:[{m:'Göğüs',c:1},{m:'Triceps',c:0.5}]},
+  {id:'pushup',name:'Push-up',eq:'Vücut Ağırlığı',muscles:[{m:'Göğüs',c:1},{m:'Triceps',c:0.5},{m:'Omuz',c:0.3}]},
+  {id:'cable_fly',name:'Cable Fly',eq:'Kablo',muscles:[{m:'Göğüs',c:1}]},
+  {id:'pec_deck',name:'Pec Deck',eq:'Makine',muscles:[{m:'Göğüs',c:1}]},
+  {id:'ohp',name:'Overhead Press',eq:'Barbell',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5}]},
+  {id:'db_shoulder_press',name:'Dumbbell Shoulder Press',eq:'Dumbbell',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5}]},
+  {id:'lateral_raise',name:'Lateral Raise',eq:'Dumbbell',muscles:[{m:'Omuz',c:1}]},
+  {id:'cable_lateral_raise',name:'Cable Lateral Raise',eq:'Kablo',muscles:[{m:'Omuz',c:1}]},
+  {id:'barbell_row',name:'Barbell Row',eq:'Barbell',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'cable_row',name:'Seated Cable Row',eq:'Kablo',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'db_row',name:'One-Arm Dumbbell Row',eq:'Dumbbell',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'chest_supported_row',name:'Chest Supported Row',eq:'Makine',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'pullup',name:'Pull-up',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'lat_pulldown',name:'Lat Pulldown',eq:'Kablo',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'biceps_curl',name:'Biceps Curl',eq:'Dumbbell',muscles:[{m:'Biceps',c:1}]},
+  {id:'hammer_curl',name:'Hammer Curl',eq:'Dumbbell',muscles:[{m:'Biceps',c:1}]},
+  {id:'triceps_pushdown',name:'Triceps Pushdown',eq:'Kablo',muscles:[{m:'Triceps',c:1}]},
+  {id:'skull_crusher',name:'Skull Crusher',eq:'Barbell',muscles:[{m:'Triceps',c:1}]},
+  {id:'plank',name:'Plank',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'cable_crunch',name:'Cable Crunch',eq:'Kablo',muscles:[{m:'Karın',c:1}]},
 ];
+function exCat(e){ return e.muscles&&e.muscles.length?e.muscles[0].m:'Diğer'; }
 
 // ─── STATE ───────────────────────────────────────────────
 let state = {
   mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null, detailMemberId:null,
   templates:[], programs:[], members:[], exercises:[], recentEx:[],
   logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{},
-  weightLog:{},          // memberId → [{w,date}]
-  finishedWorkouts:{},   // memberId_progId_di → {date,duration,pct,avgRpe,volume}
-  workoutStart:{},       // memberId_progId_di → timestamp
-  defaults:{},           // setKey → true (auto-accepted coach target)
+  weightLog:{}, finishedWorkouts:{}, workoutStart:{}, defaults:{},
+  moodLog:{},   // memberId → [{mood:1-5,date}]
 };
 window.tmpDays = [];
-window.expandedDays = new Set();   // UI only, not persisted
+window.expandedDays = new Set();
 window.expandedHist = new Set();
-let timerInterval = null;
-let timerSeconds = 0;
+window.memberTab = 'home';
+window.viewWeek = null;  // member: viewing week index (null=current)
+window.focusDay = null;  // {wi,di} focus mode
+window.weightOpen = false;
+let timerInterval=null, timerSeconds=0;
 
-const GOALS = [
-  {v:'',l:'— Amaç —'},{v:'hypertrophy',l:'Hipertrofi'},{v:'strength',l:'Güç'},
-  {v:'deload',l:'Deload'},{v:'endurance',l:'Dayanıklılık'},{v:'technique',l:'Teknik'}
-];
-const GOAL_COLORS = {hypertrophy:'var(--accent)',strength:'var(--blue)',deload:'var(--orange)',endurance:'var(--purple)',technique:'var(--green)'};
-const GOAL_LABELS = {hypertrophy:'Hipertrofi',strength:'Güç',deload:'Deload',endurance:'Dayanıklılık',technique:'Teknik'};
-const SET_TYPES = [{v:'W',l:'Isınma'},{v:'N',l:'Normal'},{v:'F',l:'Failure'},{v:'D',l:'Drop'}];
-const FITNESS_GOALS = {lose:'Kilo vermek',gain:'Kas kazanmak',strength:'Güçlenmek',maintain:'Form korumak',health:'Genel sağlık'};
+const GOALS=[{v:'',l:'— Amaç —'},{v:'hypertrophy',l:'Hipertrofi'},{v:'strength',l:'Güç'},{v:'deload',l:'Deload'},{v:'endurance',l:'Dayanıklılık'},{v:'technique',l:'Teknik'}];
+const GOAL_COLORS={hypertrophy:'var(--accent)',strength:'var(--blue)',deload:'var(--orange)',endurance:'var(--purple)',technique:'var(--green)'};
+const GOAL_LABELS={hypertrophy:'Hipertrofi',strength:'Güç',deload:'Deload',endurance:'Dayanıklılık',technique:'Teknik'};
+const SET_TYPES=[{v:'W',l:'Isınma'},{v:'N',l:'Normal'},{v:'F',l:'Failure'},{v:'D',l:'Drop'}];
+const FITNESS_GOALS={lose:'Kilo vermek',gain:'Kas kazanmak',strength:'Güçlenmek',maintain:'Form korumak',health:'Genel sağlık'};
+const MOODS=[{v:1,e:'😫'},{v:2,e:'😕'},{v:3,e:'😐'},{v:4,e:'🙂'},{v:5,e:'🔥'}];
+const BIG4=[{key:'bench press',label:'Bench'},{key:'back squat',label:'Squat'},{key:'deadlift',label:'Deadlift'},{key:'overhead press',label:'OHP'}];
 
 // ─── STORAGE ─────────────────────────────────────────────
 async function save(){
@@ -483,16 +511,16 @@ async function save(){
       notes:state.notes, pinnedNotes:state.pinnedNotes,
       completions:state.completions, comments:state.comments,
       weightLog:state.weightLog, finishedWorkouts:state.finishedWorkouts,
-      workoutStart:state.workoutStart, defaults:state.defaults,
+      workoutStart:state.workoutStart, defaults:state.defaults, moodLog:state.moodLog,
       updatedAt:Date.now(),
     });
   } catch(e){ console.error(e); toast('Kayıt hatası!'); }
 }
 async function load(){
   try {
-    const snap = await getDoc(doc(db,'lyftr','data'));
+    const snap=await getDoc(doc(db,'lyftr','data'));
     if(snap.exists()){
-      const d = snap.data();
+      const d=snap.data();
       state.templates=d.templates||[]; state.programs=d.programs||[];
       state.members=d.members||[]; state.exercises=d.exercises||[];
       state.recentEx=d.recentEx||[];
@@ -502,10 +530,20 @@ async function load(){
       state.completions=d.completions||{}; state.comments=d.comments||{};
       state.weightLog=d.weightLog||{}; state.finishedWorkouts=d.finishedWorkouts||{};
       state.workoutStart=d.workoutStart||{}; state.defaults=d.defaults||{};
+      state.moodLog=d.moodLog||{};
     }
+    // seed / patch exercise library with muscle data
     if(!state.exercises.length){
-      state.exercises = DEFAULT_EXERCISES.slice();
+      state.exercises=DEFAULT_EXERCISES.slice();
       await save();
+    } else {
+      let patched=false;
+      DEFAULT_EXERCISES.forEach(de=>{
+        const ex=state.exercises.find(e=>e.id===de.id);
+        if(ex&&!ex.muscles){ ex.muscles=de.muscles; patched=true; }
+        if(!ex){ state.exercises.push(de); patched=true; }
+      });
+      if(patched) await save();
     }
   } catch(e){ console.error(e); }
 }
@@ -519,23 +557,26 @@ function parseRepTop(reps){
   const n=parseInt(reps); return isNaN(n)?0:n;
 }
 function fmtDate(ts){ return new Date(ts).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}); }
-
-// member's latest weight & delta vs start
+function todayStr(){ return new Date().toDateString(); }
+function setKey(mId,pId,wi,di,ei,si){ return `${mId}_${pId}_w${wi}_${di}_${ei}_${si}`; }
+function dayKeyOf(mId,pId,wi,di){ return `${mId}_${pId}_w${wi}_${di}`; }
+function findExercise(name){
+  if(!name) return null;
+  const nl=name.trim().toLowerCase();
+  return state.exercises.find(e=>e.name.toLowerCase()===nl)||null;
+}
 function memberWeightInfo(m){
   const wl=state.weightLog[m.id]||[];
-  const cur = wl.length ? wl[wl.length-1].w : (m.startWeight?parseFloat(m.startWeight):null);
-  const start = m.startWeight ? parseFloat(m.startWeight) : (wl.length?wl[0].w:null);
-  const delta = (cur!=null&&start!=null) ? Math.round((cur-start)*10)/10 : null;
+  const cur=wl.length?wl[wl.length-1].w:(m.startWeight?parseFloat(m.startWeight):null);
+  const start=m.startWeight?parseFloat(m.startWeight):(wl.length?wl[0].w:null);
+  const delta=(cur!=null&&start!=null)?Math.round((cur-start)*10)/10:null;
   return {cur,start,delta,entries:wl};
 }
-// goal-aware status
 function goalStatus(m){
   const {delta}=memberWeightInfo(m);
   const g=m.goal;
   if(!g) return {label:'Hedef yok',color:'var(--text3)'};
-  if(g==='strength'){
-    return {label:FITNESS_GOALS[g],color:'var(--blue)'};
-  }
+  if(g==='strength') return {label:FITNESS_GOALS[g],color:'var(--blue)'};
   if(delta==null) return {label:FITNESS_GOALS[g],color:'var(--text3)'};
   if(g==='lose'){
     if(delta<=-0.5) return {label:`↓ ${Math.abs(delta)}kg — yolunda`,color:'var(--green)'};
@@ -549,95 +590,180 @@ function goalStatus(m){
   }
   return {label:FITNESS_GOALS[g],color:'var(--text2)'};
 }
+// goal progress 0-100 (lose/gain with targetWeight)
+function goalProgress(m){
+  if(!m.goal||!m.targetWeight||!m.startWeight) return null;
+  const {cur}=memberWeightInfo(m);
+  if(cur==null) return null;
+  const start=parseFloat(m.startWeight), target=parseFloat(m.targetWeight);
+  if(start===target) return null;
+  const pct=Math.round(((cur-start)/(target-start))*100);
+  return Math.max(0,Math.min(100,pct));
+}
+// weekly muscle volume from program days (planned sets)
+function muscleVolume(days){
+  const vol={};
+  MUSCLES.forEach(mm=>vol[mm]={d:0,i:0});
+  days.forEach(day=>day.exercises.forEach(ex=>{
+    const sc=parseInt(ex.sets)||0;
+    if(!sc) return;
+    const lib=findExercise(ex.name);
+    const muscles=lib&&lib.muscles?lib.muscles:null;
+    if(!muscles) return;
+    muscles.forEach(({m,c})=>{
+      if(!vol[m]) vol[m]={d:0,i:0};
+      if(c>=1) vol[m].d+=sc;
+      else vol[m].i+=sc*c;
+    });
+  }));
+  return vol;
+}
+function volBarsHTML(vol,compact){
+  const rows=MUSCLES.map(mm=>{
+    const v=vol[mm]; if(!v||((v.d+v.i)<0.5)) return '';
+    const tot=Math.round((v.d+v.i)*10)/10;
+    const maxScale=24;
+    const dW=Math.min(100,v.d/maxScale*100);
+    const iW=Math.min(100-dW,v.i/maxScale*100);
+    const col=tot<10?'gri':tot<=20?'ok':'çok';
+    return `<div class="vol-row">
+      <div class="vol-label">${mm}</div>
+      <div class="vol-track"><div class="vol-direct" style="width:${dW}%"></div><div class="vol-indirect" style="width:${iW}%"></div></div>
+      <div class="vol-num">${v.d}${v.i>0.4?` +${Math.round(v.i*10)/10}`:''}</div>
+    </div>`;
+  }).filter(Boolean).join('');
+  if(!rows) return '';
+  return rows+(compact?'':`<div style="font-size:10px;color:var(--text3);margin-top:6px">Koyu: direkt set · Açık: dolaylı (tahmini) · İdeal aralık ~10-20 set/hafta</div>`);
+}
 
-// ─── EXERCISE HISTORY / PROGRESSION ──────────────────────
-function getExerciseHistory(memberId, exName){
-  if(!memberId||!exName) return null;
-  const nl=exName.trim().toLowerCase();
-  if(!nl) return null;
-  const results=[];
+// ─── HISTORY / PROGRESSION (week-aware) ──────────────────
+// iterate all programs+weeks of member for exercise name
+function forEachExSlot(memberId,exName,cb){
+  const nl=(exName||'').trim().toLowerCase();
+  if(!nl) return;
   state.programs.filter(p=>p.memberId===memberId).forEach(p=>{
+    const weeks=p.weeks||1;
     p.days.forEach((d,di)=>{
       d.exercises.forEach((ex,ei)=>{
         if((ex.name||'').trim().toLowerCase()===nl){
-          const sc=parseInt(ex.sets)||0;
-          let maxW=0,rpeVals=[],bestE1rm=0,allRepsTop=true,repsLogged=0;
-          const topReps = parseRepTop(ex.reps);
-          for(let si=0;si<sc;si++){
-            const key=`${memberId}_${p.id}_${di}_${ei}_${si}`;
-            const w=parseFloat(state.logs[key])||0;
-            const r=parseInt(state.repsLog[key])||0;
-            if(w>maxW) maxW=w;
-            if(w&&r){ const e=epley(w,r); if(e>bestE1rm) bestE1rm=e; repsLogged++; if(topReps&&r<topReps) allRepsTop=false; }
-            const rp=parseFloat(state.rpe[key])||0;
-            if(rp>0) rpeVals.push(rp);
-          }
-          if(maxW>0||rpeVals.length>0){
-            results.push({
-              progName:p.name, sets:ex.sets, reps:ex.reps, maxW, bestE1rm,
-              avgRpe:rpeVals.length?Math.round(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length*10)/10:null,
-              hitTopReps: repsLogged>0&&allRepsTop&&topReps>0,
-              createdAt:p.createdAt||0
-            });
-          }
+          for(let wi=0;wi<weeks;wi++) cb(p,wi,di,ei,ex);
         }
       });
     });
   });
-  results.sort((a,b)=>b.createdAt-a.createdAt);
+}
+function getExerciseHistory(memberId,exName){
+  if(!memberId||!exName) return null;
+  const results=[];
+  const seen={};
+  forEachExSlot(memberId,exName,(p,wi,di,ei,ex)=>{
+    const sc=parseInt(ex.sets)||0;
+    let maxW=0,rpeVals=[],bestE1rm=0,allTop=true,logged=0;
+    const topReps=parseRepTop(ex.reps);
+    for(let si=0;si<sc;si++){
+      const key=setKey(memberId,p.id,wi,di,ei,si);
+      const w=parseFloat(state.logs[key])||0;
+      const r=parseInt(state.repsLog[key])||0;
+      if(w>maxW) maxW=w;
+      if(w&&r){ const e=epley(w,r); if(e>bestE1rm) bestE1rm=e; logged++; if(topReps&&r<topReps) allTop=false; }
+      const rp=parseFloat(state.rpe[key])||0;
+      if(rp>0) rpeVals.push(rp);
+    }
+    if(maxW>0||rpeVals.length){
+      results.push({
+        progName:p.name+' H'+(wi+1), sets:ex.sets, reps:ex.reps, maxW, bestE1rm,
+        avgRpe:rpeVals.length?Math.round(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length*10)/10:null,
+        hitTopReps:logged>0&&allTop&&topReps>0,
+        sortKey:(p.createdAt||0)+wi
+      });
+    }
+  });
+  results.sort((a,b)=>b.sortKey-a.sortKey);
   return results.length?results:null;
 }
-function getSuggestion(memberId, exName){
+function getSuggestion(memberId,exName){
   const hist=getExerciseHistory(memberId,exName);
   if(!hist||!hist.length) return null;
   const last=hist[0];
-  if(last.hitTopReps&&last.maxW>0){
-    return {w:Math.round((last.maxW+2.5)*2)/2, reason:`tüm setlerde üst tekrar sınırına ulaşıldı (${last.reps})`};
-  }
+  if(last.avgRpe&&last.avgRpe>=9) return {warn:true,reason:`son RPE ${last.avgRpe} — zorlanıyor, sabit tut`};
+  if(last.hitTopReps&&last.maxW>0&&(!last.avgRpe||last.avgRpe<=7.5))
+    return {w:Math.round((last.maxW+2.5)*2)/2,reason:`üst tekrara ulaşıldı${last.avgRpe?`, RPE ${last.avgRpe}`:''}`};
   return null;
 }
-function getLastSetData(memberId, exName, si){
-  if(!memberId||!exName) return null;
-  const nl=exName.trim().toLowerCase();
-  const progs=state.programs.filter(p=>p.memberId===memberId).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  for(const p of progs){
-    for(let di=0;di<p.days.length;di++){
-      const d=p.days[di];
-      for(let ei=0;ei<d.exercises.length;ei++){
-        const ex=d.exercises[ei];
-        if((ex.name||'').trim().toLowerCase()===nl){
-          const key=`${memberId}_${p.id}_${di}_${ei}_${si}`;
-          const w=state.logs[key], r=state.repsLog[key];
-          if(w||r) return {w:w||'',r:r||''};
-        }
-      }
+function getLastSetData(memberId,exName,si,excludeKey){
+  let best=null,bestSort=-1;
+  forEachExSlot(memberId,exName,(p,wi,di,ei)=>{
+    const key=setKey(memberId,p.id,wi,di,ei,si);
+    if(key===excludeKey) return;
+    const w=state.logs[key],r=state.repsLog[key];
+    if(w||r){
+      const sk=(p.createdAt||0)+wi;
+      if(sk>bestSort){ bestSort=sk; best={w:w||'',r:r||''}; }
     }
-  }
-  return null;
+  });
+  return best;
 }
-// total volume of a day instance (kg)
-function dayVolume(mId,progId,prog,di){
+// best e1RM ever for exercise name
+function bestE1RM(memberId,exName){
+  let best=0;
+  forEachExSlot(memberId,exName,(p,wi,di,ei,ex)=>{
+    const sc=parseInt(ex.sets)||0;
+    for(let si=0;si<sc;si++){
+      const key=setKey(memberId,p.id,wi,di,ei,si);
+      const w=parseFloat(state.logs[key])||0;
+      const r=parseInt(state.repsLog[key])||0;
+      if(w&&r){ const e=epley(w,r); if(e>best) best=e; }
+    }
+  });
+  return best;
+}
+function dayVolume(mId,pId,prog,wi,di){
   const day=prog.days[di]; let vol=0;
   day.exercises.forEach((ex,ei)=>{
     const sc=parseInt(ex.sets)||0;
     for(let si=0;si<sc;si++){
-      const key=`${mId}_${progId}_${di}_${ei}_${si}`;
-      const w=parseFloat(state.logs[key])||0;
-      const r=parseInt(state.repsLog[key])||0;
-      vol += w*r;
+      const key=setKey(mId,pId,wi,di,ei,si);
+      vol+=(parseFloat(state.logs[key])||0)*(parseInt(state.repsLog[key])||0);
     }
   });
   return Math.round(vol);
 }
+// streak: consecutive calendar weeks (back from now) with ≥1 finished workout
+function getStreak(mId){
+  const dates=Object.entries(state.finishedWorkouts)
+    .filter(([k])=>k.startsWith(mId+'_'))
+    .map(([,f])=>f.date);
+  if(!dates.length) return 0;
+  const weekOf=ts=>{ const d=new Date(ts); const onejan=new Date(d.getFullYear(),0,1); return d.getFullYear()*100+Math.ceil((((d-onejan)/86400000)+onejan.getDay()+1)/7); };
+  const weeks=new Set(dates.map(weekOf));
+  let streak=0, cur=weekOf(Date.now());
+  const prevWeek=w=>{ // handle year wrap loosely
+    const y=Math.floor(w/100), wk=w%100;
+    return wk>1 ? y*100+wk-1 : (y-1)*100+52;
+  };
+  if(!weeks.has(cur)) cur=prevWeek(cur); // allow current week not yet trained
+  while(weeks.has(cur)){ streak++; cur=prevWeek(cur); }
+  return streak;
+}
+// finished count this calendar week
+function finishedThisWeek(mId){
+  const now=new Date(); const day=now.getDay()||7;
+  const monday=new Date(now); monday.setHours(0,0,0,0); monday.setDate(now.getDate()-day+1);
+  return Object.entries(state.finishedWorkouts)
+    .filter(([k,f])=>k.startsWith(mId+'_')&&f.date>=monday.getTime()).length;
+}
+function todayMood(mId){
+  const ml=state.moodLog[mId]||[];
+  const e=ml.find(x=>new Date(x.date).toDateString()===todayStr());
+  return e?e.mood:null;
+}
 
-// ─── EXERCISE DROPDOWN COMPONENT ─────────────────────────
-// Searchable, keyboard nav, recently used, custom add
-let ddState = {openFor:null, hl:-1, results:[]};
-
+// ─── EXERCISE DROPDOWN ───────────────────────────────────
+let ddState={hl:-1,results:[]};
 function exDropdownHTML(di,ei,value){
-  return `<div class="ex-dd" id="exdd-${di}-${ei}">
+  return `<div class="ex-dd">
     <input class="form-input" id="exddi-${di}-${ei}" value="${(value||'').replace(/"/g,'&quot;')}"
-      placeholder="${t('searchExercise')}" autocomplete="off"
+      placeholder="Egzersiz ara..." autocomplete="off"
       oninput="window._ddInput(${di},${ei},this.value)"
       onfocus="window._ddInput(${di},${ei},this.value)"
       onkeydown="window._ddKey(event,${di},${ei})"
@@ -645,83 +771,79 @@ function exDropdownHTML(di,ei,value){
     <div class="ex-dd-list hidden" id="exddl-${di}-${ei}"></div>
   </div>`;
 }
-
-window._ddInput = function(di,ei,q){
+window._ddInput=function(di,ei,q){
   const listEl=document.getElementById(`exddl-${di}-${ei}`);
   if(!listEl) return;
-  ddState.openFor=`${di}-${ei}`; ddState.hl=-1;
+  ddState.hl=-1;
   const ql=(q||'').trim().toLowerCase();
-  let results;
   if(!ql){
-    // show recently used first, then all
     const recent=state.recentEx.map(n=>state.exercises.find(e=>e.name===n)).filter(Boolean).slice(0,5);
     const rest=state.exercises.filter(e=>!state.recentEx.includes(e.name)).slice(0,8);
     ddState.results=[...recent,...rest];
     listEl.innerHTML=
-      (recent.length?`<div class="ex-dd-section">${t('recentlyUsed')}</div>`+recent.map((e,i)=>ddItemHTML(e,i,di,ei)).join(''):'')+
-      `<div class="ex-dd-section">${t('exerciseLibrary')}</div>`+
-      rest.map((e,i)=>ddItemHTML(e,recent.length+i,di,ei)).join('');
+      (recent.length?`<div class="ex-dd-section">Son kullanılanlar</div>`+recent.map((e,i)=>ddItem(e,i,di,ei)).join(''):'')+
+      `<div class="ex-dd-section">Kütüphane</div>`+rest.map((e,i)=>ddItem(e,recent.length+i,di,ei)).join('');
   } else {
-    results=state.exercises.filter(e=>e.name.toLowerCase().includes(ql)).slice(0,10);
+    const results=state.exercises.filter(e=>e.name.toLowerCase().includes(ql)).slice(0,10);
     ddState.results=results;
     listEl.innerHTML=results.length
-      ? results.map((e,i)=>ddItemHTML(e,i,di,ei)).join('')
-      : `<div class="ex-dd-empty">${t('notFound')}</div>
-         <div class="ex-dd-item" style="color:var(--accent)" onmousedown="window._ddAddNew(${di},${ei})">${t('addNew')}</div>`;
+      ?results.map((e,i)=>ddItem(e,i,di,ei)).join('')
+      :`<div class="ex-dd-empty">Egzersiz bulunamadı</div>
+        <div class="ex-dd-item" style="color:var(--accent)" onmousedown="window._ddAddNew(${di},${ei})">+ Yeni egzersiz ekle</div>`;
   }
   listEl.classList.remove('hidden');
 };
-function ddItemHTML(e,i,di,ei){
+function ddItem(e,i,di,ei){
   return `<div class="ex-dd-item ${ddState.hl===i?'hl':''}" data-i="${i}"
     onmousedown="window._ddPick(${di},${ei},'${e.name.replace(/'/g,"\\'")}')">
-    <span>${e.name}</span><span class="ex-meta">${e.cat} · ${e.eq}</span>
+    <span>${e.name}</span><span class="ex-meta">${exCat(e)} · ${e.eq}</span>
   </div>`;
 }
-window._ddKey = function(ev,di,ei){
+window._ddKey=function(ev,di,ei){
   const listEl=document.getElementById(`exddl-${di}-${ei}`);
   if(!listEl||listEl.classList.contains('hidden')) return;
-  if(ev.key==='ArrowDown'){ ev.preventDefault(); ddState.hl=Math.min(ddState.hl+1,ddState.results.length-1); hlUpdate(listEl); }
-  else if(ev.key==='ArrowUp'){ ev.preventDefault(); ddState.hl=Math.max(ddState.hl-1,0); hlUpdate(listEl); }
-  else if(ev.key==='Enter'){
-    ev.preventDefault();
-    if(ddState.hl>=0&&ddState.results[ddState.hl]) window._ddPick(di,ei,ddState.results[ddState.hl].name);
-  }
+  if(ev.key==='ArrowDown'){ ev.preventDefault(); ddState.hl=Math.min(ddState.hl+1,ddState.results.length-1); hlUp(listEl); }
+  else if(ev.key==='ArrowUp'){ ev.preventDefault(); ddState.hl=Math.max(ddState.hl-1,0); hlUp(listEl); }
+  else if(ev.key==='Enter'){ ev.preventDefault(); if(ddState.hl>=0&&ddState.results[ddState.hl]) window._ddPick(di,ei,ddState.results[ddState.hl].name); }
   else if(ev.key==='Escape'){ listEl.classList.add('hidden'); }
 };
-function hlUpdate(listEl){
-  listEl.querySelectorAll('.ex-dd-item').forEach(el=>{
-    el.classList.toggle('hl', parseInt(el.dataset.i)===ddState.hl);
-  });
+function hlUp(listEl){
+  listEl.querySelectorAll('.ex-dd-item').forEach(el=>el.classList.toggle('hl',parseInt(el.dataset.i)===ddState.hl));
 }
-window._ddPick = function(di,ei,name){
+window._ddPick=function(di,ei,name){
   window.tmpDays[di].exercises[ei].name=name;
-  // update recently used
   state.recentEx=[name,...state.recentEx.filter(n=>n!==name)].slice(0,10);
   renderDays();
 };
-window._ddBlur = function(di,ei){
+window._ddBlur=function(di,ei){
   setTimeout(()=>{
     const listEl=document.getElementById(`exddl-${di}-${ei}`);
     if(listEl) listEl.classList.add('hidden');
-    // keep typed text as custom name even if not picked
     const inp=document.getElementById(`exddi-${di}-${ei}`);
     if(inp&&window.tmpDays[di]&&window.tmpDays[di].exercises[ei]) window.tmpDays[di].exercises[ei].name=inp.value;
   },180);
 };
-window._ddAddNew = function(di,ei){
+window._ddAddNew=function(di,ei){
   const inp=document.getElementById(`exddi-${di}-${ei}`);
   document.getElementById('newex-name').value=inp?inp.value:'';
   window._newExTarget={di,ei};
+  fillMuscleSelects();
   openModal('modal-newex');
 };
+function fillMuscleSelects(){
+  document.getElementById('newex-m1').innerHTML=MUSCLES.map(m=>`<option>${m}</option>`).join('');
+  document.getElementById('newex-m2').innerHTML='<option value="">— Yok —</option>'+MUSCLES.map(m=>`<option>${m}</option>`).join('');
+}
 function saveNewExercise(){
   const name=document.getElementById('newex-name').value.trim();
   if(!name){ toast('İsim giriniz'); return; }
   if(state.exercises.find(e=>e.name.toLowerCase()===name.toLowerCase())){ toast('Bu egzersiz zaten var'); return; }
-  const ex={id:'custom_'+uid(),name,cat:document.getElementById('newex-cat').value,eq:document.getElementById('newex-eq').value,custom:true};
-  state.exercises.push(ex);
-  save();
-  closeModal('modal-newex');
+  const m1=document.getElementById('newex-m1').value;
+  const m2=document.getElementById('newex-m2').value;
+  const muscles=[{m:m1,c:1}];
+  if(m2&&m2!==m1) muscles.push({m:m2,c:0.5});
+  state.exercises.push({id:'custom_'+uid(),name,eq:document.getElementById('newex-eq').value,muscles,custom:true});
+  save(); closeModal('modal-newex');
   if(window._newExTarget){
     const {di,ei}=window._newExTarget;
     if(window.tmpDays[di]&&window.tmpDays[di].exercises[ei]){
@@ -730,7 +852,7 @@ function saveNewExercise(){
       renderDays();
     }
     window._newExTarget=null;
-  } else { render(); }
+  } else render();
   toast('Egzersiz eklendi ✓');
 }
 
@@ -760,19 +882,19 @@ function render(){
 
 // ─── EXERCISE LIBRARY PAGE ───────────────────────────────
 function renderExerciseLib(){
-  const cats=[...new Set(state.exercises.map(e=>e.cat))];
+  const cats=[...new Set(state.exercises.map(exCat))];
   return `
     <div class="page-header">
-      <div><div class="page-title">${t('exerciseLibrary')}</div><div class="page-sub">${state.exercises.length} egzersiz</div></div>
-      <button class="btn btn-primary" onclick="window._newExTarget=null;document.getElementById('newex-name').value='';openModal('modal-newex')">+ ${t('addExercise')}</button>
+      <div><div class="page-title">Egzersiz Kütüphanesi</div><div class="page-sub">${state.exercises.length} egzersiz</div></div>
+      <button class="btn btn-primary" onclick="window._newExTarget=null;document.getElementById('newex-name').value='';fillMuscleSelects();openModal('modal-newex')">+ Egzersiz Ekle</button>
     </div>
     ${cats.map(c=>`
       <div class="section-head" style="margin-top:18px">${c}</div>
       <div class="card" style="padding:0;overflow:hidden">
-        ${state.exercises.filter(e=>e.cat===c).map(e=>`
+        ${state.exercises.filter(e=>exCat(e)===c).map(e=>`
           <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.04)">
             <span style="font-size:13.5px;font-weight:500">${e.name}${e.custom?' <span class="badge badge-purple" style="margin-left:6px">özel</span>':''}</span>
-            <span style="font-size:12px;color:var(--text3)">${e.eq}</span>
+            <span style="font-size:11.5px;color:var(--text3)">${(e.muscles||[]).map(x=>x.c>=1?x.m:x.m+'·'+x.c).join(', ')} · ${e.eq}</span>
           </div>`).join('')}
       </div>`).join('')}`;
 }
@@ -782,12 +904,12 @@ function renderTemplates(){
   const tps=state.templates;
   return `
     <div class="page-header">
-      <div><div class="page-title">${t('templates')}</div><div class="page-sub">${tps.length} şablon · ${state.programs.length} aktif atama</div></div>
+      <div><div class="page-title">Şablonlar</div><div class="page-sub">${tps.length} şablon · ${state.programs.filter(p=>p.active).length} aktif atama</div></div>
       <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Şablon</button>
     </div>
     ${tps.length===0?`<div class="empty"><div class="empty-icon">📋</div><p>Henüz şablon yok.</p></div>`:
       tps.map(p=>{
-        const ac=state.programs.filter(x=>x.templateId===p.id).length;
+        const ac=state.programs.filter(x=>x.templateId===p.id&&x.active).length;
         const te=p.days.reduce((a,d)=>a+d.exercises.length,0);
         return `<div class="card" style="margin-bottom:12px">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px">
@@ -795,9 +917,10 @@ function renderTemplates(){
               <div style="font-size:16px;font-weight:700;margin-bottom:4px">${p.name}</div>
               <div style="color:var(--text2);font-size:13px;margin-bottom:12px">${p.desc||''}</div>
               <div style="display:flex;gap:8px;flex-wrap:wrap">
-                <span class="badge badge-green">${p.days.length} ${t('day').toLowerCase()}</span>
+                <span class="badge badge-purple">${p.weeks||1} hafta</span>
+                <span class="badge badge-green">${p.days.length} gün/hafta</span>
                 <span class="badge badge-gray">${te} egzersiz</span>
-                <span class="badge badge-blue">${ac} aktif atama</span>
+                <span class="badge badge-blue">${ac} aktif</span>
               </div>
             </div>
             <div style="display:flex;gap:6px">
@@ -805,14 +928,6 @@ function renderTemplates(){
               <button class="btn btn-primary btn-sm" onclick="openAssign('${p.id}')">Ata</button>
               <button class="btn btn-danger btn-sm" onclick="deleteTemplate('${p.id}')">Sil</button>
             </div>
-          </div>
-          <div class="divider" style="margin:14px 0 12px"></div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            ${p.days.map(d=>`<div style="background:var(--surface2);border-radius:8px;padding:6px 12px;font-size:12px">
-              <span style="color:var(--accent);font-weight:600">${d.name}</span>
-              ${d.goal?`<span style="color:${GOAL_COLORS[d.goal]||'var(--text3)'};margin-left:6px;font-size:10px;text-transform:uppercase;font-weight:700">${GOAL_LABELS[d.goal]||''}</span>`:''}
-              <span style="color:var(--text3);margin-left:6px">${d.exercises.length} egz.</span>
-            </div>`).join('')}
           </div>
         </div>`;
       }).join('')}`;
@@ -822,32 +937,28 @@ function renderTemplates(){
 function renderMembers(){
   return `
     <div class="page-header">
-      <div><div class="page-title">${t('clients')}</div><div class="page-sub">${state.members.length} üye</div></div>
+      <div><div class="page-title">Üyeler</div><div class="page-sub">${state.members.length} üye</div></div>
       <button class="btn btn-primary" onclick="openMemberModal()">+ Üye Ekle</button>
     </div>
     ${state.members.length===0?`<div class="empty"><div class="empty-icon">👤</div><p>Henüz üye yok.</p></div>`:`
     <div class="card" style="padding:0;overflow:hidden">
-      <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Hedef / Durum</th><th>Uyum</th><th></th></tr></thead><tbody>
+      <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Durum</th><th>Bu Hafta</th><th></th></tr></thead><tbody>
       ${state.members.map(m=>{
         const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
-        let pct=0;
-        if(prog){
-          const tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-          const done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-          pct=tot>0?Math.round(done/tot*100):0;
-        }
         const gs=goalStatus(m);
+        const fin=finishedThisWeek(m.id);
+        const mood=todayMood(m.id);
         return `<tr>
           <td><div style="display:flex;align-items:center;gap:10px;cursor:pointer" onclick="openMemberDetail('${m.id}')">
             <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
             <div>
-              <div style="font-weight:500">${m.name}</div>
-              ${m.injuries?`<div style="font-size:11px;color:var(--orange)">⚠ ${m.injuries.substring(0,36)}${m.injuries.length>36?'...':''}</div>`:''}
+              <div style="font-weight:500">${m.name} ${mood?MOODS.find(x=>x.v===mood).e:''}</div>
+              ${prog?`<div style="font-size:11px;color:var(--text3)">${prog.name} · H${prog.currentWeek||1}/${prog.weeks||1}</div>`:'<div style="font-size:11px;color:var(--text3)">Program yok</div>'}
             </div>
           </div></td>
           <td><span class="share-code" style="font-size:13px;letter-spacing:2px">${m.code}</span></td>
           <td><span style="font-size:12px;color:${gs.color};font-weight:600">${gs.label}</span></td>
-          <td style="min-width:110px">${prog?`<div style="display:flex;align-items:center;gap:8px"><div class="progress-wrap" style="flex:1"><div class="progress-bar" style="width:${pct}%"></div></div><span style="font-size:11px;color:var(--text2)">${pct}%</span></div>`:'—'}</td>
+          <td>${prog?`<span class="badge ${fin>=prog.days.length?'badge-green':'badge-gray'}">${fin}/${prog.days.length} antrenman</span>`:'—'}</td>
           <td><div style="display:flex;gap:6px">
             <button class="btn btn-primary btn-sm" onclick="openMemberDetail('${m.id}')">Detay</button>
             <button class="btn btn-ghost btn-sm" onclick="openShare('${m.id}')">🔗</button>
@@ -867,88 +978,97 @@ function renderMemberDetail(mId){
   const allProgs=state.programs.filter(p=>p.memberId===m.id).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
   const wi=memberWeightInfo(m);
   const gs=goalStatus(m);
+  const streak=getStreak(m.id);
 
-  // compliance over active program
-  let pct=0;
-  if(prog){
-    const tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-    const done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-    pct=tot>0?Math.round(done/tot*100):0;
-  }
-  // finished workouts (all programs)
+  // finished workouts list
   const finished=[];
   allProgs.forEach(p=>{
-    p.days.forEach((d,di)=>{
-      const fk=`${m.id}_${p.id}_${di}`;
-      const f=state.finishedWorkouts[fk];
-      if(f) finished.push({fk,prog:p,di,day:d,...f});
-    });
+    const weeks=p.weeks||1;
+    for(let w=0;w<weeks;w++){
+      p.days.forEach((d,di)=>{
+        const fk=dayKeyOf(m.id,p.id,w,di);
+        const f=state.finishedWorkouts[fk];
+        if(f) finished.push({fk,prog:p,wi:w,di,day:d,...f});
+      });
+    }
   });
   finished.sort((a,b)=>b.date-a.date);
 
-  // data trust: % of logged sets that are defaults
-  const memberSetKeys=Object.keys(state.logs).filter(k=>k.startsWith(m.id+'_'));
-  const defCount=memberSetKeys.filter(k=>state.defaults[k]).length;
-  const trustPct=memberSetKeys.length?Math.round((1-defCount/memberSetKeys.length)*100):null;
+  // suggestions for active program
+  let suggHTML='';
+  if(prog){
+    const exSeen=new Set();
+    const suggs=[];
+    prog.days.forEach(d=>d.exercises.forEach(ex=>{
+      if(!ex.name||exSeen.has(ex.name)) return;
+      exSeen.add(ex.name);
+      const s=getSuggestion(m.id,ex.name);
+      if(s) suggs.push({name:ex.name,...s});
+    }));
+    if(suggs.length){
+      suggHTML=`<div class="card" style="margin-bottom:14px">
+        <div class="section-head">💡 Hafta Önerileri (RPE bazlı)</div>
+        ${suggs.map(s=>s.warn
+          ?`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+              <span>${s.name}</span><span style="color:var(--orange);font-size:12px">⚠ ${s.reason}</span></div>`
+          :`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+              <span>${s.name} → <b style="color:var(--accent)">${s.w}kg</b> <span style="color:var(--text3);font-size:11px">(${s.reason})</span></span>
+              <button class="btn btn-primary btn-sm" onclick="applySuggestion('${m.id}','${prog.id}','${s.name.replace(/'/g,"")}',${s.w})">Uygula</button>
+            </div>`).join('')}
+      </div>`;
+    }
+  }
 
-  // weight chart svg
+  // mood last 7
+  const moods=(state.moodLog[m.id]||[]).slice(-7);
+  const moodHTML=moods.length?`<div class="card" style="margin-bottom:14px">
+    <div class="section-head">Son Ruh Hali</div>
+    <div style="display:flex;gap:10px">
+      ${moods.map(x=>`<div style="text-align:center"><div style="font-size:20px">${MOODS.find(e=>e.v===x.mood).e}</div><div style="font-size:9px;color:var(--text3)">${fmtDate(x.date)}</div></div>`).join('')}
+    </div>
+  </div>`:'';
+
+  // weight chart
   const wl=wi.entries;
   let wchart='';
   if(wl.length>=2){
     const ws=wl.map(e=>e.w);
-    const min=Math.min(...ws), max=Math.max(...ws);
+    const min=Math.min(...ws),max=Math.max(...ws);
     const range=Math.max(max-min,1);
-    const pts=wl.map((e,i)=>{
-      const x=20+(i/(wl.length-1))*360;
-      const y=70-((e.w-min)/range)*55;
-      return `${x},${y}`;
-    }).join(' ');
+    const pts=wl.map((e,i)=>`${20+(i/(wl.length-1))*360},${70-((e.w-min)/range)*55}`).join(' ');
     wchart=`<div class="card" style="margin-bottom:14px">
-      <div class="section-head">Kilo Takibi (${wl.length} kayıt)</div>
+      <div class="section-head">Kilo Takibi</div>
       <svg viewBox="0 0 400 90" style="width:100%;height:auto">
         <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"/>
         ${wl.map((e,i)=>{
-          const x=20+(i/(wl.length-1))*360;
-          const y=70-((e.w-min)/range)*55;
+          const x=20+(i/(wl.length-1))*360, y=70-((e.w-min)/range)*55;
           return `<circle cx="${x}" cy="${y}" r="3" fill="var(--accent)"/><text x="${x}" y="${y-8}" text-anchor="middle" style="font-size:9px;fill:var(--text2)">${e.w}</text>`;
         }).join('')}
       </svg>
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);padding:0 12px">
-        <span>${fmtDate(wl[0].date)}</span><span>${fmtDate(wl[wl.length-1].date)}</span>
-      </div>
     </div>`;
   }
 
-  // volume chart from finished workouts (latest 10, chronological)
-  const volData=finished.slice(0,10).reverse();
-  let vchart='';
-  if(volData.length){
-    const maxV=Math.max(...volData.map(f=>f.volume||0),1);
-    vchart=`<div class="card" style="margin-bottom:14px">
-      <div class="section-head">Antrenman Hacmi (kg toplam)</div>
-      <div style="display:flex;align-items:flex-end;gap:8px;height:110px;padding-top:8px">
-        ${volData.map(f=>`
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-            <span style="font-size:9px;color:var(--accent)">${f.volume?Math.round(f.volume/1000*10)/10+'t':''}</span>
-            <div class="wchart-bar" style="width:100%;border-radius:3px 3px 0 0;background:var(--accent);height:${Math.max(6,Math.round((f.volume||0)/maxV*80))}px"></div>
-            <span style="font-size:9px;color:var(--text3)">${fmtDate(f.date)}</span>
-          </div>`).join('')}
-      </div>
-    </div>`;
-  }
+  // volume bars (planned weekly from active program)
+  const volHTML=prog?`<div class="card" style="margin-bottom:14px">
+    <div class="section-head">Haftalık Kas Grubu Hacmi (planlanan)</div>
+    ${volBarsHTML(muscleVolume(prog.days))}
+  </div>`:'';
 
-  // e1RM trends per exercise
+  // e1RM trends
   const exNames=new Set();
   allProgs.forEach(p=>p.days.forEach(d=>d.exercises.forEach(ex=>{ if(ex.name) exNames.add(ex.name); })));
   const trends=[];
   exNames.forEach(name=>{
     const h=getExerciseHistory(m.id,name);
     if(h&&h.length>=2){
-      const newest=h[0].bestE1rm, oldest=h[h.length-1].bestE1rm;
+      const newest=h[0].bestE1rm,oldest=h[h.length-1].bestE1rm;
       if(newest&&oldest) trends.push({name,from:oldest,to:newest,diff:Math.round((newest-oldest)*10)/10});
     }
   });
   trends.sort((a,b)=>Math.abs(b.diff)-Math.abs(a.diff));
+
+  const memberSetKeys=Object.keys(state.logs).filter(k=>k.startsWith(m.id+'_'));
+  const defCount=memberSetKeys.filter(k=>state.defaults[k]).length;
 
   return `
     <div class="page-header">
@@ -956,45 +1076,40 @@ function renderMemberDetail(mId){
         <button class="btn btn-ghost btn-sm" onclick="navigate('members')">←</button>
         <div class="avatar" style="width:46px;height:46px;font-size:17px">${m.name.charAt(0).toUpperCase()}</div>
         <div>
-          <div class="page-title" style="font-size:20px">${m.name}</div>
-          <div class="page-sub">
-            ${m.age?m.age+' yaş':''} ${m.height?'· '+m.height+'cm':''} ${m.gender==='m'?'· Erkek':m.gender==='f'?'· Kadın':''}
-            ${m.goal?'· 🎯 '+FITNESS_GOALS[m.goal]:''}
-          </div>
+          <div class="page-title" style="font-size:20px">${m.name} ${streak>0?`<span style="font-size:13px;color:var(--orange)">🔥${streak}</span>`:''}</div>
+          <div class="page-sub">${m.age?m.age+' yaş':''} ${m.height?'· '+m.height+'cm':''} ${m.goal?'· 🎯 '+FITNESS_GOALS[m.goal]:''} ${prog?'· '+prog.name+' H'+(prog.currentWeek||1)+'/'+(prog.weeks||1):''}</div>
         </div>
       </div>
       <div style="display:flex;gap:6px">
-        <button class="btn btn-ghost btn-sm" onclick="openMemberModal('${m.id}')">Profili Düzenle</button>
-        <button class="btn btn-primary btn-sm" onclick="openShare('${m.id}')">🔗 Link</button>
+        <button class="btn btn-ghost btn-sm" onclick="openMemberModal('${m.id}')">Profil</button>
+        <button class="btn btn-primary btn-sm" onclick="openShare('${m.id}')">🔗</button>
       </div>
     </div>
 
     ${m.injuries?`<div style="background:rgba(255,159,67,0.08);border:1px solid rgba(255,159,67,0.25);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--orange);margin-bottom:14px">⚠ ${m.injuries}</div>`:''}
-    ${m.coachNote?`<div style="background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--text2);margin-bottom:14px">📝 Koç notu: ${m.coachNote}</div>`:''}
+    ${m.coachNote?`<div style="background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--text2);margin-bottom:14px">📝 ${m.coachNote}</div>`:''}
 
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">
       <div class="detail-stat"><div class="dl">Güncel Kilo</div><div class="dv">${wi.cur!=null?wi.cur+'kg':'—'}</div></div>
-      <div class="detail-stat"><div class="dl">Değişim</div><div class="dv" style="color:${gs.color};font-size:14px;line-height:1.4;padding-top:4px">${gs.label}</div></div>
-      <div class="detail-stat"><div class="dl">Uyum</div><div class="dv">${prog?pct+'%':'—'}</div></div>
+      <div class="detail-stat"><div class="dl">Durum</div><div class="dv" style="color:${gs.color};font-size:13px;line-height:1.4;padding-top:4px">${gs.label}</div></div>
+      <div class="detail-stat"><div class="dl">Streak</div><div class="dv">${streak>0?'🔥'+streak+' hf':'—'}</div></div>
       <div class="detail-stat"><div class="dl">Biten Antrenman</div><div class="dv">${finished.length}</div></div>
     </div>
 
-    ${trustPct!=null&&trustPct<100?`<div style="font-size:11px;color:var(--text3);margin-bottom:14px">ℹ️ Verilerin %${100-trustPct}'i varsayılan değer (üye değiştirmedi, koç hedefi kabul edildi)</div>`:''}
+    ${memberSetKeys.length&&defCount?`<div style="font-size:11px;color:var(--text3);margin-bottom:14px">ℹ️ Verilerin %${Math.round(defCount/memberSetKeys.length*100)}'i varsayılan değer</div>`:''}
 
+    ${suggHTML}
+    ${moodHTML}
     ${wchart}
-    ${vchart}
+    ${volHTML}
 
     ${trends.length?`<div class="card" style="margin-bottom:14px">
       <div class="section-head">e1RM Gelişimi</div>
       ${trends.slice(0,8).map(tr=>`
         <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
           <span style="font-size:13px">${tr.name}</span>
-          <span style="font-size:13px">
-            <span style="color:var(--text3)">${tr.from}kg</span>
-            <span style="color:var(--text3)"> → </span>
-            <b>${tr.to}kg</b>
-            <span class="${tr.diff>=0?'trend-up':'trend-down'}" style="margin-left:6px;font-weight:700">${tr.diff>=0?'+':''}${tr.diff}</span>
-          </span>
+          <span style="font-size:13px"><span style="color:var(--text3)">${tr.from}kg → </span><b>${tr.to}kg</b>
+          <span class="${tr.diff>=0?'trend-up':'trend-down'}" style="margin-left:6px;font-weight:700">${tr.diff>=0?'+':''}${tr.diff}</span></span>
         </div>`).join('')}
     </div>`:''}
 
@@ -1008,7 +1123,7 @@ function renderMemberDetail(mId){
               <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
                 <span style="color:var(--green);font-weight:700">✓</span>
                 <span style="font-weight:600;font-size:13px">${f.day.name}</span>
-                <span style="font-size:11px;color:var(--text3)">${f.prog.name}</span>
+                <span style="font-size:11px;color:var(--text3)">${f.prog.name} · H${f.wi+1}</span>
               </div>
               <div class="fin-stats">
                 <span class="badge badge-gray">${fmtDate(f.date)}</span>
@@ -1022,14 +1137,12 @@ function renderMemberDetail(mId){
               const sc=parseInt(ex.sets)||0;
               let rows='';
               for(let si=0;si<sc;si++){
-                const key=`${m.id}_${f.prog.id}_${f.di}_${ei}_${si}`;
-                const w=state.logs[key]||'—', r=state.repsLog[key]||'—', rp=state.rpe[key]||'—';
+                const key=setKey(m.id,f.prog.id,f.wi,f.di,ei,si);
+                const w=state.logs[key]||'—',r=state.repsLog[key]||'—',rp=state.rpe[key]||'—';
                 const isDef=state.defaults[key];
-                const done=state.completions[key]?'✓':'○';
-                rows+=`<div class="hist-set-row"><span style="width:18px;color:${state.completions[key]?'var(--green)':'var(--text3)'}">${done}</span><span style="width:40px">Set ${si+1}</span><span style="width:80px" class="${isDef?'default-val':''}">${w}kg${isDef?'~':''}</span><span style="width:60px" class="${isDef?'default-val':''}">${r} tk</span><span>RPE ${rp}</span></div>`;
+                rows+=`<div class="hist-set-row"><span style="width:18px;color:${state.completions[key]?'var(--green)':'var(--text3)'}">${state.completions[key]?'✓':'○'}</span><span style="width:40px">Set ${si+1}</span><span style="width:80px" class="${isDef?'default-val':''}">${w}kg${isDef?'~':''}</span><span style="width:60px" class="${isDef?'default-val':''}">${r} tk</span><span>RPE ${rp}</span></div>`;
               }
-              const noteKey=`${m.id}_${f.prog.id}_${f.di}_${ei}`;
-              const note=state.notes[noteKey];
+              const note=state.notes[`${m.id}_${f.prog.id}_w${f.wi}_${f.di}_${ei}`];
               return `<div style="padding:8px 14px 4px;font-weight:600;font-size:12.5px;border-top:1px solid var(--border)">${ex.name}</div>${rows}${note?`<div style="padding:4px 14px 8px;font-size:11.5px;color:var(--purple)">💬 ${note}</div>`:''}`;
             }).join(''):''}
           </div>`;
@@ -1037,12 +1150,11 @@ function renderMemberDetail(mId){
     </div>`;
 }
 
-// ─── OVERVIEW PAGE ───────────────────────────────────────
+// ─── OVERVIEW ────────────────────────────────────────────
 function renderOverview(){
-  const totalDone=Object.keys(state.completions).length;
   const totalFinished=Object.keys(state.finishedWorkouts).length;
   return `
-    <div class="page-header"><div><div class="page-title">${t('overview')}</div><div class="page-sub">Tüm üyelerin özeti</div></div></div>
+    <div class="page-header"><div><div class="page-title">Genel Bakış</div></div></div>
     <div class="grid-3" style="margin-bottom:20px">
       <div class="stat-card"><div class="stat-label">Şablon</div><div class="stat-value accent">${state.templates.length}</div></div>
       <div class="stat-card"><div class="stat-label">Üye</div><div class="stat-value">${state.members.length}</div></div>
@@ -1053,222 +1165,352 @@ function renderOverview(){
       ${state.members.length===0?`<div class="empty"><p>Henüz üye yok.</p></div>`:
         state.members.map(m=>{
           const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
-          let pct=0,done=0,tot=0;
-          if(prog){
-            tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-            done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-            pct=tot>0?Math.round(done/tot*100):0;
-          }
+          const gs=goalStatus(m);
+          const fin=finishedThisWeek(m.id);
           const ck=m.id+'_'+(prog?prog.id:'');
           const cmts=state.comments[ck]||[];
           const lastCmt=cmts.length?cmts[cmts.length-1]:null;
-          const gs=goalStatus(m);
+          const mood=todayMood(m.id);
           return `<div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:14px;cursor:pointer" onclick="openMemberDetail('${m.id}')">
             <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
             <div style="flex:1">
-              <div style="font-weight:500;margin-bottom:2px">${m.name} <span style="font-size:11px;color:${gs.color};margin-left:6px">${gs.label}</span></div>
-              <div style="font-size:12px;color:var(--text2)">${prog?prog.name:'Program atanmadı'}</div>
-              ${lastCmt?`<div style="font-size:11px;color:var(--blue);margin-top:3px">💬 "${lastCmt.text.substring(0,70)}${lastCmt.text.length>70?'...':''}"</div>`:''}
+              <div style="font-weight:500;margin-bottom:2px">${m.name} ${mood?MOODS.find(x=>x.v===mood).e:''} <span style="font-size:11px;color:${gs.color};margin-left:6px">${gs.label}</span></div>
+              <div style="font-size:12px;color:var(--text2)">${prog?prog.name+' · Hafta '+(prog.currentWeek||1)+'/'+(prog.weeks||1):'Program atanmadı'}</div>
+              ${lastCmt?`<div style="font-size:11px;color:var(--blue);margin-top:3px">💬 "${lastCmt.text.substring(0,70)}"</div>`:''}
             </div>
-            ${prog?`<div style="min-width:160px">
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11px;color:var(--text3)">${done}/${tot} set</span>
-                <span style="font-size:11px;color:var(--accent);font-weight:600">${pct}%</span>
-              </div>
-              <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
-            </div>`:`<span class="badge badge-gray">Atanmadı</span>`}
+            ${prog?`<span class="badge ${fin>=prog.days.length?'badge-green':'badge-gray'}">${fin}/${prog.days.length} bu hafta</span>`:'<span class="badge badge-gray">Atanmadı</span>'}
           </div>`;
         }).join('')}
     </div>`;
 }
 
-// ─── MEMBER VIEW ─────────────────────────────────────────
+// ─── MEMBER VIEW (4 tabs) ────────────────────────────────
 function renderMemberView(){
   const m=state.loggedMember;
   const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
-  const logoutBtn=`<button class="btn btn-ghost btn-sm" onclick="logoutMember()">Çıkış</button>`;
-
-  if(!prog) return `
-    <div class="page-header">
-      <div><div class="page-title">Merhaba, ${m.name} 👋</div><div class="page-sub">Program bekleniyor</div></div>
-      ${logoutBtn}
-    </div>
-    <div class="empty"><div class="empty-icon">⏳</div><p>Koçun program atadığında burada görünecek.</p></div>`;
-
-  const tot=prog.days.reduce((a,d)=>a+d.exercises.reduce((b,ex)=>b+(parseInt(ex.sets)||0),0),0);
-  const done=Object.keys(state.completions).filter(k=>k.startsWith(m.id+'_'+prog.id+'_')).length;
-  const pct=tot>0?Math.round(done/tot*100):0;
-  const ck=m.id+'_'+prog.id;
+  const tab=window.memberTab;
+  const ck=prog?m.id+'_'+prog.id:'';
   const cmts=state.comments[ck]||[];
-  const wi=memberWeightInfo(m);
-
   return `
-    <div class="page-header">
-      <div style="flex:1">
-        <div class="page-title">Merhaba, ${m.name} 👋</div>
-        <div class="page-sub">${prog.name}</div>
-        ${m.injuries?`<div style="font-size:12px;color:var(--orange);margin-top:4px">⚠ ${m.injuries}</div>`:''}
-      </div>
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="text-align:right">
-          <div style="font-size:22px;font-weight:800;color:var(--accent)">${pct}%</div>
-          <div style="font-size:11px;color:var(--text2)">${done}/${tot} set</div>
-        </div>
-        ${logoutBtn}
-      </div>
+    <div class="tabs" style="margin-bottom:18px">
+      <div class="tab ${tab==='home'?'active':''}" onclick="setMemberTab('home')">🏠 Ana Sayfa</div>
+      <div class="tab ${tab==='program'?'active':''}" onclick="setMemberTab('program')">📋 Program</div>
+      <div class="tab ${tab==='progress'?'active':''}" onclick="setMemberTab('progress')">📈 İlerleme</div>
+      <div class="tab ${tab==='comments'?'active':''}" onclick="setMemberTab('comments')">💬 Mesaj${cmts.length?` (${cmts.length})`:''}</div>
     </div>
-    <div class="progress-wrap" style="margin-bottom:22px;height:8px"><div class="progress-bar" style="width:${pct}%"></div></div>
-
-    <div class="tabs">
-      <div class="tab active" id="tab-program" onclick="switchTab('program')">Program</div>
-      <div class="tab" id="tab-progress" onclick="switchTab('progress')">İlerleme</div>
-      <div class="tab" id="tab-comments" onclick="switchTab('comments')">Koça Mesaj${cmts.length?` (${cmts.length})`:''}</div>
-    </div>
-
-    <div id="tab-program-content">
-      ${prog.days.map((day,di)=>renderMemberDay(m,prog,day,di)).join('')}
-    </div>
-
-    <div id="tab-progress-content" class="hidden">
-      <div class="card" style="margin-bottom:12px">
-        <div style="font-weight:600;margin-bottom:10px">⚖️ Kilonu Kaydet</div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <input class="form-input" type="number" step="0.1" id="weight-entry" placeholder="${wi.cur!=null?wi.cur:'kg'}" style="width:110px" inputmode="decimal">
-          <span style="font-size:12px;color:var(--text3)">kg</span>
-          <button class="btn btn-primary btn-sm" onclick="addWeightEntry('${m.id}')">Kaydet</button>
-          ${wi.delta!=null?`<span style="font-size:12px;color:var(--text2);margin-left:8px">Başlangıçtan: <b style="color:${wi.delta>0?'var(--green)':wi.delta<0?'var(--blue)':'var(--text2)'}">${wi.delta>0?'+':''}${wi.delta}kg</b></span>`:''}
-        </div>
-      </div>
-      <div class="card">
-        <div style="font-weight:600;margin-bottom:16px">Egzersiz Bazında Durum</div>
-        ${prog.days.map((day,di)=>`
-          <div style="margin-bottom:16px">
-            <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:8px">${day.name}</div>
-            ${day.exercises.map((ex,ei)=>{
-              const sc=parseInt(ex.sets)||3;
-              let maxW=0,bestE=0;
-              for(let si=0;si<sc;si++){
-                const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
-                const w=parseFloat(state.logs[key])||0;
-                const r=parseInt(state.repsLog[key])||0;
-                if(w>maxW) maxW=w;
-                if(w&&r){ const e=epley(w,r); if(e>bestE) bestE=e; }
-              }
-              return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
-                <span style="font-size:13px">${ex.name||'Egzersiz '+(ei+1)}</span>
-                <div style="display:flex;gap:8px">
-                  ${maxW>0?`<span class="pr-badge">Max ${maxW}kg</span>`:''}
-                  ${bestE>0?`<span class="badge badge-blue">e1RM ${bestE}kg</span>`:''}
-                  ${maxW===0?`<span style="font-size:12px;color:var(--text3)">Veri yok</span>`:''}
-                </div>
-              </div>`;
-            }).join('')}
-          </div>`).join('')}
-      </div>
-    </div>
-
-    <div id="tab-comments-content" class="hidden">
-      <div class="card">
-        <div style="font-weight:600;margin-bottom:14px">Koçuna Mesaj Gönder</div>
-        <textarea class="note-box" id="new-comment" rows="3" placeholder="Antrenman hakkında not bırak, soru sor..."></textarea>
-        <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="sendComment('${ck}')">Gönder</button>
-        ${cmts.length>0?`<div class="divider"></div>
-        ${[...cmts].reverse().map(c=>`<div class="comment-item">
-          <div class="comment-meta">${new Date(c.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-          <div style="font-size:13px">${c.text}</div>
-        </div>`).join('')}`:''}
-      </div>
-    </div>`;
+    ${tab==='home'?renderMemberHome(m,prog):''}
+    ${tab==='program'?renderMemberProgram(m,prog):''}
+    ${tab==='progress'?renderMemberProgress(m,prog):''}
+    ${tab==='comments'?renderMemberComments(m,prog,ck,cmts):''}`;
 }
+function setMemberTab(tb){ window.memberTab=tb; if(tb!=='program') window.focusDay=null; render(); }
 
-function renderMemberDay(m,prog,day,di){
-  const dayKey=`${m.id}_${prog.id}_${di}`;
-  const fin=state.finishedWorkouts[dayKey];
-  const goalColor=GOAL_COLORS[day.goal]||'var(--text3)';
+// ── HOME ──
+function renderMemberHome(m,prog){
+  const mood=todayMood(m.id);
+  const streak=getStreak(m.id);
+  const finWeek=finishedThisWeek(m.id);
+  const daysPerWeek=prog?prog.days.length:0;
+  const ringPct=daysPerWeek?Math.min(100,Math.round(finWeek/daysPerWeek*100)):0;
+  const circ=2*Math.PI*34;
+  const gp=goalProgress(m);
+  const winfo=memberWeightInfo(m);
 
-  // FINISHED + collapsed → small summary card
-  if(fin && !window.expandedDays.has(dayKey)){
-    return `<div class="day-card day-finished">
-      <div class="fin-summary" onclick="toggleDayExpand('${dayKey}')">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="color:var(--green);font-weight:800">✓</span>
-          <span style="font-weight:700;font-size:14px;color:var(--green)">${day.name||'Gün '+(di+1)}</span>
-          <span style="font-size:11px;color:var(--text3)">${t('completed')}</span>
-        </div>
-        <div class="fin-stats">
-          <span class="badge badge-gray">${fmtDate(fin.date)}</span>
-          ${fin.duration?`<span class="badge badge-gray">⏱ ${fin.duration}dk</span>`:''}
-          <span class="badge ${fin.pct>=90?'badge-green':'badge-orange'}">%${fin.pct}</span>
-          ${fin.avgRpe?`<span class="badge badge-blue">RPE ${fin.avgRpe}</span>`:''}
-          <span style="color:var(--text3);font-size:11px">▼</span>
-        </div>
-      </div>
-    </div>`;
+  // weekly weigh-in reminder: last entry before this Monday?
+  const now=new Date(); const dow=now.getDay()||7;
+  const monday=new Date(now); monday.setHours(0,0,0,0); monday.setDate(now.getDate()-dow+1);
+  const lastEntry=winfo.entries.length?winfo.entries[winfo.entries.length-1].date:0;
+  const needsWeighIn=lastEntry<monday.getTime();
+
+  // today's workout
+  let todayHTML='';
+  if(prog){
+    const wk=(prog.currentWeek||1)-1;
+    if(wk>=(prog.weeks||1)){
+      todayHTML=`<div class="offday-card"><div style="font-size:17px;font-weight:700;margin-bottom:4px">🏆 Program tamamlandı!</div>
+        <div style="font-size:13px;color:var(--text2)">Tüm ${prog.weeks} haftayı bitirdin. Koçun yeni programını hazırlıyor.</div></div>`;
+    } else {
+      let nextDi=-1;
+      for(let di=0;di<prog.days.length;di++){
+        if(!state.finishedWorkouts[dayKeyOf(m.id,prog.id,wk,di)]){ nextDi=di; break; }
+      }
+      if(nextDi>=0){
+        const day=prog.days[nextDi];
+        todayHTML=`<div class="today-card">
+          <div style="font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Sıradaki Antrenman · Hafta ${wk+1}</div>
+          <div style="font-size:19px;font-weight:800;margin-bottom:6px">${day.name||'Gün '+(nextDi+1)}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+            <span class="badge badge-gray">${day.exercises.length} egzersiz</span>
+            ${day.duration?`<span class="badge badge-gray">⏱ ~${day.duration} dk</span>`:''}
+            ${day.goal?`<span class="badge badge-purple">${GOAL_LABELS[day.goal]}</span>`:''}
+          </div>
+          <button class="btn btn-primary" style="width:100%;padding:11px;font-size:14px" onclick="startTodaysWorkout(${wk},${nextDi})">Antrenmana Başla →</button>
+        </div>`;
+      } else {
+        todayHTML=`<div class="offday-card">
+          <div style="font-size:17px;font-weight:700;margin-bottom:4px">😌 Bu haftanın antrenmanları bitti!</div>
+          <div style="font-size:13px;color:var(--text2)">Toparlanma da antrenmanın parçası. Dinlen, beslen, uyu.</div>
+        </div>`;
+      }
+    }
+  } else {
+    todayHTML=`<div class="offday-card"><div style="font-size:15px;font-weight:700">⏳ Program bekleniyor</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:4px">Koçun program atadığında burada görünecek.</div></div>`;
   }
 
-  const allDone = day.exercises.length>0 && day.exercises.every((ex,ei)=>{
+  // weight widget (collapsible)
+  const wOpen=window.weightOpen;
+  let wMini='';
+  if(wOpen&&winfo.entries.length>=2){
+    const wl=winfo.entries.slice(-10);
+    const ws=wl.map(e=>e.w);
+    const min=Math.min(...ws),max=Math.max(...ws);
+    const range=Math.max(max-min,1);
+    const pts=wl.map((e,i)=>`${14+(i/(wl.length-1))*332},${56-((e.w-min)/range)*42}`).join(' ');
+    wMini=`<svg viewBox="0 0 360 70" style="width:100%;height:auto;margin-top:10px">
+      <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${wl.map((e,i)=>{
+        const x=14+(i/(wl.length-1))*332,y=56-((e.w-min)/range)*42;
+        return `<circle cx="${x}" cy="${y}" r="2.5" fill="var(--accent)"/><text x="${x}" y="${y-7}" text-anchor="middle" style="font-size:8px;fill:var(--text2)">${e.w}</text>`;
+      }).join('')}
+    </svg>`;
+  }
+  const weightWidget=`<div class="wt-widget">
+    <div class="wt-head" onclick="toggleWeightWidget()">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:17px">⚖️</span>
+        <span style="font-weight:700;font-size:15px">${winfo.cur!=null?winfo.cur+'kg':'Kilo girilmedi'}</span>
+        ${winfo.delta!=null?`<span style="font-size:12px;color:var(--text2)">başlangıçtan <b style="color:${winfo.delta<0?'var(--blue)':winfo.delta>0?'var(--green)':'var(--text2)'}">${winfo.delta>0?'+':''}${winfo.delta}kg</b></span>`:''}
+        ${needsWeighIn?`<span class="wt-remind">bu hafta tartılmadın</span>`:''}
+      </div>
+      <span style="color:var(--text3);font-size:11px">${wOpen?'▲':'▼'}</span>
+    </div>
+    ${wOpen?`<div class="wt-body">
+      <div style="display:flex;gap:8px;align-items:center">
+        <input class="form-input" type="number" step="0.1" id="weight-entry" placeholder="${winfo.cur!=null?winfo.cur:'kg'}" style="width:100px" inputmode="decimal">
+        <span style="font-size:12px;color:var(--text3)">kg</span>
+        <button class="btn btn-primary btn-sm" onclick="addWeightEntry('${m.id}')">Kaydet</button>
+      </div>
+      ${wMini}
+    </div>`:''}
+  </div>`;
+
+  // Big 4
+  const big4HTML=BIG4.map(b=>{
+    const best=bestE1RM(m.id,b.key);
+    return `<div class="big4-box">
+      <div class="big4-name">${b.label}</div>
+      <div class="big4-val">${best?best+'<span style="font-size:11px;color:var(--text3)">kg</span>':'—'}</div>
+      <div class="big4-delta" style="color:var(--text3)">e1RM</div>
+    </div>`;
+  }).join('');
+
+  // compact volume on home
+  const volHTML=prog?`<div class="card" style="margin-bottom:14px">
+    <div class="section-head">Bu Haftanın Kas Grubu Hacmi</div>
+    ${volBarsHTML(muscleVolume(prog.days),true)||'<p style="font-size:12px;color:var(--text3)">Veri yok.</p>'}
+    <div style="font-size:10px;color:var(--text3);margin-top:6px">Koyu: direkt · Açık: dolaylı (tahmini)</div>
+  </div>`:'';
+
+  return `
+    <div style="margin-bottom:16px">
+      <div style="font-size:21px;font-weight:800">Hoş geldin, ${m.name.split(' ')[0]} 👋</div>
+      ${m.injuries?`<div style="font-size:12px;color:var(--orange);margin-top:4px">⚠ ${m.injuries}</div>`:''}
+    </div>
+
+    ${mood===null?`<div class="card" style="margin-bottom:14px">
+      <div style="font-weight:600;margin-bottom:12px">Bugün nasıl hissediyorsun?</div>
+      <div class="mood-row">
+        ${MOODS.map(x=>`<div class="mood-btn" onclick="logMood('${m.id}',${x.v})">${x.e}</div>`).join('')}
+      </div>
+    </div>`:''}
+
+    ${todayHTML}
+    ${weightWidget}
+
+    <div style="display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+      <div class="streak-box" style="flex:1;min-width:150px">
+        <div style="font-size:28px">🔥</div>
+        <div><div style="font-size:19px;font-weight:800">${streak} hafta</div><div style="font-size:11px;color:var(--text2)">streak</div></div>
+      </div>
+      <div class="streak-box" style="flex:1;min-width:150px">
+        <div class="ring-wrap">
+          <svg width="84" height="84" viewBox="0 0 84 84">
+            <circle cx="42" cy="42" r="34" fill="none" stroke="var(--surface3)" stroke-width="7"/>
+            <circle cx="42" cy="42" r="34" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"
+              stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-ringPct/100)}" transform="rotate(-90 42 42)"/>
+          </svg>
+          <div class="ring-txt"><div style="font-size:15px;font-weight:800">${finWeek}/${daysPerWeek||'-'}</div></div>
+        </div>
+        <div><div style="font-size:13px;font-weight:700">Bu hafta</div><div style="font-size:11px;color:var(--text2)">antrenman</div></div>
+      </div>
+    </div>
+
+    ${gp!==null?`<div class="card" style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:600">🎯 ${FITNESS_GOALS[m.goal]}</span>
+        <span style="font-size:13px;color:var(--accent);font-weight:700">%${gp}</span>
+      </div>
+      <div class="progress-wrap" style="height:8px"><div class="progress-bar" style="width:${gp}%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:6px">
+        <span>${m.startWeight}kg</span><span style="color:var(--text)">${winfo.cur}kg</span><span>${m.targetWeight}kg hedef</span>
+      </div>
+    </div>`:''}
+
+    ${volHTML}
+
+    <div class="section-head">Büyük 4 — Tahmini 1RM</div>
+    <div class="big4-grid">${big4HTML}</div>`;
+}
+function toggleWeightWidget(){ window.weightOpen=!window.weightOpen; render(); }
+function startTodaysWorkout(wi,di){
+  window.memberTab='program';
+  window.viewWeek=wi;
+  window.focusDay={wi,di};
+  render();
+}
+
+// ── PROGRAM (box grid + focus mode) ──
+function renderMemberProgram(m,prog){
+  if(!prog) return `<div class="empty"><div class="empty-icon">⏳</div><p>Program bekleniyor.</p></div>`;
+  const weeks=prog.weeks||1;
+  const curWeek=Math.min((prog.currentWeek||1),weeks);
+  const viewWk=window.viewWeek!==null?window.viewWeek:curWeek-1;
+
+  // FOCUS MODE: single day
+  if(window.focusDay&&window.focusDay.wi===viewWk){
+    const {wi,di}=window.focusDay;
+    const day=prog.days[di];
+    return `
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <button class="btn btn-ghost btn-sm" onclick="backToWeek()">← Haftaya dön</button>
+        <div style="font-size:13px;color:var(--text2)">${prog.name} · Hafta ${wi+1}</div>
+      </div>
+      ${renderMemberDay(m,prog,day,wi,di,true)}`;
+  }
+
+  const weekStrip=`<div class="week-strip">
+    ${Array.from({length:weeks},(_,w)=>{
+      const allDone=prog.days.every((d,di)=>state.finishedWorkouts[dayKeyOf(m.id,prog.id,w,di)]);
+      return `<div class="week-chip ${allDone?'done':''} ${w===viewWk?'next':''}" onclick="setViewWeek(${w})">
+        <div class="wc-name">Hafta ${w+1}</div>
+        <div class="wc-status">${allDone?'✓':(w===curWeek-1?'▶':'○')}</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+
+  // next day to do in this week
+  let nextDi=-1;
+  for(let di=0;di<prog.days.length;di++){
+    if(!state.finishedWorkouts[dayKeyOf(m.id,prog.id,viewWk,di)]){ nextDi=di; break; }
+  }
+
+  const grid=`<div class="day-grid">
+    ${prog.days.map((day,di)=>{
+      const fk=dayKeyOf(m.id,prog.id,viewWk,di);
+      const fin=state.finishedWorkouts[fk];
+      const isNext=!fin&&di===nextDi&&viewWk===curWeek-1;
+      const totSets=day.exercises.reduce((a,ex)=>a+(parseInt(ex.sets)||0),0);
+      const doneSets=day.exercises.reduce((a,ex,ei)=>{
+        let c=0;
+        for(let si=0;si<(parseInt(ex.sets)||0);si++)
+          if(state.completions[setKey(m.id,prog.id,viewWk,di,ei,si)]) c++;
+        return a+c;
+      },0);
+      const goalColor=GOAL_COLORS[day.goal]||'var(--text3)';
+      return `<div class="day-box ${fin?'done':''} ${isNext?'next':''}" onclick="openFocusDay(${viewWk},${di})">
+        <div class="db-status">${fin?'✅':isNext?'▶️':doneSets>0?'⏳':'○'}</div>
+        <div class="db-name">${day.name||'Gün '+(di+1)}</div>
+        <div class="db-meta">${day.exercises.length} egzersiz${day.duration?' · ~'+day.duration+'dk':''}</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:7px">
+          ${day.goal?`<span class="goal-pill" style="background:${goalColor}22;color:${goalColor}">${GOAL_LABELS[day.goal]}</span>`:''}
+          ${fin?`<span class="badge badge-green" style="font-size:10px">%${fin.pct}${fin.duration?' · '+fin.duration+'dk':''}</span>`
+            :doneSets>0?`<span class="badge badge-gray" style="font-size:10px">${doneSets}/${totSets} set</span>`:''}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+
+  return `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div><div style="font-size:16px;font-weight:700">${prog.name}</div>
+      <div style="font-size:12px;color:var(--text2)">Hafta ${viewWk+1}/${weeks}${viewWk!==curWeek-1?' (görüntüleme)':''}</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="logoutMember()">Çıkış</button>
+    </div>
+    ${weekStrip}
+    ${grid}`;
+}
+function openFocusDay(wi,di){ window.viewWeek=wi; window.focusDay={wi,di}; render(); }
+function backToWeek(){ window.focusDay=null; render(); }
+function setViewWeek(w){ window.viewWeek=w; window.focusDay=null; render(); }
+
+function renderMemberDay(m,prog,day,wi,di,focus){
+  const dayKey=dayKeyOf(m.id,prog.id,wi,di);
+  const fin=state.finishedWorkouts[dayKey];
+  const goalColor=GOAL_COLORS[day.goal]||'var(--text3)';
+  const allDone=day.exercises.length>0&&day.exercises.every((ex,ei)=>{
     for(let si=0;si<(parseInt(ex.sets)||0);si++)
-      if(!state.completions[`${m.id}_${prog.id}_${di}_${ei}_${si}`]) return false;
+      if(!state.completions[setKey(m.id,prog.id,wi,di,ei,si)]) return false;
     return true;
   });
   const totSets=day.exercises.reduce((a,ex)=>a+(parseInt(ex.sets)||0),0);
   const doneSets=day.exercises.reduce((a,ex,ei)=>{
     let c=0;
     for(let si=0;si<(parseInt(ex.sets)||0);si++)
-      if(state.completions[`${m.id}_${prog.id}_${di}_${ei}_${si}`]) c++;
+      if(state.completions[setKey(m.id,prog.id,wi,di,ei,si)]) c++;
     return a+c;
   },0);
-
   return `<div class="day-card ${fin?'day-finished':''}">
-    <div class="day-card-head" ${fin?`style="cursor:pointer" onclick="toggleDayExpand('${dayKey}')"`:''}>
+    <div class="day-card-head" style="cursor:default">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span style="font-size:15px;font-weight:700">${fin?'✓':allDone?'✅':'📅'} ${day.name||'Gün '+(di+1)}</span>
         ${day.goal?`<span class="goal-pill" style="background:${goalColor}22;color:${goalColor}">${GOAL_LABELS[day.goal]||''}</span>`:''}
         ${day.duration?`<span class="target-chip">⏱ ~${day.duration} dk</span>`:''}
+        ${fin?`<span class="badge badge-green">${fmtDate(fin.date)} · %${fin.pct}</span>`:''}
       </div>
-      ${fin?`<span style="color:var(--text3);font-size:11px">▲</span>`:allDone?`<span class="badge badge-green">Hazır — bitir!</span>`:`<span style="font-size:11px;color:var(--text3)">${doneSets}/${totSets} set</span>`}
+      ${!fin?`<span style="font-size:11px;color:var(--text3)">${doneSets}/${totSets}</span>`:''}
     </div>
     <div class="day-card-body">
       ${day.note?`<div style="background:var(--surface2);border-left:3px solid var(--accent);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--text2);margin-bottom:12px">📌 ${day.note}</div>`:''}
-      ${day.exercises.length===0?'<p style="color:var(--text3);font-size:13px">Egzersiz yok.</p>':
-        day.exercises.map((ex,ei)=>renderMemberExercise(m,prog,day,di,ex,ei)).join('')}
+      ${day.exercises.map((ex,ei)=>renderMemberExercise(m,prog,wi,di,ex,ei)).join('')}
       ${fin
         ?`<button class="btn btn-ghost finish-btn" onclick="reopenWorkout('${dayKey}')">Antrenmanı yeniden aç</button>`
-        :`<button class="btn ${allDone?'btn-primary':'btn-ghost'} finish-btn" onclick="finishWorkout('${m.id}','${prog.id}',${di})">🏁 ${t('finishWorkout')}${allDone?'':' ('+(totSets-doneSets)+' set eksik)'}</button>`}
+        :`<button class="btn ${allDone?'btn-primary':'btn-ghost'} finish-btn" onclick="finishWorkout('${m.id}','${prog.id}',${wi},${di})">🏁 Antrenmanı Bitir${allDone?'':' ('+(totSets-doneSets)+' eksik)'}</button>`}
     </div>
   </div>`;
 }
 
-function renderMemberExercise(m,prog,day,di,ex,ei){
+function renderMemberExercise(m,prog,wi,di,ex,ei){
   const sc=parseInt(ex.sets)||3;
-  const noteKey=`${m.id}_${prog.id}_${di}_${ei}`;
+  const noteKey=`${m.id}_${prog.id}_w${wi}_${di}_${ei}`;
   const noteVal=state.notes[noteKey]||'';
   const pinKey=m.id+'_'+(ex.name||'').trim().toLowerCase();
   const pinnedVal=state.pinnedNotes[pinKey]||'';
   const topReps=parseRepTop(ex.reps);
-  let pr=0;
+  let curE=0;
   for(let si=0;si<sc;si++){
-    const w=parseFloat(state.logs[`${m.id}_${prog.id}_${di}_${ei}_${si}`])||0;
-    if(w>pr) pr=w;
+    const key=setKey(m.id,prog.id,wi,di,ei,si);
+    const w=parseFloat(state.logs[key])||0, r=parseInt(state.repsLog[key])||0;
+    if(w&&r){ const e=epley(w,r); if(e>curE) curE=e; }
   }
+  const allTime=bestE1RM(m.id,ex.name);
+  const isNewPR=curE>0&&curE>=allTime&&allTime>0;
   const sets=[];
   for(let si=0;si<sc;si++){
-    const key=`${m.id}_${prog.id}_${di}_${ei}_${si}`;
+    const key=setKey(m.id,prog.id,wi,di,ei,si);
     const isDone=!!state.completions[key];
-    const wt=state.logs[key]||'';
-    const rp=state.repsLog[key]||'';
-    const rpeVal=state.rpe[key]||'';
+    const wt=state.logs[key]||'', rp=state.repsLog[key]||'', rpeVal=state.rpe[key]||'';
     const stype=state.setTypes[key]||'N';
     const isDef=!!state.defaults[key];
-    const lastData=(!wt&&!rp)?getLastSetData(m.id,ex.name,si):null;
+    const lastData=(!wt&&!rp)?getLastSetData(m.id,ex.name,si,key):null;
     sets.push(`<div class="set-row ${stype==='W'?'warmup':''}">
       <div class="check-box ${isDone?'done':''}" onclick="toggleSet('${key}',${ex.rest||90},'${ex.targetW||''}',${topReps})">
         ${isDone?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':''}
       </div>
-      <select class="set-type-select" onchange="logSetType('${key}',this.value)" title="Set tipi">
+      <select class="set-type-select" onchange="logSetType('${key}',this.value)">
         ${SET_TYPES.map(s=>`<option value="${s.v}" ${stype===s.v?'selected':''}>${s.v==='N'?('S'+(si+1)):s.l.substring(0,3)}</option>`).join('')}
       </select>
-      <input class="form-input ${isDef?'default-val':''}" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW?ex.targetW:'kg'}" value="${wt}" onchange="logWeight('${key}',this.value)" inputmode="decimal" title="${isDef?'Varsayılan (koç hedefi) — değiştirebilirsin':''}">
+      <input class="form-input ${isDef?'default-val':''}" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW||'kg'}" value="${wt}" onchange="logWeight('${key}',this.value)" inputmode="decimal">
       <span style="font-size:11px;color:var(--text3)">kg</span>
       <input class="form-input ${isDef?'default-val':''}" style="width:56px;padding:5px 7px;font-size:12px" placeholder="${ex.reps||'tk'}" value="${rp}" onchange="logReps('${key}',this.value)" inputmode="numeric">
       <span style="font-size:11px;color:var(--text3)">tk</span>
@@ -1276,7 +1518,7 @@ function renderMemberExercise(m,prog,day,di,ex,ei){
         <option value="">RPE</option>
         ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
       </select>
-      ${lastData?`<span class="autofill-chip" onclick="autofillSet('${key}','${lastData.w}','${lastData.r}')">↩ ${lastData.w?lastData.w+'kg':''}${lastData.r?' × '+lastData.r:''}</span>`:''}
+      ${lastData?`<span class="autofill-chip" onclick="autofillSet('${key}','${lastData.w}','${lastData.r}')">↩ ${lastData.w?lastData.w+'kg':''}${lastData.r?'×'+lastData.r:''}</span>`:''}
     </div>`);
   }
   return `<div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:10px">
@@ -1286,7 +1528,6 @@ function renderMemberExercise(m,prog,day,di,ex,ei){
           ${ex.superset?`<span class="superset-tag">${ex.superset}</span>`:''}
           <span style="font-weight:700;font-size:15px">${ex.name||'Egzersiz '+(ei+1)}</span>
           <span class="badge badge-gray">${sc} × ${ex.reps||'—'}</span>
-          ${pr>0?`<span class="pr-badge">PR ${pr}kg</span>`:''}
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
           ${ex.rest?`<span class="target-chip">⏱ ${ex.rest}s</span>`:''}
@@ -1296,26 +1537,56 @@ function renderMemberExercise(m,prog,day,di,ex,ei){
         </div>
         ${ex.coachNote?`<div style="font-size:12px;color:var(--orange);margin-top:6px">💡 Koç: ${ex.coachNote}</div>`:''}
       </div>
-      <button class="btn btn-ghost btn-sm" onclick="showProgress('${m.id}','${prog.id}','${di}','${ei}','${(ex.name||'Egzersiz').replace(/'/g,"")}')">📈</button>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        ${allTime>0?`<span class="e1rm-badge ${isNewPR?'new-pr':''}">${isNewPR?'🏆 ':''}e1RM ${Math.max(curE,allTime)}kg</span>`:''}
+        <button class="btn btn-ghost btn-sm" onclick="showProgress('${m.id}','${prog.id}',${wi},'${di}','${ei}','${(ex.name||'Egzersiz').replace(/'/g,"")}')">📈</button>
+      </div>
     </div>
     ${sets.join('')}
     ${pinnedVal?`<div class="pinned-note">📌 <span>${pinnedVal}</span></div>`:''}
     <div style="display:flex;gap:6px;margin-top:8px;align-items:flex-start">
-      <textarea class="note-box" style="margin-top:0;flex:1" rows="1" placeholder="Bu antrenman için not..." onchange="logNote('${noteKey}',this.value)">${noteVal}</textarea>
-      <button class="btn btn-ghost btn-sm" style="white-space:nowrap" title="Kalıcı egzersiz notu" onclick="editPinnedNote('${pinKey}','${(ex.name||'').replace(/'/g,"")}')">📌</button>
+      <textarea class="note-box" style="margin-top:0;flex:1" rows="1" placeholder="Not..." onchange="logNote('${noteKey}',this.value)">${noteVal}</textarea>
+      <button class="btn btn-ghost btn-sm" onclick="editPinnedNote('${pinKey}','${(ex.name||'').replace(/'/g,"")}')">📌</button>
     </div>
   </div>`;
 }
 
-// ─── TABS / TIMER ────────────────────────────────────────
-function switchTab(tab){
-  ['program','progress','comments'].forEach(tb=>{
-    const tabEl=document.getElementById('tab-'+tb);
-    const cEl=document.getElementById('tab-'+tb+'-content');
-    if(tabEl) tabEl.classList.toggle('active',tb===tab);
-    if(cEl) cEl.classList.toggle('hidden',tb!==tab);
-  });
+// ── PROGRESS TAB (e1RM only — weight & volume moved to home) ──
+function renderMemberProgress(m,prog){
+  if(!prog) return `<div class="empty"><p>Program atandığında ilerlemen burada görünecek.</p></div>`;
+  const names=new Set();
+  prog.days.forEach(d=>d.exercises.forEach(ex=>{ if(ex.name) names.add(ex.name); }));
+  return `<div class="card">
+    <div style="font-weight:600;margin-bottom:14px">Egzersizlerin — En İyi e1RM</div>
+    ${[...names].map(name=>{
+      const best=bestE1RM(m.id,name);
+      const h=getExerciseHistory(m.id,name);
+      const first=h&&h.length>=2?h[h.length-1].bestE1rm:0;
+      const diff=first&&best?Math.round((best-first)*10)/10:0;
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+        <span>${name}</span>
+        <span>${best?`<span class="badge badge-blue">e1RM ${best}kg</span>${diff?`<span class="${diff>=0?'trend-up':'trend-down'}" style="margin-left:8px;font-weight:700;font-size:12px">${diff>0?'+':''}${diff}</span>`:''}`:'<span style="color:var(--text3);font-size:12px">Veri yok</span>'}</span>
+      </div>`;
+    }).join('')}
+  </div>`;
 }
+
+// ── COMMENTS TAB ──
+function renderMemberComments(m,prog,ck,cmts){
+  if(!prog) return `<div class="empty"><p>Program atandığında koçunla mesajlaşabilirsin.</p></div>`;
+  return `<div class="card">
+    <div style="font-weight:600;margin-bottom:14px">Koçuna Mesaj Gönder</div>
+    <textarea class="note-box" id="new-comment" rows="3" placeholder="Not bırak, soru sor..."></textarea>
+    <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="sendComment('${ck}')">Gönder</button>
+    ${cmts.length?`<div class="divider"></div>
+    ${[...cmts].reverse().map(c=>`<div class="comment-item">
+      <div class="comment-meta">${new Date(c.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+      <div style="font-size:13px">${c.text}</div>
+    </div>`).join('')}`:''}
+  </div>`;
+}
+
+// ─── TIMER / TRACKING ────────────────────────────────────
 function startTimer(seconds){
   stopTimer();
   timerSeconds=seconds;
@@ -1327,48 +1598,31 @@ function startTimer(seconds){
   timerInterval=setInterval(()=>{
     timerSeconds--;
     cnt.textContent=timerSeconds;
-    if(timerSeconds<=0){ stopTimer(); toast(t('restDone')); }
+    if(timerSeconds<=0){ stopTimer(); toast('Dinlenme bitti! 💪'); }
     else if(timerSeconds<=10) cnt.style.color='var(--red)';
   },1000);
 }
-function stopTimer(){
-  clearInterval(timerInterval); timerInterval=null;
-  document.getElementById('timer-el').classList.add('hidden');
-}
+function stopTimer(){ clearInterval(timerInterval); timerInterval=null; document.getElementById('timer-el').classList.add('hidden'); }
 function addTimer(s){ timerSeconds+=s; document.getElementById('timer-count').textContent=timerSeconds; }
 
-// ─── TRACKING ────────────────────────────────────────────
 function toggleSet(key,rest,targetW,topReps){
   if(state.completions[key]){
     delete state.completions[key];
-    // remove auto-accepted defaults when unchecking
-    if(state.defaults[key]){
-      delete state.logs[key]; delete state.repsLog[key]; delete state.defaults[key];
-    }
+    if(state.defaults[key]){ delete state.logs[key]; delete state.repsLog[key]; delete state.defaults[key]; }
   } else {
     state.completions[key]=true;
-    // workout start timestamp (dayKey = first 3 parts of setKey)
-    const dayKey=key.split('_').slice(0,3).join('_');
+    const dayKey=key.substring(0,key.lastIndexOf('_',key.lastIndexOf('_')-1));
     if(!state.workoutStart[dayKey]) state.workoutStart[dayKey]=Date.now();
-    // default acceptance: empty fields → take coach targets, flag as default
-    let usedDefault=false;
-    if(!state.logs[key] && targetW){ state.logs[key]=String(targetW); usedDefault=true; }
-    if(!state.repsLog[key] && topReps){ state.repsLog[key]=String(topReps); usedDefault=true; }
-    if(usedDefault) state.defaults[key]=true;
+    let usedDef=false;
+    if(!state.logs[key]&&targetW){ state.logs[key]=String(targetW); usedDef=true; }
+    if(!state.repsLog[key]&&topReps){ state.repsLog[key]=String(topReps); usedDef=true; }
+    if(usedDef) state.defaults[key]=true;
     startTimer(parseInt(rest)||90);
   }
   save(); render();
 }
-function logWeight(key,val){
-  if(val) state.logs[key]=val; else delete state.logs[key];
-  delete state.defaults[key]; // manual entry overrides default flag
-  save();
-}
-function logReps(key,val){
-  if(val) state.repsLog[key]=val; else delete state.repsLog[key];
-  delete state.defaults[key];
-  save();
-}
+function logWeight(key,val){ if(val) state.logs[key]=val; else delete state.logs[key]; delete state.defaults[key]; save(); }
+function logReps(key,val){ if(val) state.repsLog[key]=val; else delete state.repsLog[key]; delete state.defaults[key]; save(); }
 function logRpe(key,val){ if(val) state.rpe[key]=val; else delete state.rpe[key]; save(); }
 function logSetType(key,val){ if(val&&val!=='N') state.setTypes[key]=val; else delete state.setTypes[key]; save(); render(); }
 function logNote(key,val){ if(val) state.notes[key]=val; else delete state.notes[key]; save(); }
@@ -1379,11 +1633,10 @@ function autofillSet(key,w,r){
   save(); render();
 }
 function editPinnedNote(pinKey,exName){
-  const current=state.pinnedNotes[pinKey]||'';
-  const txt=prompt(`📌 "${exName}" için kalıcı not — her programda görünür:`,current);
+  const cur=state.pinnedNotes[pinKey]||'';
+  const txt=prompt(`📌 "${exName}" için kalıcı not:`,cur);
   if(txt===null) return;
-  if(txt.trim()) state.pinnedNotes[pinKey]=txt.trim();
-  else delete state.pinnedNotes[pinKey];
+  if(txt.trim()) state.pinnedNotes[pinKey]=txt.trim(); else delete state.pinnedNotes[pinKey];
   save(); render();
 }
 function sendComment(ck){
@@ -1392,38 +1645,84 @@ function sendComment(ck){
   if(!text){ toast('Mesaj boş olamaz'); return; }
   if(!state.comments[ck]) state.comments[ck]=[];
   state.comments[ck].push({text,date:Date.now()});
-  el.value=''; save(); render(); toast('Mesaj gönderildi ✓');
-  setTimeout(()=>switchTab('comments'),50);
+  el.value=''; save(); render(); toast('Gönderildi ✓');
+}
+function logMood(mId,mood){
+  if(!state.moodLog[mId]) state.moodLog[mId]=[];
+  state.moodLog[mId]=state.moodLog[mId].filter(x=>new Date(x.date).toDateString()!==todayStr());
+  state.moodLog[mId].push({mood,date:Date.now()});
+  if(state.moodLog[mId].length>60) state.moodLog[mId]=state.moodLog[mId].slice(-60);
+  save(); render();
+  toast(mood>=4?'Harika! Bugün iyi geçecek 💪':'Kaydedildi — kendine iyi bak 💙');
+}
+function addWeightEntry(mId){
+  const el=document.getElementById('weight-entry');
+  const w=parseFloat(el.value);
+  if(!w||w<20||w>400){ toast('Geçerli kilo giriniz'); return; }
+  if(!state.weightLog[mId]) state.weightLog[mId]=[];
+  state.weightLog[mId].push({w,date:Date.now()});
+  el.value=''; save(); render(); toast('Kilo kaydedildi ✓');
 }
 
-// ─── FINISH WORKOUT ──────────────────────────────────────
-function finishWorkout(mId,progId,di){
+// ─── FINISH WORKOUT + WEEK ADVANCE ───────────────────────
+function finishWorkout(mId,progId,wi,di){
   const prog=state.programs.find(p=>p.id===progId);
   if(!prog) return;
   const day=prog.days[di];
   const totSets=day.exercises.reduce((a,ex)=>a+(parseInt(ex.sets)||0),0);
-  let doneSets=0, rpeVals=[];
+  let doneSets=0,rpeVals=[];
   day.exercises.forEach((ex,ei)=>{
     for(let si=0;si<(parseInt(ex.sets)||0);si++){
-      const key=`${mId}_${progId}_${di}_${ei}_${si}`;
+      const key=setKey(mId,progId,wi,di,ei,si);
       if(state.completions[key]) doneSets++;
       const r=parseFloat(state.rpe[key])||0;
       if(r>0) rpeVals.push(r);
     }
   });
   if(doneSets<totSets){
-    if(!confirm(`${totSets-doneSets} set eksik — yine de bitirilsin mi?\n(Eksikler eksik olarak kaydedilir)`)) return;
+    if(!confirm(`${totSets-doneSets} set eksik — yine de bitirilsin mi?`)) return;
   }
-  const dayKey=`${mId}_${progId}_${di}`;
+  const dayKey=dayKeyOf(mId,progId,wi,di);
   const start=state.workoutStart[dayKey];
   const duration=start?Math.max(1,Math.round((Date.now()-start)/60000)):null;
   const pct=totSets>0?Math.round(doneSets/totSets*100):0;
   const avgRpe=rpeVals.length?Math.round(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length*10)/10:null;
-  const volume=dayVolume(mId,progId,prog,di);
+  const volume=dayVolume(mId,progId,prog,wi,di);
   state.finishedWorkouts[dayKey]={date:Date.now(),duration,pct,avgRpe,volume};
   window.expandedDays.delete(dayKey);
+
+  // check week completion
+  const weekDone=prog.days.every((d,dd)=>state.finishedWorkouts[dayKeyOf(mId,progId,wi,dd)]);
+  if(weekDone&&wi===(prog.currentWeek||1)-1){
+    // week stats
+    let wVol=0,wRpe=[],wDur=0;
+    prog.days.forEach((d,dd)=>{
+      const f=state.finishedWorkouts[dayKeyOf(mId,progId,wi,dd)];
+      if(f){ wVol+=f.volume||0; if(f.avgRpe) wRpe.push(f.avgRpe); wDur+=f.duration||0; }
+    });
+    const weeks=prog.weeks||1;
+    if((prog.currentWeek||1)<weeks){
+      prog.currentWeek=(prog.currentWeek||1)+1;
+      window.viewWeek=null;
+      celebrate(`🎉 Hafta ${wi+1} Tamamlandı!`,
+        `${prog.days.length} antrenman · ${Math.round(wVol/1000*10)/10} ton hacim${wRpe.length?` · ort. RPE ${Math.round(wRpe.reduce((a,b)=>a+b,0)/wRpe.length*10)/10}`:''}<br><br><b>Hafta ${prog.currentWeek} açıldı! 💪</b>`);
+    } else {
+      prog.currentWeek=weeks+1;
+      celebrate(`🏆 PROGRAM TAMAMLANDI!`,
+        `${weeks} haftayı bitirdin!<br>Toplam hacim bu hafta: ${Math.round(wVol/1000*10)/10} ton<br><br><b>Koçun yeni programını hazırlıyor 🔥</b>`);
+    }
+  } else {
+    toast(`Antrenman bitti! 🎉 ${duration?duration+' dk':''}`);
+  }
+  window.focusDay=null;
   save(); render();
-  toast(`Antrenman tamamlandı! 🎉 ${duration?duration+' dk':''}`);
+}
+function celebrate(title,body){
+  document.getElementById('celebrate-body').innerHTML=
+    `<div style="font-size:40px;margin-bottom:10px">🎊</div>
+     <div style="font-size:19px;font-weight:800;margin-bottom:10px">${title}</div>
+     <div style="font-size:13px;color:var(--text2);line-height:1.6">${body}</div>`;
+  openModal('modal-celebrate');
 }
 function reopenWorkout(dayKey){
   delete state.finishedWorkouts[dayKey];
@@ -1431,36 +1730,28 @@ function reopenWorkout(dayKey){
   window.expandedDays.delete(dayKey);
   save(); render();
 }
-function toggleDayExpand(dayKey){
-  if(window.expandedDays.has(dayKey)) window.expandedDays.delete(dayKey);
-  else window.expandedDays.add(dayKey);
-  render();
-}
-function toggleHist(fk){
-  if(window.expandedHist.has(fk)) window.expandedHist.delete(fk);
-  else window.expandedHist.add(fk);
-  render();
-}
+function toggleDayExpand(k){ window.expandedDays.has(k)?window.expandedDays.delete(k):window.expandedDays.add(k); render(); }
+function toggleHist(k){ window.expandedHist.has(k)?window.expandedHist.delete(k):window.expandedHist.add(k); render(); }
 
-// ─── WEIGHT LOG ──────────────────────────────────────────
-function addWeightEntry(mId){
-  const el=document.getElementById('weight-entry');
-  const w=parseFloat(el.value);
-  if(!w||w<20||w>400){ toast('Geçerli kilo giriniz'); return; }
-  if(!state.weightLog[mId]) state.weightLog[mId]=[];
-  state.weightLog[mId].push({w,date:Date.now()});
-  el.value='';
-  save(); render(); toast('Kilo kaydedildi ✓');
+// apply RPE suggestion to active program instance exercise targetW
+function applySuggestion(mId,progId,exName,w){
+  const prog=state.programs.find(p=>p.id===progId);
+  if(!prog) return;
+  const nl=exName.toLowerCase();
+  prog.days.forEach(d=>d.exercises.forEach(ex=>{
+    if((ex.name||'').toLowerCase()===nl) ex.targetW=String(w);
+  }));
+  save(); render(); toast(`${exName} hedefi ${w}kg yapıldı ✓`);
 }
 
 // ─── PROGRESS CHART ──────────────────────────────────────
-function showProgress(mId,progId,di,ei,exName){
+function showProgress(mId,progId,wi,di,ei,exName){
   const prog=state.programs.find(p=>p.id===progId);
   const sc=prog?(parseInt(prog.days[di]?.exercises[ei]?.sets)||3):3;
   const weights=[];
   let bestE=0;
   for(let si=0;si<sc;si++){
-    const key=`${mId}_${progId}_${di}_${ei}_${si}`;
+    const key=setKey(mId,progId,wi,di,ei,si);
     const w=parseFloat(state.logs[key])||0;
     const r=parseInt(state.repsLog[key])||0;
     if(w&&r){ const e=epley(w,r); if(e>bestE) bestE=e; }
@@ -1470,31 +1761,29 @@ function showProgress(mId,progId,di,ei,exName){
   const max=Math.max(...weights.map(x=>x.w),1);
   document.getElementById('progress-modal-title').textContent=exName;
   document.getElementById('progress-modal-body').innerHTML=`
-    ${bestE>0?`<div style="margin-bottom:12px"><span class="badge badge-blue">Tahmini 1RM: ${bestE}kg</span></div>`:''}
-    <div class="section-head">Bu programdaki setler</div>
-    <div style="display:flex;align-items:flex-end;gap:12px;height:140px;padding:10px 0 4px">
+    ${bestE>0?`<div style="margin-bottom:12px"><span class="badge badge-blue">Bu haftaki e1RM: ${bestE}kg</span></div>`:''}
+    <div class="section-head">Bu haftaki setler</div>
+    <div style="display:flex;align-items:flex-end;gap:12px;height:130px;padding:10px 0 4px">
       ${weights.map(({label,w})=>`
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
           <span style="font-size:11px;color:var(--accent);font-weight:600">${w?w+'kg':''}</span>
-          <div style="width:100%;border-radius:4px 4px 0 0;height:${w?Math.max(8,Math.round(w/max*100))+'px':'4px'};background:${w?'var(--accent)':'var(--surface3)'}"></div>
+          <div style="width:100%;border-radius:4px 4px 0 0;height:${w?Math.max(8,Math.round(w/max*95))+'px':'4px'};background:${w?'var(--accent)':'var(--surface3)'}"></div>
           <span style="font-size:10px;color:var(--text3)">${label}</span>
         </div>`).join('')}
     </div>
     ${hist&&hist.length>1?`
       <div class="divider"></div>
-      <div class="section-head">Geçmiş programlar</div>
-      ${hist.slice(1).map(h=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+      <div class="section-head">Geçmiş haftalar / programlar</div>
+      ${hist.slice(1,8).map(h=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
         <span style="color:var(--text2)">${h.progName} — ${h.sets}×${h.reps}</span>
         <span>${h.maxW?`<span class="pr-badge">${h.maxW}kg</span>`:''} ${h.bestE1rm?`<span class="badge badge-blue">e1RM ${h.bestE1rm}</span>`:''} ${h.avgRpe?`<span class="badge badge-gray">RPE ${h.avgRpe}</span>`:''}</span>
-      </div>`).join('')}`:''}
-    ${weights.every(x=>x.w===0)&&(!hist||hist.length<=1)?'<p style="color:var(--text3);text-align:center;font-size:13px;margin-top:12px">Henüz veri yok.</p>':''}`;
+      </div>`).join('')}`:''}`;
   openModal('modal-progress');
 }
 
-// ─── TEMPLATE BUILDER ────────────────────────────────────
+// ─── BUILDER ─────────────────────────────────────────────
 function fillMemberSelect(){
-  const sel=document.getElementById('prog-member');
-  sel.innerHTML='<option value="">— Üye seç (opsiyonel) —</option>'+
+  document.getElementById('prog-member').innerHTML='<option value="">— Üye seç (ops.) —</option>'+
     state.members.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
 }
 window._progMemberChanged=function(){ renderDays(); };
@@ -1504,6 +1793,7 @@ function openCreateProgram(){
   document.getElementById('modal-program-title').textContent='Yeni Şablon';
   document.getElementById('prog-name').value='';
   document.getElementById('prog-desc').value='';
+  document.getElementById('prog-weeks').value='4';
   fillMemberSelect();
   window.tmpDays=[{name:'Gün 1',goal:'',duration:'',note:'',exercises:[]}];
   renderDays(); openModal('modal-program');
@@ -1514,12 +1804,12 @@ function editProgram(id){
   document.getElementById('modal-program-title').textContent='Şablonu Düzenle';
   document.getElementById('prog-name').value=p.name;
   document.getElementById('prog-desc').value=p.desc||'';
+  document.getElementById('prog-weeks').value=p.weeks||4;
   fillMemberSelect();
   document.getElementById('prog-member').value=p.memberId||'';
   window.tmpDays=JSON.parse(JSON.stringify(p.days));
   renderDays(); openModal('modal-program');
 }
-
 function renderDays(){
   const memberId=document.getElementById('prog-member').value;
   document.getElementById('days-container').innerHTML=window.tmpDays.map((day,di)=>`
@@ -1529,15 +1819,20 @@ function renderDays(){
         <select class="form-input" onchange="window.tmpDays[${di}].goal=this.value">
           ${GOALS.map(g=>`<option value="${g.v}" ${day.goal===g.v?'selected':''}>${g.l}</option>`).join('')}
         </select>
-        <input class="form-input" type="number" value="${day.duration||''}" placeholder="dk" title="Tahmini süre" onchange="window.tmpDays[${di}].duration=this.value">
+        <input class="form-input" type="number" value="${day.duration||''}" placeholder="dk" onchange="window.tmpDays[${di}].duration=this.value">
         <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${window.tmpDays.length===1?'disabled':''}>Sil</button>
       </div>
-      <input class="form-input" value="${(day.note||'').replace(/"/g,'&quot;')}" placeholder="Gün notu (ısınma vb.)" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
+      <input class="form-input" value="${(day.note||'').replace(/"/g,'&quot;')}" placeholder="Gün notu" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
       ${day.exercises.map((ex,ei)=>renderExEditor(di,ei,ex,memberId)).join('')}
-      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ ${t('addExercise')}</button>
+      <button class="btn btn-ghost btn-sm" onclick="addExercise(${di})">+ Egzersiz ekle</button>
     </div>`).join('');
+  // live volume preview
+  document.getElementById('builder-volume').innerHTML=
+    `<div style="background:var(--surface2);border-radius:12px;padding:14px">
+      <div class="section-head">Haftalık Kas Grubu Hacmi (bu şablon)</div>
+      ${volBarsHTML(muscleVolume(window.tmpDays))||'<p style="font-size:12px;color:var(--text3)">Egzersiz ekledikçe hacim burada görünür.</p>'}
+    </div>`;
 }
-
 function renderExEditor(di,ei,ex,memberId){
   const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
   const last=hist&&hist.length?hist[0]:null;
@@ -1545,9 +1840,9 @@ function renderExEditor(di,ei,ex,memberId){
   return `<div class="ex-editor">
     <div style="display:grid;grid-template-columns:2fr 64px 76px 70px;gap:8px;margin-bottom:8px">
       ${exDropdownHTML(di,ei,ex.name)}
-      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" title="Set" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1">
-      <input class="form-input" value="${ex.reps||''}" placeholder="8-12" title="Tekrar" onchange="window.tmpDays[${di}].exercises[${ei}].reps=this.value">
-      <input class="form-input" value="${ex.superset||''}" placeholder="A1" title="Superset etiketi" onchange="window.tmpDays[${di}].exercises[${ei}].superset=this.value.toUpperCase()">
+      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1;renderDays()">
+      <input class="form-input" value="${ex.reps||''}" placeholder="8-12" onchange="window.tmpDays[${di}].exercises[${ei}].reps=this.value">
+      <input class="form-input" value="${ex.superset||''}" placeholder="A1" onchange="window.tmpDays[${di}].exercises[${ei}].superset=this.value.toUpperCase()">
     </div>
     <div class="ex-editor-grid2">
       <input class="form-input" type="number" value="${ex.rest||''}" placeholder="Dinlenme (sn)" onchange="window.tmpDays[${di}].exercises[${ei}].rest=this.value">
@@ -1558,38 +1853,36 @@ function renderExEditor(di,ei,ex,memberId){
       </select>
     </div>
     <div class="toggle-row" onclick="window._toggleTempo(${di},${ei})">
-      <div class="toggle-sw ${ex.tempoOn?'on':''}"></div>
-      <span>${t('tempo')}</span>
+      <div class="toggle-sw ${ex.tempoOn?'on':''}"></div><span>Tempo</span>
       ${ex.tempoOn?`<input class="form-input" style="width:120px;padding:5px 8px;font-size:12px;margin-left:6px" value="${ex.tempo||''}" placeholder="3-1-2" onclick="event.stopPropagation()" onchange="window.tmpDays[${di}].exercises[${ei}].tempo=this.value">`:''}
     </div>
-    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu (teknik talimat)" style="margin-top:8px" onchange="window.tmpDays[${di}].exercises[${ei}].coachNote=this.value">
-    ${last?`<div class="hist-hint">📊 <b>${ex.name}</b>: ${last.progName} — ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.bestE1rm?`, e1RM ${last.bestE1rm}kg`:''}${last.avgRpe?`, RPE ${last.avgRpe}`:''}</div>`:''}
-    ${sugg?`<div class="sugg-hint">💡 Önerilen ağırlık: <b>${sugg.w}kg</b> — ${sugg.reason}
+    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu" style="margin-top:8px" onchange="window.tmpDays[${di}].exercises[${ei}].coachNote=this.value">
+    ${last?`<div class="hist-hint">📊 <b>${ex.name}</b>: ${last.progName} — ${last.sets}×${last.reps}${last.maxW?`, max <b>${last.maxW}kg</b>`:''}${last.bestE1rm?`, e1RM ${last.bestE1rm}`:''}${last.avgRpe?`, RPE ${last.avgRpe}`:''}</div>`:''}
+    ${sugg&&!sugg.warn?`<div class="sugg-hint">💡 Önerilen: <b>${sugg.w}kg</b> — ${sugg.reason}
       <button class="btn btn-primary btn-sm" style="margin-left:8px;padding:2px 8px" onclick="window.tmpDays[${di}].exercises[${ei}].targetW='${sugg.w}';renderDays()">Uygula</button></div>`:''}
+    ${sugg&&sugg.warn?`<div class="hist-hint" style="color:var(--orange);border-color:rgba(255,159,67,0.3);background:rgba(255,159,67,0.07)">⚠ ${sugg.reason}</div>`:''}
     <div style="display:flex;justify-content:flex-end;margin-top:8px">
-      <button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">Egzersizi Sil</button>
+      <button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">Sil</button>
     </div>
   </div>`;
 }
-
 window._toggleTempo=function(di,ei){
   window.tmpDays[di].exercises[ei].tempoOn=!window.tmpDays[di].exercises[ei].tempoOn;
   renderDays();
 };
-
 function addDay(){ window.tmpDays.push({name:`Gün ${window.tmpDays.length+1}`,goal:'',duration:'',note:'',exercises:[]}); renderDays(); }
 function removeDay(di){ if(window.tmpDays.length===1) return; window.tmpDays.splice(di,1); renderDays(); }
 function addExercise(di){ window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',superset:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
 function removeExercise(di,ei){ window.tmpDays[di].exercises.splice(ei,1); renderDays(); }
-
 function saveProgram(){
   const name=document.getElementById('prog-name').value.trim();
   if(!name){ toast('Şablon adı giriniz'); return; }
-  const memberId=document.getElementById('prog-member').value||null;
   const tpl={
     id:state.editingProgId||uid(), name,
     desc:document.getElementById('prog-desc').value.trim(),
-    memberId, days:window.tmpDays, createdAt:Date.now()
+    memberId:document.getElementById('prog-member').value||null,
+    weeks:Math.max(1,parseInt(document.getElementById('prog-weeks').value)||1),
+    days:window.tmpDays, createdAt:Date.now()
   };
   if(state.editingProgId){
     const i=state.templates.findIndex(p=>p.id===state.editingProgId);
@@ -1599,8 +1892,7 @@ function saveProgram(){
   window.tmpDays.forEach(d=>d.exercises.forEach(ex=>{
     if(ex.name) state.recentEx=[ex.name,...state.recentEx.filter(n=>n!==ex.name)].slice(0,10);
   }));
-  save(); closeModal('modal-program'); render();
-  toast(t('saved'));
+  save(); closeModal('modal-program'); render(); toast('Kaydedildi ✓');
   state.editingProgId=null;
 }
 function deleteTemplate(id){
@@ -1608,10 +1900,10 @@ function deleteTemplate(id){
   save(); render(); toast('Şablon silindi');
 }
 
-// ─── ASSIGN (clone) ──────────────────────────────────────
+// ─── ASSIGN ──────────────────────────────────────────────
 function openAssign(tplId){
   if(!state.members.length){ toast('Önce üye ekleyin'); return; }
-  document.getElementById('assign-prog').innerHTML=state.templates.map(p=>`<option value="${p.id}" ${p.id===tplId?'selected':''}>${p.name}</option>`).join('');
+  document.getElementById('assign-prog').innerHTML=state.templates.map(p=>`<option value="${p.id}" ${p.id===tplId?'selected':''}>${p.name} (${p.weeks||1} hf)</option>`).join('');
   document.getElementById('assign-member').innerHTML=state.members.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
   openModal('modal-assign');
 }
@@ -1621,25 +1913,20 @@ function doAssign(){
   const tpl=state.templates.find(x=>x.id===tplId);
   if(!tpl) return;
   state.programs.forEach(p=>{ if(p.memberId===mId) p.active=false; });
-  const instance={
+  state.programs.push({
     id:uid(), templateId:tpl.id, memberId:mId, active:true,
-    name:tpl.name, desc:tpl.desc,
-    days:JSON.parse(JSON.stringify(tpl.days)),
-    createdAt:Date.now()
-  };
-  state.programs.push(instance);
-  save(); closeModal('modal-assign'); render(); toast(t('assigned'));
+    name:tpl.name, desc:tpl.desc, weeks:tpl.weeks||1, currentWeek:1,
+    days:JSON.parse(JSON.stringify(tpl.days)), createdAt:Date.now()
+  });
+  save(); closeModal('modal-assign'); render(); toast('Program atandı ✓');
 }
 
 // ─── MEMBERS CRUD ────────────────────────────────────────
-function openMemberDetail(id){
-  state.detailMemberId=id;
-  state.currentPage='memberDetail';
-  render();
-}
+function openMemberDetail(id){ state.detailMemberId=id; state.currentPage='memberDetail'; render(); }
 function openMemberModal(id){
   document.getElementById('member-edit-id').value=id||'';
   document.getElementById('member-modal-title').textContent=id?'Üye Profili':'Yeni Üye';
+  const ids=['member-name','member-code','member-age','member-height','member-startw','member-targetw','member-injuries','member-coachnote'];
   if(id){
     const m=state.members.find(x=>x.id===id);
     document.getElementById('member-name').value=m.name;
@@ -1647,12 +1934,13 @@ function openMemberModal(id){
     document.getElementById('member-age').value=m.age||'';
     document.getElementById('member-height').value=m.height||'';
     document.getElementById('member-startw').value=m.startWeight||'';
+    document.getElementById('member-targetw').value=m.targetWeight||'';
     document.getElementById('member-gender').value=m.gender||'';
     document.getElementById('member-goal').value=m.goal||'';
     document.getElementById('member-injuries').value=m.injuries||'';
     document.getElementById('member-coachnote').value=m.coachNote||'';
   } else {
-    ['member-name','member-code','member-age','member-height','member-startw','member-injuries','member-coachnote'].forEach(i=>document.getElementById(i).value='');
+    ids.forEach(i=>document.getElementById(i).value='');
     document.getElementById('member-gender').value='';
     document.getElementById('member-goal').value='';
   }
@@ -1663,25 +1951,21 @@ function saveMember(){
   const name=document.getElementById('member-name').value.trim();
   const code=document.getElementById('member-code').value.trim().toUpperCase();
   if(!name||!code){ toast('Ad ve kod zorunludur'); return; }
-  const dup=state.members.find(m=>m.code===code&&m.id!==editId);
-  if(dup){ toast('Bu kod zaten kullanılıyor'); return; }
+  if(state.members.find(m=>m.code===code&&m.id!==editId)){ toast('Bu kod kullanılıyor'); return; }
   const fields={
-    name, code,
+    name,code,
     age:document.getElementById('member-age').value,
     height:document.getElementById('member-height').value,
     startWeight:document.getElementById('member-startw').value,
+    targetWeight:document.getElementById('member-targetw').value,
     gender:document.getElementById('member-gender').value,
     goal:document.getElementById('member-goal').value,
     injuries:document.getElementById('member-injuries').value.trim(),
     coachNote:document.getElementById('member-coachnote').value.trim(),
   };
-  if(editId){
-    const m=state.members.find(x=>x.id===editId);
-    Object.assign(m,fields);
-  } else {
-    state.members.push({id:uid(),...fields});
-  }
-  save(); closeModal('modal-member'); render(); toast(t('saved'));
+  if(editId){ Object.assign(state.members.find(x=>x.id===editId),fields); }
+  else state.members.push({id:uid(),...fields});
+  save(); closeModal('modal-member'); render(); toast('Kaydedildi ✓');
 }
 function deleteMember(id){
   state.members=state.members.filter(m=>m.id!==id);
@@ -1689,17 +1973,18 @@ function deleteMember(id){
   save(); render(); toast('Üye silindi');
 }
 
-// ─── LOGIN / LOGOUT / SHARE ──────────────────────────────
+// ─── LOGIN / SHARE / UTILS ───────────────────────────────
 function doLogin(){
   const code=document.getElementById('login-code').value.trim().toUpperCase();
   const member=state.members.find(m=>m.code===code);
   if(!member){ toast('Geçersiz kod'); return; }
   state.loggedMember=member; state.mode='member';
+  window.memberTab='home'; window.viewWeek=null;
   document.getElementById('mode-coach').classList.remove('active');
   document.getElementById('mode-member').classList.add('active');
   closeModal('modal-login');
   document.getElementById('login-code').value='';
-  render(); toast(`Hoş geldin, ${member.name}! 👋`);
+  render();
 }
 function logoutMember(){
   state.mode='coach'; state.loggedMember=null;
@@ -1714,22 +1999,19 @@ function openShare(mId){
   const m=state.members.find(x=>x.id===mId); if(!m) return;
   document.getElementById('share-modal-name').textContent=m.name+' — Paylaşım';
   document.getElementById('share-code-display').textContent=m.code;
-  const base=window.location.href.split('?')[0];
-  const link=base+'?kod='+encodeURIComponent(m.code);
+  const link=window.location.href.split('?')[0]+'?kod='+encodeURIComponent(m.code);
   document.getElementById('share-link-input').value=link;
-  const container=document.getElementById('qr-container');
-  container.innerHTML='';
-  if(window.QRCode) new QRCode(container,{text:link,width:160,height:160,colorDark:'#000000',colorLight:'#ffffff'});
+  const c=document.getElementById('qr-container');
+  c.innerHTML='';
+  if(window.QRCode) new QRCode(c,{text:link,width:160,height:160,colorDark:'#000000',colorLight:'#ffffff'});
   openModal('modal-share');
 }
 function copyShareLink(){
   const val=document.getElementById('share-link-input').value;
-  navigator.clipboard.writeText(val).then(()=>toast('Link kopyalandı ✓')).catch(()=>{
-    document.getElementById('share-link-input').select(); document.execCommand('copy'); toast('Link kopyalandı ✓');
+  navigator.clipboard.writeText(val).then(()=>toast('Kopyalandı ✓')).catch(()=>{
+    document.getElementById('share-link-input').select(); document.execCommand('copy'); toast('Kopyalandı ✓');
   });
 }
-
-// ─── UTILS / EXPOSE / INIT ───────────────────────────────
 function uid(){ return Math.random().toString(36).substr(2,9); }
 function openModal(id){ document.getElementById(id).classList.add('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
@@ -1743,8 +2025,9 @@ Object.assign(window,{
   openAssign,doAssign,openMemberModal,openMemberDetail,saveMember,deleteMember,
   doLogin,logoutMember,toggleSet,logWeight,logReps,logRpe,logSetType,logNote,
   autofillSet,editPinnedNote,sendComment,finishWorkout,reopenWorkout,
-  toggleDayExpand,toggleHist,addWeightEntry,
-  openShare,copyShareLink,showProgress,switchTab,
+  toggleDayExpand,toggleHist,addWeightEntry,logMood,applySuggestion,
+  setMemberTab,setViewWeek,fillMuscleSelects,openFocusDay,backToWeek,toggleWeightWidget,startTodaysWorkout,
+  openShare,copyShareLink,showProgress,
   openModal,closeModal,addDay,removeDay,addExercise,removeExercise,saveProgram,
   saveNewExercise,addTimer,stopTimer
 });
@@ -1761,6 +2044,7 @@ Object.assign(window,{
     const member=state.members.find(m=>m.code===kod.toUpperCase());
     if(member){
       state.loggedMember=member; state.mode='member';
+      window.memberTab='home';
       const sb=document.getElementById('sidebar'); if(sb) sb.style.display='none';
     }
   }
