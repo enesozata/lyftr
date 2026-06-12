@@ -29,7 +29,12 @@
   .sidebar{width:225px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform .2s ease;}
   .sidebar-overlay{display:none;}
   .hamburger{display:none;}
-  .main{flex:1;overflow-y:auto;padding:28px 32px;}
+  .main{flex:1;overflow-y:auto;padding:28px 32px;
+    background:
+      radial-gradient(900px 540px at 88% -8%, rgba(200,245,66,0.05), transparent 62%),
+      radial-gradient(760px 480px at -12% 108%, rgba(77,166,255,0.045), transparent 60%),
+      radial-gradient(600px 400px at 50% 120%, rgba(200,245,66,0.025), transparent 55%);
+  }
   .logo{padding:22px 20px 16px;font-size:19px;font-weight:800;letter-spacing:-0.5px;}
   .logo span{color:var(--accent);}
   .nav-section{padding:8px 12px 4px;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;}
@@ -241,8 +246,10 @@
   .landing-tab:hover{color:var(--text);}
   .landing-tab.active{background:var(--accent);color:#000;font-weight:700;}
   .landing-card-sub{font-size:12px;color:var(--text3);margin-bottom:14px;}
-  .landing-logo{font-size:40px;font-weight:800;letter-spacing:-1.5px;margin-bottom:10px;}
-  .landing-logo span{color:var(--accent);}
+  .landing-logo{font-size:62px;font-weight:800;letter-spacing:-2.5px;margin-bottom:10px;animation:logoin .8s ease both;}
+  .landing-logo span{color:var(--accent);display:inline-block;animation:dotpulse 2.6s ease-in-out infinite;}
+  @keyframes logoin{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+  @keyframes dotpulse{0%,100%{transform:scale(1);text-shadow:none;}50%{transform:scale(1.3);text-shadow:0 0 20px rgba(200,245,66,0.85);}}
   .landing-tagline-wrap{height:22px;margin:12px 0 6px;overflow:hidden;}
   .feat-list{display:flex;flex-direction:column;gap:14px;margin-bottom:26px;}
   .feat-row{display:flex;gap:12px;align-items:flex-start;}
@@ -252,6 +259,7 @@
   .landing-lang{position:absolute;top:0;right:0;font-size:11px;font-weight:700;color:var(--text2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;cursor:pointer;letter-spacing:1px;}
   .landing-lang:hover{color:var(--text);border-color:var(--text3);}
   .landing-hero{position:relative;}
+  .rpe-cas{opacity:0.5;font-style:italic;}
   .rev-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
   .rev-yellow{background:#f5c542;box-shadow:0 0 6px rgba(245,197,66,0.5);}
   .rev-green{background:var(--green);}
@@ -305,7 +313,7 @@
     .landing-card{order:1;}
     .feat-row{text-align:left;}
     .mock-card{margin:0 auto;transform:none;animation:none;}
-    .landing-logo{font-size:32px;}
+    .landing-logo{font-size:42px;}
   }
   @media(max-width:880px){
     .hamburger{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;
@@ -415,6 +423,7 @@
       <div class="landing-tabs">
         <div class="landing-tab active" id="ltab-coach" onclick="showCoachLogin()"><span id="lt-tab-coach">Koç</span></div>
         <div class="landing-tab" id="ltab-member" onclick="showMemberLogin()"><span id="lt-tab-member">Üye</span></div>
+        <div class="landing-tab" id="ltab-self" onclick="showSelfLogin()"><span id="lt-tab-self">Bireysel</span></div>
       </div>
       <div id="landing-form-coach">
         <div class="landing-card-sub" id="lt-coach-sub">Sana verilen koç kodunu gir</div>
@@ -425,6 +434,11 @@
         <div class="landing-card-sub" id="lt-member-sub">Koçunun verdiği üye kodunu gir</div>
         <input class="landing-input" id="landing-member-code" placeholder="örn. 7F3A2K-AHMET01" maxlength="30" onkeydown="if(event.key==='Enter')doLandingMemberLogin()">
         <button class="landing-btn" onclick="doLandingMemberLogin()" id="lt-member-btn">Üye Girişi</button>
+      </div>
+      <div id="landing-form-self" class="hidden landing-extra">
+        <div class="landing-card-sub" id="lt-self-sub">Bireysel takip kodunu gir</div>
+        <input class="landing-input" id="landing-self-code" placeholder="SELF-XXXXXX" maxlength="20" onkeydown="if(event.key==='Enter')doSelfLogin()">
+        <button class="landing-btn" onclick="doSelfLogin()" id="lt-self-btn">Giriş Yap</button>
       </div>
       <div id="landing-form-admin" class="hidden landing-extra">
         <div class="landing-card-sub" id="lt-admin-sub">Yönetici erişim kodu</div>
@@ -456,11 +470,19 @@
     <div class="nav-section">Koç Paneli</div>
     <div class="nav-item active" onclick="navigate('templates')" id="nav-templates">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      <span>Program Kitaplığı</span>
+      <span id="nav-templates-label">Program Kitaplığı</span>
+    </div>
+    <div class="nav-item" onclick="goToMyWorkout()" id="nav-myworkout" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 12h12M3 8v8M21 8v8M8 6v12M16 6v12"/></svg>
+      <span>Antrenman</span>
     </div>
     <div class="nav-item" onclick="navigate('members')" id="nav-members">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       <span>Üyeler</span>
+    </div>
+    <div class="nav-item" onclick="navigate('inbox')" id="nav-inbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+      <span>Mesajlar</span><span id="nav-inbox-badge" class="badge badge-orange" style="margin-left:auto;display:none;font-size:10px;padding:1px 7px"></span>
     </div>
     <div class="nav-item" onclick="navigate('overview')" id="nav-overview">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -792,13 +814,13 @@ function exCat(e){ return e.muscles&&e.muscles.length?e.muscles[0].m:'Diğer'; }
 
 // ─── WORKSPACE / AUTH CONFIG ──────────────────────────────
 const ADMIN_CODE = 'LYFTR-ADMIN-9F2K';
-function wsSuffix(wsCode){ return (wsCode||'').replace(/^COACH-/,''); }
+function wsSuffix(wsCode){ return (wsCode||'').replace(/^COACH-/,'').replace(/^SELF-/,''); }
 function memberFullCode(m){ return wsSuffix(state.workspaceCode)+'-'+m.code; }
-function genWorkspaceCode(){
+function genWorkspaceCode(type){
   const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let s='';
   for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)];
-  return 'COACH-'+s;
+  return (type==='self'?'SELF-':'COACH-')+s;
 }
 
 const TAGLINES = [
@@ -823,7 +845,8 @@ const LT = {
       memberSub:'Koçunun verdiği üye kodunu gir',coachBtn:'Koç Girişi',memberBtn:'Üye Girişi',
       memberPh:'örn. 7F3A2K-AHMET01',adminSub:'Yönetici erişim kodu',adminBtn:'Yönetici Girişi',
       back:'← Geri dön',foot:'Kod almadın mı? Koçunla iletişime geç.',admin:'Yönetici',
-      sub:'Koçlar için antrenman yönetim sistemi',s1:'50+ egzersiz kütüphanesi',s2:'Haftalık hacim takibi',s3:'RPE bazlı ilerleme önerileri'},
+      sub:'Koçlar için antrenman yönetim sistemi',s1:'50+ egzersiz kütüphanesi',s2:'Haftalık hacim takibi',s3:'RPE bazlı ilerleme önerileri',
+      selfTab:'Bireysel',selfSub:'Bireysel takip kodunu gir',selfBtn:'Giriş Yap',selfPh:'SELF-XXXXXX'},
   en:{f1t:'Build weekly programs and assign instantly',f1d:'Templates, weekly blocks, RPE targets, warm-up routines',
       f2t:'Progress tracking based on real performance data',f2d:'e1RM trends, muscle volume, body weight, compliance',
       f3t:'Communicate with your clients on one platform',f3d:'Personal panels, notes, messages, streak motivation',
@@ -831,7 +854,8 @@ const LT = {
       memberSub:'Enter the code your coach gave you',coachBtn:'Coach Sign In',memberBtn:'Client Sign In',
       memberPh:'e.g. 7F3A2K-JOHN01',adminSub:'Admin access code',adminBtn:'Admin Sign In',
       back:'← Go back',foot:"Don't have a code? Contact your coach.",admin:'Admin',
-      sub:'The training management system for coaches',s1:'50+ exercise library',s2:'Weekly volume tracking',s3:'RPE-based progression suggestions'}
+      sub:'The training management system for coaches',s1:'50+ exercise library',s2:'Weekly volume tracking',s3:'RPE-based progression suggestions',
+      selfTab:'Personal',selfSub:'Enter your personal tracking code',selfBtn:'Sign In',selfPh:'SELF-XXXXXX'}
 };
 function getLandingLang(){ try{ return localStorage.getItem('lyftr_lang')||'tr'; }catch(e){ return 'tr'; } }
 function setLandingLangStore(l){ try{ localStorage.setItem('lyftr_lang',l); }catch(e){} }
@@ -910,6 +934,10 @@ function t(k){
 }
 
 // ─── REVIEW STATUS ───────────────────────────────────────
+function isCascaded(key){
+  const cz=state.cascades||{};
+  return !!(cz['w_'+key]||cz['p_'+key]);
+}
 function FG(g){ return g?t('fg_'+g):''; }
 function GL(g){ return g?t('gl_'+g):''; }
 function lastActivityAt(m){
@@ -928,12 +956,12 @@ function needsReview(m){
 // ─── STATE ───────────────────────────────────────────────
 let state = {
   view:'landing',     // 'landing' | 'coach' | 'member' | 'admin'
-  workspaceId:null, workspaceName:null, workspaceCode:null, memberDirectAccess:false,
+  workspaceId:null, workspaceName:null, workspaceCode:null, workspaceType:'coach', memberDirectAccess:false,
   settings:{unit:'kg',lang:'tr'},
   adminWorkspaces:[], // list for admin panel
   mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null, detailMemberId:null,
   templates:[], programs:[], members:[], exercises:[], recentEx:[],
-  logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{},
+  logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{}, cascades:{},
   weightLog:{}, finishedWorkouts:{}, workoutStart:{}, defaults:{},
   moodLog:{},   // memberId → [{mood:1-5,date}]
   warmupRoutines:[], // [{id,name,exercises:[{name,sets,reps}]}]
@@ -972,6 +1000,7 @@ async function save(){
       weightLog:state.weightLog, finishedWorkouts:state.finishedWorkouts,
       workoutStart:state.workoutStart, defaults:state.defaults, moodLog:state.moodLog,
       warmupRoutines:state.warmupRoutines,
+      cascades:state.cascades,
       settings:state.settings,
       updatedAt:Date.now(),
     });
@@ -995,6 +1024,7 @@ async function loadWorkspace(wsId){
       state.workoutStart=d.workoutStart||{}; state.defaults=d.defaults||{};
       state.moodLog=d.moodLog||{};
       state.warmupRoutines=d.warmupRoutines||[];
+      state.cascades=d.cascades||{};
       state.settings=Object.assign({unit:'kg',lang:'tr'},d.settings||{});
     } else {
       // brand new empty workspace
@@ -1003,6 +1033,7 @@ async function loadWorkspace(wsId){
       state.notes={}; state.pinnedNotes={}; state.completions={}; state.comments={};
       state.weightLog={}; state.finishedWorkouts={}; state.workoutStart={}; state.defaults={};
       state.moodLog={}; state.warmupRoutines=[];
+      state.cascades={};
       state.settings={unit:'kg',lang:'tr'};
     }
     // seed / patch exercise library with muscle data
@@ -1037,7 +1068,7 @@ async function saveAdminData(){
 function saveSession(){
   try {
     if(state.workspaceId&&state.view==='coach')
-      localStorage.setItem('lyftr_session',JSON.stringify({workspaceId:state.workspaceId,workspaceName:state.workspaceName}));
+      localStorage.setItem('lyftr_session',JSON.stringify({workspaceId:state.workspaceId,workspaceName:state.workspaceName,workspaceType:state.workspaceType}));
     else
       localStorage.removeItem('lyftr_session');
   } catch(e){}
@@ -1171,7 +1202,7 @@ function getExerciseHistory(memberId,exName){
       const w=parseFloat(state.logs[key])||0;
       const r=parseInt(state.repsLog[key])||0;
       if(w>maxW) maxW=w;
-      if(w&&r){ const e=epley(w,r,state.rpe[key]); if(e>bestE1rm) bestE1rm=e; logged++; if(topReps&&r<topReps) allTop=false; }
+      if(w&&r&&!isCascaded(key)){ const e=epley(w,r,state.rpe[key]); if(e>bestE1rm) bestE1rm=e; logged++; if(topReps&&r<topReps) allTop=false; }
       const rp=parseFloat(state.rpe[key])||0;
       if(rp>0) rpeVals.push(rp);
     }
@@ -1218,7 +1249,7 @@ function bestE1RM(memberId,exName){
       const key=setKey(memberId,p.id,wi,di,ei,si);
       const w=parseFloat(state.logs[key])||0;
       const r=parseInt(state.repsLog[key])||0;
-      if(w&&r){ const e=epley(w,r,state.rpe[key]); if(e>best) best=e; }
+      if(w&&r&&!isCascaded(key)){ const e=epley(w,r,state.rpe[key]); if(e>best) best=e; }
     }
   });
   return best;
@@ -1364,6 +1395,10 @@ function saveNewExercise(){
 
 // ─── NAV / RENDER ────────────────────────────────────────
 function navigate(page){
+  // leaving member/workout view via sidebar (self-track or coach preview)
+  if(state.mode==='member'&&!state.memberDirectAccess){
+    state.mode='coach'; state.loggedMember=null;
+  }
   state.currentPage=page;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   const n=document.getElementById('nav-'+page); if(n) n.classList.add('active');
@@ -1417,6 +1452,34 @@ function render(){
   const wsNameEl=document.getElementById('sidebar-ws-name');
   if(wsNameEl) wsNameEl.textContent=state.workspaceName||'';
 
+  // self-tracking workspaces: simplified nav
+  const isSelf=state.workspaceType==='self';
+  ['nav-members','nav-overview','nav-exercises','nav-inbox'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display=isSelf?'none':'';
+  });
+  const myWk=document.getElementById('nav-myworkout'); if(myWk) myWk.style.display=isSelf?'':'none';
+  const tplLabel=document.getElementById('nav-templates-label'); if(tplLabel) tplLabel.textContent=isSelf?'Programlarım':'Program Kitaplığı';
+  // inbox unread badge
+  const badge=document.getElementById('nav-inbox-badge');
+  if(badge&&!isSelf){
+    let unread=0;
+    Object.entries(state.comments||{}).forEach(([ck,arr])=>{
+      const mId=ck.split('_')[0];
+      const mem=state.members.find(x=>x.id===mId);
+      if(!mem) return;
+      (arr||[]).forEach(msg=>{ if(msg.date>(mem.reviewedAt||0)) unread++; });
+    });
+    badge.textContent=unread;
+    badge.style.display=unread>0?'':'none';
+  } else if(badge){ badge.style.display='none'; }
+  const modeToggle=document.querySelector('.mode-toggle'); if(modeToggle) modeToggle.style.display=isSelf?'none':'';
+  // highlight nav-myworkout when viewing as the self member
+  if(myWk){ myWk.classList.toggle('active', isSelf&&state.mode==='member'); }
+  if(isSelf&&state.mode!=='member'){
+    document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+    const n=document.getElementById('nav-'+state.currentPage); if(n) n.classList.add('active');
+  }
+
   if(state.mode==='member'&&state.loggedMember) el.innerHTML=renderMemberView();
   else if(state.currentPage==='templates') el.innerHTML=renderTemplates();
   else if(state.currentPage==='members') el.innerHTML=renderMembers();
@@ -1424,6 +1487,7 @@ function render(){
   else if(state.currentPage==='exercises') el.innerHTML=renderExerciseLib();
   else if(state.currentPage==='memberDetail') el.innerHTML=renderMemberDetail(state.detailMemberId);
   else if(state.currentPage==='settings') el.innerHTML=renderSettings();
+  else if(state.currentPage==='inbox') el.innerHTML=renderInbox();
 }
 
 // ─── ADMIN PANEL ─────────────────────────────────────────
@@ -1435,7 +1499,11 @@ function renderAdmin(){
     </div>
     <div class="card" style="margin-bottom:14px">
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <input class="form-input" id="admin-new-coach-name" placeholder="Yeni koç adı (örn. Ahmet PT)" style="flex:1;min-width:200px">
+        <input class="form-input" id="admin-new-coach-name" placeholder="Yeni isim (örn. Ahmet PT veya Enes)" style="flex:1;min-width:200px">
+        <select class="form-input" id="admin-new-type" style="width:auto">
+          <option value="coach">Koç</option>
+          <option value="self">Kendi Takibim</option>
+        </select>
         <button class="btn btn-primary" onclick="adminCreateWorkspace()">+ Yeni Workspace Oluştur</button>
       </div>
     </div>
@@ -1444,7 +1512,7 @@ function renderAdmin(){
         [...state.adminWorkspaces].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).map(w=>`
         <div class="ws-row">
           <div>
-            <div style="font-weight:600">${w.name}</div>
+            <div style="font-weight:600">${w.name} ${w.type==='self'?'<span class="badge badge-purple" style="margin-left:6px">Kendi Takibim</span>':''}</div>
             <div style="font-size:11px;color:var(--text3)">${fmtDate(w.createdAt)}</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1461,9 +1529,11 @@ function adminCopyCode(code){
 }
 async function adminCreateWorkspace(){
   const nameEl=document.getElementById('admin-new-coach-name');
+  const typeEl=document.getElementById('admin-new-type');
   const name=nameEl.value.trim();
-  if(!name){ toast('Koç adı giriniz'); return; }
-  const ws={id:uid(),name,code:genWorkspaceCode(),createdAt:Date.now()};
+  if(!name){ toast('İsim giriniz'); return; }
+  const type=(typeEl&&typeEl.value==='self')?'self':'coach';
+  const ws={id:uid(),name,code:genWorkspaceCode(type),type,createdAt:Date.now()};
   state.adminWorkspaces.push(ws);
   await saveAdminData();
   nameEl.value='';
@@ -1478,10 +1548,28 @@ async function adminDeleteWorkspace(id){
   toast('Workspace silindi');
 }
 async function adminOpenAsCoach(id,code){
+  const ws=state.adminWorkspaces.find(w=>w.id===id)||{};
   await loadWorkspace(id);
-  state.workspaceName=(state.adminWorkspaces.find(w=>w.id===id)||{}).name||code;
+  await ensureSelfMember(ws.type);
+  state.workspaceName=ws.name||code; state.workspaceType=ws.type||'coach';
   state.view='coach'; state.mode='coach'; state.currentPage='templates';
   saveSession();
+  render();
+}
+// for self-tracking workspaces, auto-create the single member record
+async function ensureSelfMember(type){
+  if(type!=='self') return;
+  if(!state.members.length){
+    state.members.push({id:'self',name:state.workspaceName||'Antrenmanım',code:'SELF'});
+    await save();
+  }
+}
+function goToMyWorkout(){
+  const me=state.members[0];
+  if(!me) return;
+  state.loggedMember=me; state.mode='member';
+  window.memberTab='home'; window.viewWeek=null; window.focusDay=null;
+  closeSidebar();
   render();
 }
 
@@ -1529,9 +1617,11 @@ function applyLandingLang(){
   const map={'lt-f1t':d.f1t,'lt-f1d':d.f1d,'lt-f2t':d.f2t,'lt-f2d':d.f2d,'lt-f3t':d.f3t,'lt-f3d':d.f3d,
     'lt-login':d.login,'lt-tab-coach':d.coach,'lt-tab-member':d.member,
     'lt-coach-sub':d.coachSub,'lt-coach-btn':d.coachBtn,'lt-member-sub':d.memberSub,'lt-member-btn':d.memberBtn,
-    'lt-admin-sub':d.adminSub,'lt-admin-btn':d.adminBtn,'lt-back':d.back,'lt-foot':d.foot,'lt-admin-link':d.admin};
+    'lt-admin-sub':d.adminSub,'lt-admin-btn':d.adminBtn,'lt-back':d.back,'lt-foot':d.foot,'lt-admin-link':d.admin,
+    'lt-tab-self':d.selfTab,'lt-self-sub':d.selfSub,'lt-self-btn':d.selfBtn};
   Object.entries(map).forEach(([id,txt])=>{ const el=document.getElementById(id); if(el) el.textContent=txt; });
   const mi=document.getElementById('landing-member-code'); if(mi) mi.placeholder=d.memberPh;
+  const si=document.getElementById('landing-self-code'); if(si) si.placeholder=d.selfPh;
   const btn=document.getElementById('landing-lang-btn'); if(btn) btn.textContent=l==='en'?'🇹🇷':'🇺🇸';
   const sub=document.getElementById('lt-subhead'); if(sub) sub.textContent=d.sub;
   ['s1','s2','s3'].forEach(k=>{ const el=document.getElementById('lt-'+k); if(el) el.textContent=d[k]; });
@@ -1561,7 +1651,7 @@ function renderSettings(){
       </div>
       <div class="divider"></div>
       <div class="form-group">
-        <label class="form-label">Üye Paneli Dili</label>
+        <label class="form-label">${state.workspaceType==='self'?'Panel Dili':'Üye Paneli Dili'}</label>
         <select class="form-input" onchange="setWsLang(this.value)">
           <option value="tr" ${s.lang!=='en'?'selected':''}>🇹🇷 Türkçe</option>
           <option value="en" ${s.lang==='en'?'selected':''}>🇺🇸 English</option>
@@ -1570,28 +1660,80 @@ function renderSettings(){
       </div>
     </div>`;
 }
+function renderInbox(){
+  const msgs=[];
+  Object.entries(state.comments||{}).forEach(([ck,arr])=>{
+    const mId=ck.split('_')[0];
+    const mem=state.members.find(x=>x.id===mId);
+    if(!mem) return;
+    (arr||[]).forEach(msg=>msgs.push({member:mem,text:msg.text,date:msg.date,unread:msg.date>(mem.reviewedAt||0)}));
+  });
+  msgs.sort((a,b)=>b.date-a.date);
+  return `
+    <div class="page-header">
+      <div><div class="page-title">Mesajlar</div><div class="page-sub">${msgs.length} mesaj · ${msgs.filter(x=>x.unread).length} yeni</div></div>
+    </div>
+    ${msgs.length===0?`<div class="empty"><p>Henüz mesaj yok. Üyeler antrenman panellerinden mesaj gönderdiğinde burada görünür.</p></div>`:`
+    <div class="card" style="padding:0;overflow:hidden">
+      ${msgs.map(x=>`
+        <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:13px;cursor:pointer;${x.unread?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':''}" onclick="openMemberDetail('${x.member.id}')">
+          <div class="avatar" style="flex-shrink:0">${x.member.name.charAt(0).toUpperCase()}</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:3px">
+              <span style="font-weight:600;font-size:13.5px">${x.member.name} ${x.unread?'<span class="rev-dot rev-yellow" style="margin-left:4px"></span>':''}</span>
+              <span style="font-size:11px;color:var(--text3);flex-shrink:0">${new Date(x.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>
+            </div>
+            <div style="font-size:13px;color:var(--text2);overflow:hidden;text-overflow:ellipsis">${x.text}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-top:10px">Mesaja tıklayınca üye detayına gidersin — "İncelendi" işaretleyince yeni rozeti kalkar.</div>`}`;
+}
 function setWsUnit(u){ state.settings.unit=u==='lbs'?'lbs':'kg'; save(); render(); toast('Birim güncellendi'); }
 function setWsLang(l){ state.settings.lang=l==='en'?'en':'tr'; save(); render(); toast('Dil güncellendi'); }
 function _setLandingForm(which){
-  ['coach','member','admin'].forEach(f=>{
+  ['coach','member','self','admin'].forEach(f=>{
     const el=document.getElementById('landing-form-'+f);
     if(el) el.classList.toggle('hidden',f!==which);
   });
-  const tc=document.getElementById('ltab-coach'), tm=document.getElementById('ltab-member');
-  if(tc) tc.classList.toggle('active',which==='coach');
-  if(tm) tm.classList.toggle('active',which==='member');
+  [['ltab-coach','coach'],['ltab-member','member'],['ltab-self','self']].forEach(([id,f])=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('active',which===f);
+  });
 }
 function showMemberLogin(){ _setLandingForm('member'); }
 function showCoachLogin(){ _setLandingForm('coach'); }
+function showSelfLogin(){ _setLandingForm('self'); }
 function showAdminLogin(){ _setLandingForm('admin'); }
+async function enterSelfWorkspace(ws){
+  await loadWorkspace(ws.id);
+  state.workspaceName=ws.name; state.workspaceCode=ws.code; state.workspaceType='self';
+  await ensureSelfMember('self');
+  state.loggedMember=state.members[0]; state.mode='member'; state.view='coach';
+  state.memberDirectAccess=false;
+  window.memberTab='home'; window.viewWeek=null; window.focusDay=null;
+  saveSession();
+  render();
+}
+async function doSelfLogin(){
+  const code=document.getElementById('landing-self-code').value.trim().toUpperCase();
+  if(!code){ toast('Kod giriniz'); return; }
+  await loadAdminData();
+  const ws=state.adminWorkspaces.find(w=>w.code.toUpperCase()===code&&(w.type==='self'||w.code.toUpperCase().startsWith('SELF-')));
+  if(!ws){ toast('Geçersiz kod'); return; }
+  await enterSelfWorkspace(ws);
+  toast(`Hoş geldin, ${ws.name}`);
+}
 async function doLandingLogin(){
   const code=document.getElementById('landing-code').value.trim().toUpperCase();
   if(!code){ toast('Kod giriniz'); return; }
   await loadAdminData();
   const ws=state.adminWorkspaces.find(w=>w.code.toUpperCase()===code);
   if(!ws){ toast('Geçersiz koç kodu'); return; }
+  if(ws.type==='self'){ await enterSelfWorkspace(ws); toast(`Hoş geldin, ${ws.name}`); return; }
   await loadWorkspace(ws.id);
-  state.workspaceName=ws.name; state.workspaceCode=ws.code;
+  await ensureSelfMember(ws.type);
+  state.workspaceName=ws.name; state.workspaceCode=ws.code; state.workspaceType=ws.type||'coach';
   state.view='coach'; state.mode='coach'; state.currentPage='templates';
   state.loggedMember=null; state.memberDirectAccess=false;
   saveSession();
@@ -1969,14 +2111,14 @@ function renderMemberView(){
       <div class="tab ${tab==='home'?'active':''}" onclick="setMemberTab('home')">${t('home')}</div>
       <div class="tab ${tab==='program'?'active':''}" onclick="setMemberTab('program')">${t('program')}</div>
       <div class="tab ${tab==='progress'?'active':''}" onclick="setMemberTab('progress')">${t('progress')}</div>
-      <div class="tab ${tab==='comments'?'active':''}" onclick="setMemberTab('comments')">${t('message')}${cmts.length?` (${cmts.length})`:''}</div>
+      ${state.workspaceType==='self'?'':`<div class="tab ${tab==='comments'?'active':''}" onclick="setMemberTab('comments')">${t('message')}${cmts.length?` (${cmts.length})`:''}</div>`}
     </div>
     ${tab==='home'?renderMemberHome(m,prog):''}
     ${tab==='program'?renderMemberProgram(m,prog):''}
     ${tab==='progress'?renderMemberProgress(m,prog):''}
     ${tab==='comments'?renderMemberComments(m,prog,ck,cmts):''}`;
 }
-function setMemberTab(tb){ window.memberTab=tb; if(tb!=='program') window.focusDay=null; render(); }
+function setMemberTab(tb){ if(tb==='comments'&&state.workspaceType==='self') tb='home'; window.memberTab=tb; if(tb!=='program') window.focusDay=null; render(); }
 
 // ── HOME ──
 function renderMemberHome(m,prog){
@@ -2085,9 +2227,17 @@ function renderMemberHome(m,prog){
   </div>`:'';
 
   return `
-    <div style="margin-bottom:16px">
-      <div style="font-size:21px;font-weight:800">${t('welcome')}, ${m.name.split(' ')[0]}</div>
-      ${m.injuries?`<div style="font-size:12px;color:var(--orange);margin-top:4px">⚠ ${m.injuries}</div>`:''}
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px">
+      <div>
+        <div style="font-size:21px;font-weight:800">${t('welcome')}, ${m.name.split(' ')[0]}</div>
+        ${m.injuries?`<div style="font-size:12px;color:var(--orange);margin-top:4px">⚠ ${m.injuries}</div>`:''}
+      </div>
+      ${state.memberDirectAccess
+        ?`<button class="btn btn-sm" style="flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,107,0.12);color:var(--red);border:1px solid rgba(255,107,107,0.3)" onclick="logoutMember()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            ${t('exit')}</button>`
+        :state.workspaceType==='self'?''
+        :`<button class="btn btn-ghost btn-sm" onclick="logoutMember()" style="flex-shrink:0">← Panele Dön</button>`}
     </div>
 
     ${mood===null?`<div class="card" style="margin-bottom:14px">
@@ -2207,7 +2357,12 @@ function renderMemberProgram(m,prog){
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       <div><div style="font-size:16px;font-weight:700">${prog.name}</div>
       <div style="font-size:12px;color:var(--text2)">${t('week')} ${viewWk+1}/${weeks}${viewWk!==curWeek-1?' ('+t('viewing')+')':''}</div></div>
-      <button class="btn btn-ghost btn-sm" onclick="logoutMember()">${t('exit')}</button>
+      ${state.memberDirectAccess
+        ?`<button class="btn btn-sm" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,107,0.12);color:var(--red);border:1px solid rgba(255,107,107,0.3)" onclick="logoutMember()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            ${t('exit')}</button>`
+        :state.workspaceType==='self'?''
+        :`<button class="btn btn-ghost btn-sm" onclick="logoutMember()">← Panele Dön</button>`}
     </div>
     ${weekStrip}
     ${grid}`;
@@ -2263,17 +2418,20 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
   for(let si=0;si<sc;si++){
     const key=setKey(m.id,prog.id,wi,di,ei,si);
     const w=parseFloat(state.logs[key])||0, r=parseInt(state.repsLog[key])||0;
-    if(w&&r){ const e=epley(w,r,state.rpe[key]); if(e>curE) curE=e; }
+    if(w&&r&&!isCascaded(key)){ const e=epley(w,r,state.rpe[key]); if(e>curE) curE=e; }
   }
   const allTime=bestE1RM(m.id,ex.name);
   const isNewPR=curE>0&&curE>=allTime&&allTime>0;
   const sets=[];
+  const baseKey=`${m.id}_${prog.id}_w${wi}_${di}_${ei}`;
   for(let si=0;si<sc;si++){
     const key=setKey(m.id,prog.id,wi,di,ei,si);
     const isDone=!!state.completions[key];
     const wt=state.logs[key]||'', rp=state.repsLog[key]||'', rpeVal=state.rpe[key]||'';
     const stype=state.setTypes[key]||(ex.isWarmup?'W':'N');
     const isDef=!!state.defaults[key];
+    const cz=state.cascades||{};
+    const casW=!!cz['w_'+key], casP=!!cz['p_'+key], casR=!!cz['r_'+key];
     const lastData=(!wt&&!rp)?getLastSetData(m.id,ex.name,si,key):null;
     sets.push(`<div class="set-row ${stype==='W'?'warmup':''}">
       <div class="check-box ${isDone?'done':''}" onclick="toggleSet('${key}',${ex.rest||90},'${ex.targetW||''}',${topReps})">
@@ -2282,11 +2440,11 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
       <select class="set-type-select" onchange="logSetType('${key}',this.value)">
         ${SET_TYPES.map(s=>`<option value="${s.v}" ${stype===s.v?'selected':''}>${s.v==='N'?('S'+(si+1)):s.l.substring(0,3)}</option>`).join('')}
       </select>
-      <input class="form-input ${isDef?'default-val':''}" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW?W(ex.targetW):U()}" value="${wt!==''?W(wt):''}" onchange="logWeight('${key}',this.value)" inputmode="decimal">
+      <input class="form-input ${(isDef||casW)?'default-val':''}" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW?W(ex.targetW):U()}" value="${wt!==''?W(wt):''}" onchange="logWeightCascade('${baseKey}',${si},${sc},this.value)" inputmode="decimal">
       <span style="font-size:11px;color:var(--text3)">${U()}</span>
-      <input class="form-input ${isDef?'default-val':''}" style="width:56px;padding:5px 7px;font-size:12px" placeholder="${ex.reps||'tk'}" value="${rp}" onchange="logReps('${key}',this.value)" inputmode="numeric">
+      <input class="form-input ${(isDef||casP)?'default-val':''}" style="width:56px;padding:5px 7px;font-size:12px" placeholder="${ex.reps||'tk'}" value="${rp}" onchange="logRepsCascade('${baseKey}',${si},${sc},this.value)" inputmode="numeric">
       <span style="font-size:11px;color:var(--text3)">tk</span>
-      <select class="rpe-select" onchange="logRpe('${key}',this.value)">
+      <select class="rpe-select ${casR?'rpe-cas':''}" onchange="logRpeCascade('${baseKey}',${si},${sc},this.value)">
         <option value="">RPE</option>
         ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
       </select>
@@ -2360,23 +2518,33 @@ function renderMemberComments(m,prog,ck,cmts){
 }
 
 // ─── TIMER / TRACKING ────────────────────────────────────
-function startTimer(seconds){
-  stopTimer();
-  timerSeconds=seconds;
+function startTimer(seconds){ startTimerUntil(Date.now()+seconds*1000); }
+function startTimerUntil(endTs){
+  clearInterval(timerInterval);
+  window._timerEnd=endTs;
+  try{ localStorage.setItem('lyftr_timer_end',String(endTs)); }catch(e){}
   const el=document.getElementById('timer-el');
   const cnt=document.getElementById('timer-count');
   el.classList.remove('hidden');
-  cnt.style.color='var(--accent)';
-  cnt.textContent=timerSeconds;
-  timerInterval=setInterval(()=>{
-    timerSeconds--;
-    cnt.textContent=timerSeconds;
-    if(timerSeconds<=0){ stopTimer(); toast(t('restDone')); }
-    else if(timerSeconds<=10) cnt.style.color='var(--red)';
-  },1000);
+  const tick=()=>{
+    const rem=Math.round((window._timerEnd-Date.now())/1000);
+    cnt.textContent=Math.max(0,rem);
+    if(rem<=0){ stopTimer(); toast(t('restDone')); }
+    else cnt.style.color=rem<=10?'var(--red)':'var(--accent)';
+  };
+  tick();
+  timerInterval=setInterval(tick,500);
 }
-function stopTimer(){ clearInterval(timerInterval); timerInterval=null; document.getElementById('timer-el').classList.add('hidden'); }
-function addTimer(s){ timerSeconds+=s; document.getElementById('timer-count').textContent=timerSeconds; }
+function stopTimer(){
+  clearInterval(timerInterval); timerInterval=null; window._timerEnd=null;
+  try{ localStorage.removeItem('lyftr_timer_end'); }catch(e){}
+  document.getElementById('timer-el').classList.add('hidden');
+}
+function addTimer(s){
+  if(!window._timerEnd) return;
+  window._timerEnd+=s*1000;
+  try{ localStorage.setItem('lyftr_timer_end',String(window._timerEnd)); }catch(e){}
+}
 
 function toggleSet(key,rest,targetW,topReps){
   if(state.completions[key]){
@@ -2384,6 +2552,7 @@ function toggleSet(key,rest,targetW,topReps){
     if(state.defaults[key]){ delete state.logs[key]; delete state.repsLog[key]; delete state.defaults[key]; }
   } else {
     state.completions[key]=true;
+    if(state.cascades){ delete state.cascades['w_'+key]; delete state.cascades['p_'+key]; delete state.cascades['r_'+key]; }
     const dayKey=key.substring(0,key.lastIndexOf('_',key.lastIndexOf('_')-1));
     if(!state.workoutStart[dayKey]) state.workoutStart[dayKey]=Date.now();
     let usedDef=false;
@@ -2395,6 +2564,61 @@ function toggleSet(key,rest,targetW,topReps){
   save(); render();
 }
 function logWeight(key,val){ const kg=val!==''&&val!=null?WIN(val):''; if(kg!=='') state.logs[key]=String(kg); else delete state.logs[key]; delete state.defaults[key]; save(); }
+// set-1 cascade: weight/reps/RPE flow into EMPTY later sets as faint, editable suggestions
+function logWeightCascade(base,si,sc,val){
+  const key=base+'_'+si;
+  if(!state.cascades) state.cascades={};
+  const kg=val!==''&&val!=null?WIN(val):'';
+  if(kg!=='') state.logs[key]=String(kg); else delete state.logs[key];
+  delete state.defaults[key];
+  delete state.cascades['w_'+key]; // user touched this set directly
+  if(si===0&&kg!==''){
+    let copied=false;
+    for(let s=1;s<sc;s++){
+      const k=base+'_'+s;
+      if(!state.logs[k]||state.cascades['w_'+k]){
+        state.logs[k]=String(kg); state.cascades['w_'+k]=true; copied=true;
+      }
+    }
+    if(copied){ save(); render(); return; }
+  }
+  save();
+}
+function logRepsCascade(base,si,sc,val){
+  const key=base+'_'+si;
+  if(!state.cascades) state.cascades={};
+  if(val) state.repsLog[key]=val; else delete state.repsLog[key];
+  delete state.defaults[key];
+  delete state.cascades['p_'+key];
+  if(si===0&&val){
+    let copied=false;
+    for(let s=1;s<sc;s++){
+      const k=base+'_'+s;
+      if(!state.repsLog[k]||state.cascades['p_'+k]){
+        state.repsLog[k]=val; state.cascades['p_'+k]=true; copied=true;
+      }
+    }
+    if(copied){ save(); render(); return; }
+  }
+  save();
+}
+function logRpeCascade(base,si,sc,val){
+  const key=base+'_'+si;
+  if(!state.cascades) state.cascades={};
+  if(val) state.rpe[key]=val; else delete state.rpe[key];
+  delete state.cascades['r_'+key];
+  if(si===0&&val){
+    let copied=false;
+    for(let s=1;s<sc;s++){
+      const k=base+'_'+s;
+      if(!state.rpe[k]||state.cascades['r_'+k]){
+        state.rpe[k]=val; state.cascades['r_'+k]=true; copied=true;
+      }
+    }
+    if(copied){ save(); render(); return; }
+  }
+  save();
+}
 function logReps(key,val){ if(val) state.repsLog[key]=val; else delete state.repsLog[key]; delete state.defaults[key]; save(); }
 function logRpe(key,val){ if(val) state.rpe[key]=val; else delete state.rpe[key]; save(); }
 function logSetType(key,val){ if(val&&val!=='N') state.setTypes[key]=val; else delete state.setTypes[key]; save(); render(); }
@@ -2527,7 +2751,7 @@ function showProgress(mId,progId,wi,di,ei,exName){
     const key=setKey(mId,progId,wi,di,ei,si);
     const w=parseFloat(state.logs[key])||0;
     const r=parseInt(state.repsLog[key])||0;
-    if(w&&r){ const e=epley(w,r,state.rpe[key]); if(e>bestE) bestE=e; }
+    if(w&&r&&!isCascaded(key)){ const e=epley(w,r,state.rpe[key]); if(e>bestE) bestE=e; }
     weights.push({label:`Set ${si+1}`,w});
   }
   const hist=getExerciseHistory(mId,exName);
@@ -2766,50 +2990,179 @@ async function importTemplatesFile(input){
   if(!window.XLSX){ toast('Excel modülü yüklenemedi'); return; }
   try{
     const buf=await f.arrayBuffer();
-    const wb=XLSX.read(buf);
-    const sheet=wb.Sheets['Program']||wb.Sheets[wb.SheetNames[0]];
-    const rows=XLSX.utils.sheet_to_json(sheet,{defval:''});
-    if(!rows.length){ toast('Dosyada satır bulunamadı'); return; }
-    let name=f.name.replace(/\.xlsx?$/i,''), weeks=4, desc='', type='program';
-    const infoSheet=wb.Sheets['Bilgi'];
-    if(infoSheet){
-      const inf=XLSX.utils.sheet_to_json(infoSheet,{defval:''})[0]||{};
-      if(inf['Program']) name=String(inf['Program']);
-      if(inf['Hafta']) weeks=parseInt(inf['Hafta'])||4;
-      desc=String(inf['Açıklama']||'');
-      if(String(inf['Tür']).toLowerCase()==='warmup') type='warmup';
-    }
-    const daysMap=new Map();
-    rows.forEach(r=>{
-      const exName=String(r['Egzersiz']||'').trim();
-      if(!exName) return;
-      const dayName=String(r['Gün']||'Gün 1').trim()||'Gün 1';
-      if(!daysMap.has(dayName)) daysMap.set(dayName,{name:dayName,goal:'',duration:'',note:'',exercises:[]});
-      const twKey=Object.keys(r).find(k=>String(k).startsWith('Hedef Ağırlık'));
-      const twRaw=twKey?r[twKey]:'';
-      const warm=String(r['Isınma']||'').trim().toLowerCase();
-      daysMap.get(dayName).exercises.push({
-        name:exName,
-        sets:parseInt(r['Set'])||3,
-        reps:String(r['Tekrar']||''),
-        rest:String(r['Dinlenme (sn)']||r['Dinlenme']||''),
-        targetW:twRaw!==''?String(WIN(twRaw)||''):'',
-        targetRpe:String(r['Hedef RPE']||''),
-        superset:String(r['Superset']||'').toUpperCase(),
-        tempoOn:!!String(r['Tempo']||'').trim(),
-        tempo:String(r['Tempo']||''),
-        coachNote:String(r['Koç Notu']||''),
-        isWarmup:warm==='evet'||warm==='yes'||warm==='e'
+    const wb=XLSX.read(buf,{cellDates:true});
+
+    const norm=s=>String(s==null?'':s).toLowerCase().trim();
+    const FIELDS=[
+      ['superset',['superset','süperset']],
+      ['warm',['ısınma','isinma','warm-up','warm up','warmup']],
+      ['day',['gün','gun','day']],
+      ['ex',['egzersiz','hareket','exercise','movement','lift']],
+      ['sets',['set','sets']],
+      ['reps',['tekrar','reps','rep']],
+      ['weight',['hedef ağırlık','ağırlık','agirlik','kilo','weight','load']],
+      ['week1',['week 1','week1','hafta 1','hafta1','w1']],
+      ['rpe',['rpe']],
+      ['rest',['dinlenme','rest']],
+      ['tempo',['tempo']],
+      ['note',['koç notu','not','note','açıklama','aciklama']],
+    ];
+    function mapCols(row){
+      const cols={};
+      row.forEach((cell,i)=>{
+        const h=norm(cell);
+        if(!h) return;
+        for(const [field,kws] of FIELDS){
+          if(cols[field]!==undefined) continue;
+          if(kws.some(k=>h===k||h.startsWith(k))){ cols[field]=i; return; }
+        }
       });
+      return cols;
+    }
+    const isHeaderRow=cols=>cols.ex!==undefined||(cols.sets!==undefined&&cols.reps!==undefined);
+    const DAY_TITLE=/\b(day|gün|gun)\s*\d+/i;
+    const firstNum=s=>{
+      const m=String(s==null?'':s).replace(',','.').match(/(\d+(?:\.\d+)?)/);
+      return m?parseFloat(m[1]):NaN;
+    };
+    // Excel often eats "10-12" reps as a date — recover day-month as a range
+    const cellToRange=v=>{
+      if(v instanceof Date) return v.getDate()+'-'+(v.getMonth()+1);
+      const s=String(v==null?'':v).trim();
+      const iso=s.match(/^\d{4}-(\d{1,2})-(\d{1,2})/);
+      if(iso) return parseInt(iso[2])+'-'+parseInt(iso[1]);
+      return s;
+    };
+    const parseWeight=raw=>{
+      let s=norm(cellToRange(raw)); if(!s||s==='-') return '';
+      // "3x10@75" → weight after @ ; "100@6" → weight before @ (rpe after)
+      const at=s.split('@');
+      if(at.length>1&&/[x×]/.test(at[0])) s=at[1];
+      else s=at[0];
+      // "120/140/160" → take last (top set)
+      const parts=s.split('/').filter(p=>!isNaN(firstNum(p)));
+      if(parts.length>1) s=parts[parts.length-1];
+      const num=firstNum(s);
+      if(isNaN(num)||num<=0) return '';
+      if(/lb/.test(norm(raw))) return String(Math.round(num/KG2LBS*100)/100);
+      if(/kg/.test(norm(raw))) return String(num);
+      return String(WIN(num)||'');
+    };
+
+    // meta (our own export format)
+    let metaName=f.name.replace(/\.xlsx?$/i,''), metaWeeks=4, metaDesc='', metaType='program';
+    if(wb.Sheets['Bilgi']){
+      const inf=XLSX.utils.sheet_to_json(wb.Sheets['Bilgi'],{defval:''})[0]||{};
+      if(inf['Program']) metaName=String(inf['Program']);
+      if(inf['Hafta']) metaWeeks=parseInt(inf['Hafta'])||4;
+      metaDesc=String(inf['Açıklama']||'');
+      if(String(inf['Tür']).toLowerCase()==='warmup') metaType='warmup';
+    }
+
+    const dataSheets=wb.SheetNames.filter(n=>n!=='Bilgi');
+    const templates=[];
+
+    dataSheets.forEach(sn=>{
+      const rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:''});
+      if(!rows.length) return;
+
+      const days=[];
+      let cols=null, curDay=null, pendingTitle=null, dayCounter=0;
+      const newDay=title=>{
+        dayCounter++;
+        curDay={name:(title||'Gün '+dayCounter).trim(),goal:'',duration:'',note:'',exercises:[]};
+        days.push(curDay);
+      };
+
+      for(const row of rows){
+        if(!row||row.every(cell=>norm(cell)==='')) continue;
+        const joined=row.slice(0,5).map(x=>String(x==null?'':x)).join(' ');
+
+        // day title line (e.g. "DAY 1 - UPPER 1") — may sit in any of the first cells
+        if(DAY_TITLE.test(joined)&&!isHeaderRow(mapCols(row))){
+          pendingTitle=joined.replace(/\|/g,' ').replace(/\s+/g,' ').trim();
+          continue;
+        }
+        // header row → (re)map columns; each header occurrence starts a new day block
+        const maybe=mapCols(row);
+        if(isHeaderRow(maybe)){
+          cols=maybe;
+          if(cols.ex===undefined) cols.ex=1;
+          newDay(pendingTitle);
+          pendingTitle=null;
+          continue;
+        }
+        if(!cols) continue; // rows before any table
+
+        // day from explicit Gün/Day column (merged-cell fill-down)
+        if(cols.day!==undefined&&norm(row[cols.day])!==''){
+          const dn=String(row[cols.day]).trim();
+          if(!curDay||curDay.name!==dn){ newDay(dn); dayCounter--; }
+        }
+
+        let exName=String(row[cols.ex]||'').trim();
+        if(!exName||norm(exName)==='exercise'||norm(exName)==='egzersiz') continue;
+
+        let sets=cellToRange(cols.sets!==undefined?row[cols.sets]:'');
+        let reps=cellToRange(cols.reps!==undefined?row[cols.reps]:'');
+        // "3x8" combined patterns
+        const SETxREP=/(\d+)\s*[x×]\s*(\d+(?:\s*[-–]\s*\d+)?)/i;
+        let m=String(sets).match(SETxREP)||exName.match(SETxREP);
+        if(m){ sets=m[1]; reps=reps||m[2].replace(/\s/g,''); exName=exName.replace(SETxREP,'').replace(/[-–:|]\s*$/,'').trim(); }
+        // "3/4/4/2" per-week sets → first
+        const setsNum=Math.round(firstNum(sets))||0;
+
+        // mid-table section header (single-header sheets): text but no numbers
+        const wCell=cols.weight!==undefined?row[cols.weight]:(cols.week1!==undefined?row[cols.week1]:'');
+        if(!setsNum&&!String(reps).trim()&&norm(wCell)===''&&cols.day===undefined&&exName.length<=30){
+          if(!curDay||curDay.exercises.length){ newDay(exName); dayCounter--; }
+          else curDay.name=exName;
+          continue;
+        }
+        if(!curDay) newDay(pendingTitle), pendingTitle=null;
+
+        // superset marker in unmapped first column (A1/B2/C3); PRIM/SEC/SUPP ignored
+        let superset=cols.superset!==undefined?String(row[cols.superset]||'').trim().toUpperCase():'';
+        if(!superset&&cols.ex>0){
+          const lead=String(row[0]||'').trim().toUpperCase();
+          if(/^[A-Z]\d?$/.test(lead)) superset=lead;
+        }
+
+        const rpeRaw=cols.rpe!==undefined?String(cellToRange(row[cols.rpe])).trim():'';
+        const warmRaw=cols.warm!==undefined?norm(row[cols.warm]):'';
+        curDay.exercises.push({
+          name:exName,
+          sets:setsNum||3,
+          reps:String(reps||'').trim(),
+          rest:cols.rest!==undefined?String(cellToRange(row[cols.rest])).replace(/[^0-9-]/g,''):'',
+          targetW:parseWeight(wCell),
+          targetRpe:rpeRaw==='-'?'':rpeRaw,
+          superset,
+          tempoOn:cols.tempo!==undefined&&!!norm(row[cols.tempo]),
+          tempo:cols.tempo!==undefined?String(row[cols.tempo]||'').trim():'',
+          coachNote:cols.note!==undefined?String(row[cols.note]||'').trim():'',
+          isWarmup:warmRaw==='evet'||warmRaw==='yes'||warmRaw==='e'||warmRaw==='x'||warmRaw==='✓'
+        });
+      }
+
+      const validDays=days.filter(d=>d.exercises.length);
+      if(validDays.length){
+        templates.push({
+          id:uid(),
+          name:dataSheets.length>1?sn.trim():metaName,
+          type:metaType, desc:metaDesc, memberId:null,
+          weeks:metaType==='warmup'?1:metaWeeks,
+          days:validDays, createdAt:Date.now()
+        });
+      }
     });
-    if(!daysMap.size){ toast('Geçerli egzersiz satırı bulunamadı'); return; }
-    state.templates.push({
-      id:uid(), name, type, desc, memberId:null,
-      weeks:type==='warmup'?1:weeks,
-      days:[...daysMap.values()], createdAt:Date.now()
-    });
+
+    if(!templates.length){ toast('Egzersiz verisi bulunamadı — sütun başlıklarını kontrol edin (Egzersiz/Exercise, Set, Tekrar/Reps...)'); return; }
+    templates.forEach(t2=>state.templates.push(t2));
+    const totD=templates.reduce((a,t2)=>a+t2.days.length,0);
+    const totE=templates.reduce((a,t2)=>a+t2.days.reduce((x,d)=>x+d.exercises.length,0),0);
     save(); render();
-    toast(`"${name}" içe aktarıldı (${daysMap.size} gün)`);
+    toast(`${templates.length} program içe aktarıldı — ${totD} gün, ${totE} egzersiz`);
   }catch(e){
     console.error(e);
     toast('Dosya okunamadı — format kontrol edin');
@@ -2986,6 +3339,8 @@ Object.assign(window,{
   adminCreateWorkspace,adminDeleteWorkspace,adminOpenAsCoach,adminCopyCode,
   markReviewed,toggleLandingLang,setWsUnit,setWsLang,toggleSidebar,closeSidebar,
   copyDay,moveDay,moveExercise,duplicateTemplate,exportTemplateXlsx,triggerImport,importTemplatesFile,
+  logWeightCascade,logRepsCascade,logRpeCascade,
+  goToMyWorkout,showSelfLogin,doSelfLogin,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
@@ -3025,9 +3380,13 @@ Object.assign(window,{
       await loadAdminData();
       const ws=state.adminWorkspaces.find(w=>w.id===session.workspaceId);
       if(ws){
-        await loadWorkspace(ws.id);
-        state.workspaceName=ws.name; state.workspaceCode=ws.code;
-        state.view='coach'; state.mode='coach';
+        if(ws.type==='self'){
+          await enterSelfWorkspace(ws);
+        } else {
+          await loadWorkspace(ws.id);
+          state.workspaceName=ws.name; state.workspaceCode=ws.code; state.workspaceType='coach';
+          state.view='coach'; state.mode='coach';
+        }
       } else {
         localStorage.removeItem('lyftr_session');
         state.view='landing';
@@ -3041,6 +3400,11 @@ Object.assign(window,{
   setTimeout(()=>{ document.getElementById('loading-screen').style.display='none'; },400);
   render();
   if(state.view==='landing'){ applyLandingLang(); startTaglineRotation(); }
+  try{
+    const te=parseInt(localStorage.getItem('lyftr_timer_end')||'0');
+    if(te>Date.now()&&state.view!=='landing') startTimerUntil(te);
+    else if(te) localStorage.removeItem('lyftr_timer_end');
+  }catch(e){}
 })();
 
 if('serviceWorker' in navigator){
