@@ -310,14 +310,16 @@
   @media(max-width:880px){
     .hamburger{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;
       background:var(--surface);border:1px solid var(--border);color:var(--text);cursor:pointer;
-      position:fixed;top:14px;left:14px;z-index:320;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
-    .sidebar{position:fixed;top:0;left:0;height:100vh;z-index:300;transform:translateX(-100%);box-shadow:0 0 40px rgba(0,0,0,0.5);}
+      position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:14px;z-index:320;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
+    .sidebar{position:fixed;top:0;left:0;height:100vh;height:100dvh;z-index:300;transform:translateX(-100%);
+      box-shadow:0 0 40px rgba(0,0,0,0.5);overflow-y:auto;-webkit-overflow-scrolling:touch;
+      padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));}
     .sidebar.open{transform:translateX(0);}
     .sidebar-overlay.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:290;}
-    .main{padding-top:64px;}
+    .main{padding-top:calc(64px + env(safe-area-inset-top,0px));}
   }
   @media(max-width:720px){
-    .main{padding:16px 12px;padding-top:64px;}
+    .main{padding:16px 12px;padding-top:calc(64px + env(safe-area-inset-top,0px));}
     .ex-editor-grid2{grid-template-columns:1fr 1fr;}
     .grid-3{grid-template-columns:1fr;}
     .big4-grid{grid-template-columns:repeat(2,1fr);}
@@ -1646,7 +1648,11 @@ function renderTemplates(){
   return `
     <div class="page-header">
       <div><div class="page-title">Program Kitaplığı</div><div class="page-sub">${tps.length} program · ${warmups.length} ısınma · ${state.programs.filter(p=>p.active).length} aktif atama</div></div>
-      <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Program</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="triggerImport()">İçeri Aktar</button>
+        <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Program</button>
+        <input type="file" id="xlsx-import-input" accept=".xlsx,.xls" style="display:none" onchange="importTemplatesFile(this)">
+      </div>
     </div>
     ${warmups.length?`<div class="section-head">Isınma Rutinleri</div>
     <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px">
@@ -1655,8 +1661,9 @@ function renderTemplates(){
           <div style="font-weight:600">${w.name}</div>
           <div style="font-size:11px;color:var(--text3)">${w.days.reduce((a,d)=>a+d.exercises.length,0)} egzersiz</div>
         </div>
-        <div style="display:flex;gap:6px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
           <button class="btn btn-ghost btn-sm" onclick="editProgram('${w.id}')">Düzenle</button>
+          <button class="btn btn-ghost btn-sm" onclick="duplicateTemplate('${w.id}')">Kopyala</button>
           <button class="btn btn-danger btn-sm" onclick="deleteTemplate('${w.id}')">Sil</button>
         </div>
       </div>`).join('')}
@@ -1678,8 +1685,10 @@ function renderTemplates(){
                 <span class="badge badge-blue">${ac} aktif</span>
               </div>
             </div>
-            <div style="display:flex;gap:6px">
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
               <button class="btn btn-ghost btn-sm" onclick="editProgram('${p.id}')">Düzenle</button>
+              <button class="btn btn-ghost btn-sm" onclick="duplicateTemplate('${p.id}')">Kopyala</button>
+              <button class="btn btn-ghost btn-sm" onclick="exportTemplateXlsx('${p.id}')">Excel</button>
               <button class="btn btn-primary btn-sm" onclick="openAssign('${p.id}')">Ata</button>
               <button class="btn btn-danger btn-sm" onclick="deleteTemplate('${p.id}')">Sil</button>
             </div>
@@ -2582,13 +2591,18 @@ function renderDays(){
   const memberId=document.getElementById('prog-member').value;
   document.getElementById('days-container').innerHTML=window.tmpDays.map((day,di)=>`
     <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:12px">
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 76px auto;gap:8px;margin-bottom:8px">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 76px auto;gap:8px;margin-bottom:8px;align-items:start">
         <input class="form-input" value="${(day.name||'').replace(/"/g,'&quot;')}" placeholder="Gün adı" onchange="window.tmpDays[${di}].name=this.value">
         <select class="form-input" onchange="window.tmpDays[${di}].goal=this.value">
           ${GOALS.map(g=>`<option value="${g.v}" ${day.goal===g.v?'selected':''}>${g.l}</option>`).join('')}
         </select>
         <input class="form-input" type="number" value="${day.duration||''}" placeholder="dk" onchange="window.tmpDays[${di}].duration=this.value">
-        <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${window.tmpDays.length===1?'disabled':''}>Sil</button>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="moveDay(${di},-1)" ${di===0?'disabled':''} title="Günü yukarı taşı">▲</button>
+          <button class="btn btn-ghost btn-sm" onclick="moveDay(${di},1)" ${di===window.tmpDays.length-1?'disabled':''} title="Günü aşağı taşı">▼</button>
+          <button class="btn btn-ghost btn-sm" onclick="copyDay(${di})" title="Günü kopyala">Kopyala</button>
+          <button class="btn btn-danger btn-sm" onclick="removeDay(${di})" ${window.tmpDays.length===1?'disabled':''}>Sil</button>
+        </div>
       </div>
       <input class="form-input" value="${(day.note||'').replace(/"/g,'&quot;')}" placeholder="Gün notu" style="margin-bottom:10px" onchange="window.tmpDays[${di}].note=this.value">
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
@@ -2644,7 +2658,9 @@ function renderExEditor(di,ei,ex,memberId){
     ${sugg&&!sugg.warn?`<div class="sugg-hint">Önerilen: <b>${W(sugg.w)}${U()}</b> — ${sugg.reason}
       <button class="btn btn-primary btn-sm" style="margin-left:8px;padding:2px 8px" onclick="window.tmpDays[${di}].exercises[${ei}].targetW='${sugg.w}';renderDays()">Uygula</button></div>`:''}
     ${sugg&&sugg.warn?`<div class="hist-hint" style="color:var(--orange);border-color:rgba(255,159,67,0.3);background:rgba(255,159,67,0.07)">⚠ ${sugg.reason}</div>`:''}
-    <div style="display:flex;justify-content:flex-end;margin-top:8px">
+    <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:8px">
+      <button class="btn btn-ghost btn-sm" onclick="moveExercise(${di},${ei},-1)" title="Yukarı taşı">▲</button>
+      <button class="btn btn-ghost btn-sm" onclick="moveExercise(${di},${ei},1)" title="Aşağı taşı">▼</button>
       <button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">Sil</button>
     </div>
   </div>`;
@@ -2678,6 +2694,127 @@ function addDay(){ window.tmpDays.push({name:`Gün ${window.tmpDays.length+1}`,g
 function removeDay(di){ if(window.tmpDays.length===1) return; window.tmpDays.splice(di,1); renderDays(); }
 function addExercise(di){ window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',superset:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
 function removeExercise(di,ei){ window.tmpDays[di].exercises.splice(ei,1); renderDays(); }
+function copyDay(di){
+  const src=window.tmpDays[di];
+  const copy=JSON.parse(JSON.stringify(src));
+  copy.name=(src.name||('Gün '+(di+1)))+' (kopya)';
+  window.tmpDays.splice(di+1,0,copy);
+  renderDays();
+  toast('Gün kopyalandı');
+}
+function moveDay(di,dir){
+  const j=di+dir;
+  if(j<0||j>=window.tmpDays.length) return;
+  [window.tmpDays[di],window.tmpDays[j]]=[window.tmpDays[j],window.tmpDays[di]];
+  renderDays();
+}
+function moveExercise(di,ei,dir){
+  const arr=window.tmpDays[di].exercises;
+  const j=ei+dir;
+  if(j<0||j>=arr.length) return;
+  [arr[ei],arr[j]]=[arr[j],arr[ei]];
+  renderDays();
+}
+function duplicateTemplate(id){
+  const p=state.templates.find(x=>x.id===id);
+  if(!p) return;
+  const copy=JSON.parse(JSON.stringify(p));
+  copy.id=uid();
+  copy.name=p.name+' (kopya)';
+  copy.createdAt=Date.now();
+  state.templates.push(copy);
+  save(); render(); toast(`"${copy.name}" oluşturuldu`);
+}
+
+// ─── EXCEL EXPORT / IMPORT ───────────────────────────────
+function exportTemplateXlsx(id){
+  const p=state.templates.find(x=>x.id===id);
+  if(!p){ return; }
+  if(!window.XLSX){ toast('Excel modülü yüklenemedi'); return; }
+  const wKey='Hedef Ağırlık ('+U()+')';
+  const rows=[];
+  p.days.forEach((d,di)=>d.exercises.forEach(ex=>{
+    rows.push({
+      'Gün':d.name||('Gün '+(di+1)),
+      'Egzersiz':ex.name||'',
+      'Set':ex.sets||'',
+      'Tekrar':ex.reps||'',
+      [wKey]:ex.targetW!==''&&ex.targetW!=null?W(ex.targetW):'',
+      'Hedef RPE':ex.targetRpe||'',
+      'Dinlenme (sn)':ex.rest||'',
+      'Tempo':ex.tempo||'',
+      'Superset':ex.superset||'',
+      'Koç Notu':ex.coachNote||'',
+      'Isınma':ex.isWarmup?'Evet':''
+    });
+  }));
+  const ws=XLSX.utils.json_to_sheet(rows,{header:['Gün','Egzersiz','Set','Tekrar',wKey,'Hedef RPE','Dinlenme (sn)','Tempo','Superset','Koç Notu','Isınma']});
+  const info=XLSX.utils.json_to_sheet([{'Program':p.name,'Hafta':p.weeks||1,'Açıklama':p.desc||'','Tür':p.type==='warmup'?'warmup':'program'}]);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Program');
+  XLSX.utils.book_append_sheet(wb,info,'Bilgi');
+  XLSX.writeFile(wb,(p.name||'program').replace(/[\\/:*?"<>|]/g,'')+'.xlsx');
+}
+function triggerImport(){
+  const el=document.getElementById('xlsx-import-input');
+  if(el) el.click();
+}
+async function importTemplatesFile(input){
+  const f=input.files&&input.files[0];
+  input.value='';
+  if(!f) return;
+  if(!window.XLSX){ toast('Excel modülü yüklenemedi'); return; }
+  try{
+    const buf=await f.arrayBuffer();
+    const wb=XLSX.read(buf);
+    const sheet=wb.Sheets['Program']||wb.Sheets[wb.SheetNames[0]];
+    const rows=XLSX.utils.sheet_to_json(sheet,{defval:''});
+    if(!rows.length){ toast('Dosyada satır bulunamadı'); return; }
+    let name=f.name.replace(/\.xlsx?$/i,''), weeks=4, desc='', type='program';
+    const infoSheet=wb.Sheets['Bilgi'];
+    if(infoSheet){
+      const inf=XLSX.utils.sheet_to_json(infoSheet,{defval:''})[0]||{};
+      if(inf['Program']) name=String(inf['Program']);
+      if(inf['Hafta']) weeks=parseInt(inf['Hafta'])||4;
+      desc=String(inf['Açıklama']||'');
+      if(String(inf['Tür']).toLowerCase()==='warmup') type='warmup';
+    }
+    const daysMap=new Map();
+    rows.forEach(r=>{
+      const exName=String(r['Egzersiz']||'').trim();
+      if(!exName) return;
+      const dayName=String(r['Gün']||'Gün 1').trim()||'Gün 1';
+      if(!daysMap.has(dayName)) daysMap.set(dayName,{name:dayName,goal:'',duration:'',note:'',exercises:[]});
+      const twKey=Object.keys(r).find(k=>String(k).startsWith('Hedef Ağırlık'));
+      const twRaw=twKey?r[twKey]:'';
+      const warm=String(r['Isınma']||'').trim().toLowerCase();
+      daysMap.get(dayName).exercises.push({
+        name:exName,
+        sets:parseInt(r['Set'])||3,
+        reps:String(r['Tekrar']||''),
+        rest:String(r['Dinlenme (sn)']||r['Dinlenme']||''),
+        targetW:twRaw!==''?String(WIN(twRaw)||''):'',
+        targetRpe:String(r['Hedef RPE']||''),
+        superset:String(r['Superset']||'').toUpperCase(),
+        tempoOn:!!String(r['Tempo']||'').trim(),
+        tempo:String(r['Tempo']||''),
+        coachNote:String(r['Koç Notu']||''),
+        isWarmup:warm==='evet'||warm==='yes'||warm==='e'
+      });
+    });
+    if(!daysMap.size){ toast('Geçerli egzersiz satırı bulunamadı'); return; }
+    state.templates.push({
+      id:uid(), name, type, desc, memberId:null,
+      weeks:type==='warmup'?1:weeks,
+      days:[...daysMap.values()], createdAt:Date.now()
+    });
+    save(); render();
+    toast(`"${name}" içe aktarıldı (${daysMap.size} gün)`);
+  }catch(e){
+    console.error(e);
+    toast('Dosya okunamadı — format kontrol edin');
+  }
+}
 function saveProgram(){
   const name=document.getElementById('prog-name').value.trim();
   if(!name){ toast('Program adı giriniz'); return; }
@@ -2848,6 +2985,7 @@ Object.assign(window,{
   doLandingLogin,doLandingMemberLogin,showMemberLogin,showCoachLogin,showAdminLogin,doAdminLogin,doLogoutWorkspace,
   adminCreateWorkspace,adminDeleteWorkspace,adminOpenAsCoach,adminCopyCode,
   markReviewed,toggleLandingLang,setWsUnit,setWsLang,toggleSidebar,closeSidebar,
+  copyDay,moveDay,moveExercise,duplicateTemplate,exportTemplateXlsx,triggerImport,importTemplatesFile,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
@@ -2995,5 +3133,6 @@ function insertWarmupRoutine(di,routineId){
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
