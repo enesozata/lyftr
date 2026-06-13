@@ -29,6 +29,8 @@
   .sidebar{width:225px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform .2s ease;}
   .sidebar-overlay{display:none;}
   .hamburger{display:none;}
+  .ov-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:360;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px);}
+  .ov-sheet{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;max-width:420px;max-height:82vh;overflow-y:auto;box-shadow:0 18px 50px rgba(0,0,0,0.55);}
   .btn{transition:transform .1s ease, background .15s ease, opacity .15s ease;}
   .btn:active{transform:scale(0.96);}
   .nav-item{position:relative;}
@@ -1008,7 +1010,7 @@ const I18N = {
     progComplete:'PROGRAM TAMAMLANDI',progCompleteSub:'haftayı bitirdin!',totalVol:'Toplam hacim bu hafta',newProg:'Koçun yeni programını hazırlıyor',
     moodSaved:'Kaydedildi',cont:'Devam',
     pinnedPrompt:'için kalıcı not (her programda görünür):',
-    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',
+    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',annTitle:'Koçundan Duyuru',annOk:'Okudum',weightTrend:'Vücut Ağırlığı Değişimi',
     fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',
     gl_hypertrophy:'Hipertrofi',gl_strength:'Güç',gl_conditioning:'Kondisyon',gl_deload:'Deload',gl_endurance:'Dayanıklılık',gl_technique:'Teknik'},
   en:{home:'Home',program:'Program',progress:'Progress',message:'Messages',
@@ -1032,7 +1034,7 @@ const I18N = {
     progComplete:'PROGRAM COMPLETE',progCompleteSub:'weeks finished!',totalVol:'Total volume this week',newProg:'Your coach is preparing your next program',
     moodSaved:'Saved',cont:'Continue',
     pinnedPrompt:'pinned note (visible in every program):',
-    msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',
+    msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',annTitle:'Announcement',annOk:'Got it',weightTrend:'Body Weight Trend',
     fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',
     gl_hypertrophy:'Hypertrophy',gl_strength:'Strength',gl_conditioning:'Conditioning',gl_deload:'Deload',gl_endurance:'Endurance',gl_technique:'Technique'}
 };
@@ -1061,6 +1063,30 @@ function needsReview(m){
   const la=lastActivityAt(m);
   return la>0 && la>(m.reviewedAt||0);
 }
+// human description of what's new since last review
+function activitySummary(m){
+  const since=m.reviewedAt||0;
+  let workouts=0, notes=0, msgs=0, weighs=0, moods=0;
+  Object.entries(state.finishedWorkouts).forEach(([k,f])=>{ if(k.startsWith(m.id+'_')&&f.date>since) workouts++; });
+  Object.entries(state.comments).forEach(([k,arr])=>{ if(k.startsWith(m.id+'_')) (arr||[]).forEach(x=>{ if(x.from!=='coach'&&x.date>since){ if(x.type==='note') notes++; else msgs++; } }); });
+  (state.weightLog[m.id]||[]).forEach(x=>{ if(x.date>since) weighs++; });
+  (state.moodLog[m.id]||[]).forEach(x=>{ if(x.date>since) moods++; });
+  const parts=[];
+  if(workouts) parts.push(`${workouts} antrenman tamamladı`);
+  if(notes) parts.push(`${notes} egzersiz notu bıraktı`);
+  if(msgs) parts.push(`${msgs} mesaj gönderdi`);
+  if(weighs) parts.push(`${weighs} kilo ölçümü girdi`);
+  if(moods) parts.push(`ruh hali güncelledi`);
+  return parts.join(' · ');
+}
+// sort members: needs-review first (newest activity), then reviewed, then idle
+function sortedMembers(){
+  return [...state.members].sort((a,b)=>{
+    const na=needsReview(a)?1:0, nb=needsReview(b)?1:0;
+    if(na!==nb) return nb-na;
+    return lastActivityAt(b)-lastActivityAt(a);
+  });
+}
 
 // ─── STATE ───────────────────────────────────────────────
 let state = {
@@ -1070,7 +1096,7 @@ let state = {
   adminWorkspaces:[], // list for admin panel
   mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null, detailMemberId:null,
   templates:[], programs:[], members:[], exercises:[], recentEx:[],
-  logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{}, cascades:{},
+  logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{}, cascades:{}, announcements:[], appliedSuggestions:{},
   weightLog:{}, finishedWorkouts:{}, workoutStart:{}, defaults:{},
   moodLog:{},   // memberId → [{mood:1-5,date}]
   warmupRoutines:[], // [{id,name,exercises:[{name,sets,reps}]}]
@@ -1110,6 +1136,8 @@ async function save(){
       workoutStart:state.workoutStart, defaults:state.defaults, moodLog:state.moodLog,
       warmupRoutines:state.warmupRoutines,
       cascades:state.cascades,
+      announcements:state.announcements,
+      appliedSuggestions:state.appliedSuggestions,
       settings:state.settings,
       updatedAt:Date.now(),
     });
@@ -1134,6 +1162,8 @@ async function loadWorkspace(wsId){
       state.moodLog=d.moodLog||{};
       state.warmupRoutines=d.warmupRoutines||[];
       state.cascades=d.cascades||{};
+      state.announcements=d.announcements||[];
+      state.appliedSuggestions=d.appliedSuggestions||{};
       state.settings=Object.assign({unit:'kg',lang:'tr',accent:'lime'},d.settings||{});
     } else {
       // brand new empty workspace
@@ -1143,6 +1173,8 @@ async function loadWorkspace(wsId){
       state.weightLog={}; state.finishedWorkouts={}; state.workoutStart={}; state.defaults={};
       state.moodLog={}; state.warmupRoutines=[];
       state.cascades={};
+      state.announcements=[];
+      state.appliedSuggestions={};
       state.settings={unit:'kg',lang:'tr',accent:'lime'};
     }
     // seed / patch exercise library with muscle data
@@ -1617,6 +1649,76 @@ function render(){
   else if(state.currentPage==='inbox') el.innerHTML=renderInbox();
 
   renderCoachBottomNav();
+  renderOverlays();
+  renderFloatingChat();
+}
+function renderOverlays(){
+  let host=document.getElementById('overlay-host');
+  if(!host){ host=document.createElement('div'); host.id='overlay-host'; document.body.appendChild(host); }
+  let html='';
+  // new-chat picker
+  if(window.newChatPicker){
+    html+=`<div class="ov-backdrop" onclick="closeNewChatPicker()"><div class="ov-sheet" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-weight:700;font-size:16px">Yeni Mesaj</div>
+        <button class="btn btn-ghost btn-sm" onclick="closeNewChatPicker()">✕</button>
+      </div>
+      ${state.members.length===0?'<div style="color:var(--text3);font-size:13px">Henüz üye yok.</div>':
+        state.members.map(m=>`<div onclick="startChatWith('${m.id}')" style="display:flex;align-items:center;gap:11px;padding:11px 8px;border-radius:9px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
+          <div style="font-weight:600;font-size:14px">${m.name}</div>
+        </div>`).join('')}
+    </div></div>`;
+  }
+  // announcement composer
+  if(window.announceModal){
+    html+=`<div class="ov-backdrop" onclick="closeAnnounceModal()"><div class="ov-sheet" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-weight:700;font-size:16px">📢 Duyuru Gönder</div>
+        <button class="btn btn-ghost btn-sm" onclick="closeAnnounceModal()">✕</button>
+      </div>
+      <textarea class="form-input" id="ann-text" rows="3" placeholder="Duyuru metni — üyelerin ekranında en üstte gösterilir" style="margin-bottom:12px;width:100%"></textarea>
+      <label style="display:flex;align-items:center;gap:9px;font-size:13.5px;margin-bottom:10px;cursor:pointer">
+        <input type="checkbox" id="ann-all" checked onchange="document.getElementById('ann-targets').style.display=this.checked?'none':'block'"> Tüm üyelere gönder
+      </label>
+      <div id="ann-targets" style="display:none;max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:9px;padding:8px;margin-bottom:12px">
+        ${state.members.map(m=>`<label style="display:flex;align-items:center;gap:9px;font-size:13px;padding:6px 4px;cursor:pointer">
+          <input type="checkbox" class="ann-target" value="${m.id}"> ${m.name}</label>`).join('')||'<div style="color:var(--text3);font-size:12px">Üye yok</div>'}
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="sendAnnouncement()">Gönder</button>
+    </div></div>`;
+  }
+  host.innerHTML=html;
+}
+function renderFloatingChat(){
+  let fc=document.getElementById('floating-chat');
+  // desktop only; show when a chat is open AND we're not already on the inbox page
+  const show=window.floatChat&&state.view==='coach'&&!(state.mode==='member'&&state.loggedMember)&&window.innerWidth>880;
+  if(!show){ if(fc) fc.remove(); return; }
+  const m=state.members.find(x=>x.id===window.floatChat);
+  if(!m){ window.floatChat=null; if(fc) fc.remove(); return; }
+  const msgs=memberThreads(m.id);
+  const fmt=d=>new Date(d).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  const body=msgs.length===0?`<div style="color:var(--text3);font-size:12px;text-align:center;margin:auto">Henüz mesaj yok.</div>`:msgs.map(x=>{
+    if(x.type==='note') return `<div style="align-self:center;max-width:90%;background:rgba(245,197,66,0.07);border:1px solid rgba(245,197,66,0.22);border-radius:9px;padding:6px 10px;text-align:center;font-size:11px"><b style="color:#f5c542">📝 ${x.exName||'Not'}</b> "${x.text}"</div>`;
+    const co=x.from==='coach';
+    return `<div style="align-self:${co?'flex-end':'flex-start'};max-width:80%;background:${co?'var(--accent-dim)':'var(--surface2)'};border-radius:11px;padding:7px 11px"><div style="font-size:12.5px;white-space:pre-wrap">${x.text}</div><div style="font-size:9px;color:var(--text3);text-align:right;margin-top:3px">${fmt(x.date)}</div></div>`;
+  }).join('');
+  const html=`<div id="floating-chat" style="position:fixed;right:22px;bottom:22px;width:330px;max-width:calc(100vw - 44px);height:440px;max-height:70vh;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 14px 44px rgba(0,0,0,0.5);display:flex;flex-direction:column;z-index:350;overflow:hidden">
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);background:var(--surface2)">
+      <div class="avatar" style="width:30px;height:30px;font-size:13px">${m.name.charAt(0).toUpperCase()}</div>
+      <div style="flex:1;font-weight:600;font-size:14px">${m.name}</div>
+      <button class="btn btn-ghost btn-sm" onclick="openMemberDetail('${m.id}');closeFloatChat();" title="Detay">↗</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeFloatChat()">✕</button>
+    </div>
+    <div id="fc-scroll" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:12px">${body}</div>
+    <div style="display:flex;gap:7px;padding:10px;border-top:1px solid var(--border)">
+      <input class="form-input" id="fc-input" placeholder="Mesaj..." style="flex:1;font-size:13px" onkeydown="if(event.key==='Enter')sendFloatMessage('${m.id}')">
+      <button class="btn btn-primary btn-sm" onclick="sendFloatMessage('${m.id}')">→</button>
+    </div>
+  </div>`;
+  if(fc) fc.outerHTML=html; else document.body.insertAdjacentHTML('beforeend',html);
+  const sc=document.getElementById('fc-scroll'); if(sc) sc.scrollTop=sc.scrollHeight;
 }
 function renderCoachBottomNav(){
   let bn=document.getElementById('coach-bottom-nav');
@@ -1839,7 +1941,26 @@ function memberThreads(mId){
 function inboxUnreadFor(m){
   return memberThreads(m.id).filter(x=>x.from!=='coach'&&x.date>(m.reviewedAt||0)).length;
 }
-function openInboxChat(mId){ window.inboxChat=mId; render(); setTimeout(()=>{const sc=document.getElementById('chat-scroll'); if(sc) sc.scrollTop=sc.scrollHeight;},30); }
+function openInboxChat(mId){
+  // desktop + not on the Mesajlar page → floating bubble window
+  if(window.innerWidth>880 && state.currentPage!=='inbox'){
+    window.floatChat=mId; render();
+    return;
+  }
+  window.inboxChat=mId; render();
+  setTimeout(()=>{const sc=document.getElementById('chat-scroll'); if(sc) sc.scrollTop=sc.scrollHeight;},30);
+}
+function closeFloatChat(){ window.floatChat=null; render(); }
+function sendFloatMessage(mId){
+  const el=document.getElementById('fc-input');
+  const text=el.value.trim(); if(!text) return;
+  const prog=state.programs.find(p=>p.memberId===mId&&p.active);
+  const ck=mId+'_'+(prog?prog.id:'general');
+  if(!state.comments[ck]) state.comments[ck]=[];
+  state.comments[ck].push({text,date:Date.now(),from:'coach'});
+  el.value=''; save(); render();
+  setTimeout(()=>{const sc=document.getElementById('fc-scroll'); if(sc) sc.scrollTop=sc.scrollHeight;},30);
+}
 function closeInboxChat(){ window.inboxChat=null; render(); }
 function renderInbox(){
   if(window.inboxChat) return renderInboxChat(window.inboxChat);
@@ -1850,7 +1971,22 @@ function renderInbox(){
   return `
     <div class="page-header">
       <div><div class="page-title">Mesajlar</div><div class="page-sub">${convos.length} sohbet · ${convos.reduce((a,x)=>a+x.unread,0)} yeni</div></div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="btn btn-ghost btn-sm" onclick="openAnnounceModal()">📢 Duyuru</button>
+        <button class="btn btn-primary btn-sm" onclick="openNewChatPicker()">+ Yeni Mesaj</button>
+      </div>
     </div>
+    ${(state.announcements||[]).length?`<div class="card" style="margin-bottom:14px;padding:12px 16px">
+      <div style="font-size:11px;color:var(--text3);font-weight:700;margin-bottom:8px;text-transform:uppercase">Aktif Duyurular</div>
+      ${state.announcements.map(a=>{
+        const total=a.targets.length, read=a.read.filter(r=>a.targets.includes(r)).length;
+        return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="min-width:0"><div style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📢 ${a.text}</div>
+          <div style="font-size:11px;color:var(--text3)">${read}/${total} okudu · ${new Date(a.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short'})}</div></div>
+          <button class="btn btn-danger btn-sm" style="flex-shrink:0" onclick="deleteAnnouncement('${a.id}')">Sil</button>
+        </div>`;
+      }).join('')}
+    </div>`:''}
     ${convos.length===0?`<div class="empty"><p>Henüz mesaj yok. Üyeler mesaj gönderdiğinde veya egzersize not bıraktığında burada görünür — sen de buradan yanıt yazabilirsin.</p></div>`:`
     <div class="card" style="padding:0;overflow:hidden">
       ${convos.map(x=>{
@@ -1869,6 +2005,11 @@ function renderInbox(){
       }).join('')}
     </div>`}`;
 }
+function openNewChatPicker(){ window.newChatPicker=true; render(); }
+function closeNewChatPicker(){ window.newChatPicker=false; render(); }
+function startChatWith(mId){ window.newChatPicker=false; openInboxChat(mId); }
+function openAnnounceModal(){ window.announceModal=true; render(); }
+function closeAnnounceModal(){ window.announceModal=false; render(); }
 function renderInboxChat(mId){
   const m=state.members.find(x=>x.id===mId);
   if(!m){ window.inboxChat=null; return renderInbox(); }
@@ -2076,13 +2217,14 @@ function renderMembers(){
     ${state.members.length===0?`<div class="empty"><p>Henüz üye yok.</p></div>`:`
     <div class="card members-table-wrap" style="padding:0;overflow:hidden">
       <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Durum</th><th>Bu Hafta</th><th>İnceleme</th><th></th></tr></thead><tbody>
-      ${state.members.map(m=>{
+      ${sortedMembers().map(m=>{
         const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
         const gs=goalStatus(m);
         const fin=finishedThisWeek(m.id);
         const mood=todayMood(m.id);
         const nr=needsReview(m), seen=!nr&&lastActivityAt(m)>0;
-        return `<tr style="${nr?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':seen?'background:rgba(76,175,125,0.05);box-shadow:inset 3px 0 0 var(--green);':''}">
+        const act=nr?activitySummary(m):'';
+        return `<tr title="${act}" style="${nr?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':seen?'background:rgba(76,175,125,0.05);box-shadow:inset 3px 0 0 var(--green);':''}">
           <td><div style="display:flex;align-items:center;gap:10px;cursor:pointer" onclick="openMemberDetail('${m.id}')">
             <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
             <div>
@@ -2107,7 +2249,7 @@ function renderMembers(){
       </tbody></table>
     </div>
     <div class="members-cards">
-      ${state.members.map(m=>{
+      ${sortedMembers().map(m=>{
         const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
         const gs=goalStatus(m);
         const fin=finishedThisWeek(m.id);
@@ -2170,7 +2312,9 @@ function renderMemberDetail(mId){
       if(!ex.name||exSeen.has(ex.name)) return;
       exSeen.add(ex.name);
       const s=getSuggestion(m.id,ex.name);
-      if(s) suggs.push({name:ex.name,...s});
+      const applied=state.appliedSuggestions&&state.appliedSuggestions[m.id+'_'+ex.name.toLowerCase()];
+      // drop suggestion if we've already applied this (or a higher) target
+      if(s&&!(s.w&&applied&&applied.w>=s.w)) suggs.push({name:ex.name,...s});
     }));
     if(suggs.length){
       suggHTML=`<div class="card" style="margin-bottom:14px">
@@ -2241,10 +2385,16 @@ function renderMemberDetail(mId){
         ${needsReview(m)
           ?`<button class="btn btn-primary btn-sm" style="background:#f5c542" onclick="markReviewed('${m.id}')">İncelendi olarak işaretle</button>`
           :lastActivityAt(m)>0?`<span class="badge badge-green" style="align-self:center">İncelendi ✓</span>`:''}
+        <button class="btn btn-primary btn-sm" onclick="openInboxChat('${m.id}')">Mesaj</button>
         <button class="btn btn-ghost btn-sm" onclick="openMemberModal('${m.id}')">Profil</button>
         <button class="btn btn-ghost btn-sm" onclick="openShare('${m.id}')">Link</button>
       </div>
     </div>
+
+    ${needsReview(m)&&activitySummary(m)?`<div style="background:rgba(245,197,66,0.09);border:1px solid rgba(245,197,66,0.3);border-radius:10px;padding:11px 15px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="font-size:13px"><b style="color:#f5c542">Yeni aktivite:</b> ${activitySummary(m)}</div>
+      <button class="btn btn-sm" style="background:#f5c542;color:#111;flex-shrink:0" onclick="markReviewed('${m.id}')">İncelendi</button>
+    </div>`:''}
 
     ${m.injuries?`<div style="background:rgba(255,159,67,0.08);border:1px solid rgba(255,159,67,0.25);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--orange);margin-bottom:14px">⚠ ${m.injuries}</div>`:''}
     ${m.coachNote?`<div style="background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--text2);margin-bottom:14px">Koç notu: ${m.coachNote}</div>`:''}
@@ -2509,7 +2659,17 @@ function renderMemberHome(m,prog){
     <div style="font-size:10px;color:var(--text3);margin-top:6px">${t('volNote')}</div>
   </div>`:'';
 
+  const anns=(typeof activeAnnouncementsFor==='function')?activeAnnouncementsFor(m.id):[];
   return `
+    ${anns.map(a=>`<div style="background:var(--accent-dim);border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:12px">
+        <div style="min-width:0">
+          <div style="font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">📢 ${t('annTitle')}</div>
+          <div style="font-size:14px;white-space:pre-wrap;line-height:1.5">${a.text}</div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="dismissAnnouncement('${a.id}','${m.id}')">${t('annOk')}</button>
+    </div>`).join('')}
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px">
       <div>
         <div style="font-size:21px;font-weight:800">${t('welcome')}, ${m.name.split(' ')[0]}</div>
@@ -2770,10 +2930,15 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
 
 // ── PROGRESS TAB (e1RM only — weight & volume moved to home) ──
 function renderMemberProgress(m,prog){
-  if(!prog) return `<div class="empty"><p>${t('progressWait')}</p></div>`;
+  const winfo=memberWeightInfo(m);
+  const wCard=winfo.entries.length>=2?`<div class="card" style="margin-bottom:14px">
+    <div style="font-weight:600;margin-bottom:6px">${t('weightTrend')}</div>
+    ${weightChartSvg(winfo.entries)}
+  </div>`:'';
+  if(!prog) return wCard||`<div class="empty"><p>${t('progressWait')}</p></div>`;
   const names=new Set();
   prog.days.forEach(d=>d.exercises.forEach(ex=>{ if(ex.name) names.add(ex.name); }));
-  return `<div class="card">
+  return `${wCard}<div class="card">
     <div style="font-weight:600;margin-bottom:14px">${t('bestE1rm')}</div>
     ${[...names].map(name=>{
       const best=bestE1RM(m.id,name);
@@ -3096,10 +3261,39 @@ function applySuggestion(mId,progId,exName,w){
   const prog=state.programs.find(p=>p.id===progId);
   if(!prog) return;
   const nl=exName.toLowerCase();
+  // set target weight for the exercise (applies to next time member trains it)
   prog.days.forEach(d=>d.exercises.forEach(ex=>{
     if((ex.name||'').toLowerCase()===nl) ex.targetW=String(w);
   }));
-  save(); render(); toast(`${exName}: ${W(w)}${U()} ✓`);
+  // mark this suggestion as applied so it drops off the list
+  if(!state.appliedSuggestions) state.appliedSuggestions={};
+  state.appliedSuggestions[mId+'_'+nl]={w,at:Date.now()};
+  save(); render(); toast(`${exName}: gelecek hedef ${W(w)}${U()} ✓`);
+}
+function sendAnnouncement(){
+  const el=document.getElementById('ann-text');
+  const text=(el?el.value:'').trim();
+  if(!text){ toast('Duyuru metni boş'); return; }
+  const all=document.getElementById('ann-all');
+  const toAll=all?all.checked:true;
+  let targets=[];
+  if(toAll) targets=state.members.map(m=>m.id);
+  else targets=[...document.querySelectorAll('.ann-target:checked')].map(x=>x.value);
+  if(!targets.length){ toast('En az bir üye seç'); return; }
+  if(!state.announcements) state.announcements=[];
+  state.announcements.push({id:uid(),text,targets,date:Date.now(),read:[]});
+  save(); render(); toast(`Duyuru gönderildi (${targets.length} üye)`);
+}
+function deleteAnnouncement(id){
+  state.announcements=(state.announcements||[]).filter(a=>a.id!==id);
+  save(); render();
+}
+function dismissAnnouncement(annId,mId){
+  const a=(state.announcements||[]).find(x=>x.id===annId);
+  if(a&&!a.read.includes(mId)){ a.read.push(mId); save(); render(); }
+}
+function activeAnnouncementsFor(mId){
+  return (state.announcements||[]).filter(a=>a.targets.includes(mId)&&!a.read.includes(mId)).sort((x,y)=>y.date-x.date);
 }
 
 // ─── PROGRESS CHART ──────────────────────────────────────
@@ -3702,6 +3896,8 @@ Object.assign(window,{
   copyDay,moveDay,moveExercise,duplicateTemplate,exportTemplateXlsx,triggerImport,importTemplatesFile,
   logWeightCascade,logRepsCascade,logRpeCascade,
   goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,toggleExUnit,
+  openNewChatPicker,closeNewChatPicker,startChatWith,openAnnounceModal,closeAnnounceModal,sendAnnouncement,deleteAnnouncement,dismissAnnouncement,
+  closeFloatChat,sendFloatMessage,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
