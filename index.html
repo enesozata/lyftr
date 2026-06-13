@@ -29,11 +29,18 @@
   .sidebar{width:225px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform .2s ease;}
   .sidebar-overlay{display:none;}
   .hamburger{display:none;}
+  .btn{transition:transform .1s ease, background .15s ease, opacity .15s ease;}
+  .btn:active{transform:scale(0.96);}
+  .nav-item{position:relative;}
+  .nav-item.active::before{content:'';position:absolute;left:-12px;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--accent);}
   .main{flex:1;overflow-y:auto;padding:28px 32px;
     background:
-      radial-gradient(900px 540px at 88% -8%, rgba(200,245,66,0.05), transparent 62%),
-      radial-gradient(760px 480px at -12% 108%, rgba(77,166,255,0.045), transparent 60%),
-      radial-gradient(600px 400px at 50% 120%, rgba(200,245,66,0.025), transparent 55%);
+      linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.016) 1px, transparent 1px),
+      radial-gradient(900px 540px at 88% -8%, rgba(200,245,66,0.055), transparent 62%),
+      radial-gradient(760px 480px at -12% 108%, rgba(77,166,255,0.05), transparent 60%),
+      radial-gradient(600px 400px at 50% 120%, rgba(200,245,66,0.03), transparent 55%);
+    background-size:44px 44px, 44px 44px, auto, auto, auto;
   }
   .logo{padding:22px 20px 16px;font-size:19px;font-weight:800;letter-spacing:-0.5px;}
   .logo span{color:var(--accent);}
@@ -56,7 +63,7 @@
   .btn-ghost:hover{background:var(--surface2);color:var(--text);}
   .btn-danger{background:rgba(255,82,82,0.12);color:var(--red);border:1px solid rgba(255,82,82,0.25);}
   .btn-sm{padding:5px 10px;font-size:12px;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.035), 0 6px 18px rgba(0,0,0,0.22);}
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
   .stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;}
@@ -318,13 +325,29 @@
   @media(max-width:880px){
     .hamburger{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;
       background:var(--surface);border:1px solid var(--border);color:var(--text);cursor:pointer;
-      position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:14px;z-index:320;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
+      position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:320;box-shadow:0 4px 14px rgba(0,0,0,0.35);}
     .sidebar{position:fixed;top:0;left:0;height:100vh;height:100dvh;z-index:300;transform:translateX(-100%);
       box-shadow:0 0 40px rgba(0,0,0,0.5);overflow-y:auto;-webkit-overflow-scrolling:touch;
       padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));}
     .sidebar.open{transform:translateX(0);}
     .sidebar-overlay.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:290;}
     .main{padding-top:calc(64px + env(safe-area-inset-top,0px));}
+  }
+  .members-cards{display:none;}
+  .bottom-nav{display:none;}
+  @media(max-width:768px){
+    .members-table-wrap{display:none;}
+    .members-cards{display:flex;flex-direction:column;gap:10px;}
+  }
+  @media(max-width:880px){
+    .member-tabs-top{display:none !important;}
+    .bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:280;
+      background:rgba(17,17,20,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border-top:1px solid var(--border);padding:7px 4px calc(7px + env(safe-area-inset-bottom,0px));}
+    .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text3);font-size:10px;font-weight:600;cursor:pointer;padding:4px 0;border-radius:8px;}
+    .bn-item.active{color:var(--accent);}
+    .bn-item svg{width:21px;height:21px;}
+    .main.has-bottomnav{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px));}
   }
   @media(max-width:720px){
     .main{padding:16px 12px;padding-top:calc(64px + env(safe-area-inset-top,0px));}
@@ -380,7 +403,7 @@
       </div>
 
       <div class="stat-strip">
-        <span id="lt-s1">50+ egzersiz kütüphanesi</span>
+        <span id="lt-s1">100+ egzersiz kütüphanesi</span>
         <span id="lt-s2">Haftalık hacim takibi</span>
         <span id="lt-s3">RPE bazlı ilerleme önerileri</span>
       </div>
@@ -466,7 +489,10 @@
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <div class="app">
   <div class="sidebar" id="sidebar">
-    <div class="logo">lyftr<span>.</span></div>
+    <div class="logo" style="display:flex;align-items:center;gap:10px">
+      <img src="icons/icon-192.png" alt="" style="width:34px;height:34px;border-radius:9px" onerror="this.style.display='none'">
+      <span style="font-size:24px;font-weight:800;letter-spacing:-1px">lyftr<span style="color:var(--accent)">.</span></span>
+    </div>
     <div class="nav-section">Koç Paneli</div>
     <div class="nav-item active" onclick="navigate('templates')" id="nav-templates">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -809,6 +835,73 @@ const DEFAULT_EXERCISES = [
   {id:'box_jump',name:'Box Jump',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:1},{m:'Baldır',c:0.5}]},
   {id:'rowing_erg',name:'Rowing (Erg)',eq:'Makine',muscles:[{m:'Sırt',c:1},{m:'Quad',c:0.5},{m:'Hamstring',c:0.3}]},
   {id:'assault_bike',name:'Assault Bike',eq:'Makine',muscles:[{m:'Quad',c:0.7},{m:'Omuz',c:0.3}]},
+  {id:'smith_squat',name:'Smith Machine Squat',eq:'Makine',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'pause_squat',name:'Pause Squat',eq:'Barbell',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'sissy_squat',name:'Sissy Squat',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:1}]},
+  {id:'pistol_squat',name:'Pistol Squat',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'nordic_curl',name:'Nordic Curl',eq:'Vücut Ağırlığı',muscles:[{m:'Hamstring',c:1}]},
+  {id:'seated_leg_curl',name:'Seated Leg Curl',eq:'Makine',muscles:[{m:'Hamstring',c:1}]},
+  {id:'single_leg_rdl',name:'Single Leg RDL',eq:'Dumbbell',muscles:[{m:'Hamstring',c:1},{m:'Kalça',c:0.5}]},
+  {id:'sumo_deadlift',name:'Sumo Deadlift',eq:'Barbell',muscles:[{m:'Kalça',c:1},{m:'Quad',c:0.5},{m:'Hamstring',c:0.5}]},
+  {id:'deficit_deadlift',name:'Deficit Deadlift',eq:'Barbell',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.5},{m:'Sırt',c:0.5}]},
+  {id:'rack_pull',name:'Rack Pull',eq:'Barbell',muscles:[{m:'Sırt',c:1},{m:'Kalça',c:0.5}]},
+  {id:'trap_bar_dl',name:'Trap Bar Deadlift',eq:'Barbell',muscles:[{m:'Kalça',c:1},{m:'Quad',c:0.5},{m:'Sırt',c:0.3}]},
+  {id:'glute_bridge',name:'Glute Bridge',eq:'Vücut Ağırlığı',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.3}]},
+  {id:'cable_pull_through',name:'Cable Pull-Through',eq:'Kablo',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.5}]},
+  {id:'standing_calf',name:'Standing Calf Raise',eq:'Makine',muscles:[{m:'Baldır',c:1}]},
+  {id:'tibialis_raise',name:'Tibialis Raise',eq:'Vücut Ağırlığı',muscles:[{m:'Baldır',c:0.7}]},
+  {id:'hip_thrust_machine',name:'Hip Thrust Machine',eq:'Makine',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.3}]},
+  {id:'reverse_hyper',name:'Reverse Hyperextension',eq:'Makine',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.5},{m:'Sırt',c:0.3}]},
+  {id:'machine_shoulder_press',name:'Machine Shoulder Press',eq:'Makine',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5}]},
+  {id:'arnold_press',name:'Arnold Press',eq:'Dumbbell',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5}]},
+  {id:'push_press',name:'Push Press',eq:'Barbell',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5},{m:'Quad',c:0.3}]},
+  {id:'upright_row',name:'Upright Row',eq:'Barbell',muscles:[{m:'Omuz',c:1},{m:'Sırt',c:0.3}]},
+  {id:'machine_lateral',name:'Machine Lateral Raise',eq:'Makine',muscles:[{m:'Omuz',c:1}]},
+  {id:'reverse_pec_deck',name:'Reverse Pec Deck',eq:'Makine',muscles:[{m:'Omuz',c:1},{m:'Sırt',c:0.3}]},
+  {id:'cable_front_raise',name:'Cable Front Raise',eq:'Kablo',muscles:[{m:'Omuz',c:1}]},
+  {id:'decline_bench',name:'Decline Bench Press',eq:'Barbell',muscles:[{m:'Göğüs',c:1},{m:'Triceps',c:0.5}]},
+  {id:'incline_smith',name:'Incline Smith Press',eq:'Makine',muscles:[{m:'Göğüs',c:1},{m:'Omuz',c:0.5},{m:'Triceps',c:0.3}]},
+  {id:'machine_incline',name:'Machine Incline Press',eq:'Makine',muscles:[{m:'Göğüs',c:1},{m:'Omuz',c:0.5}]},
+  {id:'low_to_high_fly',name:'Low-to-High Cable Fly',eq:'Kablo',muscles:[{m:'Göğüs',c:1},{m:'Omuz',c:0.3}]},
+  {id:'pendlay_row',name:'Pendlay Row',eq:'Barbell',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'meadows_row',name:'Meadows Row',eq:'Barbell',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'seal_row',name:'Seal Row',eq:'Barbell',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'straight_arm_pd',name:'Straight-Arm Pulldown',eq:'Kablo',muscles:[{m:'Sırt',c:1}]},
+  {id:'wide_pullup',name:'Wide Grip Pull-Up',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.3}]},
+  {id:'inverted_row',name:'Inverted Row',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'machine_row',name:'Machine Row',eq:'Makine',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
+  {id:'single_arm_pd',name:'Single Arm Lat Pulldown',eq:'Kablo',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.3}]},
+  {id:'ez_curl',name:'EZ Bar Curl',eq:'Barbell',muscles:[{m:'Biceps',c:1}]},
+  {id:'spider_curl',name:'Spider Curl',eq:'Dumbbell',muscles:[{m:'Biceps',c:1}]},
+  {id:'concentration_curl',name:'Concentration Curl',eq:'Dumbbell',muscles:[{m:'Biceps',c:1}]},
+  {id:'jm_press',name:'JM Press',eq:'Barbell',muscles:[{m:'Triceps',c:1},{m:'Göğüs',c:0.3}]},
+  {id:'cable_oh_ext',name:'Cable Overhead Extension',eq:'Kablo',muscles:[{m:'Triceps',c:1}]},
+  {id:'single_arm_pushdown',name:'Single Arm Pushdown',eq:'Kablo',muscles:[{m:'Triceps',c:1}]},
+  {id:'diamond_pushup',name:'Diamond Push-Up',eq:'Vücut Ağırlığı',muscles:[{m:'Triceps',c:1},{m:'Göğüs',c:0.5}]},
+  {id:'pallof_press',name:'Pallof Press',eq:'Kablo',muscles:[{m:'Karın',c:1}]},
+  {id:'cable_woodchop',name:'Cable Woodchopper',eq:'Kablo',muscles:[{m:'Karın',c:1}]},
+  {id:'side_plank',name:'Side Plank',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'dead_bug',name:'Dead Bug',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'bird_dog',name:'Bird Dog',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:0.7},{m:'Sırt',c:0.3}]},
+  {id:'hollow_hold',name:'Hollow Hold',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'vup',name:'V-Up',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'decline_situp',name:'Decline Sit-Up',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'jump_rope',name:'Jump Rope',eq:'Halat',muscles:[{m:'Baldır',c:0.7},{m:'Karın',c:0.3}]},
+  {id:'ski_erg',name:'Ski Erg',eq:'Makine',muscles:[{m:'Sırt',c:0.7},{m:'Karın',c:0.5},{m:'Triceps',c:0.3}]},
+  {id:'bike_erg',name:'Bike Erg',eq:'Makine',muscles:[{m:'Quad',c:0.7}]},
+  {id:'stair_climber',name:'Stair Climber',eq:'Makine',muscles:[{m:'Quad',c:0.7},{m:'Kalça',c:0.5},{m:'Baldır',c:0.3}]},
+  {id:'incline_walk',name:'Incline Treadmill Walk',eq:'Makine',muscles:[{m:'Quad',c:0.5},{m:'Baldır',c:0.5},{m:'Kalça',c:0.3}]},
+  {id:'wall_ball',name:'Wall Ball',eq:'Top',muscles:[{m:'Quad',c:0.7},{m:'Omuz',c:0.5}]},
+  {id:'med_ball_slam',name:'Med Ball Slam',eq:'Top',muscles:[{m:'Karın',c:0.7},{m:'Sırt',c:0.5}]},
+  {id:'bear_crawl',name:'Bear Crawl',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:0.7},{m:'Omuz',c:0.5}]},
+  {id:'band_pull_apart',name:'Band Pull-Apart',eq:'Band',muscles:[{m:'Omuz',c:0.7},{m:'Sırt',c:0.3}]},
+  {id:'band_walk',name:'Banded Lateral Walk',eq:'Band',muscles:[{m:'Kalça',c:0.7}]},
+  {id:'worlds_greatest',name:"World's Greatest Stretch",eq:'Vücut Ağırlığı',muscles:[{m:'Kalça',c:0.3},{m:'Hamstring',c:0.3}]},
+  {id:'cat_cow',name:'Cat-Cow',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:0.3},{m:'Karın',c:0.3}]},
+  {id:'hip_9090',name:'90/90 Hip Stretch',eq:'Vücut Ağırlığı',muscles:[{m:'Kalça',c:0.3}]},
+  {id:'shoulder_dislocates',name:'Shoulder Dislocates',eq:'Band',muscles:[{m:'Omuz',c:0.3}]},
+  {id:'couch_stretch',name:'Couch Stretch',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:0.3},{m:'Kalça',c:0.3}]},
+  {id:'ankle_rocks',name:'Ankle Rocks',eq:'Vücut Ağırlığı',muscles:[{m:'Baldır',c:0.3}]},
 ];
 function exCat(e){ return e.muscles&&e.muscles.length?e.muscles[0].m:'Diğer'; }
 
@@ -845,7 +938,7 @@ const LT = {
       memberSub:'Koçunun verdiği üye kodunu gir',coachBtn:'Koç Girişi',memberBtn:'Üye Girişi',
       memberPh:'örn. 7F3A2K-AHMET01',adminSub:'Yönetici erişim kodu',adminBtn:'Yönetici Girişi',
       back:'← Geri dön',foot:'Kod almadın mı? Koçunla iletişime geç.',admin:'Yönetici',
-      sub:'Koçlar için antrenman yönetim sistemi',s1:'50+ egzersiz kütüphanesi',s2:'Haftalık hacim takibi',s3:'RPE bazlı ilerleme önerileri',
+      sub:'Koçlar için antrenman yönetim sistemi',s1:'100+ egzersiz kütüphanesi',s2:'Haftalık hacim takibi',s3:'RPE bazlı ilerleme önerileri',
       selfTab:'Bireysel',selfSub:'Bireysel takip kodunu gir',selfBtn:'Giriş Yap',selfPh:'SELF-XXXXXX'},
   en:{f1t:'Build weekly programs and assign instantly',f1d:'Templates, weekly blocks, RPE targets, warm-up routines',
       f2t:'Progress tracking based on real performance data',f2d:'e1RM trends, muscle volume, body weight, compliance',
@@ -854,11 +947,25 @@ const LT = {
       memberSub:'Enter the code your coach gave you',coachBtn:'Coach Sign In',memberBtn:'Client Sign In',
       memberPh:'e.g. 7F3A2K-JOHN01',adminSub:'Admin access code',adminBtn:'Admin Sign In',
       back:'← Go back',foot:"Don't have a code? Contact your coach.",admin:'Admin',
-      sub:'The training management system for coaches',s1:'50+ exercise library',s2:'Weekly volume tracking',s3:'RPE-based progression suggestions',
+      sub:'The training management system for coaches',s1:'100+ exercise library',s2:'Weekly volume tracking',s3:'RPE-based progression suggestions',
       selfTab:'Personal',selfSub:'Enter your personal tracking code',selfBtn:'Sign In',selfPh:'SELF-XXXXXX'}
 };
 function getLandingLang(){ try{ return localStorage.getItem('lyftr_lang')||'tr'; }catch(e){ return 'tr'; } }
 function setLandingLangStore(l){ try{ localStorage.setItem('lyftr_lang',l); }catch(e){} }
+
+// ─── THEME ACCENTS ───────────────────────────────────────
+const ACCENTS=[
+  {id:'lime',label:'Lime (varsayılan)',c:'#c8f542',dim:'rgba(200,245,66,0.13)'},
+  {id:'blue',label:'Mavi',c:'#4da6ff',dim:'rgba(77,166,255,0.13)'},
+  {id:'purple',label:'Mor',c:'#b07cff',dim:'rgba(176,124,255,0.13)'},
+  {id:'orange',label:'Turuncu',c:'#ff9f43',dim:'rgba(255,159,67,0.13)'},
+  {id:'red',label:'Kırmızı',c:'#ff6b6b',dim:'rgba(255,107,107,0.13)'},
+];
+function applyAccent(id){
+  const a=ACCENTS.find(x=>x.id===id)||ACCENTS[0];
+  document.documentElement.style.setProperty('--accent',a.c);
+  document.documentElement.style.setProperty('--accent-dim',a.dim);
+}
 
 // ─── UNITS ───────────────────────────────────────────────
 const KG2LBS = 2.20462;
@@ -901,6 +1008,7 @@ const I18N = {
     progComplete:'PROGRAM TAMAMLANDI',progCompleteSub:'haftayı bitirdin!',totalVol:'Toplam hacim bu hafta',newProg:'Koçun yeni programını hazırlıyor',
     moodSaved:'Kaydedildi',cont:'Devam',
     pinnedPrompt:'için kalıcı not (her programda görünür):',
+    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',
     fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',
     gl_hypertrophy:'Hipertrofi',gl_strength:'Güç',gl_conditioning:'Kondisyon',gl_deload:'Deload',gl_endurance:'Dayanıklılık',gl_technique:'Teknik'},
   en:{home:'Home',program:'Program',progress:'Progress',message:'Messages',
@@ -924,6 +1032,7 @@ const I18N = {
     progComplete:'PROGRAM COMPLETE',progCompleteSub:'weeks finished!',totalVol:'Total volume this week',newProg:'Your coach is preparing your next program',
     moodSaved:'Saved',cont:'Continue',
     pinnedPrompt:'pinned note (visible in every program):',
+    msgEmptyList:'No messages yet.',coachLabel:'COACH',
     fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',
     gl_hypertrophy:'Hypertrophy',gl_strength:'Strength',gl_conditioning:'Conditioning',gl_deload:'Deload',gl_endurance:'Endurance',gl_technique:'Technique'}
 };
@@ -957,7 +1066,7 @@ function needsReview(m){
 let state = {
   view:'landing',     // 'landing' | 'coach' | 'member' | 'admin'
   workspaceId:null, workspaceName:null, workspaceCode:null, workspaceType:'coach', memberDirectAccess:false,
-  settings:{unit:'kg',lang:'tr'},
+  settings:{unit:'kg',lang:'tr',accent:'lime'},
   adminWorkspaces:[], // list for admin panel
   mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null, detailMemberId:null,
   templates:[], programs:[], members:[], exercises:[], recentEx:[],
@@ -1025,7 +1134,7 @@ async function loadWorkspace(wsId){
       state.moodLog=d.moodLog||{};
       state.warmupRoutines=d.warmupRoutines||[];
       state.cascades=d.cascades||{};
-      state.settings=Object.assign({unit:'kg',lang:'tr'},d.settings||{});
+      state.settings=Object.assign({unit:'kg',lang:'tr',accent:'lime'},d.settings||{});
     } else {
       // brand new empty workspace
       state.templates=[]; state.programs=[]; state.members=[]; state.exercises=[];
@@ -1034,7 +1143,7 @@ async function loadWorkspace(wsId){
       state.weightLog={}; state.finishedWorkouts={}; state.workoutStart={}; state.defaults={};
       state.moodLog={}; state.warmupRoutines=[];
       state.cascades={};
-      state.settings={unit:'kg',lang:'tr'};
+      state.settings={unit:'kg',lang:'tr',accent:'lime'};
     }
     // seed / patch exercise library with muscle data
     if(!state.exercises.length){
@@ -1400,6 +1509,7 @@ function navigate(page){
     state.mode='coach'; state.loggedMember=null;
   }
   state.currentPage=page;
+  window.inboxChat=null;
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   const n=document.getElementById('nav-'+page); if(n) n.classList.add('active');
   closeSidebar();
@@ -1427,6 +1537,9 @@ function render(){
   const appEl=document.querySelector('.app');
 
   const hb=document.getElementById('hamburger-btn');
+  applyAccent(state.view==='landing'?'lime':(state.settings&&state.settings.accent)||'lime');
+  const mainEl=document.getElementById('main-content');
+  if(mainEl) mainEl.classList.toggle('has-bottomnav', state.mode==='member'&&!!state.loggedMember&&state.view!=='landing'&&state.view!=='admin');
   if(state.view==='landing'){
     landingEl.classList.remove('hidden');
     appEl.style.display='none';
@@ -1463,12 +1576,7 @@ function render(){
   const badge=document.getElementById('nav-inbox-badge');
   if(badge&&!isSelf){
     let unread=0;
-    Object.entries(state.comments||{}).forEach(([ck,arr])=>{
-      const mId=ck.split('_')[0];
-      const mem=state.members.find(x=>x.id===mId);
-      if(!mem) return;
-      (arr||[]).forEach(msg=>{ if(msg.date>(mem.reviewedAt||0)) unread++; });
-    });
+    state.members.forEach(mem=>{ unread+=inboxUnreadFor(mem); });
     badge.textContent=unread;
     badge.style.display=unread>0?'':'none';
   } else if(badge){ badge.style.display='none'; }
@@ -1651,6 +1759,13 @@ function renderSettings(){
       </div>
       <div class="divider"></div>
       <div class="form-group">
+        <label class="form-label">Tema Rengi</label>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px">
+          ${ACCENTS.map(a=>`
+            <div onclick="setWsAccent('${a.id}')" title="${a.label}" style="width:34px;height:34px;border-radius:50%;background:${a.c};cursor:pointer;display:flex;align-items:center;justify-content:center;border:2px solid ${(state.settings.accent||'lime')===a.id?'#fff':'transparent'};box-shadow:0 2px 8px rgba(0,0,0,0.3)">
+              ${(state.settings.accent||'lime')===a.id?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':''}
+            </div>`).join('')}
+        </div>
         <label class="form-label">${state.workspaceType==='self'?'Panel Dili':'Üye Paneli Dili'}</label>
         <select class="form-input" onchange="setWsLang(this.value)">
           <option value="tr" ${s.lang!=='en'?'selected':''}>🇹🇷 Türkçe</option>
@@ -1660,34 +1775,92 @@ function renderSettings(){
       </div>
     </div>`;
 }
-function renderInbox(){
-  const msgs=[];
+function memberThreads(mId){
+  let msgs=[];
   Object.entries(state.comments||{}).forEach(([ck,arr])=>{
-    const mId=ck.split('_')[0];
-    const mem=state.members.find(x=>x.id===mId);
-    if(!mem) return;
-    (arr||[]).forEach(msg=>msgs.push({member:mem,text:msg.text,date:msg.date,unread:msg.date>(mem.reviewedAt||0)}));
+    if(ck.split('_')[0]!==mId) return;
+    msgs=msgs.concat(arr||[]);
   });
-  msgs.sort((a,b)=>b.date-a.date);
+  return msgs.sort((a,b)=>a.date-b.date);
+}
+function inboxUnreadFor(m){
+  return memberThreads(m.id).filter(x=>x.from!=='coach'&&x.date>(m.reviewedAt||0)).length;
+}
+function openInboxChat(mId){ window.inboxChat=mId; render(); setTimeout(()=>{const sc=document.getElementById('chat-scroll'); if(sc) sc.scrollTop=sc.scrollHeight;},30); }
+function closeInboxChat(){ window.inboxChat=null; render(); }
+function renderInbox(){
+  if(window.inboxChat) return renderInboxChat(window.inboxChat);
+  const convos=state.members.map(m=>{
+    const msgs=memberThreads(m.id);
+    return {m,last:msgs[msgs.length-1],unread:inboxUnreadFor(m),count:msgs.length};
+  }).filter(x=>x.count>0).sort((a,b)=>(b.last?b.last.date:0)-(a.last?a.last.date:0));
   return `
     <div class="page-header">
-      <div><div class="page-title">Mesajlar</div><div class="page-sub">${msgs.length} mesaj · ${msgs.filter(x=>x.unread).length} yeni</div></div>
+      <div><div class="page-title">Mesajlar</div><div class="page-sub">${convos.length} sohbet · ${convos.reduce((a,x)=>a+x.unread,0)} yeni</div></div>
     </div>
-    ${msgs.length===0?`<div class="empty"><p>Henüz mesaj yok. Üyeler antrenman panellerinden mesaj gönderdiğinde burada görünür.</p></div>`:`
+    ${convos.length===0?`<div class="empty"><p>Henüz mesaj yok. Üyeler mesaj gönderdiğinde veya egzersize not bıraktığında burada görünür — sen de buradan yanıt yazabilirsin.</p></div>`:`
     <div class="card" style="padding:0;overflow:hidden">
-      ${msgs.map(x=>`
-        <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:13px;cursor:pointer;${x.unread?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':''}" onclick="openMemberDetail('${x.member.id}')">
-          <div class="avatar" style="flex-shrink:0">${x.member.name.charAt(0).toUpperCase()}</div>
+      ${convos.map(x=>{
+        const preview=x.last?(x.last.type==='note'?`📝 ${x.last.exName||'Egzersiz notu'}: ${x.last.text}`:(x.last.from==='coach'?'Sen: ':'')+x.last.text):'';
+        return `<div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:13px;cursor:pointer;align-items:center;${x.unread?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':''}" onclick="openInboxChat('${x.m.id}')">
+          <div class="avatar" style="flex-shrink:0">${x.m.name.charAt(0).toUpperCase()}</div>
           <div style="flex:1;min-width:0">
-            <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:3px">
-              <span style="font-weight:600;font-size:13.5px">${x.member.name} ${x.unread?'<span class="rev-dot rev-yellow" style="margin-left:4px"></span>':''}</span>
-              <span style="font-size:11px;color:var(--text3);flex-shrink:0">${new Date(x.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>
+            <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:2px">
+              <span style="font-weight:600;font-size:13.5px">${x.m.name}</span>
+              <span style="font-size:11px;color:var(--text3);flex-shrink:0">${x.last?new Date(x.last.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</span>
             </div>
-            <div style="font-size:13px;color:var(--text2);overflow:hidden;text-overflow:ellipsis">${x.text}</div>
+            <div style="font-size:12.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${preview}</div>
           </div>
-        </div>`).join('')}
+          ${x.unread?`<span class="badge badge-orange" style="flex-shrink:0">${x.unread}</span>`:''}
+        </div>`;
+      }).join('')}
+    </div>`}`;
+}
+function renderInboxChat(mId){
+  const m=state.members.find(x=>x.id===mId);
+  if(!m){ window.inboxChat=null; return renderInbox(); }
+  const msgs=memberThreads(mId);
+  const fmt=d=>new Date(d).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  return `
+    <div class="page-header">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="btn btn-ghost btn-sm" onclick="closeInboxChat()">←</button>
+        <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
+        <div><div class="page-title" style="font-size:17px">${m.name}</div></div>
+      </div>
+      <div style="display:flex;gap:7px">
+        ${inboxUnreadFor(m)>0?`<button class="btn btn-ghost btn-sm" onclick="markReviewed('${m.id}')">İncelendi</button>`:''}
+        <button class="btn btn-ghost btn-sm" onclick="openMemberDetail('${m.id}')">Detay</button>
+      </div>
     </div>
-    <div style="font-size:11px;color:var(--text3);margin-top:10px">Mesaja tıklayınca üye detayına gidersin — "İncelendi" işaretleyince yeni rozeti kalkar.</div>`}`;
+    <div class="card" style="display:flex;flex-direction:column;height:calc(100dvh - 220px);min-height:340px">
+      <div id="chat-scroll" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px">
+        ${msgs.length===0?`<div style="color:var(--text3);font-size:13px;text-align:center;margin:auto">Henüz mesaj yok — ilk mesajı sen yaz.</div>`:msgs.map(x=>{
+          if(x.type==='note') return `
+            <div style="align-self:center;max-width:88%;background:rgba(245,197,66,0.07);border:1px solid rgba(245,197,66,0.22);border-radius:10px;padding:8px 13px;text-align:center">
+              <div style="font-size:10.5px;color:#f5c542;font-weight:700;margin-bottom:2px">📝 EGZERSİZ NOTU · ${x.dayName?x.dayName+' · ':''}${x.exName||''} ${x.week?'· H'+x.week:''}</div>
+              <div style="font-size:12.5px;font-style:italic;color:var(--text2)">"${x.text}"</div>
+              <div style="font-size:10px;color:var(--text3);margin-top:3px">${fmt(x.date)}</div>
+            </div>`;
+          const coach=x.from==='coach';
+          return `
+            <div style="align-self:${coach?'flex-end':'flex-start'};max-width:78%;background:${coach?'var(--accent-dim)':'var(--surface2)'};border:1px solid ${coach?'transparent':'var(--border)'};border-radius:${coach?'13px 13px 4px 13px':'13px 13px 13px 4px'};padding:9px 13px">
+              <div style="font-size:13px;white-space:pre-wrap">${x.text}</div>
+              <div style="font-size:10px;color:var(--text3);margin-top:4px;text-align:right">${coach?'Sen · ':''}${fmt(x.date)}</div>
+            </div>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+        <input class="form-input" id="coach-msg-input" placeholder="Mesaj yaz..." style="flex:1" onkeydown="if(event.key==='Enter')sendCoachMessage('${m.id}')">
+        <button class="btn btn-primary" onclick="sendCoachMessage('${m.id}')">Gönder</button>
+      </div>
+    </div>`;
+}
+function setWsAccent(id){
+  state.settings.accent=id;
+  applyAccent(id);
+  save(); render();
+  toast('Tema rengi güncellendi');
 }
 function setWsUnit(u){ state.settings.unit=u==='lbs'?'lbs':'kg'; save(); render(); toast('Birim güncellendi'); }
 function setWsLang(l){ state.settings.lang=l==='en'?'en':'tr'; save(); render(); toast('Dil güncellendi'); }
@@ -1847,7 +2020,7 @@ function renderMembers(){
       <button class="btn btn-primary" onclick="openMemberModal()">+ Üye Ekle</button>
     </div>
     ${state.members.length===0?`<div class="empty"><p>Henüz üye yok.</p></div>`:`
-    <div class="card" style="padding:0;overflow:hidden">
+    <div class="card members-table-wrap" style="padding:0;overflow:hidden">
       <table class="table"><thead><tr><th>Üye</th><th>Kod</th><th>Durum</th><th>Bu Hafta</th><th>İnceleme</th><th></th></tr></thead><tbody>
       ${state.members.map(m=>{
         const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
@@ -1878,6 +2051,35 @@ function renderMembers(){
         </tr>`;
       }).join('')}
       </tbody></table>
+    </div>
+    <div class="members-cards">
+      ${state.members.map(m=>{
+        const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
+        const gs=goalStatus(m);
+        const fin=finishedThisWeek(m.id);
+        const mood=todayMood(m.id);
+        const nr=needsReview(m), seen=!nr&&lastActivityAt(m)>0;
+        return `<div class="card" style="padding:14px;${nr?'box-shadow:inset 3px 0 0 #f5c542;':seen?'box-shadow:inset 3px 0 0 var(--green);':''}">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:10px" onclick="openMemberDetail('${m.id}')">
+            <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:600;font-size:14.5px">${m.name} ${mood?MOODS.find(x=>x.v===mood).e:''}</div>
+              <div style="font-size:11.5px;color:var(--text3)">${prog?`${prog.name} · H${prog.currentWeek||1}/${prog.weeks||1}`:'Program yok'}</div>
+            </div>
+            ${nr?'<span class="rev-dot rev-yellow"></span>':seen?'<span class="rev-dot rev-green"></span>':''}
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px;align-items:center">
+            <span class="share-code" style="font-size:11px;letter-spacing:0.5px">${memberFullCode(m)}</span>
+            <span style="font-size:11.5px;color:${gs.color};font-weight:600">${gs.label}</span>
+            ${prog?`<span class="badge ${fin>=prog.days.length?'badge-green':'badge-gray'}">${fin}/${prog.days.length}</span>`:''}
+          </div>
+          <div style="display:flex;gap:7px">
+            <button class="btn btn-primary btn-sm" style="flex:1" onclick="openMemberDetail('${m.id}')">Detay</button>
+            <button class="btn btn-ghost btn-sm" onclick="openShare('${m.id}')">🔗</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteMember('${m.id}')">Sil</button>
+          </div>
+        </div>`;
+      }).join('')}
     </div>`}`;
 }
 
@@ -2104,14 +2306,36 @@ function renderMemberView(){
   const m=state.loggedMember;
   const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
   const tab=window.memberTab;
-  const ck=prog?m.id+'_'+prog.id:'';
-  const cmts=state.comments[ck]||[];
+  const ck=m.id+'_'+(prog?prog.id:'general');
+  let cmts=[];
+  Object.entries(state.comments||{}).forEach(([k,arr])=>{
+    if(k.split('_')[0]===m.id) cmts=cmts.concat((arr||[]).filter(x=>x.type!=='note'));
+  });
+  cmts.sort((a,b)=>a.date-b.date);
   return `
-    <div class="tabs" style="margin-bottom:18px">
+    <div class="tabs member-tabs-top" style="margin-bottom:18px">
       <div class="tab ${tab==='home'?'active':''}" onclick="setMemberTab('home')">${t('home')}</div>
       <div class="tab ${tab==='program'?'active':''}" onclick="setMemberTab('program')">${t('program')}</div>
       <div class="tab ${tab==='progress'?'active':''}" onclick="setMemberTab('progress')">${t('progress')}</div>
       ${state.workspaceType==='self'?'':`<div class="tab ${tab==='comments'?'active':''}" onclick="setMemberTab('comments')">${t('message')}${cmts.length?` (${cmts.length})`:''}</div>`}
+    </div>
+    <div class="bottom-nav">
+      <div class="bn-item ${tab==='home'?'active':''}" onclick="setMemberTab('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>${t('home')}</span>
+      </div>
+      <div class="bn-item ${tab==='program'?'active':''}" onclick="setMemberTab('program')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12M3 8v8M21 8v8M8 6v12M16 6v12"/></svg>
+        <span>${t('program')}</span>
+      </div>
+      <div class="bn-item ${tab==='progress'?'active':''}" onclick="setMemberTab('progress')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 3 5-7 4 5"/><path d="M3 21h18"/></svg>
+        <span>${t('progress')}</span>
+      </div>
+      ${state.workspaceType==='self'?'':`<div class="bn-item ${tab==='comments'?'active':''}" onclick="setMemberTab('comments')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>${t('message')}</span>
+      </div>`}
     </div>
     ${tab==='home'?renderMemberHome(m,prog):''}
     ${tab==='program'?renderMemberProgram(m,prog):''}
@@ -2504,16 +2728,25 @@ function renderMemberProgress(m,prog){
 
 // ── COMMENTS TAB ──
 function renderMemberComments(m,prog,ck,cmts){
-  if(!prog) return `<div class="empty"><p>${t('msgWait')}</p></div>`;
-  return `<div class="card">
+  const loc=(state.settings&&state.settings.lang)==='en'?'en-US':'tr-TR';
+  const fmt=d=>new Date(d).toLocaleDateString(loc,{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  return `<div class="card" style="display:flex;flex-direction:column">
     <div style="font-weight:600;margin-bottom:14px">${t('msgTitle')}</div>
-    <textarea class="note-box" id="new-comment" rows="3" placeholder="${t('msgPh')}"></textarea>
-    <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="sendComment('${ck}')">${t('send')}</button>
-    ${cmts.length?`<div class="divider"></div>
-    ${[...cmts].reverse().map(c=>`<div class="comment-item">
-      <div class="comment-meta">${new Date(c.date).toLocaleDateString((state.settings&&state.settings.lang)==='en'?'en-US':'tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-      <div style="font-size:13px">${c.text}</div>
-    </div>`).join('')}`:''}
+    <div style="display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto;padding:2px">
+      ${cmts.length===0?`<div style="color:var(--text3);font-size:13px;text-align:center;padding:14px 0">${t('msgEmptyList')}</div>`:cmts.map(c=>{
+        const coach=c.from==='coach';
+        return `
+          <div style="align-self:${coach?'flex-start':'flex-end'};max-width:80%;background:${coach?'var(--surface2)':'var(--accent-dim)'};border:1px solid ${coach?'var(--border)':'transparent'};border-radius:${coach?'13px 13px 13px 4px':'13px 13px 4px 13px'};padding:9px 13px">
+            ${coach?`<div style="font-size:10px;color:var(--accent);font-weight:700;margin-bottom:2px">${t('coachLabel')}</div>`:''}
+            <div style="font-size:13px;white-space:pre-wrap">${c.text}</div>
+            <div style="font-size:10px;color:var(--text3);margin-top:4px;text-align:right">${fmt(c.date)}</div>
+          </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+      <textarea class="note-box" id="new-comment" rows="1" style="margin-top:0;flex:1" placeholder="${t('msgPh')}"></textarea>
+      <button class="btn btn-primary btn-sm" onclick="sendComment('${ck}')">${t('send')}</button>
+    </div>
   </div>`;
 }
 
@@ -2559,6 +2792,30 @@ function toggleSet(key,rest,targetW,topReps){
     if(!state.logs[key]&&targetW){ state.logs[key]=String(targetW); usedDef=true; }
     if(!state.repsLog[key]&&topReps){ state.repsLog[key]=String(topReps); usedDef=true; }
     if(usedDef) state.defaults[key]=true;
+
+    // auto-finish: if every set of this day is now complete, wrap up the workout
+    // key = mId_pId_w{wi}_{di}_{ei}_{si}  (ids are underscore-free)
+    const parts=key.split('_');
+    if(parts.length===6){
+      const [mId,pId,wTag,diS]=parts;
+      const wi=parseInt(wTag.slice(1)), di=parseInt(diS);
+      const prog=state.programs.find(p=>p.id===pId);
+      const dKey=`${mId}_${pId}_w${wi}_${di}`;
+      if(prog&&prog.days[di]&&!state.finishedWorkouts[dKey]){
+        let all=true;
+        prog.days[di].exercises.forEach((ex,ei)=>{
+          const sc=parseInt(ex.sets)||0;
+          for(let si=0;si<sc;si++){
+            if(!state.completions[setKey(mId,pId,wi,di,ei,si)]) all=false;
+          }
+        });
+        if(all){
+          save();
+          finishWorkout(mId,pId,wi,di); // saves, celebrates, renders
+          return;
+        }
+      }
+    }
     startTimer(parseInt(rest)||90);
   }
   save(); render();
@@ -2622,7 +2879,28 @@ function logRpeCascade(base,si,sc,val){
 function logReps(key,val){ if(val) state.repsLog[key]=val; else delete state.repsLog[key]; delete state.defaults[key]; save(); }
 function logRpe(key,val){ if(val) state.rpe[key]=val; else delete state.rpe[key]; save(); }
 function logSetType(key,val){ if(val&&val!=='N') state.setTypes[key]=val; else delete state.setTypes[key]; save(); render(); }
-function logNote(key,val){ if(val) state.notes[key]=val; else delete state.notes[key]; save(); }
+function logNote(key,val){
+  if(val) state.notes[key]=val; else delete state.notes[key];
+  // mirror into inbox thread as a note notification (one entry per exercise slot, updated in place)
+  const parts=key.split('_'); // mId_pId_w{wi}_{di}_{ei}
+  if(parts.length===5){
+    const [mId,pId,wTag,diS,eiS]=parts;
+    const prog=state.programs.find(p=>p.id===pId);
+    const day=prog&&prog.days[parseInt(diS)];
+    const ex=day&&day.exercises[parseInt(eiS)];
+    const ck=mId+'_'+pId;
+    if(!state.comments[ck]) state.comments[ck]=[];
+    const idx=state.comments[ck].findIndex(x=>x.type==='note'&&x.noteKey===key);
+    if(val){
+      const entry={type:'note',noteKey:key,text:val,date:Date.now(),from:'member',
+        exName:ex?ex.name:'',dayName:day?(day.name||''):'',week:wTag.slice(1)};
+      if(idx>=0) state.comments[ck][idx]=entry; else state.comments[ck].push(entry);
+    } else if(idx>=0){
+      state.comments[ck].splice(idx,1);
+    }
+  }
+  save();
+}
 function autofillSet(key,w,r){
   if(w) state.logs[key]=w;
   if(r) state.repsLog[key]=r;
@@ -2641,8 +2919,18 @@ function sendComment(ck){
   const text=el.value.trim();
   if(!text){ toast(t('msgEmpty')); return; }
   if(!state.comments[ck]) state.comments[ck]=[];
-  state.comments[ck].push({text,date:Date.now()});
+  state.comments[ck].push({text,date:Date.now(),from:'member'});
   el.value=''; save(); render(); toast(t('msgSent'));
+}
+function sendCoachMessage(mId){
+  const el=document.getElementById('coach-msg-input');
+  const text=el.value.trim();
+  if(!text){ toast('Mesaj boş'); return; }
+  const prog=state.programs.find(p=>p.memberId===mId&&p.active);
+  const ck=mId+'_'+(prog?prog.id:'general');
+  if(!state.comments[ck]) state.comments[ck]=[];
+  state.comments[ck].push({text,date:Date.now(),from:'coach'});
+  el.value=''; save(); render();
 }
 function logMood(mId,mood){
   if(!state.moodLog[mId]) state.moodLog[mId]=[];
@@ -3340,7 +3628,7 @@ Object.assign(window,{
   markReviewed,toggleLandingLang,setWsUnit,setWsLang,toggleSidebar,closeSidebar,
   copyDay,moveDay,moveExercise,duplicateTemplate,exportTemplateXlsx,triggerImport,importTemplatesFile,
   logWeightCascade,logRepsCascade,logRpeCascade,
-  goToMyWorkout,showSelfLogin,doSelfLogin,
+  goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
