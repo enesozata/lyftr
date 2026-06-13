@@ -1008,7 +1008,7 @@ const I18N = {
     progComplete:'PROGRAM TAMAMLANDI',progCompleteSub:'haftayı bitirdin!',totalVol:'Toplam hacim bu hafta',newProg:'Koçun yeni programını hazırlıyor',
     moodSaved:'Kaydedildi',cont:'Devam',
     pinnedPrompt:'için kalıcı not (her programda görünür):',
-    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',
+    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',
     fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',
     gl_hypertrophy:'Hipertrofi',gl_strength:'Güç',gl_conditioning:'Kondisyon',gl_deload:'Deload',gl_endurance:'Dayanıklılık',gl_technique:'Teknik'},
   en:{home:'Home',program:'Program',progress:'Progress',message:'Messages',
@@ -1032,7 +1032,7 @@ const I18N = {
     progComplete:'PROGRAM COMPLETE',progCompleteSub:'weeks finished!',totalVol:'Total volume this week',newProg:'Your coach is preparing your next program',
     moodSaved:'Saved',cont:'Continue',
     pinnedPrompt:'pinned note (visible in every program):',
-    msgEmptyList:'No messages yet.',coachLabel:'COACH',
+    msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',
     fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',
     gl_hypertrophy:'Hypertrophy',gl_strength:'Strength',gl_conditioning:'Conditioning',gl_deload:'Deload',gl_endurance:'Endurance',gl_technique:'Technique'}
 };
@@ -1181,6 +1181,24 @@ function saveSession(){
     else
       localStorage.removeItem('lyftr_session');
   } catch(e){}
+}
+// persistent member login (direct-link members): remember for 7 days of inactivity
+function saveMemberSession(){
+  try{
+    if(state.memberDirectAccess&&state.workspaceId&&state.loggedMember)
+      localStorage.setItem('lyftr_member_session',JSON.stringify({
+        wsCode:state.workspaceCode, wsId:state.workspaceId,
+        memberCode:state.loggedMember.code, at:Date.now()
+      }));
+  }catch(e){}
+}
+function clearMemberSession(){ try{ localStorage.removeItem('lyftr_member_session'); }catch(e){} }
+function touchMemberSession(){
+  try{
+    const raw=localStorage.getItem('lyftr_member_session'); if(!raw) return;
+    const s=JSON.parse(raw); s.at=Date.now();
+    localStorage.setItem('lyftr_member_session',JSON.stringify(s));
+  }catch(e){}
 }
 function getSession(){
   try { return JSON.parse(localStorage.getItem('lyftr_session')||'null'); }
@@ -1539,7 +1557,8 @@ function render(){
   const hb=document.getElementById('hamburger-btn');
   applyAccent(state.view==='landing'?'lime':(state.settings&&state.settings.accent)||'lime');
   const mainEl=document.getElementById('main-content');
-  if(mainEl) mainEl.classList.toggle('has-bottomnav', state.mode==='member'&&!!state.loggedMember&&state.view!=='landing'&&state.view!=='admin');
+  if(mainEl) mainEl.classList.toggle('has-bottomnav', (state.view!=='landing'&&state.view!=='admin'));
+  if(state.memberDirectAccess&&state.loggedMember) touchMemberSession();
   if(state.view==='landing'){
     landingEl.classList.remove('hidden');
     appEl.style.display='none';
@@ -1596,6 +1615,40 @@ function render(){
   else if(state.currentPage==='memberDetail') el.innerHTML=renderMemberDetail(state.detailMemberId);
   else if(state.currentPage==='settings') el.innerHTML=renderSettings();
   else if(state.currentPage==='inbox') el.innerHTML=renderInbox();
+
+  renderCoachBottomNav();
+}
+function renderCoachBottomNav(){
+  let bn=document.getElementById('coach-bottom-nav');
+  // only for coach/self panel mode (NOT member view — that has its own bottom nav)
+  const show=state.view==='coach'&&!(state.mode==='member'&&state.loggedMember);
+  if(!show){ if(bn) bn.remove(); return; }
+  const isSelf=state.workspaceType==='self';
+  const page=state.currentPage;
+  let unread=0; state.members.forEach(m=>{ unread+=(typeof inboxUnreadFor==='function'?inboxUnreadFor(m):0); });
+  const ico={
+    templates:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
+    workout:'<path d="M6 12h12M3 8v8M21 8v8M8 6v12M16 6v12"/>',
+    members:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>',
+    inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+    overview:'<path d="M3 17l5-6 4 3 5-7 4 5"/><path d="M3 21h18"/>',
+    settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+  };
+  const items=isSelf
+    ? [['workout','Antrenman','workout'],['templates','Programlarım','templates'],['settings','Ayarlar','settings']]
+    : [['templates','Programlar','templates'],['members','Üyeler','members'],['inbox','Mesajlar','inbox'],['overview','Genel','overview']];
+  const cur=p=> isSelf&&p==='workout' ? (state.mode==='member') : (page===p);
+  const onclk=p=> p==='workout'?'goToMyWorkout()':`navigate('${p}')`;
+  const html=`<div class="bottom-nav" id="coach-bottom-nav">${items.map(([p,label,ic])=>`
+    <div class="bn-item ${cur(p)?'active':''}" onclick="${onclk(p)}">
+      <div style="position:relative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ico[ic]}</svg>
+        ${p==='inbox'&&unread>0?`<span style="position:absolute;top:-5px;right:-9px;background:var(--orange);color:#111;font-size:9px;font-weight:800;border-radius:9px;padding:0 5px;min-width:15px;text-align:center">${unread}</span>`:''}
+      </div>
+      <span>${label}</span>
+    </div>`).join('')}</div>`;
+  if(bn) bn.outerHTML=html;
+  else document.body.insertAdjacentHTML('beforeend',html);
 }
 
 // ─── ADMIN PANEL ─────────────────────────────────────────
@@ -1939,6 +1992,7 @@ async function doLandingMemberLogin(){
   state.loggedMember=member; state.mode='member'; state.view='member';
   state.memberDirectAccess=true;
   window.memberTab='home'; window.viewWeek=null;
+  saveMemberSession();
   render();
 }
 async function doLogoutWorkspace(){
@@ -2145,19 +2199,9 @@ function renderMemberDetail(mId){
   const wl=wi.entries;
   let wchart='';
   if(wl.length>=2){
-    const ws=wl.map(e=>e.w);
-    const min=Math.min(...ws),max=Math.max(...ws);
-    const range=Math.max(max-min,1);
-    const pts=wl.map((e,i)=>`${20+(i/(wl.length-1))*360},${70-((e.w-min)/range)*55}`).join(' ');
     wchart=`<div class="card" style="margin-bottom:14px">
       <div class="section-head">Kilo Takibi</div>
-      <svg viewBox="0 0 400 90" style="width:100%;height:auto">
-        <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"/>
-        ${wl.map((e,i)=>{
-          const x=20+(i/(wl.length-1))*360, y=70-((e.w-min)/range)*55;
-          return `<circle cx="${x}" cy="${y}" r="3" fill="var(--accent)"/><text x="${x}" y="${y-8}" text-anchor="middle" style="font-size:9px;fill:var(--text2)">${W(e.w)}</text>`;
-        }).join('')}
-      </svg>
+      ${weightChartSvg(wl)}
     </div>`;
   }
 
@@ -2345,6 +2389,32 @@ function renderMemberView(){
 function setMemberTab(tb){ if(tb==='comments'&&state.workspaceType==='self') tb='home'; window.memberTab=tb; if(tb!=='program') window.focusDay=null; render(); }
 
 // ── HOME ──
+function weightChartSvg(entries){
+  const wl=entries.slice(-12);
+  const ws=wl.map(e=>e.w);
+  const min=Math.min(...ws),max=Math.max(...ws);
+  const range=Math.max(max-min,1);
+  const loc=(state.settings&&state.settings.lang)==='en'?'en-US':'tr-TR';
+  const X=i=>20+(i/(wl.length-1))*320;
+  const Y=w=>62-((w-min)/range)*46;
+  const line=wl.map((e,i)=>`${X(i)},${Y(e.w)}`).join(' ');
+  const area=`20,72 ${line} ${X(wl.length-1)},72`;
+  return `<svg viewBox="0 0 360 88" style="width:100%;height:auto;margin-top:10px;overflow:visible">
+    <defs><linearGradient id="wgrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+    </linearGradient></defs>
+    <polygon points="${area}" fill="url(#wgrad)"/>
+    <polyline points="${line}" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
+    ${wl.map((e,i)=>{
+      const x=X(i),y=Y(e.w);
+      const showLbl=wl.length<=8||i===0||i===wl.length-1||i%2===0;
+      return `<circle cx="${x}" cy="${y}" r="2.6" fill="var(--accent)"/>
+        ${showLbl?`<text x="${x}" y="${y-7}" text-anchor="middle" style="font-size:8.5px;fill:var(--text2);font-weight:600">${W(e.w)}</text>`:''}
+        ${(i===0||i===wl.length-1)?`<text x="${x}" y="84" text-anchor="middle" style="font-size:7.5px;fill:var(--text3)">${new Date(e.date).toLocaleDateString(loc,{day:'numeric',month:'short'})}</text>`:''}`;
+    }).join('')}
+  </svg>`;
+}
 function renderMemberHome(m,prog){
   const mood=todayMood(m.id);
   const streak=getStreak(m.id);
@@ -2401,18 +2471,7 @@ function renderMemberHome(m,prog){
   const wOpen=window.weightOpen;
   let wMini='';
   if(wOpen&&winfo.entries.length>=2){
-    const wl=winfo.entries.slice(-10);
-    const ws=wl.map(e=>e.w);
-    const min=Math.min(...ws),max=Math.max(...ws);
-    const range=Math.max(max-min,1);
-    const pts=wl.map((e,i)=>`${14+(i/(wl.length-1))*332},${56-((e.w-min)/range)*42}`).join(' ');
-    wMini=`<svg viewBox="0 0 360 70" style="width:100%;height:auto;margin-top:10px">
-      <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"/>
-      ${wl.map((e,i)=>{
-        const x=14+(i/(wl.length-1))*332,y=56-((e.w-min)/range)*42;
-        return `<circle cx="${x}" cy="${y}" r="2.5" fill="var(--accent)"/><text x="${x}" y="${y-7}" text-anchor="middle" style="font-size:8px;fill:var(--text2)">${W(e.w)}</text>`;
-      }).join('')}
-    </svg>`;
+    wMini=weightChartSvg(winfo.entries);
   }
   const weightWidget=`<div class="wt-widget">
     <div class="wt-head" onclick="toggleWeightWidget()">
@@ -2648,6 +2707,9 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
   const isNewPR=curE>0&&curE>=allTime&&allTime>0;
   const sets=[];
   const baseKey=`${m.id}_${prog.id}_w${wi}_${di}_${ei}`;
+  if(!window.exUnit) window.exUnit={};
+  const exU=window.exUnit[baseKey]||U(); // display/entry unit for THIS exercise
+  const wDisp=kg=>exU==='lbs'?Math.round(kg*KG2LBS*10)/10:Math.round(kg*10)/10;
   for(let si=0;si<sc;si++){
     const key=setKey(m.id,prog.id,wi,di,ei,si);
     const isDone=!!state.completions[key];
@@ -2664,10 +2726,10 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
       <select class="set-type-select" onchange="logSetType('${key}',this.value)">
         ${SET_TYPES.map(s=>`<option value="${s.v}" ${stype===s.v?'selected':''}>${s.v==='N'?('S'+(si+1)):s.l.substring(0,3)}</option>`).join('')}
       </select>
-      <input class="form-input ${(isDef||casW)?'default-val':''}" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW?W(ex.targetW):U()}" value="${wt!==''?W(wt):''}" onchange="logWeightCascade('${baseKey}',${si},${sc},this.value)" inputmode="decimal">
-      <span style="font-size:11px;color:var(--text3)">${U()}</span>
-      <input class="form-input ${(isDef||casP)?'default-val':''}" style="width:56px;padding:5px 7px;font-size:12px" placeholder="${ex.reps||'tk'}" value="${rp}" onchange="logRepsCascade('${baseKey}',${si},${sc},this.value)" inputmode="numeric">
-      <span style="font-size:11px;color:var(--text3)">tk</span>
+      <input class="form-input ${(isDef||casW)?'default-val':''}" style="width:70px;padding:5px 7px;font-size:12px" placeholder="${ex.targetW?wDisp(ex.targetW):exU}" value="${wt!==''?wDisp(parseFloat(wt)):''}" onchange="logWeightCascade('${baseKey}',${si},${sc},this.value,'${exU}')" inputmode="decimal">
+      <span onclick="toggleExUnit('${baseKey}')" style="font-size:10.5px;color:var(--accent);cursor:pointer;user-select:none;border:1px solid var(--border);border-radius:5px;padding:2px 5px" title="kg/lbs değiştir">${exU}</span>
+      <input class="form-input ${(isDef||casP)?'default-val':''}" style="width:56px;padding:5px 7px;font-size:12px" placeholder="${ex.reps||t('repsShort')}" value="${rp}" onchange="logRepsCascade('${baseKey}',${si},${sc},this.value)" inputmode="numeric">
+      <span style="font-size:11px;color:var(--text3)">${t('repsShort')}</span>
       <select class="rpe-select ${casR?'rpe-cas':''}" onchange="logRpeCascade('${baseKey}',${si},${sc},this.value)">
         <option value="">RPE</option>
         ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}" ${rpeVal==n?'selected':''}>${n}</option>`).join('')}
@@ -2820,12 +2882,23 @@ function toggleSet(key,rest,targetW,topReps){
   }
   save(); render();
 }
+function toggleExUnit(baseKey){
+  if(!window.exUnit) window.exUnit={};
+  const cur=window.exUnit[baseKey]||U();
+  window.exUnit[baseKey]=cur==='lbs'?'kg':'lbs';
+  render();
+}
 function logWeight(key,val){ const kg=val!==''&&val!=null?WIN(val):''; if(kg!=='') state.logs[key]=String(kg); else delete state.logs[key]; delete state.defaults[key]; save(); }
 // set-1 cascade: weight/reps/RPE flow into EMPTY later sets as faint, editable suggestions
-function logWeightCascade(base,si,sc,val){
+function logWeightCascade(base,si,sc,val,forceUnit){
   const key=base+'_'+si;
   if(!state.cascades) state.cascades={};
-  const kg=val!==''&&val!=null?WIN(val):'';
+  let kg='';
+  if(val!==''&&val!=null){
+    const num=parseFloat(String(val).replace(',','.'));
+    if(!isNaN(num)) kg = forceUnit==='lbs' ? Math.round(num/KG2LBS*100)/100
+                       : forceUnit==='kg' ? num : WIN(val);
+  }
   if(kg!=='') state.logs[key]=String(kg); else delete state.logs[key];
   delete state.defaults[key];
   delete state.cascades['w_'+key]; // user touched this set directly
@@ -3582,7 +3655,7 @@ function doLogin(){
   render();
 }
 function logoutMember(){
-  if(state.memberDirectAccess){ doLogoutWorkspace(); return; }
+  if(state.memberDirectAccess){ clearMemberSession(); doLogoutWorkspace(); return; }
   state.mode='coach'; state.loggedMember=null;
   document.getElementById('mode-coach').classList.add('active');
   document.getElementById('mode-member').classList.remove('active');
@@ -3628,11 +3701,35 @@ Object.assign(window,{
   markReviewed,toggleLandingLang,setWsUnit,setWsLang,toggleSidebar,closeSidebar,
   copyDay,moveDay,moveExercise,duplicateTemplate,exportTemplateXlsx,triggerImport,importTemplatesFile,
   logWeightCascade,logRepsCascade,logRpeCascade,
-  goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,
+  goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,toggleExUnit,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
 
+function tryMemberSession(){
+  try{
+    const raw=localStorage.getItem('lyftr_member_session'); if(!raw) return false;
+    const s=JSON.parse(raw);
+    if(!s.at||Date.now()-s.at>7*24*60*60*1000){ localStorage.removeItem('lyftr_member_session'); return false; }
+    return true;
+  }catch(e){ return false; }
+}
+async function restoreMemberSession(){
+  try{
+    const s=JSON.parse(localStorage.getItem('lyftr_member_session'));
+    await loadAdminData();
+    const ws=state.adminWorkspaces.find(w=>w.code===s.wsCode||w.id===s.wsId);
+    if(!ws){ clearMemberSession(); return false; }
+    await loadWorkspace(ws.id);
+    state.workspaceName=ws.name; state.workspaceCode=ws.code; state.workspaceType=ws.type||'coach';
+    const member=state.members.find(m=>m.code===s.memberCode);
+    if(!member){ clearMemberSession(); return false; }
+    state.loggedMember=member; state.mode='member'; state.view='member';
+    state.memberDirectAccess=true; window.memberTab='home';
+    touchMemberSession();
+    return true;
+  }catch(e){ clearMemberSession(); return false; }
+}
 (async()=>{
   const bar=document.getElementById('load-bar');
   bar.style.width='30%';
@@ -3654,12 +3751,16 @@ Object.assign(window,{
         state.loggedMember=member; state.mode='member'; state.view='member';
         state.memberDirectAccess=true;
         window.memberTab='home';
+        saveMemberSession();
       } else {
         state.view='landing';
       }
     } else {
       state.view='landing';
     }
+  } else if(tryMemberSession()&&await restoreMemberSession()){
+    bar.style.width='70%';
+    // restored from saved member session
   } else {
     // check saved coach session
     const session=getSession();
