@@ -266,6 +266,7 @@
   .mkt-cta-sec{text-align:center;}
   .mkt-cta-sec .mkt-lead{margin:0 auto 22px;}
   .mkt-foot{margin-top:40px;font-size:13px;color:var(--text3);font-weight:700;}
+  .mkt-contact-form{max-width:520px;margin-top:26px;}
   /* scroll reveal — transform+opacity only (GPU, cheap) */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease;will-change:opacity,transform;}
   .reveal.in{opacity:1;transform:none;}
@@ -312,7 +313,7 @@
   .feat-row{display:flex;align-items:flex-start;gap:13px;border-left:2px solid var(--accent);padding-left:14px;}
   .feat-ico{width:30px;height:30px;flex-shrink:0;color:var(--accent);margin-top:1px;}
   .feat-ico svg{width:100%;height:100%;}
-  .landing-lang{position:fixed;top:18px;right:20px;z-index:10;font-size:11px;font-weight:700;color:var(--text2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;cursor:pointer;letter-spacing:1px;}
+  .landing-lang{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;z-index:30;font-size:20px;line-height:1;color:var(--text2);border:1px solid var(--border);border-radius:12px;padding:8px 11px;cursor:pointer;background:rgba(22,22,26,0.85);backdrop-filter:blur(10px);box-shadow:0 3px 12px rgba(0,0,0,0.35);}
   .landing-lang:hover{color:var(--text);border-color:var(--text3);}
   .landing-hero{position:relative;}
   .rpe-cas{opacity:0.5;font-style:italic;}
@@ -364,7 +365,7 @@
   .ws-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.04);gap:10px;flex-wrap:wrap;}
   .ws-row:last-child{border-bottom:none;}
   @media(max-width:880px){
-    .landing-wrap{grid-template-columns:1fr;gap:24px;padding:64px 18px 24px;min-height:auto;}
+    .landing-wrap{grid-template-columns:1fr;gap:24px;padding:calc(70px + env(safe-area-inset-top,0px)) 18px 24px;min-height:auto;}
     .scroll-cue{margin:20px auto 40px;font-size:13px;padding:10px 18px;}
     .landing-hero{order:2;text-align:center;}
     .landing-card{order:1;width:100%;}
@@ -638,6 +639,19 @@
     </section>
 
     <!-- CTA -->
+    <!-- contact -->
+    <section class="mkt-sec">
+      <div class="mkt-eyebrow reveal" id="mkt-contact-eyebrow">İLETİŞİM</div>
+      <h2 class="mkt-h2 reveal" id="mkt-contact-title">Bize ulaş</h2>
+      <p class="mkt-lead reveal" id="mkt-contact-lead">Soru, öneri veya işbirliği için mesaj bırak — en kısa sürede dönüş yapılır.</p>
+      <div class="mkt-contact-form reveal">
+        <input class="form-input" id="contact-name" placeholder="Adın" style="margin-bottom:12px;width:100%">
+        <input class="form-input" id="contact-email" type="email" placeholder="E-posta adresin" style="margin-bottom:12px;width:100%">
+        <textarea class="form-input" id="contact-msg" rows="4" placeholder="Mesajın" style="margin-bottom:14px;width:100%"></textarea>
+        <button class="landing-btn" style="width:100%" onclick="sendContactMessage()" id="mkt-contact-btn">Gönder</button>
+      </div>
+    </section>
+
     <section class="mkt-sec mkt-cta-sec">
       <h2 class="mkt-h2 reveal" id="mkt-cta-title">Hazır mısın?</h2>
       <p class="mkt-lead reveal" id="mkt-cta-lead">Yukarıdan koçluk kodunla giriş yap ve ilk programını oluştur.</p>
@@ -1129,7 +1143,8 @@ const LT = {
       ms3t:'İlerlemeyi takip et',ms3d:'Üye antrenmanını telefonundan işaretler, sen panelden tüm gelişimi anlık görürsün.',
       mInst:'UYGULAMA OLARAK EKLE',mInstT:'Telefonuna uygulama gibi kur',mInstL:'lyftr bir web uygulamasıdır — indirme yok. Tarayıcıdan açıp ana ekranına ekleyince tam ekran, uygulama gibi çalışır.',
       mInstN:'Üyelerin de aynı adımlarla, kendi koçluk kodlarıyla giriş yapıp uygulamayı ana ekrana ekleyebilir.',
-      mCta:'Hazır mısın?',mCtaL:'Yukarıdan koçluk kodunla giriş yap ve ilk programını oluştur.',mCtaB:'↑ Giriş\'e dön'},
+      mCta:'Hazır mısın?',mCtaL:'Yukarıdan koçluk kodunla giriş yap ve ilk programını oluştur.',mCtaB:'↑ Giriş\'e dön',
+      mCon:'İLETİŞİM',mConT:'Bize ulaş',mConL:'Soru, öneri veya işbirliği için mesaj bırak — en kısa sürede dönüş yapılır.',mConB:'Gönder',conName:'Adın',conEmail:'E-posta adresin',conMsg:'Mesajın'},
   en:{f1t:'Build weekly programs and assign instantly',f1d:'Templates, weekly blocks, RPE targets, warm-up routines',
       f2t:'Progress tracking based on real performance data',f2d:'e1RM trends, muscle volume, body weight, compliance',
       f3t:'Communicate with your clients on one platform',f3d:'Personal panels, notes, messages, streak motivation',
@@ -1155,7 +1170,8 @@ const LT = {
       ms3t:'Track progress',ms3d:'Members log workouts from their phone; you see all progress live from the panel.',
       mInst:'ADD AS AN APP',mInstT:'Install it like an app',mInstL:'lyftr is a web app — no download. Open it in your browser and add to home screen for a full-screen, app-like experience.',
       mInstN:'Your members can do the same with their own coaching codes and add the app to their home screen.',
-      mCta:'Ready?',mCtaL:'Sign in with your coaching code above and create your first program.',mCtaB:'↑ Back to sign in'}
+      mCta:'Ready?',mCtaL:'Sign in with your coaching code above and create your first program.',mCtaB:'↑ Back to sign in',
+      mCon:'CONTACT',mConT:'Get in touch',mConL:'Leave a message for questions, suggestions or collaboration — we\'ll get back to you soon.',mConB:'Send',conName:'Your name',conEmail:'Your email',conMsg:'Your message'}
 };
 function getLandingLang(){ try{ return localStorage.getItem('lyftr_lang')||'tr'; }catch(e){ return 'tr'; } }
 function setLandingLangStore(l){ try{ localStorage.setItem('lyftr_lang',l); }catch(e){} }
@@ -1298,7 +1314,7 @@ let state = {
   view:'landing',     // 'landing' | 'coach' | 'member' | 'admin'
   workspaceId:null, workspaceName:null, workspaceCode:null, workspaceType:'coach', memberDirectAccess:false,
   settings:{unit:'kg',lang:'tr',accent:'lime'},
-  adminWorkspaces:[], // list for admin panel
+  adminWorkspaces:[], contactMessages:[], // list for admin panel
   mode:'coach', currentPage:'templates', loggedMember:null, editingProgId:null, detailMemberId:null,
   templates:[], programs:[], members:[], exercises:[], recentEx:[],
   logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{}, cascades:{}, announcements:[], appliedSuggestions:{}, trash:[],
@@ -1406,10 +1422,11 @@ async function loadAdminData(){
   try {
     const snap=await getDoc(doc(db,'lyftr_admin','data'));
     state.adminWorkspaces = snap.exists()?(snap.data().workspaces||[]):[];
-  } catch(e){ console.error(e); state.adminWorkspaces=[]; }
+    state.contactMessages = snap.exists()?(snap.data().contactMessages||[]):[];
+  } catch(e){ console.error(e); state.adminWorkspaces=[]; state.contactMessages=[]; }
 }
 async function saveAdminData(){
-  try { await setDoc(doc(db,'lyftr_admin','data'),{workspaces:state.adminWorkspaces}); }
+  try { await setDoc(doc(db,'lyftr_admin','data'),{workspaces:state.adminWorkspaces,contactMessages:state.contactMessages}); }
   catch(e){ console.error(e); toast('Kayıt hatası!'); }
 }
 
@@ -1993,7 +2010,44 @@ function renderAdmin(){
             <button class="btn btn-danger btn-sm" onclick="adminDeleteWorkspace('${w.id}')">Sil</button>
           </div>
         </div>`).join('')}
-    </div>`;
+    </div>
+    ${renderContactInbox()}`;
+}
+function renderContactInbox(){
+  const msgs=[...(state.contactMessages||[])].sort((a,b)=>b.date-a.date);
+  const unread=msgs.filter(m=>!m.read).length;
+  return `<div style="margin-top:20px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <div class="page-title" style="font-size:18px">Gelen Mesajlar</div>
+      ${unread>0?`<span class="badge badge-orange">${unread} yeni</span>`:''}
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      ${msgs.length===0?`<div class="empty" style="padding:24px"><p>Henüz iletişim mesajı yok. Landing sayfasındaki formdan gelen mesajlar burada görünür.</p></div>`:
+        msgs.map(m=>`
+        <div style="padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);${!m.read?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':''}">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:5px">
+            <div style="font-weight:600;font-size:14px">${m.name||'(isim yok)'} ${!m.read?'<span class="rev-dot rev-yellow" style="margin-left:4px"></span>':''}</div>
+            <div style="font-size:11px;color:var(--text3)">${new Date(m.date).toLocaleDateString('tr-TR',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+          </div>
+          <a href="mailto:${m.email}" style="font-size:12.5px;color:var(--accent);text-decoration:none">${m.email}</a>
+          <div style="font-size:13.5px;color:var(--text2);margin-top:7px;white-space:pre-wrap;line-height:1.5">${m.text}</div>
+          <div style="display:flex;gap:7px;margin-top:10px">
+            ${!m.read?`<button class="btn btn-ghost btn-sm" onclick="markContactRead('${m.id}')">Okundu işaretle</button>`:''}
+            <a class="btn btn-primary btn-sm" href="mailto:${m.email}?subject=Re: lyftr" style="text-decoration:none">Yanıtla</a>
+            <button class="btn btn-danger btn-sm" onclick="deleteContact('${m.id}')">Sil</button>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+async function markContactRead(id){
+  const m=(state.contactMessages||[]).find(x=>x.id===id);
+  if(m){ m.read=true; await saveAdminData(); render(); }
+}
+async function deleteContact(id){
+  if(!confirm('Bu mesajı kalıcı olarak silmek istediğine emin misin?')) return;
+  state.contactMessages=(state.contactMessages||[]).filter(x=>x.id!==id);
+  await saveAdminData(); render();
 }
 function adminCopyCode(code){
   navigator.clipboard.writeText(code).then(()=>toast('Kod kopyalandı ✓')).catch(()=>{});
@@ -2098,10 +2152,14 @@ function applyLandingLang(){
     'mkt-how-eyebrow':d.mHow,'mkt-how-title':d.mHowT,
     'mkt-s1t':d.ms1t,'mkt-s1d':d.ms1d,'mkt-s2t':d.ms2t,'mkt-s2d':d.ms2d,'mkt-s3t':d.ms3t,'mkt-s3d':d.ms3d,
     'mkt-inst-eyebrow':d.mInst,'mkt-inst-title':d.mInstT,'mkt-inst-lead':d.mInstL,'mkt-inst-note':d.mInstN,
-    'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB};
+    'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB,
+    'mkt-contact-eyebrow':d.mCon,'mkt-contact-title':d.mConT,'mkt-contact-lead':d.mConL,'mkt-contact-btn':d.mConB};
   Object.entries(map).forEach(([id,txt])=>{ const el=document.getElementById(id); if(el) el.textContent=txt; });
   const mi=document.getElementById('landing-member-code'); if(mi) mi.placeholder=d.memberPh;
   const si=document.getElementById('landing-self-code'); if(si) si.placeholder=d.selfPh;
+  const cn=document.getElementById('contact-name'); if(cn) cn.placeholder=d.conName;
+  const ce=document.getElementById('contact-email'); if(ce) ce.placeholder=d.conEmail;
+  const cm=document.getElementById('contact-msg'); if(cm) cm.placeholder=d.conMsg;
   const btn=document.getElementById('landing-lang-btn'); if(btn) btn.textContent=l==='en'?'🇹🇷':'🇺🇸';
   const sub=document.getElementById('lt-subhead'); if(sub) sub.textContent=d.sub;
   ['s1','s2','s3'].forEach(k=>{ const el=document.getElementById('lt-'+k); if(el) el.textContent=d[k]; });
@@ -3513,6 +3571,25 @@ function applySuggestion(mId,progId,exName,w){
   state.appliedSuggestions[mId+'_'+nl]={w,at:Date.now()};
   save(); render(); toast(`${exName}: gelecek hedef ${W(w)}${U()} ✓`);
 }
+async function sendContactMessage(){
+  const name=(document.getElementById('contact-name')||{}).value||'';
+  const email=(document.getElementById('contact-email')||{}).value||'';
+  const msg=(document.getElementById('contact-msg')||{}).value||'';
+  if(!msg.trim()){ toast('Mesaj boş olamaz'); return; }
+  if(!email.trim()||!/.+@.+\..+/.test(email)){ toast('Geçerli bir e-posta gir'); return; }
+  const entry={id:uid(),name:name.trim(),email:email.trim(),text:msg.trim(),date:Date.now(),read:false};
+  try{
+    // fetch-merge-write so we don't clobber admin workspaces
+    const ref=doc(db,'lyftr_admin','data');
+    const snap=await getDoc(ref);
+    const data=snap.exists()?snap.data():{};
+    const list=data.contactMessages||[];
+    list.push(entry);
+    await setDoc(ref,{workspaces:data.workspaces||[],contactMessages:list});
+    ['contact-name','contact-email','contact-msg'].forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});
+    toast('Mesajın gönderildi — teşekkürler!');
+  }catch(e){ console.error(e); toast('Gönderilemedi, tekrar dene'); }
+}
 function sendAnnouncement(){
   const el=document.getElementById('ann-text');
   const text=(el?el.value:'').trim();
@@ -4175,7 +4252,7 @@ Object.assign(window,{
   logWeightCascade,logRepsCascade,logRpeCascade,
   goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,toggleExUnit,
   openNewChatPicker,closeNewChatPicker,startChatWith,openAnnounceModal,closeAnnounceModal,sendAnnouncement,deleteAnnouncement,dismissAnnouncement,
-  closeFloatChat,sendFloatMessage,restoreTrash,purgeTrash,
+  closeFloatChat,sendFloatMessage,restoreTrash,purgeTrash,sendContactMessage,markContactRead,deleteContact,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
