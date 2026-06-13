@@ -936,6 +936,32 @@
   </div>
 </div>
 
+<!-- Profile Edit Modal (member + self) -->
+<div class="modal-bg" id="modal-profile">
+  <div class="modal" style="width:440px">
+    <div class="modal-header">
+      <div class="modal-title" id="profile-modal-title">Profili Düzenle</div>
+      <button class="modal-close" onclick="closeModal('modal-profile')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label" id="profile-name-label">Ad</label>
+      <input class="form-input" id="profile-name" placeholder="Adın">
+    </div>
+    <div class="form-group">
+      <label class="form-label" id="profile-goal-label">Hedef</label>
+      <select class="form-input" id="profile-goal"></select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" id="profile-injuries-label">Sakatlık / Not</label>
+      <input class="form-input" id="profile-injuries" placeholder="örn. sağ omuz hassas">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+      <button class="btn btn-ghost" onclick="closeModal('modal-profile')" id="profile-cancel">İptal</button>
+      <button class="btn btn-primary" onclick="saveProfileEdit()" id="profile-save">Kaydet</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -1216,7 +1242,7 @@ function volDisp(volKg){
 
 // ─── MEMBER-FACING I18N ──────────────────────────────────
 const I18N = {
-  tr:{home:'Ana Sayfa',program:'Program',progress:'İlerleme',message:'Mesaj',
+  tr:{home:'Ana Sayfa',program:'Program',progress:'Gelişim',message:'Mesaj',
     welcome:'Hoş geldin',howFeel:'Bugün nasıl hissediyorsun?',
     nextWorkout:'Sıradaki Antrenman',week:'Hafta',exercises:'egzersiz',start:'Antrenmana Başla →',
     weekDone:'Bu haftanın antrenmanları bitti!',weekDoneSub:'Toparlanma da antrenmanın parçası. Dinlen, beslen, uyu.',
@@ -1224,7 +1250,7 @@ const I18N = {
     waiting:'Program bekleniyor',waitingSub:'Koçun program atadığında burada görünecek.',
     weightNo:'Kilo girilmedi',fromStart:'başlangıçtan',weighRemind:'bu hafta tartılmadın',save:'Kaydet',
     streak:'streak',thisWeek:'Bu hafta',workouts:'antrenman',targetW:'hedef',
-    big4:'Büyük 4 — Tahmini 1RM',weekVol:'Bu Haftanın Kas Grubu Hacmi',volNote:'Koyu: direkt · Açık: dolaylı (tahmini)',noData:'Veri yok.',
+    big4:'Büyük 4 — PR & Güncel',nextWeekTitle:'Gelecek Hafta Önerileri',prLabel:'PR (en iyi)',currentLabel:'Güncel',weekVol:'Bu Haftanın Kas Grubu Hacmi',volNote:'Koyu: direkt · Açık: dolaylı (tahmini)',noData:'Veri yok.',
     viewing:'görüntüleme',exit:'Çıkış',backWeek:'← Haftaya dön',
     finish:'Antrenmanı Bitir',missing:'eksik',reopen:'Antrenmanı yeniden aç',ready:'Hazır!',
     warmupL:'Isınma',coachL:'Koç',note:'Not...',
@@ -1238,7 +1264,7 @@ const I18N = {
     moodSaved:'Kaydedildi',cont:'Devam',
     pinnedPrompt:'için kalıcı not (her programda görünür):',
     msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',validMeasure:'Geçerli bir ölçü gir (cm)',measureSaved:'Ölçü kaydedildi',measuresTitle:'Vücut Ölçüleri',annTitle:'Koçundan Duyuru',annOk:'Okudum',weightTrend:'Vücut Ağırlığı Değişimi',
-    fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',
+    fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',editProfile:'Profili Düzenle',
     gl_hypertrophy:'Hipertrofi',gl_strength:'Güç',gl_conditioning:'Kondisyon',gl_deload:'Deload',gl_endurance:'Dayanıklılık',gl_technique:'Teknik'},
   en:{home:'Home',program:'Program',progress:'Progress',message:'Messages',
     welcome:'Welcome',howFeel:'How are you feeling today?',
@@ -1248,7 +1274,7 @@ const I18N = {
     waiting:'Waiting for program',waitingSub:'It will appear here once your coach assigns one.',
     weightNo:'No weight logged',fromStart:'since start',weighRemind:"no weigh-in this week",save:'Save',
     streak:'streak',thisWeek:'This week',workouts:'workouts',targetW:'target',
-    big4:'Big 4 — Estimated 1RM',weekVol:"This Week's Muscle Volume",volNote:'Dark: direct · Light: indirect (est.)',noData:'No data.',
+    big4:'Big 4 — PR & Current',nextWeekTitle:'Next Week Suggestions',prLabel:'PR (best)',currentLabel:'Current',weekVol:"This Week's Muscle Volume",volNote:'Dark: direct · Light: indirect (est.)',noData:'No data.',
     viewing:'viewing',exit:'Sign out',backWeek:'← Back to week',
     finish:'Finish Workout',missing:'left',reopen:'Reopen workout',ready:'Ready!',
     warmupL:'Warm-up',coachL:'Coach',note:'Note...',
@@ -1262,7 +1288,7 @@ const I18N = {
     moodSaved:'Saved',cont:'Continue',
     pinnedPrompt:'pinned note (visible in every program):',
     msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',validMeasure:'Enter a valid measurement (cm)',measureSaved:'Measurement saved',measuresTitle:'Body Measurements',annTitle:'Announcement',annOk:'Got it',weightTrend:'Body Weight Trend',
-    fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',
+    fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',editProfile:'Edit Profile',
     gl_hypertrophy:'Hypertrophy',gl_strength:'Strength',gl_conditioning:'Conditioning',gl_deload:'Deload',gl_endurance:'Endurance',gl_technique:'Technique'}
 };
 function t(k){
@@ -1688,6 +1714,48 @@ function bigFour(mId){
   const dead=liftE1RM(mId,['deadlift','dead lift']);
   const ohp=liftE1RM(mId,['overhead press','ohp','military press','shoulder press']);
   return {squat,bench,dead,ohp,total:squat+bench+dead}; // total = powerlifting big-3 (OHP optional)
+}
+// current (most recent) e1RM for an exercise name — latest program, latest logged week
+function currentE1RM(memberId,exName){
+  let best=0,bestSort=-1;
+  forEachExSlot(memberId,exName,(p,wi,di,ei,ex)=>{
+    const sc=parseInt(ex.sets)||0;
+    for(let si=0;si<sc;si++){
+      const key=setKey(memberId,p.id,wi,di,ei,si);
+      const w=parseFloat(state.logs[key])||0;
+      const r=parseInt(state.repsLog[key])||0;
+      if(w&&r&&!isCascaded(key)){
+        const sk=(p.createdAt||0)+wi*100+di; // later program/week wins
+        if(sk>bestSort){ bestSort=sk; best=epley(w,r,state.rpe[key]); }
+      }
+    }
+  });
+  return Math.round(best);
+}
+function liftCurrentE1RM(mId,keywords){
+  let res=0,bestSort=-1;
+  const seen=new Set();
+  state.programs.filter(p=>p.memberId===mId).forEach(p=>{
+    p.days.forEach(d=>d.exercises.forEach(ex=>{
+      const nl=(ex.name||'').toLowerCase();
+      if(keywords.some(k=>nl.includes(k))){
+        if(seen.has(nl)) return; seen.add(nl);
+        const cur=currentE1RM(mId,ex.name);
+        if(cur>res){ res=cur; }
+      }
+    }));
+  });
+  return res;
+}
+// PR (all-time) + current for the 4 big lifts
+function bigFourDetail(mId){
+  const defs=[
+    {k:'squat',label:'Squat',kw:['squat']},
+    {k:'bench',label:'Bench',kw:['bench']},
+    {k:'dead',label:'Deadlift',kw:['deadlift','dead lift']},
+    {k:'ohp',label:'OHP',kw:['overhead press','ohp','military press','shoulder press']},
+  ];
+  return defs.map(d=>({label:d.label,pr:liftE1RM(mId,d.kw),cur:liftCurrentE1RM(mId,d.kw)}));
 }
 // compliance % over last N weeks: finished workouts / expected (days * weeks)
 function compliancePct(mId){
@@ -2529,8 +2597,11 @@ function renderTemplates(){
         <input type="file" id="xlsx-import-input" accept=".xlsx,.xls" style="display:none" onchange="importTemplatesFile(this)">
       </div>
     </div>
-    ${warmups.length?`<div class="section-head">Isınma Rutinleri</div>
-    <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px">
+    ${warmups.length?`<div class="section-head" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleWarmupSection()">
+      <span>Isınma Rutinleri</span>
+      <span style="font-size:12px;color:var(--text3);font-weight:500">${window._warmupHidden?'Göster ▾':'Gizle ▴'}</span>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px;${window._warmupHidden?'display:none':''}">
       ${warmups.map(w=>`<div class="ws-row">
         <div>
           <div style="font-weight:600">${w.name}</div>
@@ -2994,6 +3065,27 @@ function renderMemberHome(m,prog){
   const gp=goalProgress(m);
   const winfo=memberWeightInfo(m);
 
+  // next-week suggestions across current program exercises
+  let suggHTML='';
+  if(prog){
+    const seen=new Set(); const items=[];
+    prog.days.forEach(d=>d.exercises.forEach(ex=>{
+      if(!ex.name||ex.isWarmup) return;
+      const nl=ex.name.toLowerCase(); if(seen.has(nl)) return; seen.add(nl);
+      const s=getSuggestion(m.id,ex.name);
+      if(s&&s.w) items.push({name:ex.name,w:s.w,reason:s.reason});
+    }));
+    if(items.length){
+      suggHTML=`<div class="card" style="margin-bottom:14px;border-color:rgba(200,245,66,0.25)">
+        <div class="section-head" style="margin-top:0">${t('nextWeekTitle')}</div>
+        ${items.slice(0,6).map(it=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="min-width:0"><div style="font-size:13px;font-weight:600">${it.name}</div><div style="font-size:11px;color:var(--text3)">${it.reason}</div></div>
+          <div style="font-size:14px;font-weight:800;color:var(--accent);white-space:nowrap">→ ${W(it.w)} ${U()}</div>
+        </div>`).join('')}
+      </div>`;
+    }
+  }
+
   // weekly weigh-in reminder: last entry before this Monday?
   const now=new Date(); const dow=now.getDay()||7;
   const monday=new Date(now); monday.setHours(0,0,0,0); monday.setDate(now.getDate()-dow+1);
@@ -3061,13 +3153,13 @@ function renderMemberHome(m,prog){
     </div>`:''}
   </div>`;
 
-  // Big 4
-  const big4HTML=BIG4.map(b=>{
-    const best=bestE1RM(m.id,b.key);
+  // Big 4 — PR (all-time) + current (latest workout)
+  const big4HTML=bigFourDetail(m.id).map(b=>{
     return `<div class="big4-box">
       <div class="big4-name">${b.label}</div>
-      <div class="big4-val">${best?W(best)+'<span style="font-size:11px;color:var(--text3)">'+U()+'</span>':'—'}</div>
-      <div class="big4-delta" style="color:var(--text3)">e1RM</div>
+      <div class="big4-val">${b.pr?W(b.pr)+'<span style="font-size:11px;color:var(--text3)">'+U()+'</span>':'—'}</div>
+      <div class="big4-delta" style="color:var(--text3)">${t('prLabel')}</div>
+      ${b.cur?`<div style="font-size:12px;font-weight:700;color:var(--accent);margin-top:5px">${W(b.cur)}<span style="font-size:10px;color:var(--text3)"> ${U()}</span></div><div class="big4-delta" style="color:var(--text3)">${t('currentLabel')}</div>`:''}
     </div>`;
   }).join('');
 
@@ -3093,6 +3185,7 @@ function renderMemberHome(m,prog){
       <div>
         <div style="font-size:21px;font-weight:800">${t('welcome')}, ${m.name.split(' ')[0]}</div>
         ${m.injuries?`<div style="font-size:12px;color:var(--orange);margin-top:4px">⚠ ${m.injuries}</div>`:''}
+        <button class="btn btn-ghost btn-sm" style="margin-top:8px;font-size:11px;padding:4px 12px" onclick="openProfileEdit('${m.id}')">${t('editProfile')}</button>
       </div>
       ${state.memberDirectAccess
         ?`<button class="btn btn-sm" style="flex-shrink:0;display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,107,0.12);color:var(--red);border:1px solid rgba(255,107,107,0.3)" onclick="logoutMember()">
@@ -3101,6 +3194,8 @@ function renderMemberHome(m,prog){
         :state.workspaceType==='self'?''
         :`<button class="btn btn-ghost btn-sm" onclick="logoutMember()" style="flex-shrink:0">← Panele Dön</button>`}
     </div>
+
+    ${suggHTML}
 
     ${mood===null?`<div class="card" style="margin-bottom:14px">
       <div style="font-weight:600;margin-bottom:12px">${t('howFeel')}</div>
@@ -3633,6 +3728,34 @@ function addWeightEntry(mId){
   state.weightLog[mId].push({w:Math.round(kg*10)/10,date:Date.now()});
   el.value=''; save(); render(); toast(t('weightSaved'));
 }
+let _profileEditId=null;
+function openProfileEdit(mId){
+  const m=state.members.find(x=>x.id===mId); if(!m) return;
+  _profileEditId=mId;
+  const en=(state.settings&&state.settings.lang)==='en';
+  document.getElementById('profile-modal-title').textContent=en?'Edit Profile':'Profili Düzenle';
+  document.getElementById('profile-name-label').textContent=en?'Name':'Ad';
+  document.getElementById('profile-goal-label').textContent=en?'Goal':'Hedef';
+  document.getElementById('profile-injuries-label').textContent=en?'Injury / Note':'Sakatlık / Not';
+  document.getElementById('profile-cancel').textContent=en?'Cancel':'İptal';
+  document.getElementById('profile-save').textContent=en?'Save':'Kaydet';
+  document.getElementById('profile-name').value=m.name||'';
+  document.getElementById('profile-injuries').value=m.injuries||'';
+  const sel=document.getElementById('profile-goal');
+  const goals=['lose','gain','strength','maintain','health'];
+  sel.innerHTML=`<option value="">${en?'No goal':'Hedef yok'}</option>`+goals.map(g=>`<option value="${g}" ${m.goal===g?'selected':''}>${t('fg_'+g)}</option>`).join('');
+  openModal('modal-profile');
+}
+function saveProfileEdit(){
+  const m=state.members.find(x=>x.id===_profileEditId); if(!m) return;
+  const name=(document.getElementById('profile-name').value||'').trim();
+  if(!name){ toast((state.settings&&state.settings.lang)==='en'?'Name required':'Ad gerekli'); return; }
+  m.name=name;
+  m.goal=document.getElementById('profile-goal').value||'';
+  m.injuries=(document.getElementById('profile-injuries').value||'').trim();
+  closeModal('modal-profile'); save(); render();
+  toast((state.settings&&state.settings.lang)==='en'?'Profile updated':'Profil güncellendi');
+}
 function addMeasureEntry(mId,key){
   const el=document.getElementById('measure-'+key);
   if(!el) return;
@@ -3882,7 +4005,7 @@ function renderDays(){
   document.getElementById('builder-volume').innerHTML=
     `<div style="background:var(--surface2);border-radius:12px;padding:14px">
       <div class="section-head">Haftalık Kas Grubu Hacmi (bu şablon)</div>
-      ${volBarsHTML(muscleVolume(window.tmpDays))||'<p style="font-size:12px;color:var(--text3)">Egzersiz ekledikçe hacim burada görünür.</p>'}
+      <div id="vol-preview">${volBarsHTML(muscleVolume(window.tmpDays))||'<p style="font-size:12px;color:var(--text3)">Egzersiz ekledikçe hacim burada görünür.</p>'}</div>
     </div>`;
 }
 function renderExEditor(di,ei,ex,memberId){
@@ -3893,13 +4016,13 @@ function renderExEditor(di,ei,ex,memberId){
     ${ex.isWarmup?'<div style="font-size:10px;color:var(--orange);font-weight:700;margin-bottom:6px">ISINMA</div>':''}
     <div style="display:grid;grid-template-columns:2fr 64px 76px 70px;gap:8px;margin-bottom:8px">
       ${exDropdownHTML(di,ei,ex.name)}
-      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" onchange="window.tmpDays[${di}].exercises[${ei}].sets=parseInt(this.value)||1;renderDays()">
-      <input class="form-input" value="${ex.reps||''}" placeholder="8-12" onchange="window.tmpDays[${di}].exercises[${ei}].reps=this.value">
-      <input class="form-input" value="${ex.superset||''}" placeholder="A1" onchange="window.tmpDays[${di}].exercises[${ei}].superset=this.value.toUpperCase()">
+      <input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" data-d="${di}" data-e="${ei}" data-f="sets" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs();updateVolPreview()">
+      <input class="form-input" value="${ex.reps||''}" placeholder="8-12" data-d="${di}" data-e="${ei}" data-f="reps" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs()">
+      <input class="form-input" value="${ex.superset||''}" placeholder="A1" data-d="${di}" data-e="${ei}" data-f="superset" onchange="syncBuilderInputs()">
     </div>
     <div class="ex-editor-grid2">
-      <input class="form-input" type="number" value="${ex.rest||''}" placeholder="Dinlenme (sn)" onchange="window.tmpDays[${di}].exercises[${ei}].rest=this.value">
-      <input class="form-input" type="number" step="0.5" value="${ex.targetW!==''&&ex.targetW!=null?W(ex.targetW):''}" placeholder="Hedef (${U()})" onchange="window.tmpDays[${di}].exercises[${ei}].targetW=String(WIN(this.value)||'')">
+      <input class="form-input" type="number" value="${ex.rest||''}" placeholder="Dinlenme (sn)" data-d="${di}" data-e="${ei}" data-f="rest" onchange="syncBuilderInputs()">
+      <input class="form-input" type="number" step="0.5" value="${ex.targetW!==''&&ex.targetW!=null?W(ex.targetW):''}" placeholder="Hedef (${U()})" data-d="${di}" data-e="${ei}" data-f="targetW" data-conv="1" onchange="syncBuilderInputs()">
       <select class="form-input" onchange="window.tmpDays[${di}].exercises[${ei}].targetRpe=this.value">
         <option value="">Hedef RPE</option>
         ${['6','6-7','7','7-8','8','8-9','9','9-10','10'].map(r=>`<option value="${r}" ${ex.targetRpe===r?'selected':''}>${r}</option>`).join('')}
@@ -3909,7 +4032,7 @@ function renderExEditor(di,ei,ex,memberId){
       <div class="toggle-sw ${ex.tempoOn?'on':''}"></div><span>Tempo</span>
       ${ex.tempoOn?`<input class="form-input" style="width:120px;padding:5px 8px;font-size:12px;margin-left:6px" value="${ex.tempo||''}" placeholder="3-1-2" onclick="event.stopPropagation()" onchange="window.tmpDays[${di}].exercises[${ei}].tempo=this.value">`:''}
     </div>
-    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu" style="margin-top:8px" onchange="window.tmpDays[${di}].exercises[${ei}].coachNote=this.value">
+    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu" style="margin-top:8px" data-d="${di}" data-e="${ei}" data-f="coachNote" onchange="syncBuilderInputs()">
     ${last?`<div class="hist-hint"><b>${ex.name}</b>: ${last.progName} — ${last.sets}×${last.reps}${last.maxW?`, max <b>${W(last.maxW)}${U()}</b>`:''}${last.bestE1rm?`, e1RM ${last.bestE1rm}`:''}${last.avgRpe?`, RPE ${last.avgRpe}`:''}</div>`:''}
     ${sugg&&!sugg.warn?`<div class="sugg-hint">Önerilen: <b>${W(sugg.w)}${U()}</b> — ${sugg.reason}
       <button class="btn btn-primary btn-sm" style="margin-left:8px;padding:2px 8px" onclick="window.tmpDays[${di}].exercises[${ei}].targetW='${sugg.w}';renderDays()">Uygula</button></div>`:''}
@@ -3946,11 +4069,27 @@ window._toggleTempo=function(di,ei){
   window.tmpDays[di].exercises[ei].tempoOn=!window.tmpDays[di].exercises[ei].tempoOn;
   renderDays();
 };
-function addDay(){ window.tmpDays.push({name:`Gün ${window.tmpDays.length+1}`,goal:'',duration:'',note:'',exercises:[]}); renderDays(); }
-function removeDay(di){ if(window.tmpDays.length===1) return; window.tmpDays.splice(di,1); renderDays(); }
-function addExercise(di){ window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',superset:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
-function removeExercise(di,ei){ window.tmpDays[di].exercises.splice(ei,1); renderDays(); }
-function copyDay(di){
+function addDay(){ syncBuilderInputs(); window.tmpDays.push({name:`Gün ${window.tmpDays.length+1}`,goal:'',duration:'',note:'',exercises:[]}); renderDays(); }
+function removeDay(di){ syncBuilderInputs(); if(window.tmpDays.length===1) return; window.tmpDays.splice(di,1); renderDays(); }
+function syncBuilderInputs(){
+  // flush all builder exercise inputs from DOM into window.tmpDays (prevents value loss on re-render)
+  document.querySelectorAll('#days-container [data-f]').forEach(el=>{
+    const di=+el.dataset.d, ei=+el.dataset.e, f=el.dataset.f;
+    if(!window.tmpDays[di]||!window.tmpDays[di].exercises[ei]) return;
+    let v=el.value;
+    if(f==='sets') v=parseInt(v)||1;
+    else if(f==='superset') v=(v||'').toUpperCase();
+    else if(f==='targetW') v=v!==''?String(WIN(v)||''):'';
+    window.tmpDays[di].exercises[ei][f]=v;
+  });
+}
+function updateVolPreview(){
+  const host=document.getElementById('vol-preview');
+  if(host) host.innerHTML=volBarsHTML(muscleVolume(window.tmpDays))||'<p style="font-size:12px;color:var(--text3)">Egzersiz ekledikçe hacim burada görünür.</p>';
+}
+function addExercise(di){ syncBuilderInputs(); window.tmpDays[di].exercises.push({name:'',sets:3,reps:'8-12',rest:'',targetW:'',targetRpe:'',superset:'',tempoOn:false,tempo:'',coachNote:''}); renderDays(); }
+function removeExercise(di,ei){ syncBuilderInputs(); window.tmpDays[di].exercises.splice(ei,1); renderDays(); }
+function copyDay(di){ syncBuilderInputs();
   const src=window.tmpDays[di];
   const copy=JSON.parse(JSON.stringify(src));
   copy.name=(src.name||('Gün '+(di+1)))+' (kopya)';
@@ -3958,13 +4097,13 @@ function copyDay(di){
   renderDays();
   toast('Gün kopyalandı');
 }
-function moveDay(di,dir){
+function moveDay(di,dir){ syncBuilderInputs();
   const j=di+dir;
   if(j<0||j>=window.tmpDays.length) return;
   [window.tmpDays[di],window.tmpDays[j]]=[window.tmpDays[j],window.tmpDays[di]];
   renderDays();
 }
-function moveExercise(di,ei,dir){
+function moveExercise(di,ei,dir){ syncBuilderInputs();
   const arr=window.tmpDays[di].exercises;
   const j=ei+dir;
   if(j<0||j>=arr.length) return;
@@ -4385,6 +4524,7 @@ function copyShareLink(){
   });
 }
 function uid(){ return Math.random().toString(36).substr(2,9); }
+function toggleWarmupSection(){ window._warmupHidden=!window._warmupHidden; render(); }
 function openModal(id){ document.getElementById(id).classList.add('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 function toast(msg){
@@ -4410,6 +4550,7 @@ Object.assign(window,{
   goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,toggleExUnit,
   openNewChatPicker,closeNewChatPicker,startChatWith,openAnnounceModal,closeAnnounceModal,sendAnnouncement,deleteAnnouncement,dismissAnnouncement,
   closeFloatChat,sendFloatMessage,restoreTrash,purgeTrash,sendContactMessage,markContactRead,deleteContact,addMeasureEntry,
+  syncBuilderInputs,updateVolPreview,openProfileEdit,saveProfileEdit,toggleWarmupSection,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
