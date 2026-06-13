@@ -104,7 +104,7 @@
   .section-head{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
   #toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--accent);z-index:300;transform:translateY(80px);opacity:0;transition:all .25s;pointer-events:none;}
   #toast.show{transform:translateY(0);opacity:1;}
-  .timer-ring{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);border-radius:16px;padding:14px 22px;display:flex;align-items:center;gap:14px;z-index:150;box-shadow:0 6px 28px rgba(0,0,0,0.55);}
+  .timer-ring{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--accent);border-radius:16px;padding:14px 22px;display:flex;align-items:center;gap:14px;z-index:300;box-shadow:0 6px 28px rgba(0,0,0,0.55);}
   .timer-count{font-size:30px;font-weight:800;color:var(--accent);min-width:56px;text-align:center;font-variant-numeric:tabular-nums;}
   .timer-label{font-size:11px;color:var(--text2);}
   .rpe-select{width:62px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 5px;color:var(--text);font-size:12px;outline:none;cursor:pointer;font-family:var(--font);}
@@ -395,6 +395,8 @@
     .members-cards{display:flex;flex-direction:column;gap:10px;}
   }
   @media(max-width:880px){
+    .timer-ring{bottom:calc(86px + env(safe-area-inset-bottom,0px));padding:11px 18px;}
+    .timer-count{font-size:26px;min-width:48px;}
     .member-tabs-top{display:none !important;}
     .bottom-nav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:280;
       background:rgba(17,17,20,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -617,21 +619,21 @@
       <p class="mkt-lead reveal" id="mkt-inst-lead">lyftr bir web uygulamasıdır — indirme yok. Tarayıcıdan açıp ana ekranına ekleyince tam ekran, uygulama gibi çalışır.</p>
       <div class="mkt-install">
         <div class="mkt-inst-card reveal">
-          <div class="mkt-inst-os"> iPhone / iPad — Safari</div>
+          <div class="mkt-inst-os" id="mkt-ios-os">iPhone / iPad — Safari</div>
           <ol class="mkt-steps-list">
-            <li><b>lyftr.pages.dev</b> adresini Safari'de aç</li>
-            <li>Alttaki <b>Paylaş</b> butonuna dokun (kare + yukarı ok)</li>
-            <li><b>"Ana Ekrana Ekle"</b>yi seç</li>
-            <li>Sağ üstten <b>Ekle</b>'ye dokun — simge ana ekranında</li>
+            <li id="mkt-ios-1"><b>lyftr.pages.dev</b> adresini Safari'de aç</li>
+            <li id="mkt-ios-2">Alttaki <b>Paylaş</b> butonuna dokun (kare + yukarı ok)</li>
+            <li id="mkt-ios-3"><b>"Ana Ekrana Ekle"</b>yi seç</li>
+            <li id="mkt-ios-4">Sağ üstten <b>Ekle</b>'ye dokun — simge ana ekranında</li>
           </ol>
         </div>
         <div class="mkt-inst-card reveal">
-          <div class="mkt-inst-os">Android — Chrome</div>
+          <div class="mkt-inst-os" id="mkt-and-os">Android — Chrome</div>
           <ol class="mkt-steps-list">
-            <li><b>lyftr.pages.dev</b> adresini Chrome'da aç</li>
-            <li>Sağ üstteki <b>⋮</b> menüsüne dokun</li>
-            <li><b>"Uygulamayı yükle"</b> veya "Ana ekrana ekle"yi seç</li>
-            <li>Onayla — lyftr ana ekranında uygulama gibi açılır</li>
+            <li id="mkt-and-1"><b>lyftr.pages.dev</b> adresini Chrome'da aç</li>
+            <li id="mkt-and-2">Sağ üstteki <b>⋮</b> menüsüne dokun</li>
+            <li id="mkt-and-3"><b>"Uygulamayı yükle"</b> veya "Ana ekrana ekle"yi seç</li>
+            <li id="mkt-and-4">Onayla — lyftr ana ekranında uygulama gibi açılır</li>
           </ol>
         </div>
       </div>
@@ -656,7 +658,7 @@
       <h2 class="mkt-h2 reveal" id="mkt-cta-title">Hazır mısın?</h2>
       <p class="mkt-lead reveal" id="mkt-cta-lead">Yukarıdan koçluk kodunla giriş yap ve ilk programını oluştur.</p>
       <button class="landing-btn reveal" style="max-width:280px;margin:0 auto" onclick="document.getElementById('landing-screen').scrollTo({top:0,behavior:'smooth'})" id="mkt-cta-btn">↑ Giriş'e dön</button>
-      <div class="mkt-foot reveal">lyftr<span style="color:var(--accent)">.</span> · Koçlar için antrenman yönetim sistemi</div>
+      <div class="mkt-foot reveal">lyftr<span style="color:var(--accent)">.</span> · <span id="mkt-foot-txt">Koçlar için antrenman yönetim sistemi</span></div>
     </section>
   </div>
 
@@ -681,6 +683,10 @@
       <span style="font-size:24px;font-weight:800;letter-spacing:-1px">lyftr<span style="color:var(--accent)">.</span></span>
     </div>
     <div class="nav-section">Koç Paneli</div>
+    <div class="nav-item" onclick="navigate('overview')" id="nav-overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span>Genel Bakış</span>
+    </div>
     <div class="nav-item active" onclick="navigate('templates')" id="nav-templates">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       <span id="nav-templates-label">Program Kitaplığı</span>
@@ -696,10 +702,6 @@
     <div class="nav-item" onclick="navigate('inbox')" id="nav-inbox">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
       <span>Mesajlar</span><span id="nav-inbox-badge" class="badge badge-orange" style="margin-left:auto;display:none;font-size:10px;padding:1px 7px"></span>
-    </div>
-    <div class="nav-item" onclick="navigate('overview')" id="nav-overview">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span>Genel Bakış</span>
     </div>
     <div class="nav-item" onclick="navigate('exercises')" id="nav-exercises">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11v11h-11z"/><path d="M3 10v4M21 10v4M10 3h4M10 21h4"/></svg>
@@ -1144,7 +1146,9 @@ const LT = {
       mInst:'UYGULAMA OLARAK EKLE',mInstT:'Telefonuna uygulama gibi kur',mInstL:'lyftr bir web uygulamasıdır — indirme yok. Tarayıcıdan açıp ana ekranına ekleyince tam ekran, uygulama gibi çalışır.',
       mInstN:'Üyelerin de aynı adımlarla, kendi koçluk kodlarıyla giriş yapıp uygulamayı ana ekrana ekleyebilir.',
       mCta:'Hazır mısın?',mCtaL:'Yukarıdan koçluk kodunla giriş yap ve ilk programını oluştur.',mCtaB:'↑ Giriş\'e dön',
-      mCon:'İLETİŞİM',mConT:'Bize ulaş',mConL:'Soru, öneri veya işbirliği için mesaj bırak — en kısa sürede dönüş yapılır.',mConB:'Gönder',conName:'Adın',conEmail:'E-posta adresin',conMsg:'Mesajın'},
+      mCon:'İLETİŞİM',mConT:'Bize ulaş',mConL:'Soru, öneri veya işbirliği için mesaj bırak — en kısa sürede dönüş yapılır.',mConB:'Gönder',conName:'Adın',conEmail:'E-posta adresin',conMsg:'Mesajın',
+      iosOs:'iPhone / iPad — Safari',ios1:'lyftr.pages.dev adresini Safari\'de aç',ios2:'Alttaki Paylaş butonuna dokun (kare + yukarı ok)',ios3:'"Ana Ekrana Ekle"yi seç',ios4:'Sağ üstten Ekle\'ye dokun — simge ana ekranında',
+      andOs:'Android — Chrome',and1:'lyftr.pages.dev adresini Chrome\'da aç',and2:'Sağ üstteki ⋮ menüsüne dokun',and3:'"Uygulamayı yükle" veya "Ana ekrana ekle"yi seç',and4:'Onayla — lyftr ana ekranında uygulama gibi açılır'},
   en:{f1t:'Build weekly programs and assign instantly',f1d:'Templates, weekly blocks, RPE targets, warm-up routines',
       f2t:'Progress tracking based on real performance data',f2d:'e1RM trends, muscle volume, body weight, compliance',
       f3t:'Communicate with your clients on one platform',f3d:'Personal panels, notes, messages, streak motivation',
@@ -1171,7 +1175,9 @@ const LT = {
       mInst:'ADD AS AN APP',mInstT:'Install it like an app',mInstL:'lyftr is a web app — no download. Open it in your browser and add to home screen for a full-screen, app-like experience.',
       mInstN:'Your members can do the same with their own coaching codes and add the app to their home screen.',
       mCta:'Ready?',mCtaL:'Sign in with your coaching code above and create your first program.',mCtaB:'↑ Back to sign in',
-      mCon:'CONTACT',mConT:'Get in touch',mConL:'Leave a message for questions, suggestions or collaboration — we\'ll get back to you soon.',mConB:'Send',conName:'Your name',conEmail:'Your email',conMsg:'Your message'}
+      mCon:'CONTACT',mConT:'Get in touch',mConL:'Leave a message for questions, suggestions or collaboration — we\'ll get back to you soon.',mConB:'Send',conName:'Your name',conEmail:'Your email',conMsg:'Your message',
+      iosOs:'iPhone / iPad — Safari',ios1:'Open lyftr.pages.dev in Safari',ios2:'Tap the Share button at the bottom (square + up arrow)',ios3:'Select "Add to Home Screen"',ios4:'Tap Add at the top right — the icon is on your home screen',
+      andOs:'Android — Chrome',and1:'Open lyftr.pages.dev in Chrome',and2:'Tap the ⋮ menu at the top right',and3:'Select "Install app" or "Add to Home screen"',and4:'Confirm — lyftr opens like an app on your home screen'}
 };
 function getLandingLang(){ try{ return localStorage.getItem('lyftr_lang')||'tr'; }catch(e){ return 'tr'; } }
 function setLandingLangStore(l){ try{ localStorage.setItem('lyftr_lang',l); }catch(e){} }
@@ -1231,7 +1237,7 @@ const I18N = {
     progComplete:'PROGRAM TAMAMLANDI',progCompleteSub:'haftayı bitirdin!',totalVol:'Toplam hacim bu hafta',newProg:'Koçun yeni programını hazırlıyor',
     moodSaved:'Kaydedildi',cont:'Devam',
     pinnedPrompt:'için kalıcı not (her programda görünür):',
-    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',annTitle:'Koçundan Duyuru',annOk:'Okudum',weightTrend:'Vücut Ağırlığı Değişimi',
+    msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',validMeasure:'Geçerli bir ölçü gir (cm)',measureSaved:'Ölçü kaydedildi',measuresTitle:'Vücut Ölçüleri',annTitle:'Koçundan Duyuru',annOk:'Okudum',weightTrend:'Vücut Ağırlığı Değişimi',
     fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',
     gl_hypertrophy:'Hipertrofi',gl_strength:'Güç',gl_conditioning:'Kondisyon',gl_deload:'Deload',gl_endurance:'Dayanıklılık',gl_technique:'Teknik'},
   en:{home:'Home',program:'Program',progress:'Progress',message:'Messages',
@@ -1255,7 +1261,7 @@ const I18N = {
     progComplete:'PROGRAM COMPLETE',progCompleteSub:'weeks finished!',totalVol:'Total volume this week',newProg:'Your coach is preparing your next program',
     moodSaved:'Saved',cont:'Continue',
     pinnedPrompt:'pinned note (visible in every program):',
-    msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',annTitle:'Announcement',annOk:'Got it',weightTrend:'Body Weight Trend',
+    msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',validMeasure:'Enter a valid measurement (cm)',measureSaved:'Measurement saved',measuresTitle:'Body Measurements',annTitle:'Announcement',annOk:'Got it',weightTrend:'Body Weight Trend',
     fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',
     gl_hypertrophy:'Hypertrophy',gl_strength:'Strength',gl_conditioning:'Conditioning',gl_deload:'Deload',gl_endurance:'Endurance',gl_technique:'Technique'}
 };
@@ -1320,6 +1326,7 @@ let state = {
   logs:{}, repsLog:{}, rpe:{}, setTypes:{}, notes:{}, pinnedNotes:{}, completions:{}, comments:{}, cascades:{}, announcements:[], appliedSuggestions:{}, trash:[],
   weightLog:{}, finishedWorkouts:{}, workoutStart:{}, defaults:{},
   moodLog:{},   // memberId → [{mood:1-5,date}]
+  measureLog:{}, // memberId → { bel:[{v,date}], gogus:[...], kol:[...], uyluk:[...], kalca:[...] }
   warmupRoutines:[], // [{id,name,exercises:[{name,sets,reps}]}]
 };
 window.tmpDays = [];
@@ -1354,7 +1361,7 @@ async function save(){
       notes:state.notes, pinnedNotes:state.pinnedNotes,
       completions:state.completions, comments:state.comments,
       weightLog:state.weightLog, finishedWorkouts:state.finishedWorkouts,
-      workoutStart:state.workoutStart, defaults:state.defaults, moodLog:state.moodLog,
+      workoutStart:state.workoutStart, defaults:state.defaults, moodLog:state.moodLog, measureLog:state.measureLog,
       warmupRoutines:state.warmupRoutines,
       cascades:state.cascades,
       announcements:state.announcements,
@@ -1382,6 +1389,7 @@ async function loadWorkspace(wsId){
       state.weightLog=d.weightLog||{}; state.finishedWorkouts=d.finishedWorkouts||{};
       state.workoutStart=d.workoutStart||{}; state.defaults=d.defaults||{};
       state.moodLog=d.moodLog||{};
+      state.measureLog=d.measureLog||{};
       state.warmupRoutines=d.warmupRoutines||[];
       state.cascades=d.cascades||{};
       state.announcements=d.announcements||[];
@@ -1394,7 +1402,7 @@ async function loadWorkspace(wsId){
       state.recentEx=[]; state.logs={}; state.repsLog={}; state.rpe={}; state.setTypes={};
       state.notes={}; state.pinnedNotes={}; state.completions={}; state.comments={};
       state.weightLog={}; state.finishedWorkouts={}; state.workoutStart={}; state.defaults={};
-      state.moodLog={}; state.warmupRoutines=[];
+      state.moodLog={}; state.measureLog={}; state.warmupRoutines=[];
       state.cascades={};
       state.announcements=[];
       state.appliedSuggestions={};
@@ -1484,6 +1492,25 @@ function findExercise(name){
   if(!name) return null;
   const nl=name.trim().toLowerCase();
   return state.exercises.find(e=>e.name.toLowerCase()===nl)||null;
+}
+const MEASURES=[
+  {k:'bel',label:'Bel'},
+  {k:'gogus',label:'Göğüs'},
+  {k:'kol',label:'Kol'},
+  {k:'uyluk',label:'Uyluk'},
+  {k:'kalca',label:'Kalça'},
+];
+const MEASURES_EN={bel:'Waist',gogus:'Chest',kol:'Arm',uyluk:'Thigh',kalca:'Hip'};
+function measureLabel(k){
+  const en=(state.settings&&state.settings.lang)==='en';
+  return en?(MEASURES_EN[k]||k):(MEASURES.find(x=>x.k===k)||{label:k}).label;
+}
+function memberMeasureInfo(m,key){
+  const list=((state.measureLog[m.id]||{})[key])||[];
+  const cur=list.length?list[list.length-1].v:null;
+  const start=list.length?list[0].v:null;
+  const delta=(cur!=null&&start!=null)?Math.round((cur-start)*10)/10:null;
+  return {cur,start,delta,entries:list};
 }
 function memberWeightInfo(m){
   const wl=state.weightLog[m.id]||[];
@@ -1637,6 +1664,40 @@ function bestE1RM(memberId,exName){
     }
   });
   return best;
+}
+// match a lift by keyword across naming variants, return best e1RM
+function liftE1RM(mId,keywords){
+  let best=0;
+  const seen=new Set();
+  state.programs.filter(p=>p.memberId===mId).forEach(p=>{
+    p.days.forEach(d=>d.exercises.forEach(ex=>{
+      const nl=(ex.name||'').toLowerCase();
+      if(keywords.some(k=>nl.includes(k))){
+        if(seen.has(nl)) return; seen.add(nl);
+        const e=bestE1RM(mId,ex.name);
+        if(e>best) best=e;
+      }
+    }));
+  });
+  return Math.round(best);
+}
+// big-4 e1RM snapshot + total for a member
+function bigFour(mId){
+  const squat=liftE1RM(mId,['squat']);
+  const bench=liftE1RM(mId,['bench']);
+  const dead=liftE1RM(mId,['deadlift','dead lift']);
+  const ohp=liftE1RM(mId,['overhead press','ohp','military press','shoulder press']);
+  return {squat,bench,dead,ohp,total:squat+bench+dead}; // total = powerlifting big-3 (OHP optional)
+}
+// compliance % over last N weeks: finished workouts / expected (days * weeks)
+function compliancePct(mId){
+  const prog=state.programs.find(p=>p.memberId===mId&&p.active);
+  if(!prog||!prog.days.length) return null;
+  const wks=Math.max(1,prog.currentWeek||1);
+  const expected=prog.days.length*wks;
+  let done=0;
+  Object.keys(state.finishedWorkouts).forEach(k=>{ if(k.startsWith(mId+'_'+prog.id+'_')) done++; });
+  return Math.min(100,Math.round((done/expected)*100));
 }
 function dayVolume(mId,pId,prog,wi,di){
   const day=prog.days[di]; let vol=0;
@@ -2153,7 +2214,10 @@ function applyLandingLang(){
     'mkt-s1t':d.ms1t,'mkt-s1d':d.ms1d,'mkt-s2t':d.ms2t,'mkt-s2d':d.ms2d,'mkt-s3t':d.ms3t,'mkt-s3d':d.ms3d,
     'mkt-inst-eyebrow':d.mInst,'mkt-inst-title':d.mInstT,'mkt-inst-lead':d.mInstL,'mkt-inst-note':d.mInstN,
     'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB,
-    'mkt-contact-eyebrow':d.mCon,'mkt-contact-title':d.mConT,'mkt-contact-lead':d.mConL,'mkt-contact-btn':d.mConB};
+    'mkt-contact-eyebrow':d.mCon,'mkt-contact-title':d.mConT,'mkt-contact-lead':d.mConL,'mkt-contact-btn':d.mConB,
+    'mkt-foot-txt':d.sub,
+    'mkt-ios-os':d.iosOs,'mkt-ios-1':d.ios1,'mkt-ios-2':d.ios2,'mkt-ios-3':d.ios3,'mkt-ios-4':d.ios4,
+    'mkt-and-os':d.andOs,'mkt-and-1':d.and1,'mkt-and-2':d.and2,'mkt-and-3':d.and3,'mkt-and-4':d.and4};
   Object.entries(map).forEach(([id,txt])=>{ const el=document.getElementById(id); if(el) el.textContent=txt; });
   const mi=document.getElementById('landing-member-code'); if(mi) mi.placeholder=d.memberPh;
   const si=document.getElementById('landing-self-code'); if(si) si.placeholder=d.selfPh;
@@ -2764,35 +2828,89 @@ function renderMemberDetail(mId){
 // ─── OVERVIEW ────────────────────────────────────────────
 function renderOverview(){
   const totalFinished=Object.keys(state.finishedWorkouts).length;
+  // build comparison rows
+  const rows=state.members.map(m=>{
+    const b4=bigFour(m.id);
+    const comp=compliancePct(m.id);
+    const wi=memberWeightInfo(m);
+    const streak=getStreak(m.id);
+    return {m,b4,comp,wDelta:wi.delta,streak};
+  });
+  // summary stats
+  const withTotals=rows.filter(r=>r.b4.total>0).sort((a,b)=>b.b4.total-a.b4.total);
+  const topTotal=withTotals[0];
+  const compVals=rows.map(r=>r.comp).filter(x=>x!=null);
+  const avgComp=compVals.length?Math.round(compVals.reduce((a,b)=>a+b,0)/compVals.length):null;
+  const activeCount=rows.filter(r=>finishedThisWeek(r.m.id)>0).length;
+  // sorted for table (by big-3 total desc, then compliance)
+  const sorted=[...rows].sort((a,b)=>(b.b4.total-a.b4.total)||((b.comp||0)-(a.comp||0)));
+  const maxTotal=Math.max(1,...rows.map(r=>r.b4.total));
+
   return `
-    <div class="page-header"><div><div class="page-title">Genel Bakış</div></div></div>
-    <div class="grid-3" style="margin-bottom:20px">
-      <div class="stat-card"><div class="stat-label">Şablon</div><div class="stat-value accent">${state.templates.length}</div></div>
-      <div class="stat-card"><div class="stat-label">Üye</div><div class="stat-value">${state.members.length}</div></div>
-      <div class="stat-card"><div class="stat-label">Biten Antrenman</div><div class="stat-value">${totalFinished}</div></div>
-    </div>
-    <div class="card" style="padding:0;overflow:hidden">
-      <div style="padding:16px 20px;border-bottom:1px solid var(--border);font-weight:600">Üye Aktivitesi</div>
+    <div class="page-header"><div><div class="page-title">Genel Bakış</div><div class="page-sub">Üye karşılaştırması ve özet</div></div></div>
+
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:18px">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--border);font-weight:600">Üye Aktivitesi</div>
       ${state.members.length===0?`<div class="empty"><p>Henüz üye yok.</p></div>`:
-        state.members.map(m=>{
+        sortedMembers().map(m=>{
           const prog=state.programs.find(p=>p.memberId===m.id&&p.active);
           const gs=goalStatus(m);
           const fin=finishedThisWeek(m.id);
-          const ck=m.id+'_'+(prog?prog.id:'');
-          const cmts=state.comments[ck]||[];
-          const lastCmt=cmts.length?cmts[cmts.length-1]:null;
           const mood=todayMood(m.id);
           const nr=needsReview(m), seen=!nr&&lastActivityAt(m)>0;
+          const summary=nr?activitySummary(m):'';
           return `<div style="padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:14px;cursor:pointer;${nr?'background:rgba(245,197,66,0.05);box-shadow:inset 3px 0 0 #f5c542;':seen?'background:rgba(76,175,125,0.05);box-shadow:inset 3px 0 0 var(--green);':''}" onclick="openMemberDetail('${m.id}')">
             <div class="avatar">${m.name.charAt(0).toUpperCase()}</div>
-            <div style="flex:1">
-              <div style="font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:7px">${needsReview(m)?'<span class="rev-dot rev-yellow"></span>':''}${m.name} ${mood?MOODS.find(x=>x.v===mood).e:''} <span style="font-size:11px;color:${gs.color}">${gs.label}</span></div>
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:500;margin-bottom:2px;display:flex;align-items:center;gap:7px;flex-wrap:wrap">${nr?'<span class="rev-dot rev-yellow"></span>':''}${m.name} ${mood?MOODS.find(x=>x.v===mood).e:''} <span style="font-size:11px;color:${gs.color}">${gs.label}</span></div>
               <div style="font-size:12px;color:var(--text2)">${prog?prog.name+' · Hafta '+(prog.currentWeek||1)+'/'+(prog.weeks||1):'Program atanmadı'}</div>
-              ${lastCmt?`<div style="font-size:11px;color:var(--blue);margin-top:3px">"${lastCmt.text.substring(0,70)}"</div>`:''}
+              ${summary?`<div style="font-size:11px;color:#f5c542;margin-top:3px">${summary}</div>`:''}
             </div>
             ${prog?`<span class="badge ${fin>=prog.days.length?'badge-green':'badge-gray'}">${fin}/${prog.days.length} bu hafta</span>`:'<span class="badge badge-gray">Atanmadı</span>'}
           </div>`;
         }).join('')}
+    </div>
+
+    <div class="grid-3" style="margin-bottom:18px">
+      <div class="stat-card"><div class="stat-label">Lider (Toplam SBD)</div><div class="stat-value accent" style="font-size:18px">${topTotal?topTotal.m.name.split(' ')[0]:'—'}</div><div style="font-size:12px;color:var(--text3);margin-top:2px">${topTotal?W(topTotal.b4.total)+' '+U():'veri yok'}</div></div>
+      <div class="stat-card"><div class="stat-label">Ortalama Uyum</div><div class="stat-value">${avgComp!=null?'%'+avgComp:'—'}</div></div>
+      <div class="stat-card"><div class="stat-label">Bu Hafta Aktif</div><div class="stat-value">${activeCount}<span style="font-size:14px;color:var(--text3)">/${state.members.length}</span></div></div>
+    </div>
+
+    ${withTotals.length?`<div class="card" style="margin-bottom:18px">
+      <div style="font-weight:600;margin-bottom:14px">Toplam Güç (Squat + Bench + Deadlift)</div>
+      ${withTotals.slice(0,8).map(r=>`
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:84px;font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.m.name.split(' ')[0]}</div>
+          <div style="flex:1;background:rgba(255,255,255,0.05);border-radius:6px;height:22px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;width:${Math.round(r.b4.total/maxTotal*100)}%;background:linear-gradient(90deg,var(--accent-dim),var(--accent));border-radius:6px"></div>
+          </div>
+          <div style="width:78px;text-align:right;font-size:12.5px;font-weight:700">${W(r.b4.total)} ${U()}</div>
+        </div>`).join('')}
+    </div>`:''}
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--border);font-weight:600">Big 4 · e1RM Karşılaştırması</div>
+      <div style="overflow-x:auto">
+        <table class="table" style="min-width:560px">
+          <thead><tr>
+            <th>Üye</th><th>Squat</th><th>Bench</th><th>Deadlift</th><th>OHP</th><th>Toplam</th><th>Uyum</th><th>Kilo Δ</th>
+          </tr></thead>
+          <tbody>
+            ${sorted.map((r,i)=>`<tr style="cursor:pointer" onclick="openMemberDetail('${r.m.id}')">
+              <td><div style="display:flex;align-items:center;gap:8px">${i===0&&r.b4.total>0?'🏆 ':''}<span style="font-weight:600">${r.m.name}</span></div></td>
+              <td>${r.b4.squat?W(r.b4.squat):'<span style="color:var(--text3)">—</span>'}</td>
+              <td>${r.b4.bench?W(r.b4.bench):'<span style="color:var(--text3)">—</span>'}</td>
+              <td>${r.b4.dead?W(r.b4.dead):'<span style="color:var(--text3)">—</span>'}</td>
+              <td>${r.b4.ohp?W(r.b4.ohp):'<span style="color:var(--text3)">—</span>'}</td>
+              <td style="font-weight:700;color:var(--accent)">${r.b4.total?W(r.b4.total):'—'}</td>
+              <td>${r.comp!=null?`<span style="color:${r.comp>=80?'var(--green)':r.comp>=50?'var(--orange)':'var(--red)'}">%${r.comp}</span>`:'<span style="color:var(--text3)">—</span>'}</td>
+              <td>${r.wDelta!=null?`<span style="color:${r.wDelta<0?'var(--green)':r.wDelta>0?'var(--blue)':'var(--text2)'}">${r.wDelta>0?'+':''}${r.wDelta} kg</span>`:'<span style="color:var(--text3)">—</span>'}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div style="padding:10px 18px;font-size:11px;color:var(--text3)">e1RM değerleri kg cinsinden tahmindir · Toplam = Squat + Bench + Deadlift · Satıra tıkla → üye detayı</div>
     </div>`;
 }
 
@@ -3230,16 +3348,44 @@ function renderMemberExercise(m,prog,wi,di,ex,ei){
 }
 
 // ── PROGRESS TAB (e1RM only — weight & volume moved to home) ──
+function measuresCard(m){
+  // entry row for each measure + latest value & delta + mini chart for the most-tracked one
+  const rows=MEASURES.map(def=>{
+    const info=memberMeasureInfo(m,def.k);
+    const last=info.cur!=null?`${info.cur} cm`:'—';
+    const delta=info.delta!=null&&info.delta!==0?`<span style="font-size:11px;color:${info.delta<0?'var(--green)':'var(--blue)'};margin-left:6px">${info.delta>0?'+':''}${info.delta}</span>`:'';
+    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
+      <div style="width:62px;font-size:13px;color:var(--text2)">${measureLabel(def.k)}</div>
+      <input class="form-input" id="measure-${def.k}" inputmode="decimal" placeholder="${info.cur!=null?info.cur:'cm'}" style="flex:1;padding:7px 10px;font-size:13px">
+      <button class="btn btn-ghost btn-sm" onclick="addMeasureEntry('${m.id}','${def.k}')">+</button>
+      <div style="width:78px;text-align:right;font-size:12.5px;font-weight:600">${last}${delta}</div>
+    </div>`;
+  }).join('');
+  // pick measure with most entries for a chart
+  let best=null,bestLen=0;
+  MEASURES.forEach(def=>{ const e=((state.measureLog[m.id]||{})[def.k])||[]; if(e.length>bestLen){bestLen=e.length;best=def;} });
+  let chart='';
+  if(best&&bestLen>=2){
+    const entries=((state.measureLog[m.id]||{})[best.k]).map(x=>({w:x.v,date:x.date}));
+    chart=`<div style="margin-top:6px"><div style="font-size:11px;color:var(--text3);margin-bottom:2px">${measureLabel(best.k)} (cm)</div>${weightChartSvg(entries)}</div>`;
+  }
+  return `<div class="card" style="margin-bottom:14px">
+    <div style="font-weight:600;margin-bottom:12px">${t('measuresTitle')}</div>
+    ${rows}
+    ${chart}
+  </div>`;
+}
 function renderMemberProgress(m,prog){
   const winfo=memberWeightInfo(m);
   const wCard=winfo.entries.length>=2?`<div class="card" style="margin-bottom:14px">
     <div style="font-weight:600;margin-bottom:6px">${t('weightTrend')}</div>
     ${weightChartSvg(winfo.entries)}
   </div>`:'';
-  if(!prog) return wCard||`<div class="empty"><p>${t('progressWait')}</p></div>`;
+  const mCard=measuresCard(m);
+  if(!prog) return `${wCard}${mCard}`||`<div class="empty"><p>${t('progressWait')}</p></div>`;
   const names=new Set();
   prog.days.forEach(d=>d.exercises.forEach(ex=>{ if(ex.name) names.add(ex.name); }));
-  return `${wCard}<div class="card">
+  return `${wCard}${mCard}<div class="card">
     <div style="font-weight:600;margin-bottom:14px">${t('bestE1rm')}</div>
     ${[...names].map(name=>{
       const best=bestE1RM(m.id,name);
@@ -3486,6 +3632,17 @@ function addWeightEntry(mId){
   if(!state.weightLog[mId]) state.weightLog[mId]=[];
   state.weightLog[mId].push({w:Math.round(kg*10)/10,date:Date.now()});
   el.value=''; save(); render(); toast(t('weightSaved'));
+}
+function addMeasureEntry(mId,key){
+  const el=document.getElementById('measure-'+key);
+  if(!el) return;
+  const v=parseFloat(String(el.value).replace(',','.'));
+  if(!v||v<10||v>250){ toast(t('validMeasure')); return; }
+  if(!state.measureLog[mId]) state.measureLog[mId]={};
+  if(!state.measureLog[mId][key]) state.measureLog[mId][key]=[];
+  state.measureLog[mId][key].push({v:Math.round(v*10)/10,date:Date.now()});
+  if(state.measureLog[mId][key].length>60) state.measureLog[mId][key]=state.measureLog[mId][key].slice(-60);
+  el.value=''; save(); render(); toast(t('measureSaved'));
 }
 
 // ─── FINISH WORKOUT + WEEK ADVANCE ───────────────────────
@@ -4252,7 +4409,7 @@ Object.assign(window,{
   logWeightCascade,logRepsCascade,logRpeCascade,
   goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,toggleExUnit,
   openNewChatPicker,closeNewChatPicker,startChatWith,openAnnounceModal,closeAnnounceModal,sendAnnouncement,deleteAnnouncement,dismissAnnouncement,
-  closeFloatChat,sendFloatMessage,restoreTrash,purgeTrash,sendContactMessage,markContactRead,deleteContact,
+  closeFloatChat,sendFloatMessage,restoreTrash,purgeTrash,sendContactMessage,markContactRead,deleteContact,addMeasureEntry,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
