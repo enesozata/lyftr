@@ -276,11 +276,12 @@
     .mkt-step-arrow{display:none;}
     .landing-explore{right:58px;top:-2px;padding:5px 10px;font-size:11px;}
   }
-  .scroll-cue{position:relative;z-index:2;margin:-20px auto 30px;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:600;padding:10px 18px;border:1px solid var(--border);border-radius:24px;background:rgba(22,22,26,0.6);backdrop-filter:blur(8px);transition:all .2s;}
-  .scroll-cue:hover{color:var(--accent);border-color:var(--accent);}
-  .scroll-cue svg{width:18px;height:18px;animation:cuebob 1.8s ease-in-out infinite;}
+  .scroll-cue{position:relative;z-index:2;margin:24px auto 56px;width:fit-content;display:flex;flex-direction:row;align-items:center;gap:8px;cursor:pointer;color:var(--text2);font-size:14px;font-weight:600;padding:11px 22px;border:1px solid var(--border);border-radius:24px;background:rgba(22,22,26,0.65);backdrop-filter:blur(8px);transition:all .2s;animation:cuefloat 2.6s ease-in-out infinite;}
+  .scroll-cue:hover{color:var(--accent);border-color:var(--accent);animation-play-state:paused;}
+  .scroll-cue svg{width:17px;height:17px;animation:cuebob 1.8s ease-in-out infinite;}
   @keyframes cuebob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
-  @media(prefers-reduced-motion:reduce){.scroll-cue svg{animation:none;}}
+  @keyframes cuefloat{0%,100%{transform:translateY(0);box-shadow:0 0 0 rgba(200,245,66,0);}50%{transform:translateY(-6px);box-shadow:0 8px 24px rgba(200,245,66,0.12);}}
+  @media(prefers-reduced-motion:reduce){.scroll-cue,.scroll-cue svg{animation:none;}}
   .stat-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
   .stat-strip span{font-size:11px;color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px;padding:5px 12px;}
   @keyframes meshmove{
@@ -288,7 +289,7 @@
     50%{transform:translate(-4%,3%) scale(1.08) rotate(8deg);}
     100%{transform:translate(3%,-4%) scale(1.04) rotate(-6deg);}
   }
-  .landing-wrap{position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center;min-height:100vh;box-sizing:border-box;}
+  .landing-wrap{position:relative;z-index:2;width:100%;max-width:1000px;margin:0 auto;padding:28px 24px 0;display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center;min-height:90vh;box-sizing:border-box;}
   .landing-hero{text-align:left;}
   .landing-card{background:rgba(22,22,26,0.75);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:18px;padding:30px 28px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,0.4);}
   .landing-card-title{font-size:19px;font-weight:800;margin-bottom:4px;}
@@ -363,13 +364,17 @@
   .ws-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,0.04);gap:10px;flex-wrap:wrap;}
   .ws-row:last-child{border-bottom:none;}
   @media(max-width:880px){
-    .landing-wrap{padding:54px 18px 20px;min-height:100vh;}
-    .scroll-cue{margin:10px auto 24px;}
+    .landing-wrap{grid-template-columns:1fr;gap:24px;padding:64px 18px 24px;min-height:auto;}
+    .scroll-cue{margin:20px auto 40px;font-size:13px;padding:10px 18px;}
     .landing-hero{order:2;text-align:center;}
-    .landing-card{order:1;}
+    .landing-card{order:1;width:100%;}
     .feat-row{text-align:left;}
+    .feat-list{max-width:440px;margin:0 auto;}
+    .stat-strip{justify-content:center;}
     .mock-card{margin:0 auto;transform:none;animation:none;}
     .landing-logo{font-size:42px;}
+    .mkt{padding:10px 18px 70px;}
+    .mkt-sec{padding:44px 0;}
   }
   @media(max-width:880px){
     .hamburger{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;
@@ -2397,7 +2402,7 @@ function renderTemplates(){
     <div class="page-header">
       <div><div class="page-title">Program Kitaplığı</div><div class="page-sub">${tps.length} program · ${warmups.length} ısınma · ${state.programs.filter(p=>p.active).length} aktif atama</div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-ghost" onclick="triggerImport()">İçeri Aktar</button>
+        <button class="btn btn-ghost" onclick="triggerImport()">İçe Aktar</button>
         <button class="btn btn-primary" onclick="openCreateProgram()">+ Yeni Program</button>
         <input type="file" id="xlsx-import-input" accept=".xlsx,.xls" style="display:none" onchange="importTemplatesFile(this)">
       </div>
@@ -2436,7 +2441,7 @@ function renderTemplates(){
             <div style="display:flex;gap:6px;flex-wrap:wrap">
               <button class="btn btn-ghost btn-sm" onclick="editProgram('${p.id}')">Düzenle</button>
               <button class="btn btn-ghost btn-sm" onclick="duplicateTemplate('${p.id}')">Kopyala</button>
-              <button class="btn btn-ghost btn-sm" onclick="exportTemplateXlsx('${p.id}')">Excel</button>
+              <button class="btn btn-ghost btn-sm" onclick="exportTemplateXlsx('${p.id}')">Dışa Aktar</button>
               <button class="btn btn-primary btn-sm" onclick="openAssign('${p.id}')">Ata</button>
               <button class="btn btn-danger btn-sm" onclick="deleteTemplate('${p.id}')">Sil</button>
             </div>
@@ -3747,7 +3752,7 @@ function duplicateTemplate(id){
 function exportTemplateXlsx(id){
   const p=state.templates.find(x=>x.id===id);
   if(!p){ return; }
-  if(!window.XLSX){ toast('Excel modülü yüklenemedi'); return; }
+  if(!window.XLSX){ toast('Aktarma modülü yüklenemedi'); return; }
   const wKey='Hedef Ağırlık ('+U()+')';
   const rows=[];
   p.days.forEach((d,di)=>d.exercises.forEach(ex=>{
@@ -3780,7 +3785,7 @@ async function importTemplatesFile(input){
   const f=input.files&&input.files[0];
   input.value='';
   if(!f) return;
-  if(!window.XLSX){ toast('Excel modülü yüklenemedi'); return; }
+  if(!window.XLSX){ toast('Aktarma modülü yüklenemedi'); return; }
   try{
     const buf=await f.arrayBuffer();
     const wb=XLSX.read(buf,{cellDates:true});
