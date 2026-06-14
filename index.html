@@ -295,6 +295,8 @@
   .landing-card{background:rgba(22,22,26,0.75);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:18px;padding:30px 28px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,0.4);}
   .landing-card-title{font-size:19px;font-weight:800;margin-bottom:4px;}
   .landing-card-sub{font-size:12px;color:var(--text3);margin-bottom:20px;}
+  .remember-row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text2);margin:10px 2px 14px;cursor:pointer;user-select:none;}
+  .remember-row input{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;}
   .landing-footnote{margin-top:16px;font-size:11px;color:var(--text3);}
   .landing-footnote a.landing-admin-link{color:var(--text3);cursor:pointer;text-decoration:none;}
   .landing-footnote a.landing-admin-link:hover{color:var(--text2);}
@@ -509,6 +511,7 @@
       <div id="landing-form-coach">
         <div class="landing-card-sub" id="lt-coach-sub">Sana verilen koç kodunu gir</div>
         <input class="landing-input" id="landing-code" placeholder="COACH-XXXXXX" maxlength="20" onkeydown="if(event.key==='Enter')doLandingLogin()">
+        <label class="remember-row"><input type="checkbox" id="remember-me" checked> <span id="lt-remember">Beni hatırla</span></label>
         <button class="landing-btn" onclick="doLandingLogin()" id="lt-coach-btn">Koç Girişi</button>
       </div>
       <div id="landing-form-member" class="hidden landing-extra">
@@ -1147,6 +1150,23 @@ const DEFAULT_EXERCISES = [
   {id:'pull_up',name:'Pull-up',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
   {id:'weighted_pull_up',name:'Weighted Pull-up',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.5}]},
   {id:'muscle_up',name:'Muscle-up',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Göğüs',c:0.5},{m:'Triceps',c:0.4}]},
+  // ── Bodyweight ──
+  {id:'push_up',name:'Push-up',eq:'Vücut Ağırlığı',muscles:[{m:'Göğüs',c:1},{m:'Triceps',c:0.5},{m:'Omuz',c:0.3}]},
+  {id:'chin_up',name:'Chin-up',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.6}]},
+  {id:'inverted_row',name:'Inverted Row',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:1},{m:'Biceps',c:0.4}]},
+  {id:'pike_push_up',name:'Pike Push-up',eq:'Vücut Ağırlığı',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5}]},
+  {id:'diamond_push_up',name:'Diamond Push-up',eq:'Vücut Ağırlığı',muscles:[{m:'Triceps',c:1},{m:'Göğüs',c:0.5}]},
+  {id:'pistol_squat',name:'Pistol Squat',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'bw_lunge',name:'Bodyweight Lunge',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5}]},
+  {id:'nordic_curl',name:'Nordic Curl',eq:'Vücut Ağırlığı',muscles:[{m:'Hamstring',c:1}]},
+  {id:'plank',name:'Plank',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'hanging_leg_raise',name:'Hanging Leg Raise',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1}]},
+  {id:'l_sit',name:'L-Sit',eq:'Vücut Ağırlığı',muscles:[{m:'Karın',c:1},{m:'Quad',c:0.3}]},
+  {id:'glute_bridge',name:'Glute Bridge',eq:'Vücut Ağırlığı',muscles:[{m:'Kalça',c:1},{m:'Hamstring',c:0.3}]},
+  {id:'back_extension',name:'Back Extension',eq:'Vücut Ağırlığı',muscles:[{m:'Sırt',c:0.7},{m:'Kalça',c:0.5},{m:'Hamstring',c:0.4}]},
+  {id:'handstand_push_up',name:'Handstand Push-up',eq:'Vücut Ağırlığı',muscles:[{m:'Omuz',c:1},{m:'Triceps',c:0.5}]},
+  {id:'box_jump',name:'Box Jump',eq:'Vücut Ağırlığı',muscles:[{m:'Quad',c:1},{m:'Kalça',c:0.5},{m:'Baldır',c:0.3}]},
+  {id:'burpee',name:'Burpee',eq:'Vücut Ağırlığı',muscles:[{m:'Göğüs',c:0.5},{m:'Quad',c:0.5},{m:'Karın',c:0.3}]},
 ];
 function exCat(e){ return e.muscles&&e.muscles.length?e.muscles[0].m:'Diğer'; }
 
@@ -1294,7 +1314,7 @@ const I18N = {
     moodSaved:'Kaydedildi',cont:'Devam',
     pinnedPrompt:'için kalıcı not (her programda görünür):',
     msgEmptyList:'Henüz mesaj yok.',coachLabel:'KOÇ',repsShort:'tekrar',validMeasure:'Geçerli bir ölçü gir (cm)',measureSaved:'Ölçü kaydedildi',measuresTitle:'Vücut Ölçüleri',annTitle:'Koçundan Duyuru',annOk:'Okudum',weightTrend:'Vücut Ağırlığı Değişimi',
-    fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',editProfile:'Profili Düzenle',
+    fg_lose:'Kilo vermek',fg_gain:'Kas kazanmak',fg_strength:'Güçlenmek',fg_maintain:'Form korumak',fg_health:'Genel sağlık',editProfile:'Profili Düzenle',remember:'Beni hatırla',
     gl_hypertrophy:'Hipertrofi',gl_strength:'Güç',gl_conditioning:'Kondisyon',gl_deload:'Deload',gl_endurance:'Dayanıklılık',gl_technique:'Teknik'},
   en:{home:'Home',program:'Program',progress:'Progress',message:'Messages',
     welcome:'Welcome',howFeel:'How are you feeling today?',
@@ -1318,7 +1338,7 @@ const I18N = {
     moodSaved:'Saved',cont:'Continue',
     pinnedPrompt:'pinned note (visible in every program):',
     msgEmptyList:'No messages yet.',coachLabel:'COACH',repsShort:'reps',validMeasure:'Enter a valid measurement (cm)',measureSaved:'Measurement saved',measuresTitle:'Body Measurements',annTitle:'Announcement',annOk:'Got it',weightTrend:'Body Weight Trend',
-    fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',editProfile:'Edit Profile',
+    fg_lose:'Lose weight',fg_gain:'Build muscle',fg_strength:'Get stronger',fg_maintain:'Maintain fitness',fg_health:'General health',editProfile:'Edit Profile',remember:'Remember me',
     gl_hypertrophy:'Hypertrophy',gl_strength:'Strength',gl_conditioning:'Conditioning',gl_deload:'Deload',gl_endurance:'Endurance',gl_technique:'Technique'}
 };
 function t(k){
@@ -1609,15 +1629,50 @@ function findExercise(name){
 }
 const MEASURES=[
   {k:'bel',label:'Bel'},
+  {k:'boyun',label:'Boyun'},
   {k:'gogus',label:'Göğüs'},
   {k:'kol',label:'Kol'},
   {k:'uyluk',label:'Uyluk'},
   {k:'kalca',label:'Kalça'},
 ];
-const MEASURES_EN={bel:'Waist',gogus:'Chest',kol:'Arm',uyluk:'Thigh',kalca:'Hip'};
+const MEASURES_EN={bel:'Waist',boyun:'Neck',gogus:'Chest',kol:'Arm',uyluk:'Thigh',kalca:'Hip'};
 function measureLabel(k){
   const en=(state.settings&&state.settings.lang)==='en';
   return en?(MEASURES_EN[k]||k):(MEASURES.find(x=>x.k===k)||{label:k}).label;
+}
+// ── Estimated body fat % (US Navy method) ──
+function estBodyFat(m){
+  const h=parseFloat(m.height); // cm
+  if(!h) return null;
+  const waist=memberMeasureInfo(m,'bel').cur;   // cm
+  const neck=memberMeasureInfo(m,'boyun').cur;   // cm
+  if(!waist||!neck) return null;
+  const female=(m.gender==='female'||m.gender==='kadın'||m.gender==='kadin'||m.gender==='f');
+  let bf;
+  if(female){
+    const hip=memberMeasureInfo(m,'kalca').cur;
+    if(!hip) return null;
+    bf=495/(1.29579-0.35004*Math.log10(waist+hip-neck)+0.22100*Math.log10(h))-450;
+  } else {
+    if(waist-neck<=0) return null;
+    bf=495/(1.0324-0.19077*Math.log10(waist-neck)+0.15456*Math.log10(h))-450;
+  }
+  if(!isFinite(bf)||bf<=0||bf>70) return null;
+  return Math.round(bf*10)/10;
+}
+// ── Calorie targets (Mifflin-St Jeor BMR × activity, then goal adjust) ──
+function calorieTargets(m){
+  const h=parseFloat(m.height); const wInfo=memberWeightInfo(m); const w=wInfo.cur; const age=parseInt(m.age);
+  if(!h||!w||!age) return null;
+  const female=(m.gender==='female'||m.gender==='kadın'||m.gender==='kadin'||m.gender==='f');
+  const bmr=10*w+6.25*h-5*age+(female?-161:5);
+  const tdee=Math.round(bmr*1.5); // moderate activity (trains regularly)
+  return {
+    tdee,
+    lose:Math.round(tdee-500),   // ~0.5 kg/week deficit
+    maintain:tdee,
+    gain:Math.round(tdee+350)    // lean bulk surplus
+  };
 }
 // ── Effort metric (RPE stored internally; RIR = 10 - RPE for display) ──
 function effortMode(){ return (state.settings&&state.settings.effortMode)==='rir'?'rir':'rpe'; }
@@ -1857,7 +1912,9 @@ function liftCurrentE1RM(mId,keywords){
 }
 // PR (all-time) + current for the 4 big lifts
 function bigFourDetail(mId){
-  const tracked=(state.settings&&state.settings.trackedLifts)||DEFAULT_TRACKED;
+  const m=state.members.find(x=>x.id===mId);
+  const tracked=(m&&Array.isArray(m.trackedLifts)&&m.trackedLifts.length)?m.trackedLifts
+              :((state.settings&&state.settings.trackedLifts)||DEFAULT_TRACKED);
   const defs=tracked.map(id=>LIFT_CATALOG.find(x=>x.id===id)).filter(Boolean);
   return defs.map(d=>({label:d.label,pr:liftE1RM(mId,d.kw),cur:liftCurrentE1RM(mId,d.kw)}));
 }
@@ -1991,11 +2048,20 @@ function fillMuscleSelects(){
 function saveNewExercise(){
   const name=document.getElementById('newex-name').value.trim();
   if(!name){ toast('İsim giriniz'); return; }
-  if(state.exercises.find(e=>e.name.toLowerCase()===name.toLowerCase())){ toast('Bu egzersiz zaten var'); return; }
   const m1=document.getElementById('newex-m1').value;
   const m2=document.getElementById('newex-m2').value;
   const muscles=[{m:m1,c:1}];
   if(m2&&m2!==m1) muscles.push({m:m2,c:0.5});
+  if(window._editExId){
+    const e=state.exercises.find(x=>x.id===window._editExId);
+    if(e){ e.name=name; e.eq=document.getElementById('newex-eq').value; e.muscles=muscles; }
+    window._editExId=null;
+    save(); closeModal('modal-newex');
+    const tt=document.querySelector('#modal-newex .modal-title'); if(tt) tt.textContent='Yeni Egzersiz';
+    render(); toast('Egzersiz güncellendi ✓');
+    return;
+  }
+  if(state.exercises.find(e=>e.name.toLowerCase()===name.toLowerCase())){ toast('Bu egzersiz zaten var'); return; }
   state.exercises.push({id:'custom_'+uid(),name,eq:document.getElementById('newex-eq').value,muscles,custom:true});
   save(); closeModal('modal-newex');
   if(window._newExTarget){
@@ -2008,6 +2074,24 @@ function saveNewExercise(){
     window._newExTarget=null;
   } else render();
   toast('Egzersiz eklendi ✓');
+}
+function editLibraryExercise(id){
+  const e=state.exercises.find(x=>x.id===id); if(!e) return;
+  window._editExId=id; window._newExTarget=null;
+  fillMuscleSelects();
+  document.getElementById('newex-name').value=e.name;
+  const eq=document.getElementById('newex-eq'); if(eq) eq.value=e.eq||'Barbell';
+  const m1=document.getElementById('newex-m1'), m2=document.getElementById('newex-m2');
+  if(m1&&e.muscles&&e.muscles[0]) m1.value=e.muscles[0].m;
+  if(m2) m2.value=(e.muscles&&e.muscles[1])?e.muscles[1].m:'';
+  const title=document.querySelector('#modal-newex .modal-title'); if(title) title.textContent='Egzersizi Düzenle';
+  openModal('modal-newex');
+}
+function deleteLibraryExercise(id){
+  const e=state.exercises.find(x=>x.id===id); if(!e) return;
+  if(!confirm(`"${e.name}" egzersizini kütüphaneden sil? Programlarda kullanılıyorsa adı kalır ama listeden kalkar.`)) return;
+  state.exercises=state.exercises.filter(x=>x.id!==id);
+  save(); render(); toast('Egzersiz silindi');
 }
 
 // ─── NAV / RENDER ────────────────────────────────────────
@@ -2396,9 +2480,15 @@ function renderExerciseLib(){
       <div class="section-head" style="margin-top:18px">${c}</div>
       <div class="card" style="padding:0;overflow:hidden">
         ${state.exercises.filter(e=>exCat(e)===c).map(e=>`
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.04)">
-            <span style="font-size:13.5px;font-weight:500">${e.name}${e.custom?' <span class="badge badge-purple" style="margin-left:6px">özel</span>':''}</span>
-            <span style="font-size:11.5px;color:var(--text3)">${(e.muscles||[]).map(x=>x.c>=1?x.m:x.m+'·'+x.c).join(', ')} · ${e.eq}</span>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.04);gap:10px">
+            <div style="min-width:0;flex:1">
+              <span style="font-size:13.5px;font-weight:500">${e.name}${e.custom?' <span class="badge badge-purple" style="margin-left:6px">özel</span>':''}</span>
+              <div style="font-size:11.5px;color:var(--text3)">${(e.muscles||[]).map(x=>x.c>=1?x.m:x.m+'·'+x.c).join(', ')} · ${e.eq}</div>
+            </div>
+            <div style="display:flex;gap:6px;flex-shrink:0">
+              <button class="btn btn-ghost btn-sm" onclick="editLibraryExercise('${e.id}')">Düzenle</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteLibraryExercise('${e.id}')">Sil</button>
+            </div>
           </div>`).join('')}
       </div>`).join('')}`;
 }
@@ -2438,7 +2528,7 @@ function applyLandingLang(){
     'mkt-how-eyebrow':d.mHow,'mkt-how-title':d.mHowT,
     'mkt-s1t':d.ms1t,'mkt-s1d':d.ms1d,'mkt-s2t':d.ms2t,'mkt-s2d':d.ms2d,'mkt-s3t':d.ms3t,'mkt-s3d':d.ms3d,
     'mkt-inst-eyebrow':d.mInst,'mkt-inst-title':d.mInstT,'mkt-inst-lead':d.mInstL,'mkt-inst-note':d.mInstN,
-    'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB,
+    'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB,'lt-remember':d.remember,
     'mkt-contact-eyebrow':d.mCon,'mkt-contact-title':d.mConT,'mkt-contact-lead':d.mConL,'mkt-contact-btn':d.mConB,
     'mkt-foot-txt':d.sub,
     'mkt-ios-os':d.iosOs,'mkt-ios-1':d.ios1,'mkt-ios-2':d.ios2,'mkt-ios-3':d.ios3,'mkt-ios-4':d.ios4,
@@ -2713,8 +2803,27 @@ async function doSelfLogin(){
   await loadAdminData();
   const ws=state.adminWorkspaces.find(w=>w.code.toUpperCase()===code&&(w.type==='self'||w.code.toUpperCase().startsWith('SELF-')));
   if(!ws){ toast('Geçersiz kod'); return; }
+  rememberCode('self',code);
   await enterSelfWorkspace(ws);
   toast(`Hoş geldin, ${ws.name}`);
+}
+function rememberCode(kind,code){
+  try{
+    const on=(document.getElementById('remember-me')||{}).checked;
+    if(on){ localStorage.setItem('lyftr_remember_'+kind,code); }
+    else { localStorage.removeItem('lyftr_remember_'+kind); }
+  }catch(e){}
+}
+function applyRememberedCodes(){
+  try{
+    const c=localStorage.getItem('lyftr_remember_coach');
+    const m=localStorage.getItem('lyftr_remember_member');
+    const s=localStorage.getItem('lyftr_remember_self');
+    const ce=document.getElementById('landing-code'); if(ce&&c) ce.value=c;
+    const me=document.getElementById('landing-member-code'); if(me&&m) me.value=m;
+    const se=document.getElementById('landing-self-code'); if(se&&s) se.value=s;
+    const rm=document.getElementById('remember-me'); if(rm) rm.checked=!!(c||m||s)|| rm.checked;
+  }catch(e){}
 }
 async function doLandingLogin(){
   const code=document.getElementById('landing-code').value.trim().toUpperCase();
@@ -2722,6 +2831,7 @@ async function doLandingLogin(){
   await loadAdminData();
   const ws=state.adminWorkspaces.find(w=>w.code.toUpperCase()===code);
   if(!ws){ toast('Geçersiz koç kodu'); return; }
+  rememberCode('coach',code);
   if(ws.type==='self'){ await enterSelfWorkspace(ws); toast(`Hoş geldin, ${ws.name}`); return; }
   await loadWorkspace(ws.id);
   await ensureSelfMember(ws.type);
@@ -2759,6 +2869,7 @@ async function doLandingMemberLogin(){
   state.workspaceName=ws.name; state.workspaceCode=ws.code;
   const member=state.members.find(m=>m.code===memberCode);
   if(!member){ toast('Geçersiz kod'); return; }
+  rememberCode('member',full);
   state.loggedMember=member; state.mode='member'; state.view='member';
   state.memberDirectAccess=true;
   window.memberTab='home'; window.viewWeek=null;
@@ -3262,9 +3373,10 @@ function renderMemberHome(m,prog){
   const gp=goalProgress(m);
   const winfo=memberWeightInfo(m);
 
-  // next-week suggestions across current program exercises
+  // next-week suggestions: only self-trackers + coach preview (NOT normal members)
   let suggHTML='';
-  if(prog){
+  const showSuggestions = (state.workspaceType==='self') || (!state.memberDirectAccess);
+  if(prog && showSuggestions){
     const seen=new Set(); const items=[];
     prog.days.forEach(d=>d.exercises.forEach(ex=>{
       if(!ex.name||ex.isWarmup) return;
@@ -3670,17 +3782,79 @@ function measuresCard(m){
     ${chart}
   </div>`;
 }
+function bodyCompCard(m){
+  const bf=estBodyFat(m);
+  const cals=calorieTargets(m);
+  const winfo=memberWeightInfo(m);
+  if(!bf&&!cals) return '';
+  const en=(state.settings&&state.settings.lang)==='en';
+  let body='';
+  if(bf!=null){
+    body+=`<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px">
+      <div style="font-size:30px;font-weight:800;color:var(--accent)">%${bf}</div>
+      <div style="font-size:12px;color:var(--text3)">${en?'estimated body fat (Navy)':'tahmini yağ oranı (Navy)'}</div>
+    </div>`;
+  } else {
+    body+=`<div style="font-size:12px;color:var(--text3);margin-bottom:12px">${en?'Enter height, waist and neck measurements to estimate body fat.':'Yağ oranı için boy, bel ve boyun ölçülerini gir.'}</div>`;
+  }
+  if(cals){
+    const goal=m.goal;
+    const rows=[
+      {k:'lose',label:en?'Lose fat':'Yağ yak',v:cals.lose,c:'var(--green)'},
+      {k:'maintain',label:en?'Maintain':'Koru',v:cals.maintain,c:'var(--blue)'},
+      {k:'gain',label:en?'Lean gain':'Kas al',v:cals.gain,c:'var(--accent)'},
+    ];
+    body+=`<div style="font-size:11px;color:var(--text3);margin-bottom:8px">${en?'Daily calorie targets (moderate activity)':'Günlük kalori hedefleri (orta aktivite)'} · TDEE ≈ ${cals.tdee} kcal</div>`;
+    body+=rows.map(r=>{
+      const active=(goal==='lose'&&r.k==='lose')||(goal==='maintain'&&r.k==='maintain')||((goal==='gain'||goal==='strength')&&r.k==='gain');
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:8px;margin-bottom:6px;${active?'background:rgba(200,245,66,0.08);border:1px solid rgba(200,245,66,0.3)':'background:rgba(255,255,255,0.02)'}">
+        <span style="font-size:13px;font-weight:${active?'700':'500'};color:${r.c}">${r.label}${active?' ✓':''}</span>
+        <span style="font-size:14px;font-weight:700">${r.v} <span style="font-size:11px;color:var(--text3)">kcal</span></span>
+      </div>`;
+    }).join('');
+    body+=`<div style="font-size:10.5px;color:var(--text3);margin-top:8px">${en?'Estimates only — adjust based on real progress.':'Yalnızca tahmin — gerçek ilerlemeye göre ayarla.'}</div>`;
+  }
+  return `<div class="card" style="margin-bottom:14px">
+    <div style="font-weight:600;margin-bottom:12px">${en?'Body Composition':'Vücut Kompozisyonu'}</div>
+    ${body}
+  </div>`;
+}
+function memberSettingsCard(m){
+  const tracked=(Array.isArray(m.trackedLifts)&&m.trackedLifts.length)?m.trackedLifts:((state.settings&&state.settings.trackedLifts)||DEFAULT_TRACKED);
+  const en=(state.settings&&state.settings.lang)==='en';
+  return `<div class="card" style="margin-bottom:14px">
+    <div style="font-weight:600;margin-bottom:4px">${en?'Tracked Lifts (PR & Current)':'Takip Edilen Liftler (PR & Güncel)'}</div>
+    <div style="font-size:11.5px;color:var(--text3);margin-bottom:12px">${en?'Choose which lifts show on your home PR card (1-6).':'Ana sayfadaki PR kartında görünecek hareketleri seç (1-6).'}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      ${LIFT_CATALOG.map(l=>{
+        const on=tracked.includes(l.id);
+        return `<button class="btn ${on?'btn-primary':'btn-ghost'} btn-sm" onclick="toggleMemberLift('${m.id}','${l.id}')">${on?'✓ ':''}${l.label}</button>`;
+      }).join('')}
+    </div>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <button class="btn btn-ghost btn-sm" onclick="resetMemberPRs('${m.id}')" style="color:var(--red)">${en?'Reset PR history':'PR geçmişini sıfırla'}</button>
+    </div>
+  </div>`;
+}
 function renderMemberProgress(m,prog){
   const winfo=memberWeightInfo(m);
-  const wCard=winfo.entries.length>=2?`<div class="card" style="margin-bottom:14px">
-    <div style="font-weight:600;margin-bottom:6px">${t('weightTrend')}</div>
-    ${weightChartSvg(winfo.entries)}
-  </div>`:'';
+  const en=(state.settings&&state.settings.lang)==='en';
+  // weight tracking card: input + chart (always shown)
+  const wCard=`<div class="card" style="margin-bottom:14px">
+    <div style="font-weight:600;margin-bottom:10px">${t('weightTrend')}</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:${winfo.entries.length>=2?'12px':'0'}">
+      <input class="form-input" id="weight-entry" inputmode="decimal" placeholder="${winfo.cur!=null?W(winfo.cur)+' '+U():(en?'current weight':'güncel kilo')+' ('+U()+')'}" style="flex:1">
+      <button class="btn btn-primary btn-sm" onclick="addWeightEntry('${m.id}')">+</button>
+    </div>
+    ${winfo.entries.length>=2?weightChartSvg(winfo.entries):''}
+  </div>`;
   const mCard=measuresCard(m);
-  if(!prog) return `${wCard}${mCard}`||`<div class="empty"><p>${t('progressWait')}</p></div>`;
+  const bcCard=bodyCompCard(m);
+  const setCard=memberSettingsCard(m);
+  if(!prog) return `${wCard}${bcCard}${mCard}${setCard}`;
   const names=new Set();
   prog.days.forEach(d=>d.exercises.forEach(ex=>{ if(ex.name) names.add(ex.name); }));
-  return `${wCard}${mCard}<div class="card">
+  return `${wCard}${bcCard}${mCard}${setCard}<div class="card">
     <div style="font-weight:600;margin-bottom:14px">${t('bestE1rm')}</div>
     ${[...names].map(name=>{
       const best=bestE1RM(m.id,name);
@@ -3928,6 +4102,34 @@ function addWeightEntry(mId){
   if(!state.weightLog[mId]) state.weightLog[mId]=[];
   state.weightLog[mId].push({w:Math.round(kg*10)/10,date:Date.now()});
   el.value=''; save(); render(); toast(t('weightSaved'));
+}
+function toggleMemberLift(mId,liftId){
+  const m=state.members.find(x=>x.id===mId); if(!m) return;
+  if(!Array.isArray(m.trackedLifts)||!m.trackedLifts.length){
+    m.trackedLifts=((state.settings&&state.settings.trackedLifts)||['squat','bench','deadlift','ohp']).slice();
+  }
+  const i=m.trackedLifts.indexOf(liftId);
+  const en=(state.settings&&state.settings.lang)==='en';
+  if(i>=0){
+    if(m.trackedLifts.length<=1){ toast(en?'At least 1 lift required':'En az 1 lift seçili olmalı'); return; }
+    m.trackedLifts.splice(i,1);
+  } else {
+    if(m.trackedLifts.length>=6){ toast(en?'Up to 6 lifts':'En fazla 6 lift'); return; }
+    m.trackedLifts.push(liftId);
+  }
+  save(); render();
+}
+function resetMemberPRs(mId){
+  const en=(state.settings&&state.settings.lang)==='en';
+  if(!confirm(en?'Reset all PR/e1RM history for this profile? Logged sets stay, but exercise history snapshots are cleared. This cannot be undone.':'Bu profilin tüm PR/e1RM geçmişi sıfırlansın mı? Girilen setler kalır ama egzersiz geçmiş anlık kayıtları temizlenir. Geri alınamaz.')) return;
+  if(state.completions){
+    // clear exercise history snapshots if present
+  }
+  if(state.exerciseHistory&&state.exerciseHistory[mId]) delete state.exerciseHistory[mId];
+  // also clear finished-workout e1RM snapshots tied to this member
+  Object.keys(state.finishedWorkouts||{}).forEach(k=>{ if(k.startsWith(mId+'_')){ const f=state.finishedWorkouts[k]; if(f) delete f.bestE1rm; } });
+  save(); render();
+  toast(en?'PR history reset':'PR geçmişi sıfırlandı');
 }
 let _profileEditId=null;
 function openProfileEdit(mId){
@@ -4788,7 +4990,7 @@ Object.assign(window,{
   goToMyWorkout,showSelfLogin,doSelfLogin,setWsAccent,openInboxChat,closeInboxChat,sendCoachMessage,toggleExUnit,
   openNewChatPicker,closeNewChatPicker,startChatWith,openAnnounceModal,closeAnnounceModal,sendAnnouncement,deleteAnnouncement,dismissAnnouncement,
   closeFloatChat,sendFloatMessage,restoreTrash,purgeTrash,sendContactMessage,markContactRead,deleteContact,addMeasureEntry,
-  syncBuilderInputs,updateVolPreview,openProfileEdit,saveProfileEdit,toggleWarmupSection,toggleTrackedLift,setEffortMode,adminSetLimits,adminMessageCoach,dismissAdminMessage,
+  syncBuilderInputs,updateVolPreview,openProfileEdit,saveProfileEdit,toggleWarmupSection,toggleTrackedLift,setEffortMode,adminSetLimits,adminMessageCoach,dismissAdminMessage,toggleMemberLift,resetMemberPRs,editLibraryExercise,deleteLibraryExercise,applyRememberedCodes,rememberCode,
   openWarmupModal,newWarmupRoutine,editWarmupRoutine,cancelWarmupBuilder,
   addWarmupExRow,removeWarmupExRow,saveWarmupRoutine,deleteWarmupRoutine,insertWarmupRoutine
 });
@@ -4885,7 +5087,7 @@ async function restoreMemberSession(){
   bar.style.width='100%';
   setTimeout(()=>{ document.getElementById('loading-screen').style.display='none'; },400);
   render();
-  if(state.view==='landing'){ applyLandingLang(); startTaglineRotation(); initReveals(); }
+  if(state.view==='landing'){ applyLandingLang(); startTaglineRotation(); initReveals(); applyRememberedCodes(); }
   try{
     const te=parseInt(localStorage.getItem('lyftr_timer_end')||'0');
     if(te>Date.now()&&state.view!=='landing') startTimerUntil(te);
