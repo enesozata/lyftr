@@ -73,7 +73,10 @@
   .stat-value.accent{color:var(--accent);}
   .form-group{margin-bottom:14px;}
   .form-label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:500;}
-  .form-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border-color .15s;font-family:var(--font);}
+  .form-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border-color .15s,background .15s;font-family:var(--font);}
+  .ex-editor .form-input{background:var(--bg);}
+  .ex-editor .form-input:focus{border-color:var(--accent);background:var(--surface);}
+  .fld-label{font-size:10px;color:var(--text3);font-weight:600;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
   .form-input:focus{border-color:var(--accent);}
   select.form-input{cursor:pointer;}
   .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;}
@@ -127,8 +130,8 @@
   .link-copy-box input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:12px;font-family:monospace;}
   .qr-wrap{background:#fff;border-radius:12px;padding:16px;display:inline-block;}
   .hidden{display:none!important;}
-  .ex-editor{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
-  .ex-editor-grid2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+  .ex-editor{background:linear-gradient(180deg,var(--surface3),var(--surface2));border:1px solid var(--border);border-left:3px solid var(--accent-dim);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+  .ex-editor-grid2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:4px;}
   .toggle-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);cursor:pointer;user-select:none;padding:4px 0;}
   .toggle-sw{width:34px;height:19px;border-radius:12px;background:var(--surface3);position:relative;transition:background .15s;flex-shrink:0;}
   .toggle-sw::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:var(--text2);top:2.5px;left:3px;transition:all .15s;}
@@ -511,17 +514,19 @@
       <div id="landing-form-coach">
         <div class="landing-card-sub" id="lt-coach-sub">Sana verilen koç kodunu gir</div>
         <input class="landing-input" id="landing-code" placeholder="COACH-XXXXXX" maxlength="20" onkeydown="if(event.key==='Enter')doLandingLogin()">
-        <label class="remember-row"><input type="checkbox" id="remember-me" checked> <span id="lt-remember">Beni hatırla</span></label>
+        <label class="remember-row"><input type="checkbox" id="remember-me" class="remember-me" checked> <span class="lt-remember" id="lt-remember">Beni hatırla</span></label>
         <button class="landing-btn" onclick="doLandingLogin()" id="lt-coach-btn">Koç Girişi</button>
       </div>
       <div id="landing-form-member" class="hidden landing-extra">
         <div class="landing-card-sub" id="lt-member-sub">Koçunun verdiği üye kodunu gir</div>
         <input class="landing-input" id="landing-member-code" placeholder="örn. 7F3A2K-AHMET01" maxlength="30" onkeydown="if(event.key==='Enter')doLandingMemberLogin()">
+        <label class="remember-row"><input type="checkbox" class="remember-me" checked> <span class="lt-remember">Beni hatırla</span></label>
         <button class="landing-btn" onclick="doLandingMemberLogin()" id="lt-member-btn">Üye Girişi</button>
       </div>
       <div id="landing-form-self" class="hidden landing-extra">
         <div class="landing-card-sub" id="lt-self-sub">Bireysel takip kodunu gir</div>
         <input class="landing-input" id="landing-self-code" placeholder="SELF-XXXXXX" maxlength="20" onkeydown="if(event.key==='Enter')doSelfLogin()">
+        <label class="remember-row"><input type="checkbox" class="remember-me" checked> <span class="lt-remember">Beni hatırla</span></label>
         <button class="landing-btn" onclick="doSelfLogin()" id="lt-self-btn">Giriş Yap</button>
       </div>
       <div id="landing-form-admin" class="hidden landing-extra">
@@ -2528,7 +2533,7 @@ function applyLandingLang(){
     'mkt-how-eyebrow':d.mHow,'mkt-how-title':d.mHowT,
     'mkt-s1t':d.ms1t,'mkt-s1d':d.ms1d,'mkt-s2t':d.ms2t,'mkt-s2d':d.ms2d,'mkt-s3t':d.ms3t,'mkt-s3d':d.ms3d,
     'mkt-inst-eyebrow':d.mInst,'mkt-inst-title':d.mInstT,'mkt-inst-lead':d.mInstL,'mkt-inst-note':d.mInstN,
-    'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB,'lt-remember':d.remember,
+    'mkt-cta-title':d.mCta,'mkt-cta-lead':d.mCtaL,'mkt-cta-btn':d.mCtaB,
     'mkt-contact-eyebrow':d.mCon,'mkt-contact-title':d.mConT,'mkt-contact-lead':d.mConL,'mkt-contact-btn':d.mConB,
     'mkt-foot-txt':d.sub,
     'mkt-ios-os':d.iosOs,'mkt-ios-1':d.ios1,'mkt-ios-2':d.ios2,'mkt-ios-3':d.ios3,'mkt-ios-4':d.ios4,
@@ -2542,6 +2547,7 @@ function applyLandingLang(){
   const btn=document.getElementById('landing-lang-btn'); if(btn) btn.textContent=l==='en'?'🇹🇷':'🇺🇸';
   const sub=document.getElementById('lt-subhead'); if(sub) sub.textContent=d.sub;
   ['s1','s2','s3'].forEach(k=>{ const el=document.getElementById('lt-'+k); if(el) el.textContent=d[k]; });
+  document.querySelectorAll('.lt-remember').forEach(el=>el.textContent=d.remember||'Beni hatırla');
 }
 function toggleLandingLang(){
   setLandingLangStore(getLandingLang()==='en'?'tr':'en');
@@ -2807,9 +2813,15 @@ async function doSelfLogin(){
   await enterSelfWorkspace(ws);
   toast(`Hoş geldin, ${ws.name}`);
 }
+function rememberChecked(){
+  // find the visible form's checkbox (the one not inside a hidden form)
+  const boxes=[...document.querySelectorAll('.remember-me')];
+  const vis=boxes.find(b=>b.offsetParent!==null);
+  return vis?vis.checked:(boxes[0]?boxes[0].checked:true);
+}
 function rememberCode(kind,code){
   try{
-    const on=(document.getElementById('remember-me')||{}).checked;
+    const on=rememberChecked();
     if(on){ localStorage.setItem('lyftr_remember_'+kind,code); }
     else { localStorage.removeItem('lyftr_remember_'+kind); }
   }catch(e){}
@@ -2822,7 +2834,8 @@ function applyRememberedCodes(){
     const ce=document.getElementById('landing-code'); if(ce&&c) ce.value=c;
     const me=document.getElementById('landing-member-code'); if(me&&m) me.value=m;
     const se=document.getElementById('landing-self-code'); if(se&&s) se.value=s;
-    const rm=document.getElementById('remember-me'); if(rm) rm.checked=!!(c||m||s)|| rm.checked;
+    const any=!!(c||m||s);
+    document.querySelectorAll('.remember-me').forEach(b=>{ if(any) b.checked=true; });
   }catch(e){}
 }
 async function doLandingLogin(){
@@ -3678,6 +3691,17 @@ function renderMemberDay(m,prog,day,wi,di,focus){
 
 function renderMemberExercise(m,prog,wi,di,ex,ei){
   const sc=parseInt(ex.sets)||3;
+  // ── compact, faded warmup rendering (no checks, no effort/weight inputs) ──
+  if(ex.isWarmup){
+    return `<div style="background:rgba(255,159,67,0.05);border:1px dashed rgba(255,159,67,0.25);border-radius:10px;padding:10px 14px;margin-bottom:8px;opacity:0.78">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:11px;color:var(--orange);font-weight:700">🔥 ${t('warmupL')}</span>
+        <span style="font-weight:600;font-size:13.5px;color:var(--text2)">${ex.name||'—'}</span>
+        <span style="font-size:12px;color:var(--text3)">${sc} × ${ex.reps||'—'}</span>
+      </div>
+      ${ex.coachNote?`<div style="font-size:11.5px;color:var(--text3);margin-top:4px">${ex.coachNote}</div>`:''}
+    </div>`;
+  }
   const noteKey=`${m.id}_${prog.id}_w${wi}_${di}_${ei}`;
   const noteVal=state.notes[noteKey]||'';
   const pinKey=m.id+'_'+(ex.name||'').trim().toLowerCase();
@@ -4167,15 +4191,23 @@ function saveProfileEdit(){
   toast((state.settings&&state.settings.lang)==='en'?'Profile updated':'Profil güncellendi');
 }
 function addMeasureEntry(mId,key){
-  const el=document.getElementById('measure-'+key);
-  if(!el) return;
-  const v=parseFloat(String(el.value).replace(',','.'));
-  if(!v||v<10||v>250){ toast(t('validMeasure')); return; }
+  // save the clicked measure AND any other measure inputs the user filled but didn't submit
   if(!state.measureLog[mId]) state.measureLog[mId]={};
-  if(!state.measureLog[mId][key]) state.measureLog[mId][key]=[];
-  state.measureLog[mId][key].push({v:Math.round(v*10)/10,date:Date.now()});
-  if(state.measureLog[mId][key].length>60) state.measureLog[mId][key]=state.measureLog[mId][key].slice(-60);
-  el.value=''; save(); render(); toast(t('measureSaved'));
+  let savedAny=false, invalid=false;
+  MEASURES.forEach(def=>{
+    const el=document.getElementById('measure-'+def.k);
+    if(!el) return;
+    const raw=String(el.value).trim();
+    if(raw==='') return;
+    const v=parseFloat(raw.replace(',','.'));
+    if(!v||v<10||v>250){ if(def.k===key) invalid=true; return; }
+    if(!state.measureLog[mId][def.k]) state.measureLog[mId][def.k]=[];
+    state.measureLog[mId][def.k].push({v:Math.round(v*10)/10,date:Date.now()});
+    if(state.measureLog[mId][def.k].length>60) state.measureLog[mId][def.k]=state.measureLog[mId][def.k].slice(-60);
+    savedAny=true;
+  });
+  if(!savedAny){ toast(t('validMeasure')); return; }
+  save(); render(); toast(t('measureSaved'));
 }
 
 // ─── FINISH WORKOUT + WEEK ADVANCE ───────────────────────
@@ -4379,9 +4411,9 @@ function editProgram(id){
 function renderDays(){
   const memberId=document.getElementById('prog-member').value;
   document.getElementById('days-container').innerHTML=window.tmpDays.map((day,di)=>`
-    <div style="background:var(--surface2);border-radius:12px;padding:14px;margin-bottom:12px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px">
       <div style="display:grid;grid-template-columns:1.5fr 1fr 76px auto;gap:8px;margin-bottom:8px;align-items:start">
-        <input class="form-input" value="${(day.name||'').replace(/"/g,'&quot;')}" placeholder="Gün adı" onchange="window.tmpDays[${di}].name=this.value">
+        <input class="form-input" value="${(day.name||'').replace(/"/g,'&quot;')}" placeholder="Gün adı" data-day="${di}" data-dayf="name" oninput="window.tmpDays[${di}].name=this.value">
         <select class="form-input" onchange="window.tmpDays[${di}].goal=this.value">
           ${GOALS.map(g=>`<option value="${g.v}" ${day.goal===g.v?'selected':''}>${g.l}</option>`).join('')}
         </select>
@@ -4422,17 +4454,16 @@ function renderExEditor(di,ei,ex,memberId){
   const hist=memberId?getExerciseHistory(memberId,ex.name||''):null;
   const last=hist&&hist.length?hist[0]:null;
   const sugg=memberId?getSuggestion(memberId,ex.name||''):null;
-  const fl='font-size:10px;color:var(--text3);font-weight:600;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px';
   if(ex.isWarmup){
-    // simplified warmup editor — only name, sets, reps (no rest/target/effort/tempo)
-    return `<div class="ex-editor" style="border-color:rgba(255,159,67,0.35);background:rgba(255,159,67,0.04)">
-      <div style="font-size:10px;color:var(--orange);font-weight:700;margin-bottom:8px">🔥 ISINMA — sade</div>
-      <div style="display:grid;grid-template-columns:2fr 70px 90px;gap:10px;align-items:end">
-        <div><label style="${fl}">Egzersiz</label>${exDropdownHTML(di,ei,ex.name)}</div>
-        <div><label style="${fl}">Set</label><input class="form-input" type="number" value="${ex.sets||1}" min="1" max="10" data-d="${di}" data-e="${ei}" data-f="sets" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs();updateVolPreview()"></div>
-        <div><label style="${fl}">Tekrar/Süre</label><input class="form-input" value="${ex.reps||''}" placeholder="10 / 30sn" data-d="${di}" data-e="${ei}" data-f="reps" onchange="syncBuilderInputs()"></div>
+    // simplified warmup editor — only name, sets, reps
+    return `<div class="ex-editor" style="border-left-color:var(--orange);background:linear-gradient(180deg,rgba(255,159,67,0.06),var(--surface2))">
+      <div style="font-size:10px;color:var(--orange);font-weight:700;margin-bottom:10px;letter-spacing:0.5px">🔥 ISINMA</div>
+      <div style="display:grid;grid-template-columns:1fr 64px 92px;gap:10px;align-items:end">
+        <div><label class="fld-label">Egzersiz</label>${exDropdownHTML(di,ei,ex.name)}</div>
+        <div><label class="fld-label">Set</label><input class="form-input" type="number" value="${ex.sets||1}" min="1" max="10" data-d="${di}" data-e="${ei}" data-f="sets" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs();updateVolPreview()"></div>
+        <div><label class="fld-label">Tekrar/Süre</label><input class="form-input" value="${ex.reps||''}" placeholder="10 / 30sn" data-d="${di}" data-e="${ei}" data-f="reps" onchange="syncBuilderInputs()"></div>
       </div>
-      <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:10px">
+      <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:12px">
         <button class="btn btn-ghost btn-sm" onclick="moveExercise(${di},${ei},-1)" ${ei===0?'disabled':''}>▲</button>
         <button class="btn btn-ghost btn-sm" onclick="moveExercise(${di},${ei},1)">▼</button>
         <button class="btn btn-danger btn-sm" onclick="removeExercise(${di},${ei})">Sil</button>
@@ -4440,27 +4471,27 @@ function renderExEditor(di,ei,ex,memberId){
     </div>`;
   }
   return `<div class="ex-editor">
-    <div style="display:grid;grid-template-columns:2fr 64px 76px 70px;gap:10px;margin-bottom:12px;align-items:end">
-      <div><label style="${fl}">Egzersiz</label>${exDropdownHTML(di,ei,ex.name)}</div>
-      <div><label style="${fl}">Set</label><input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" data-d="${di}" data-e="${ei}" data-f="sets" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs();updateVolPreview()"></div>
-      <div><label style="${fl}">Tekrar</label><input class="form-input" value="${ex.reps||''}" placeholder="8-12" data-d="${di}" data-e="${ei}" data-f="reps" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs()"></div>
-      <div><label style="${fl}">Superset</label><input class="form-input" value="${ex.superset||''}" placeholder="A1" data-d="${di}" data-e="${ei}" data-f="superset" onchange="syncBuilderInputs()"></div>
+    <div style="margin-bottom:14px"><label class="fld-label">Egzersiz</label>${exDropdownHTML(di,ei,ex.name)}</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px">
+      <div><label class="fld-label">Set</label><input class="form-input" type="number" value="${ex.sets||3}" min="1" max="20" data-d="${di}" data-e="${ei}" data-f="sets" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs();updateVolPreview()"></div>
+      <div><label class="fld-label">Tekrar</label><input class="form-input" value="${ex.reps||''}" placeholder="8-12" data-d="${di}" data-e="${ei}" data-f="reps" oninput="syncBuilderInputs();updateVolPreview()" onchange="syncBuilderInputs()"></div>
+      <div><label class="fld-label">Dinlenme</label><input class="form-input" type="number" value="${ex.rest||''}" placeholder="90sn" data-d="${di}" data-e="${ei}" data-f="rest" onchange="syncBuilderInputs()"></div>
+      <div><label class="fld-label">Superset</label><input class="form-input" value="${ex.superset||''}" placeholder="A1" data-d="${di}" data-e="${ei}" data-f="superset" onchange="syncBuilderInputs()"></div>
     </div>
-    <div class="ex-editor-grid2" style="gap:10px">
-      <div><label style="${fl}">Dinlenme (sn)</label><input class="form-input" type="number" value="${ex.rest||''}" placeholder="90" data-d="${di}" data-e="${ei}" data-f="rest" onchange="syncBuilderInputs()"></div>
-      <div><label style="${fl}">Hedef (${U()})</label><input class="form-input" type="number" step="0.5" value="${ex.targetW!==''&&ex.targetW!=null?W(ex.targetW):''}" placeholder="kg" data-d="${di}" data-e="${ei}" data-f="targetW" data-conv="1" onchange="syncBuilderInputs()"></div>
-      <div><label style="${fl}" title="${effortTip()}">Hedef ${effortName()}</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><label class="fld-label">Hedef (${U()})</label><input class="form-input" type="number" step="0.5" value="${ex.targetW!==''&&ex.targetW!=null?W(ex.targetW):''}" placeholder="kg" data-d="${di}" data-e="${ei}" data-f="targetW" data-conv="1" onchange="syncBuilderInputs()"></div>
+      <div><label class="fld-label" title="${effortTip()}">Hedef ${effortName()} ⓘ</label>
         <select class="form-input" onchange="window.tmpDays[${di}].exercises[${ei}].targetRpe=this.value" title="${effortTip()}">
           <option value="">${effortName()}</option>
           ${(effortMode()==='rir'?['0','1','2','3','4']:['6','7','8','9','10']).map(r=>`<option value="${effortMode()==='rir'?(10-parseFloat(r)):r}" ${String(ex.targetRpe)===String(effortMode()==='rir'?(10-parseFloat(r)):r)?'selected':''}>${r}</option>`).join('')}
         </select>
       </div>
     </div>
-    <div class="toggle-row" onclick="window._toggleTempo(${di},${ei})">
+    <div class="toggle-row" onclick="window._toggleTempo(${di},${ei})" style="margin-top:12px">
       <div class="toggle-sw ${ex.tempoOn?'on':''}"></div><span>Tempo</span>
       ${ex.tempoOn?`<input class="form-input" style="width:120px;padding:5px 8px;font-size:12px;margin-left:6px" value="${ex.tempo||''}" placeholder="3-1-2" onclick="event.stopPropagation()" onchange="window.tmpDays[${di}].exercises[${ei}].tempo=this.value">`:''}
     </div>
-    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu" style="margin-top:8px" data-d="${di}" data-e="${ei}" data-f="coachNote" onchange="syncBuilderInputs()">
+    <input class="form-input" value="${(ex.coachNote||'').replace(/"/g,'&quot;')}" placeholder="Koç notu (opsiyonel)" style="margin-top:10px" data-d="${di}" data-e="${ei}" data-f="coachNote" onchange="syncBuilderInputs()">
     ${last?`<div class="hist-hint"><b>${ex.name}</b>: ${last.progName} — ${last.sets}×${last.reps}${last.maxW?`, max <b>${W(last.maxW)}${U()}</b>`:''}${last.bestE1rm?`, e1RM ${last.bestE1rm}`:''}${last.avgRpe?`, RPE ${last.avgRpe}`:''}</div>`:''}
     ${sugg&&!sugg.warn?`<div class="sugg-hint">Önerilen: <b>${W(sugg.w)}${U()}</b> — ${sugg.reason}
       <button class="btn btn-primary btn-sm" style="margin-left:8px;padding:2px 8px" onclick="window.tmpDays[${di}].exercises[${ei}].targetW='${sugg.w}';renderDays()">Uygula</button></div>`:''}
@@ -4509,6 +4540,12 @@ function syncBuilderInputs(){
     else if(f==='superset') v=(v||'').toUpperCase();
     else if(f==='targetW') v=v!==''?String(WIN(v)||''):'';
     window.tmpDays[di].exercises[ei][f]=v;
+  });
+  // flush day-level fields (name)
+  document.querySelectorAll('#days-container [data-day]').forEach(el=>{
+    const di=+el.dataset.day, f=el.dataset.dayf;
+    if(!window.tmpDays[di]) return;
+    window.tmpDays[di][f]=el.value;
   });
 }
 function updateVolPreview(){
